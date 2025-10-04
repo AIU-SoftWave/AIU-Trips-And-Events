@@ -1,0 +1,484 @@
+@startuml AIU_Trips_Events_Architecture
+
+' System Architecture Diagram
+title AIU Trips and Events - System Architecture
+
+' Define components
+package "Frontend Layer" {
+  [Next.js Application] as NextJS
+  [React Components] as React
+  [Tailwind CSS] as Tailwind
+  [Axios Client] as Axios
+}
+
+package "Backend Layer" {
+  [Spring Boot API] as SpringBoot
+  [Security Layer\n(JWT)] as Security
+  [Controllers] as Controllers
+  [Services] as Services
+  [Repositories] as Repos
+}
+
+package "Data Layer" {
+  database "H2 Database\n(In-Memory)" as DB
+}
+
+package "External Services" {
+  [Email Service\n(Placeholder)] as Email
+  [Payment Gateway\n(Placeholder)] as Payment
+  [QR Code Generator] as QR
+}
+
+' User types
+actor Student
+actor Organizer
+actor Administrator
+
+' Connections
+Student --> NextJS
+Organizer --> NextJS
+Administrator --> NextJS
+
+NextJS --> React
+React --> Tailwind
+NextJS --> Axios
+
+Axios --> SpringBoot : HTTP/REST
+
+SpringBoot --> Security
+Security --> Controllers
+Controllers --> Services
+Services --> Repos
+Services --> Email
+Services --> Payment
+Services --> QR
+
+Repos --> DB
+
+' Notes
+note right of Security
+  - JWT Token Validation
+  - Role-Based Access Control
+  - Password Encryption (BCrypt)
+  - Account Locking
+end note
+
+note right of Services
+  - AuthService
+  - EventService
+  - BookingService
+  - NotificationService
+  - ReportService
+  - EmailService
+  - FeedbackService
+end note
+
+note right of DB
+  Tables:
+  - Users
+  - Events
+  - Bookings
+  - Notifications
+  - EventFeedback
+end note
+
+@enduml
+
+@startuml Use_Case_Diagram
+
+' Use Case Diagram
+title AIU Trips and Events - Use Cases
+
+left to right direction
+
+actor Student
+actor Organizer
+actor Administrator
+
+rectangle "AIU Trips and Events System" {
+  ' Student use cases
+  usecase "UC1: Register Account" as UC1
+  usecase "UC2: Login" as UC2
+  usecase "UC3: Browse Events" as UC3
+  usecase "UC4: Book Event" as UC4
+  usecase "UC5: Make Payment" as UC5
+  usecase "UC6: View Bookings" as UC6
+  usecase "UC7: Cancel Booking" as UC7
+  usecase "UC8: Provide Feedback" as UC8
+  usecase "UC9: Reset Password" as UC9
+  
+  ' Organizer use cases
+  usecase "UC10: Create Event" as UC10
+  usecase "UC11: Edit Event" as UC11
+  usecase "UC12: View Participants" as UC12
+  usecase "UC13: Send Messages" as UC13
+  usecase "UC14: View Reports" as UC14
+  
+  ' Admin use cases
+  usecase "UC15: Manage Users" as UC15
+  usecase "UC16: Cancel Event" as UC16
+  usecase "UC17: View Analytics" as UC17
+  usecase "UC18: Export Reports" as UC18
+}
+
+' Student relationships
+Student --> UC1
+Student --> UC2
+Student --> UC3
+Student --> UC4
+Student --> UC5
+Student --> UC6
+Student --> UC7
+Student --> UC8
+Student --> UC9
+
+' Organizer relationships (inherits from Student)
+Organizer --> UC10
+Organizer --> UC11
+Organizer --> UC12
+Organizer --> UC13
+Organizer --> UC14
+Organizer --> UC3
+Organizer --> UC2
+
+' Administrator relationships
+Administrator --> UC15
+Administrator --> UC16
+Administrator --> UC17
+Administrator --> UC18
+Administrator --> UC10
+Administrator --> UC11
+Administrator --> UC14
+
+' Include/Extend relationships
+UC4 ..> UC2 : <<include>>
+UC5 ..> UC4 : <<include>>
+UC6 ..> UC2 : <<include>>
+UC8 ..> UC6 : <<include>>
+
+@enduml
+
+@startuml Sequence_Booking
+
+' Sequence Diagram - Booking Flow
+title Booking and Payment Flow
+
+actor Student
+participant "Frontend" as FE
+participant "AuthController" as Auth
+participant "BookingController" as BC
+participant "BookingService" as BS
+participant "EventService" as ES
+participant "PaymentGateway" as PG
+participant "EmailService" as Email
+participant "Database" as DB
+
+Student -> FE: Browse Events
+FE -> Auth: Login Request
+Auth -> BS: Validate Credentials
+BS -> DB: Check User
+DB --> BS: User Data
+BS --> Auth: JWT Token
+Auth --> FE: Token
+FE --> Student: Show Events
+
+Student -> FE: Select Event & Book
+FE -> BC: POST /bookings/event/{id}
+BC -> BS: createBooking()
+BS -> ES: Check Availability
+ES -> DB: Get Event
+DB --> ES: Event Data
+ES --> BS: Seats Available
+
+BS -> DB: Create Booking (PENDING_PAYMENT)
+DB --> BS: Booking Created
+BS -> FE: Booking with QR Code
+
+Student -> FE: Make Payment
+FE -> BC: POST /bookings/{id}/payment
+BC -> BS: processPayment()
+BS -> PG: Process Transaction
+PG --> BS: Payment Success
+
+BS -> DB: Update Booking (CONFIRMED)
+DB --> BS: Booking Updated
+BS -> Email: Send Ticket
+Email --> Student: Email with Ticket & QR
+
+BS --> BC: Confirmed Booking
+BC --> FE: Payment Success
+FE --> Student: Show Confirmation
+
+@enduml
+
+@startuml Class_Diagram
+
+' Class Diagram - Core Models
+title AIU Trips and Events - Core Models
+
+class User {
+  - id: Long
+  - email: String
+  - password: String
+  - firstName: String
+  - lastName: String
+  - fullName: String
+  - role: String
+  - phoneNumber: String
+  - faculty: String
+  - academicYear: String
+  - emailVerified: Boolean
+  - failedLoginAttempts: Integer
+  - accountLocked: Boolean
+  + register()
+  + login()
+  + resetPassword()
+}
+
+class Event {
+  - id: Long
+  - title: String
+  - description: String
+  - type: String
+  - category: String
+  - startDate: LocalDateTime
+  - startTime: LocalTime
+  - location: String
+  - price: Double
+  - capacity: Integer
+  - availableSeats: Integer
+  - registrationDeadline: LocalDateTime
+  - status: String
+  + create()
+  + update()
+  + cancel()
+}
+
+class Booking {
+  - id: Long
+  - bookingCode: String
+  - status: String
+  - bookingDate: LocalDateTime
+  - qrCodePath: String
+  - amountPaid: Double
+  - paymentStatus: String
+  - paymentMethod: String
+  - attended: Boolean
+  + create()
+  + processPayment()
+  + cancel()
+  + markAttended()
+}
+
+class EventFeedback {
+  - id: Long
+  - rating: Integer
+  - comment: String
+  - createdAt: LocalDateTime
+  + submit()
+}
+
+class Notification {
+  - id: Long
+  - message: String
+  - type: String
+  - isRead: Boolean
+  - createdAt: LocalDateTime
+  + send()
+  + markRead()
+}
+
+' Relationships
+User "1" -- "*" Event : creates >
+User "1" -- "*" Booking : makes >
+User "1" -- "*" EventFeedback : provides >
+User "1" -- "*" Notification : receives >
+
+Event "1" -- "*" Booking : has >
+Event "1" -- "*" EventFeedback : has >
+
+@enduml
+
+@startuml Component_Diagram
+
+' Component Diagram
+title AIU Trips and Events - Component Architecture
+
+package "Frontend Components" {
+  component [AuthProvider] as AuthP
+  component [EventList] as EventL
+  component [BookingForm] as BookF
+  component [Dashboard] as Dash
+}
+
+package "Backend Services" {
+  component [AuthService] as AuthS
+  component [EventService] as EventS
+  component [BookingService] as BookS
+  component [NotificationService] as NotifS
+  component [ReportService] as ReportS
+  component [EmailService] as EmailS
+}
+
+package "Repositories" {
+  component [UserRepository] as UserR
+  component [EventRepository] as EventR
+  component [BookingRepository] as BookR
+  component [NotificationRepository] as NotifR
+}
+
+database "H2 Database" as DB
+
+' Frontend to Backend
+AuthP --> AuthS : API Calls
+EventL --> EventS : API Calls
+BookF --> BookS : API Calls
+Dash --> ReportS : API Calls
+
+' Service to Repository
+AuthS --> UserR
+EventS --> EventR
+BookS --> BookR
+BookS --> EventR
+NotifS --> NotifR
+
+' Service Dependencies
+BookS --> EmailS
+BookS --> NotifS
+EventS --> NotifS
+
+' Repository to Database
+UserR --> DB
+EventR --> DB
+BookR --> DB
+NotifR --> DB
+
+@enduml
+
+@startuml Deployment_Diagram
+
+' Deployment Diagram
+title AIU Trips and Events - Deployment Architecture
+
+node "Client Browser" {
+  component [Next.js App] as FE
+}
+
+node "Application Server" {
+  component [Spring Boot API] as BE
+  component [H2 Database] as DB
+}
+
+node "External Services" {
+  component [Email Provider] as Email
+  component [Payment Gateway] as Payment
+}
+
+cloud "Docker Container" {
+  node "Frontend Container" {
+    component [Next.js Runtime] as FEC
+  }
+  
+  node "Backend Container" {
+    component [Java Runtime] as BEC
+  }
+}
+
+' Connections
+FE --> BE : HTTPS/REST
+BE --> DB : JDBC
+BE --> Email : SMTP
+BE --> Payment : API
+
+FEC --> BEC : Docker Network
+
+@enduml
+
+@startuml State_Diagram_Booking
+
+' State Diagram - Booking Status
+title Booking Status State Machine
+
+[*] --> PendingPayment : Create Booking
+
+PendingPayment --> Confirmed : Payment Success
+PendingPayment --> Cancelled : Payment Failed
+PendingPayment --> Cancelled : User Cancels
+
+Confirmed --> Attended : Check-in at Event
+Confirmed --> Cancelled : User/Admin Cancels
+Confirmed --> Cancelled : Event Cancelled
+
+Attended --> [*]
+Cancelled --> [*]
+
+note right of PendingPayment
+  Booking created,
+  awaiting payment
+end note
+
+note right of Confirmed
+  Payment completed,
+  ticket sent via email
+end note
+
+note right of Attended
+  QR code validated,
+  attendance marked
+end note
+
+@enduml
+
+@startuml Activity_Diagram_Registration
+
+' Activity Diagram - User Registration
+title User Registration Flow
+
+start
+
+:User visits registration page;
+
+:Fill registration form|
+note right
+  - Email (university)
+  - Password (validated)
+  - First/Last Name
+  - Phone Number
+  - Faculty
+  - Academic Year
+end note
+
+:Submit form;
+
+if (Valid input?) then (yes)
+  :Hash password with BCrypt;
+  :Generate verification token;
+  :Save user to database;
+  :Send verification email;
+  
+  if (Email sent?) then (yes)
+    :Show success message;
+    :Redirect to login;
+    
+    :User checks email;
+    :Click verification link;
+    :Verify email token;
+    
+    if (Valid token?) then (yes)
+      :Mark email as verified;
+      :Show confirmation;
+      stop
+    else (no)
+      :Show error message;
+      stop
+    endif
+  else (no)
+    :Show email error;
+    stop
+  endif
+else (no)
+  :Show validation errors;
+  stop
+endif
+
+@enduml
