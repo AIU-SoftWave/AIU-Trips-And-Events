@@ -41,8 +41,10 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**", "/h2-console/**", "/api/events", "/api/events/**").permitAll()
+                .requestMatchers("/api/auth/**", "/h2-console/**").permitAll()
+                .requestMatchers("/api/events", "/api/events/**").permitAll()
                 .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+                .requestMatchers("/api/bookings/**", "/api/notifications/**").authenticated()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
