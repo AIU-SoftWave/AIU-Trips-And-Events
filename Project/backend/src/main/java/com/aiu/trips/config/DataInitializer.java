@@ -1,5 +1,6 @@
 package com.aiu.trips.config;
 
+import com.aiu.trips.enums.UserRole;
 import com.aiu.trips.model.User;
 import com.aiu.trips.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class DataInitializer implements CommandLineRunner {
             admin.setPassword(passwordEncoder.encode("admin123"));
             admin.setFullName("Admin User");
             admin.setPhoneNumber("1234567890");
-            admin.setRole("ADMIN");
+            admin.setRole(UserRole.ADMIN);
             userRepository.save(admin);
             System.out.println("Admin user created: admin@aiu.edu / admin123");
         }
