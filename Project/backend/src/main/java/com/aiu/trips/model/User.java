@@ -1,5 +1,6 @@
 package com.aiu.trips.model;
 
+import com.aiu.trips.enums.UserRole;
 import jakarta.persistence.*;
 // Lombok temporarily removed due to Java 25 compatibility
 import java.time.LocalDateTime;
@@ -10,7 +11,7 @@ public class User {
     
     public User() {}
     
-    public User(Long id, String email, String password, String fullName, String role, String phoneNumber, LocalDateTime createdAt) {
+    public User(Long id, String email, String password, String fullName, UserRole role, String phoneNumber, LocalDateTime createdAt) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -34,7 +35,8 @@ public class User {
     private String fullName;
     
     @Column(nullable = false)
-    private String role; // STUDENT, ADMIN
+    @Enumerated(EnumType.STRING)
+    private UserRole role; // STUDENT, ADMIN
     
     @Column
     private String phoneNumber;
@@ -60,8 +62,8 @@ public class User {
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
     
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public UserRole getRole() { return role; }
+    public void setRole(UserRole role) { this.role = role; }
     
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }

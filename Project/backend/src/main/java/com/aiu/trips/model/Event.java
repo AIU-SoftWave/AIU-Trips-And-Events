@@ -1,5 +1,7 @@
 package com.aiu.trips.model;
 
+import com.aiu.trips.enums.EventStatus;
+import com.aiu.trips.enums.EventType;
 import jakarta.persistence.*;
 // Lombok temporarily removed due to Java 25 compatibility
 import java.time.LocalDateTime;
@@ -10,7 +12,7 @@ public class Event {
     
     public Event() {}
     
-    public Event(Long id, String title, String description, String type, LocalDateTime startDate, LocalDateTime endDate, String location, Double price, Integer capacity, Integer availableSeats, String imageUrl, User createdBy, LocalDateTime createdAt, String status) {
+    public Event(Long id, String title, String description, EventType type, LocalDateTime startDate, LocalDateTime endDate, String location, Double price, Integer capacity, Integer availableSeats, String imageUrl, User createdBy, LocalDateTime createdAt, EventStatus status) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -38,7 +40,8 @@ public class Event {
     private String description;
     
     @Column(nullable = false)
-    private String type; // EVENT, TRIP
+    @Enumerated(EnumType.STRING)
+    private EventType type; // EVENT, TRIP
     
     @Column(nullable = false)
     private LocalDateTime startDate;
@@ -69,13 +72,14 @@ public class Event {
     private LocalDateTime createdAt;
     
     @Column
-    private String status; // ACTIVE, CANCELLED, COMPLETED
+    @Enumerated(EnumType.STRING)
+    private EventStatus status; // ACTIVE, CANCELLED, COMPLETED
     
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         availableSeats = capacity;
-        status = "ACTIVE";
+        status = EventStatus.ACTIVE;
     }
     
     // Getters and Setters
@@ -88,8 +92,8 @@ public class Event {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
     
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public EventType getType() { return type; }
+    public void setType(EventType type) { this.type = type; }
     
     public LocalDateTime getStartDate() { return startDate; }
     public void setStartDate(LocalDateTime startDate) { this.startDate = startDate; }
@@ -118,6 +122,6 @@ public class Event {
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
     
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public EventStatus getStatus() { return status; }
+    public void setStatus(EventStatus status) { this.status = status; }
 }

@@ -41,7 +41,7 @@ A university system that manages events and trips through a web app that manages
 
 1. Navigate to the backend directory:
 ```bash
-cd backend
+cd Project/backend
 ```
 
 2. Build and run the Spring Boot application:
@@ -50,6 +50,10 @@ mvn spring-boot:run
 ```
 
 The backend will start on `http://localhost:8080`
+
+**Default Admin Credentials:**
+- Email: `admin@aiu.edu`
+- Password: `admin123`
 
 ### Frontend Setup
 
@@ -109,12 +113,42 @@ The frontend will start on `http://localhost:3000`
 
 ## Default Users
 
-After starting the backend, you can create users via the registration page. The first user you create will have STUDENT role. To create an admin user, you'll need to modify the user in the H2 console.
+An admin user is automatically created on application startup:
+- **Email**: `admin@aiu.edu`
+- **Password**: `admin123`
+
+Students can register via the registration page and will automatically get the STUDENT role.
 
 Access H2 Console at: `http://localhost:8080/h2-console`
 - JDBC URL: `jdbc:h2:mem:tripsdb`
 - Username: `sa`
 - Password: (leave empty)
+
+## Recent Improvements (Code Structure Enhancement)
+
+The codebase has been significantly improved with the following structural enhancements:
+
+### Type Safety
+- ✅ **Enums instead of strings**: BookingStatus, EventStatus, EventType, UserRole, PaymentMethod
+- ✅ Compile-time type checking
+- ✅ Better IDE support and autocomplete
+
+### Error Handling
+- ✅ **Custom exceptions**: ResourceNotFoundException, BookingException, ValidationException
+- ✅ **GlobalExceptionHandler**: Centralized error handling with proper HTTP status codes
+- ✅ Consistent error response format across all endpoints
+
+### Validation
+- ✅ **Jakarta Bean Validation**: All input DTOs validated
+- ✅ Automatic validation before business logic
+- ✅ Detailed error messages for invalid input
+
+### Code Quality
+- ✅ **Constants class**: Eliminates magic strings
+- ✅ **Clean DTOs**: Separation between entities and API responses
+- ✅ **Better maintainability**: Easier to understand and modify
+
+See [CODE_STRUCTURE_IMPROVEMENTS.md](./Docs/CODE_STRUCTURE_IMPROVEMENTS.md) for detailed documentation.
 
 ## Architecture
 
@@ -134,22 +168,30 @@ Access H2 Console at: `http://localhost:8080/h2-console`
 
 ```
 AIU-Trips-And-Events/
-├── backend/
-│   ├── src/main/java/com/aiu/trips/
-│   │   ├── controller/      # REST Controllers
-│   │   ├── service/         # Business Logic
-│   │   ├── repository/      # Data Access
-│   │   ├── model/           # Entity Models
-│   │   ├── dto/             # Data Transfer Objects
-│   │   ├── security/        # Security & JWT
-│   │   └── util/            # Utilities (QR Code)
-│   └── pom.xml
-├── frontend/
-│   ├── app/                 # Next.js Pages
-│   ├── components/          # React Components
-│   ├── contexts/            # Context Providers
-│   ├── lib/                 # API Client
-│   └── package.json
+├── Project/
+│   ├── backend/
+│   │   ├── src/main/java/com/aiu/trips/
+│   │   │   ├── config/           # Configuration classes
+│   │   │   ├── constants/        # Application constants
+│   │   │   ├── controller/       # REST Controllers
+│   │   │   ├── dto/              # Data Transfer Objects
+│   │   │   ├── enums/            # Type-safe enumerations
+│   │   │   ├── exception/        # Custom exceptions & handlers
+│   │   │   ├── model/            # JPA Entity Models
+│   │   │   ├── repository/       # Data Access Layer
+│   │   │   ├── security/         # Security & JWT Config
+│   │   │   ├── service/          # Business Logic
+│   │   │   └── util/             # Utilities (QR Code)
+│   │   └── pom.xml
+│   ├── frontend/
+│   │   ├── app/                  # Next.js Pages
+│   │   ├── components/           # React Components
+│   │   ├── contexts/             # Context Providers
+│   │   ├── lib/                  # API Client
+│   │   └── package.json
+├── Docs/                         # Documentation
+│   ├── pm/                       # Project Management docs
+│   └── CODE_STRUCTURE_IMPROVEMENTS.md
 └── README.md
 ```
 

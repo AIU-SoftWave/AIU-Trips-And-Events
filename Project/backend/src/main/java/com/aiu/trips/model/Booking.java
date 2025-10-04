@@ -1,5 +1,7 @@
 package com.aiu.trips.model;
 
+import com.aiu.trips.enums.BookingStatus;
+import com.aiu.trips.enums.PaymentMethod;
 import jakarta.persistence.*;
 // Lombok temporarily removed due to Java 25 compatibility
 import java.time.LocalDateTime;
@@ -10,7 +12,7 @@ public class Booking {
     
     public Booking() {}
     
-    public Booking(Long id, User user, Event event, String bookingCode, String status, LocalDateTime bookingDate, String qrCodePath, Double amountPaid, String paymentMethod, LocalDateTime validatedAt, String validatedBy) {
+    public Booking(Long id, User user, Event event, String bookingCode, BookingStatus status, LocalDateTime bookingDate, String qrCodePath, Double amountPaid, PaymentMethod paymentMethod, LocalDateTime validatedAt, String validatedBy) {
         this.id = id;
         this.user = user;
         this.event = event;
@@ -40,7 +42,8 @@ public class Booking {
     private String bookingCode;
     
     @Column(nullable = false)
-    private String status; // CONFIRMED, CANCELLED, ATTENDED
+    @Enumerated(EnumType.STRING)
+    private BookingStatus status; // CONFIRMED, CANCELLED, ATTENDED
     
     @Column
     private LocalDateTime bookingDate;
@@ -52,7 +55,8 @@ public class Booking {
     private Double amountPaid;
     
     @Column
-    private String paymentMethod; // CASH (default)
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod; // CASH (default)
     
     @Column
     private LocalDateTime validatedAt;
@@ -63,8 +67,8 @@ public class Booking {
     @PrePersist
     protected void onCreate() {
         bookingDate = LocalDateTime.now();
-        status = "CONFIRMED";
-        paymentMethod = "CASH";
+        status = BookingStatus.CONFIRMED;
+        paymentMethod = PaymentMethod.CASH;
     }
     
     // Getters and Setters
@@ -80,8 +84,8 @@ public class Booking {
     public String getBookingCode() { return bookingCode; }
     public void setBookingCode(String bookingCode) { this.bookingCode = bookingCode; }
     
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public BookingStatus getStatus() { return status; }
+    public void setStatus(BookingStatus status) { this.status = status; }
     
     public LocalDateTime getBookingDate() { return bookingDate; }
     public void setBookingDate(LocalDateTime bookingDate) { this.bookingDate = bookingDate; }
@@ -92,8 +96,8 @@ public class Booking {
     public Double getAmountPaid() { return amountPaid; }
     public void setAmountPaid(Double amountPaid) { this.amountPaid = amountPaid; }
     
-    public String getPaymentMethod() { return paymentMethod; }
-    public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }
+    public PaymentMethod getPaymentMethod() { return paymentMethod; }
+    public void setPaymentMethod(PaymentMethod paymentMethod) { this.paymentMethod = paymentMethod; }
     
     public LocalDateTime getValidatedAt() { return validatedAt; }
     public void setValidatedAt(LocalDateTime validatedAt) { this.validatedAt = validatedAt; }

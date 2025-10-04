@@ -1,5 +1,9 @@
 package com.aiu.trips.service;
 
+import com.aiu.trips.constants.AppConstants;
+import com.aiu.trips.enums.EventStatus;
+import com.aiu.trips.enums.EventType;
+import com.aiu.trips.exception.ResourceNotFoundException;
 import com.aiu.trips.model.Event;
 import com.aiu.trips.model.User;
 import com.aiu.trips.repository.EventRepository;
@@ -24,14 +28,14 @@ public class EventService {
 
     public Event createEvent(Event event, String userEmail) {
         User user = userRepository.findByEmail(userEmail)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.USER_NOT_FOUND + userEmail));
         
         event.setCreatedBy(user);
         Event savedEvent = eventRepository.save(event);
         
         // Notify all users about new event
         notificationService.notifyAllUsers(
-            "New " + event.getType().toLowerCase() + " available: " + event.getTitle(),
+            "New " + event.getType().name().toLowerCase() + " available: " + event.getTitle(),
             "INFO"
         );
         
@@ -40,7 +44,7 @@ public class EventService {
 
     public Event updateEvent(Long id, Event eventDetails) {
         Event event = eventRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Event not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + id));
         
         event.setTitle(eventDetails.getTitle());
         event.setDescription(eventDetails.getDescription());
@@ -66,9 +70,9 @@ public class EventService {
 
     public void deleteEvent(Long id) {
         Event event = eventRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Event not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + id));
         
-        event.setStatus("CANCELLED");
+        event.setStatus(EventStatus.CANCELLED);
         eventRepository.save(event);
         
         // Notify participants about cancellation
@@ -85,10 +89,10 @@ public class EventService {
 
     public Event getEventById(Long id) {
         return eventRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Event not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + id));
     }
 
-    public List<Event> getEventsByType(String type) {
+    public List<Event> getEventsByType(EventType type) {
         return eventRepository.findByType(type);
     }
 
@@ -98,7 +102,7 @@ public class EventService {
 
     public List<Event> getEventsByUser(String userEmail) {
         User user = userRepository.findByEmail(userEmail)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.USER_NOT_FOUND + userEmail));
         return eventRepository.findByCreatedBy_Id(user.getId());
     }
 }

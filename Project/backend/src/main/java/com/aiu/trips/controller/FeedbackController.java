@@ -1,7 +1,9 @@
 package com.aiu.trips.controller;
 
+import com.aiu.trips.dto.FeedbackRequest;
 import com.aiu.trips.model.Feedback;
 import com.aiu.trips.service.FeedbackService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,13 +23,10 @@ public class FeedbackController {
     @PostMapping("/event/{eventId}")
     public ResponseEntity<Feedback> createFeedback(
             @PathVariable Long eventId,
-            @RequestBody Map<String, Object> request,
+            @Valid @RequestBody FeedbackRequest request,
             Authentication authentication) {
-        Integer rating = (Integer) request.get("rating");
-        String comment = (String) request.get("comment");
-        
         return ResponseEntity.ok(
-            feedbackService.createFeedback(eventId, rating, comment, authentication.getName())
+            feedbackService.createFeedback(eventId, request.getRating(), request.getComment(), authentication.getName())
         );
     }
 

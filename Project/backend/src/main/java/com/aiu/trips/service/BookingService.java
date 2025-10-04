@@ -1,5 +1,10 @@
 package com.aiu.trips.service;
 
+import com.aiu.trips.constants.AppConstants;
+import com.aiu.trips.enums.BookingStatus;
+import com.aiu.trips.enums.EventStatus;
+import com.aiu.trips.exception.BookingException;
+import com.aiu.trips.exception.ResourceNotFoundException;
 import com.aiu.trips.model.Booking;
 import com.aiu.trips.model.Event;
 import com.aiu.trips.model.User;
@@ -35,17 +40,17 @@ public class BookingService {
     @Transactional
     public Booking createBooking(Long eventId, String userEmail) {
         User user = userRepository.findByEmail(userEmail)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.USER_NOT_FOUND + userEmail));
         
         Event event = eventRepository.findById(eventId)
-            .orElseThrow(() -> new RuntimeException("Event not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + eventId));
 
         if (event.getAvailableSeats() <= 0) {
-            throw new RuntimeException("No seats available");
+            throw new BookingException(AppConstants.NO_SEATS_AVAILABLE);
         }
 
         if (bookingRepository.existsByUser_IdAndEvent_Id(user.getId(), eventId)) {
-            throw new RuntimeException("Already booked this event");
+            throw new BookingException("Already booked this event");
         }
 
         // Update available seats
@@ -65,7 +70,7 @@ public class BookingService {
             String qrCode = qrCodeGenerator.generateQRCodeBase64(qrData);
             booking.setQrCodePath(qrCode);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to generate QR code", e);
+            throw new BookingException("Failed to generate QR code: " + e.getMessage());
         }
 
         Booking savedBooking = bookingRepository.save(booking);
@@ -82,16 +87,16 @@ public class BookingService {
 
     public void cancelBooking(Long bookingId, String userEmail) {
         Booking booking = bookingRepository.findById(bookingId)
-            .orElseThrow(() -> new RuntimeException("Booking not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.BOOKING_NOT_FOUND + bookingId));
 
         User user = userRepository.findByEmail(userEmail)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.USER_NOT_FOUND + userEmail));
 
         if (!booking.getUser().getId().equals(user.getId())) {
-            throw new RuntimeException("Unauthorized to cancel this booking");
+            throw new BookingException("Unauthorized to cancel this booking");
         }
 
-        booking.setStatus("CANCELLED");
+        booking.setStatus(BookingStatus.CANCELLED);
         bookingRepository.save(booking);
 
         // Update available seats
@@ -109,7 +114,7 @@ public class BookingService {
 
     public List<Booking> getUserBookings(String userEmail) {
         User user = userRepository.findByEmail(userEmail)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.USER_NOT_FOUND + userEmail));
         return bookingRepository.findByUser_Id(user.getId());
     }
 
@@ -119,32 +124,32 @@ public class BookingService {
 
     public Booking getBookingByCode(String bookingCode) {
         return bookingRepository.findByBookingCode(bookingCode)
-            .orElseThrow(() -> new RuntimeException("Booking not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.BOOKING_NOT_FOUND + bookingCode));
     }
 
     @Transactional
     public Booking validateTicket(String bookingCode, String validatedByEmail) {
         Booking booking = bookingRepository.findByBookingCode(bookingCode)
-            .orElseThrow(() -> new RuntimeException("Booking not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.BOOKING_NOT_FOUND + bookingCode));
 
         // Check if already validated
-        if ("ATTENDED".equals(booking.getStatus())) {
-            throw new RuntimeException("Ticket already validated");
+        if (BookingStatus.ATTENDED.equals(booking.getStatus())) {
+            throw new BookingException(AppConstants.BOOKING_ALREADY_VALIDATED);
         }
 
         // Check if booking is cancelled
-        if ("CANCELLED".equals(booking.getStatus())) {
-            throw new RuntimeException("Cannot validate cancelled booking");
+        if (BookingStatus.CANCELLED.equals(booking.getStatus())) {
+            throw new BookingException(AppConstants.CANNOT_VALIDATE_CANCELLED);
         }
 
         // Check if event is active
         Event event = booking.getEvent();
-        if (!"ACTIVE".equals(event.getStatus())) {
-            throw new RuntimeException("Event is not active");
+        if (!EventStatus.ACTIVE.equals(event.getStatus())) {
+            throw new BookingException("Event is not active");
         }
 
         // Validate the ticket
-        booking.setStatus("ATTENDED");
+        booking.setStatus(BookingStatus.ATTENDED);
         booking.setValidatedAt(java.time.LocalDateTime.now());
         booking.setValidatedBy(validatedByEmail);
 

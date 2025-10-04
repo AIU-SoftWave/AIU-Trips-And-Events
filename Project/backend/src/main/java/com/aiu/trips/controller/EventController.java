@@ -1,5 +1,6 @@
 package com.aiu.trips.controller;
 
+import com.aiu.trips.enums.EventType;
 import com.aiu.trips.model.Event;
 import com.aiu.trips.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class EventController {
     }
 
     @GetMapping("/type/{type}")
-    public ResponseEntity<List<Event>> getEventsByType(@PathVariable String type) {
+    public ResponseEntity<List<Event>> getEventsByType(@PathVariable EventType type) {
         return ResponseEntity.ok(eventService.getEventsByType(type));
     }
 

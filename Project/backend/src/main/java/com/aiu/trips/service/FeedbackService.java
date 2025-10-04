@@ -1,5 +1,9 @@
 package com.aiu.trips.service;
 
+import com.aiu.trips.constants.AppConstants;
+import com.aiu.trips.enums.BookingStatus;
+import com.aiu.trips.exception.ResourceNotFoundException;
+import com.aiu.trips.exception.ValidationException;
 import com.aiu.trips.model.Booking;
 import com.aiu.trips.model.Event;
 import com.aiu.trips.model.Feedback;
@@ -30,26 +34,26 @@ public class FeedbackService {
 
     public Feedback createFeedback(Long eventId, Integer rating, String comment, String userEmail) {
         User user = userRepository.findByEmail(userEmail)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.USER_NOT_FOUND + userEmail));
         
         Event event = eventRepository.findById(eventId)
-            .orElseThrow(() -> new RuntimeException("Event not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + eventId));
 
         // Check if user has attended the event
         Booking booking = bookingRepository.findByUser_IdAndEvent_Id(user.getId(), eventId)
             .stream()
-            .filter(b -> "ATTENDED".equals(b.getStatus()))
+            .filter(b -> BookingStatus.ATTENDED.equals(b.getStatus()))
             .findFirst()
-            .orElseThrow(() -> new RuntimeException("You must attend the event before providing feedback"));
+            .orElseThrow(() -> new ValidationException(AppConstants.MUST_ATTEND_TO_FEEDBACK));
 
         // Check if feedback already exists
         if (feedbackRepository.existsByUser_IdAndEvent_Id(user.getId(), eventId)) {
-            throw new RuntimeException("Feedback already submitted for this event");
+            throw new ValidationException(AppConstants.FEEDBACK_ALREADY_EXISTS);
         }
 
         // Validate rating
-        if (rating < 1 || rating > 5) {
-            throw new RuntimeException("Rating must be between 1 and 5");
+        if (rating < AppConstants.MIN_RATING || rating > AppConstants.MAX_RATING) {
+            throw new ValidationException(AppConstants.INVALID_RATING);
         }
 
         Feedback feedback = new Feedback();
@@ -67,7 +71,7 @@ public class FeedbackService {
 
     public List<Feedback> getUserFeedbacks(String userEmail) {
         User user = userRepository.findByEmail(userEmail)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.USER_NOT_FOUND + userEmail));
         return feedbackRepository.findByUser_Id(user.getId());
     }
 
