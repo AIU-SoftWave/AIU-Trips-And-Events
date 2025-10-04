@@ -29,7 +29,7 @@ public class Booking {
     private String bookingCode;
     
     @Column(nullable = false)
-    private String status; // CONFIRMED, CANCELLED, ATTENDED
+    private String status; // CONFIRMED, CANCELLED, ATTENDED, PENDING_PAYMENT
     
     @Column
     private LocalDateTime bookingDate;
@@ -40,9 +40,33 @@ public class Booking {
     @Column
     private Double amountPaid;
     
+    @Column
+    private String paymentStatus; // PENDING, COMPLETED, FAILED, REFUNDED
+    
+    @Column
+    private String paymentMethod; // CREDIT_CARD, DEBIT_CARD, CASH, ONLINE
+    
+    @Column
+    private String transactionId;
+    
+    @Column
+    private LocalDateTime paymentDate;
+    
+    @Column
+    private Boolean ticketSent = false;
+    
+    @Column
+    private Boolean attended = false;
+    
+    @Column
+    private LocalDateTime attendedAt;
+    
     @PrePersist
     protected void onCreate() {
         bookingDate = LocalDateTime.now();
-        status = "CONFIRMED";
+        status = "PENDING_PAYMENT";
+        paymentStatus = "PENDING";
+        ticketSent = false;
+        attended = false;
     }
 }

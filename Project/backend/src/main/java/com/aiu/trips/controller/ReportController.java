@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/admin/reports")
+@RequestMapping("/api/reports")
+@CrossOrigin(origins = "*")
 public class ReportController {
 
     @Autowired
@@ -22,5 +23,15 @@ public class ReportController {
     @GetMapping("/overall")
     public ResponseEntity<Map<String, Object>> getOverallReport() {
         return ResponseEntity.ok(reportService.getOverallReport());
+    }
+    
+    @GetMapping("/organizer/{organizerId}")
+    public ResponseEntity<Map<String, Object>> getOrganizerPerformance(@PathVariable Long organizerId) {
+        return ResponseEntity.ok(reportService.getOrganizerPerformance(organizerId));
+    }
+    
+    @GetMapping("/attendance/{eventId}")
+    public ResponseEntity<Map<String, Object>> getAttendanceReport(@PathVariable Long eventId) {
+        return ResponseEntity.ok(reportService.getAttendanceReport(eventId));
     }
 }

@@ -8,9 +8,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/bookings")
+@CrossOrigin(origins = "*")
 public class BookingController {
 
     @Autowired
@@ -19,6 +21,20 @@ public class BookingController {
     @PostMapping("/event/{eventId}")
     public ResponseEntity<Booking> createBooking(@PathVariable Long eventId, Authentication authentication) {
         return ResponseEntity.ok(bookingService.createBooking(eventId, authentication.getName()));
+    }
+    
+    @PostMapping("/{bookingId}/payment")
+    public ResponseEntity<Booking> processPayment(
+            @PathVariable Long bookingId,
+            @RequestBody Map<String, String> paymentDetails) {
+        String paymentMethod = paymentDetails.get("paymentMethod");
+        String transactionId = paymentDetails.get("transactionId");
+        return ResponseEntity.ok(bookingService.processPayment(bookingId, paymentMethod, transactionId));
+    }
+    
+    @PostMapping("/validate-qr/{bookingCode}")
+    public ResponseEntity<Booking> validateQRCode(@PathVariable String bookingCode) {
+        return ResponseEntity.ok(bookingService.validateQRCodeAndMarkAttendance(bookingCode));
     }
 
     @PutMapping("/{bookingId}/cancel")

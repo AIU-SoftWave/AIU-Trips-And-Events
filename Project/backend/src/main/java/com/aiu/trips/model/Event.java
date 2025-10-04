@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "events")
@@ -26,13 +27,19 @@ public class Event {
     @Column(nullable = false)
     private String type; // EVENT, TRIP
     
+    @Column
+    private String category; // FIELD_TRIP, SEMINAR, CONFERENCE, CONCERT
+    
     @Column(nullable = false)
     private LocalDateTime startDate;
     
     @Column
+    private LocalTime startTime;
+    
+    @Column
     private LocalDateTime endDate;
     
-    @Column(nullable = false)
+    @Column
     private String location;
     
     @Column(nullable = false)
@@ -43,6 +50,9 @@ public class Event {
     
     @Column(nullable = false)
     private Integer availableSeats;
+    
+    @Column
+    private LocalDateTime registrationDeadline;
     
     @Column
     private String imageUrl;

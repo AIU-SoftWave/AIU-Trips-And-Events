@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +32,9 @@ public class BookingService {
 
     @Autowired
     private NotificationService notificationService;
+    
+    @Autowired
+    private EmailService emailService;
 
     @Transactional
     public Booking createBooking(Long eventId, String userEmail) {
@@ -47,6 +51,11 @@ public class BookingService {
         if (bookingRepository.existsByUser_IdAndEvent_Id(user.getId(), eventId)) {
             throw new RuntimeException("Already booked this event");
         }
+        
+        // Check registration deadline
+        if (event.getRegistrationDeadline() != null && LocalDateTime.now().isAfter(event.getRegistrationDeadline())) {
+            throw new RuntimeException("Registration deadline has passed");
+        }
 
         // Update available seats
         event.setAvailableSeats(event.getAvailableSeats() - 1);
@@ -58,6 +67,8 @@ public class BookingService {
         booking.setEvent(event);
         booking.setBookingCode(UUID.randomUUID().toString());
         booking.setAmountPaid(event.getPrice());
+        booking.setStatus("PENDING_PAYMENT");
+        booking.setPaymentStatus("PENDING");
 
         // Generate QR code
         try {
@@ -73,11 +84,71 @@ public class BookingService {
         // Send notification
         notificationService.notifyUser(
             user.getId(),
-            "Booking confirmed for: " + event.getTitle(),
-            "SUCCESS"
+            "Booking created for: " + event.getTitle() + ". Please complete payment.",
+            "INFO"
         );
 
         return savedBooking;
+    }
+    
+    @Transactional
+    public Booking processPayment(Long bookingId, String paymentMethod, String transactionId) {
+        Booking booking = bookingRepository.findById(bookingId)
+            .orElseThrow(() -> new RuntimeException("Booking not found"));
+        
+        if (!"PENDING_PAYMENT".equals(booking.getStatus())) {
+            throw new RuntimeException("Booking is not in pending payment state");
+        }
+        
+        // Simulate payment processing
+        // In production, integrate with actual payment gateway (Stripe, PayPal, etc.)
+        booking.setPaymentStatus("COMPLETED");
+        booking.setPaymentMethod(paymentMethod);
+        booking.setTransactionId(transactionId);
+        booking.setPaymentDate(LocalDateTime.now());
+        booking.setStatus("CONFIRMED");
+        
+        Booking confirmedBooking = bookingRepository.save(booking);
+        
+        // Send confirmation email with ticket
+        emailService.sendBookingConfirmation(
+            booking.getUser().getEmail(), 
+            booking.getBookingCode(), 
+            booking.getEvent().getTitle(),
+            booking.getQrCodePath()
+        );
+        
+        booking.setTicketSent(true);
+        bookingRepository.save(booking);
+        
+        // Send notification
+        notificationService.notifyUser(
+            booking.getUser().getId(),
+            "Payment confirmed for: " + booking.getEvent().getTitle() + ". Ticket sent to your email.",
+            "SUCCESS"
+        );
+        
+        return confirmedBooking;
+    }
+    
+    @Transactional
+    public Booking validateQRCodeAndMarkAttendance(String bookingCode) {
+        Booking booking = bookingRepository.findByBookingCode(bookingCode)
+            .orElseThrow(() -> new RuntimeException("Invalid booking code"));
+        
+        if (!"CONFIRMED".equals(booking.getStatus())) {
+            throw new RuntimeException("Booking is not confirmed");
+        }
+        
+        if (booking.getAttended() != null && booking.getAttended()) {
+            throw new RuntimeException("Already marked as attended");
+        }
+        
+        booking.setAttended(true);
+        booking.setAttendedAt(LocalDateTime.now());
+        booking.setStatus("ATTENDED");
+        
+        return bookingRepository.save(booking);
     }
 
     public void cancelBooking(Long bookingId, String userEmail) {
@@ -92,6 +163,13 @@ public class BookingService {
         }
 
         booking.setStatus("CANCELLED");
+        
+        // Process refund if payment was made
+        if ("COMPLETED".equals(booking.getPaymentStatus())) {
+            booking.setPaymentStatus("REFUNDED");
+            // TODO: Integrate with payment gateway for actual refund
+        }
+        
         bookingRepository.save(booking);
 
         // Update available seats

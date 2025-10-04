@@ -8,9 +8,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/events")
+@CrossOrigin(origins = "*")
 public class EventController {
 
     @Autowired
@@ -29,6 +31,11 @@ public class EventController {
     @GetMapping("/type/{type}")
     public ResponseEntity<List<Event>> getEventsByType(@PathVariable String type) {
         return ResponseEntity.ok(eventService.getEventsByType(type));
+    }
+    
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<Event>> getEventsByCategory(@PathVariable String category) {
+        return ResponseEntity.ok(eventService.getEventsByCategory(category));
     }
 
     @GetMapping("/upcoming")
@@ -55,5 +62,15 @@ public class EventController {
     @GetMapping("/my-events")
     public ResponseEntity<List<Event>> getMyEvents(Authentication authentication) {
         return ResponseEntity.ok(eventService.getEventsByUser(authentication.getName()));
+    }
+    
+    @PostMapping("/{id}/send-message")
+    public ResponseEntity<String> sendMessageToParticipants(
+            @PathVariable Long id, 
+            @RequestBody Map<String, String> payload,
+            Authentication authentication) {
+        String message = payload.get("message");
+        eventService.sendCustomMessageToParticipants(id, message, authentication.getName());
+        return ResponseEntity.ok("Message sent to all participants");
     }
 }
