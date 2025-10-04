@@ -1,17 +1,28 @@
 package com.aiu.trips.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+// Lombok temporarily removed due to Java 25 compatibility
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "bookings")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Booking {
+    
+    public Booking() {}
+    
+    public Booking(Long id, User user, Event event, String bookingCode, String status, LocalDateTime bookingDate, String qrCodePath, Double amountPaid, String paymentMethod, LocalDateTime validatedAt, String validatedBy) {
+        this.id = id;
+        this.user = user;
+        this.event = event;
+        this.bookingCode = bookingCode;
+        this.status = status;
+        this.bookingDate = bookingDate;
+        this.qrCodePath = qrCodePath;
+        this.amountPaid = amountPaid;
+        this.paymentMethod = paymentMethod;
+        this.validatedAt = validatedAt;
+        this.validatedBy = validatedBy;
+    }
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,4 +66,38 @@ public class Booking {
         status = "CONFIRMED";
         paymentMethod = "CASH";
     }
+    
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+    
+    public Event getEvent() { return event; }
+    public void setEvent(Event event) { this.event = event; }
+    
+    public String getBookingCode() { return bookingCode; }
+    public void setBookingCode(String bookingCode) { this.bookingCode = bookingCode; }
+    
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+    
+    public LocalDateTime getBookingDate() { return bookingDate; }
+    public void setBookingDate(LocalDateTime bookingDate) { this.bookingDate = bookingDate; }
+    
+    public String getQrCodePath() { return qrCodePath; }
+    public void setQrCodePath(String qrCodePath) { this.qrCodePath = qrCodePath; }
+    
+    public Double getAmountPaid() { return amountPaid; }
+    public void setAmountPaid(Double amountPaid) { this.amountPaid = amountPaid; }
+    
+    public String getPaymentMethod() { return paymentMethod; }
+    public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }
+    
+    public LocalDateTime getValidatedAt() { return validatedAt; }
+    public void setValidatedAt(LocalDateTime validatedAt) { this.validatedAt = validatedAt; }
+    
+    public String getValidatedBy() { return validatedBy; }
+    public void setValidatedBy(String validatedBy) { this.validatedBy = validatedBy; }
 }
