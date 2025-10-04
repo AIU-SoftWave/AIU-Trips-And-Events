@@ -34,7 +34,7 @@ public class Booking {
     @Column
     private LocalDateTime bookingDate;
     
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String qrCodePath;
     
     @Column
