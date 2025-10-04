@@ -1,26 +1,26 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { eventApi } from '@/lib/api';
+import { useState } from "react";
+import { eventApi } from "@/lib/api";
 
 export default function EventForm({ onSuccess }: { onSuccess: () => void }) {
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    type: 'EVENT',
-    startDate: '',
-    endDate: '',
-    location: '',
-    price: '',
-    capacity: '',
-    imageUrl: '',
+    title: "",
+    description: "",
+    type: "EVENT",
+    startDate: "",
+    endDate: "",
+    location: "",
+    price: "",
+    capacity: "",
+    imageUrl: "",
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
@@ -29,33 +29,40 @@ export default function EventForm({ onSuccess }: { onSuccess: () => void }) {
         price: parseFloat(formData.price),
         capacity: parseInt(formData.capacity),
       });
-      alert('Event created successfully!');
+      alert("Event created successfully!");
       setFormData({
-        title: '',
-        description: '',
-        type: 'EVENT',
-        startDate: '',
-        endDate: '',
-        location: '',
-        price: '',
-        capacity: '',
-        imageUrl: '',
+        title: "",
+        description: "",
+        type: "EVENT",
+        startDate: "",
+        endDate: "",
+        location: "",
+        price: "",
+        capacity: "",
+        imageUrl: "",
       });
       onSuccess();
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to create event');
+      setError(err.response?.data?.message || "Failed to create event");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-lg shadow-md">
-      <h3 className="text-xl font-semibold mb-4">Create New Event/Trip</h3>
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4 bg-white p-6 rounded-lg shadow-md"
+    >
+      <h3 className="text-xl font-semibold text-black mb-4">Create New Event/Trip</h3>
 
       <div>
         <label className="block text-sm font-medium text-gray-700">Title</label>
@@ -70,7 +77,9 @@ export default function EventForm({ onSuccess }: { onSuccess: () => void }) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">Description</label>
+        <label className="block text-sm font-medium text-gray-700">
+          Description
+        </label>
         <textarea
           name="description"
           value={formData.description}
@@ -95,7 +104,9 @@ export default function EventForm({ onSuccess }: { onSuccess: () => void }) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Start Date</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Start Date
+          </label>
           <input
             type="datetime-local"
             name="startDate"
@@ -107,7 +118,9 @@ export default function EventForm({ onSuccess }: { onSuccess: () => void }) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">End Date</label>
+          <label className="block text-sm font-medium text-gray-700">
+            End Date
+          </label>
           <input
             type="datetime-local"
             name="endDate"
@@ -119,7 +132,9 @@ export default function EventForm({ onSuccess }: { onSuccess: () => void }) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">Location</label>
+        <label className="block text-sm font-medium text-gray-700">
+          Location
+        </label>
         <input
           type="text"
           name="location"
@@ -132,7 +147,9 @@ export default function EventForm({ onSuccess }: { onSuccess: () => void }) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Price ($)</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Price ($)
+          </label>
           <input
             type="number"
             name="price"
@@ -146,7 +163,9 @@ export default function EventForm({ onSuccess }: { onSuccess: () => void }) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Capacity</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Capacity
+          </label>
           <input
             type="number"
             name="capacity"
@@ -160,7 +179,9 @@ export default function EventForm({ onSuccess }: { onSuccess: () => void }) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">Image URL (optional)</label>
+        <label className="block text-sm font-medium text-gray-700">
+          Image URL (optional)
+        </label>
         <input
           type="url"
           name="imageUrl"
@@ -177,7 +198,7 @@ export default function EventForm({ onSuccess }: { onSuccess: () => void }) {
         disabled={loading}
         className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50"
       >
-        {loading ? 'Creating...' : 'Create Event'}
+        {loading ? "Creating..." : "Create Event"}
       </button>
     </form>
   );

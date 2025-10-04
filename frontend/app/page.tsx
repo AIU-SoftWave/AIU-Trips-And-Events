@@ -29,17 +29,17 @@ export default function Home() {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
           <div className="p-6 bg-white rounded-lg shadow-md">
             <div className="text-blue-600 text-4xl mb-4">🎉</div>
-            <h3 className="text-lg font-semibold mb-2">Easy Booking</h3>
+            <h3 className="text-lg font-semibold mb-2 text-black">Easy Booking</h3>
             <p className="text-gray-600">Book your spot with just a few clicks</p>
           </div>
           <div className="p-6 bg-white rounded-lg shadow-md">
             <div className="text-blue-600 text-4xl mb-4">📱</div>
-            <h3 className="text-lg font-semibold mb-2">QR Code Entry</h3>
+            <h3 className="text-lg font-semibold mb-2 text-black">QR Code Entry</h3>
             <p className="text-gray-600">Get your QR code for easy event check-in</p>
           </div>
           <div className="p-6 bg-white rounded-lg shadow-md">
             <div className="text-blue-600 text-4xl mb-4">🔔</div>
-            <h3 className="text-lg font-semibold mb-2">Stay Updated</h3>
+            <h3 className="text-lg font-semibold mb-2 text-black">Stay Updated</h3>
             <p className="text-gray-600">Receive notifications about your bookings</p>
           </div>
         </div>
