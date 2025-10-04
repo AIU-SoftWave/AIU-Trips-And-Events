@@ -41,4 +41,9 @@ public class BookingController {
     public ResponseEntity<Booking> getBookingByCode(@PathVariable String bookingCode) {
         return ResponseEntity.ok(bookingService.getBookingByCode(bookingCode));
     }
+
+    @PostMapping("/validate/{bookingCode}")
+    public ResponseEntity<Booking> validateTicket(@PathVariable String bookingCode, Authentication authentication) {
+        return ResponseEntity.ok(bookingService.validateTicket(bookingCode, authentication.getName()));
+    }
 }

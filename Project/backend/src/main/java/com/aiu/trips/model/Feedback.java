@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "bookings")
+@Table(name = "feedbacks")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Booking {
+public class Feedback {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,34 +25,17 @@ public class Booking {
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;
     
-    @Column(unique = true, nullable = false)
-    private String bookingCode;
-    
     @Column(nullable = false)
-    private String status; // CONFIRMED, CANCELLED, ATTENDED
+    private Integer rating; // 1-5 stars
+    
+    @Column(length = 1000)
+    private String comment;
     
     @Column
-    private LocalDateTime bookingDate;
-    
-    @Column
-    private String qrCodePath;
-    
-    @Column
-    private Double amountPaid;
-    
-    @Column
-    private String paymentMethod; // CASH (default)
-    
-    @Column
-    private LocalDateTime validatedAt;
-    
-    @Column
-    private String validatedBy; // Email of staff who validated
+    private LocalDateTime createdAt;
     
     @PrePersist
     protected void onCreate() {
-        bookingDate = LocalDateTime.now();
-        status = "CONFIRMED";
-        paymentMethod = "CASH";
+        createdAt = LocalDateTime.now();
     }
 }

@@ -121,4 +121,42 @@ public class BookingService {
         return bookingRepository.findByBookingCode(bookingCode)
             .orElseThrow(() -> new RuntimeException("Booking not found"));
     }
+
+    @Transactional
+    public Booking validateTicket(String bookingCode, String validatedByEmail) {
+        Booking booking = bookingRepository.findByBookingCode(bookingCode)
+            .orElseThrow(() -> new RuntimeException("Booking not found"));
+
+        // Check if already validated
+        if ("ATTENDED".equals(booking.getStatus())) {
+            throw new RuntimeException("Ticket already validated");
+        }
+
+        // Check if booking is cancelled
+        if ("CANCELLED".equals(booking.getStatus())) {
+            throw new RuntimeException("Cannot validate cancelled booking");
+        }
+
+        // Check if event is active
+        Event event = booking.getEvent();
+        if (!"ACTIVE".equals(event.getStatus())) {
+            throw new RuntimeException("Event is not active");
+        }
+
+        // Validate the ticket
+        booking.setStatus("ATTENDED");
+        booking.setValidatedAt(java.time.LocalDateTime.now());
+        booking.setValidatedBy(validatedByEmail);
+
+        Booking validatedBooking = bookingRepository.save(booking);
+
+        // Send notification to user
+        notificationService.notifyUser(
+            booking.getUser().getId(),
+            "Your ticket for " + event.getTitle() + " has been validated. Enjoy the event!",
+            "SUCCESS"
+        );
+
+        return validatedBooking;
+    }
 }

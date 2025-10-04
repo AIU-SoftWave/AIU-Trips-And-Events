@@ -7,8 +7,11 @@ A university system that manages events and trips through a web app that manages
 - **Authentication & Profiles**: Login/Create Account with JWT authentication
 - **Event/Trip Management**: Add/Edit/Delete events and trips
 - **Booking & Ticketing**: Reservation system with QR Code generation for entry
+- **Ticket Validation**: Validate tickets at event entry using QR codes
+- **Payment Tracking**: Track cash-only payments for bookings
 - **Notifications**: Real-time messages to students upon any update
-- **Reports & Analytics**: Participants count, income tracking, and feedback
+- **Feedback System**: Students can provide ratings and comments after attending events
+- **Reports & Analytics**: Participants count, income tracking, and feedback analysis
 
 ## Tech Stack
 
@@ -87,6 +90,13 @@ The frontend will start on `http://localhost:3000`
 - `GET /api/bookings/my-bookings` - Get user's bookings
 - `PUT /api/bookings/{bookingId}/cancel` - Cancel booking
 - `GET /api/bookings/code/{code}` - Get booking by code
+- `POST /api/bookings/validate/{bookingCode}` - Validate ticket at event entry
+
+### Feedbacks
+- `POST /api/feedbacks/event/{eventId}` - Submit feedback (requires attendance)
+- `GET /api/feedbacks/event/{eventId}` - Get event feedbacks
+- `GET /api/feedbacks/my-feedbacks` - Get user's feedbacks
+- `GET /api/feedbacks/event/{eventId}/average-rating` - Get event average rating
 
 ### Notifications
 - `GET /api/notifications` - Get all notifications
