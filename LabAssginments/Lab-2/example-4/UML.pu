@@ -1,0 +1,72 @@
+@startuml ExamManagementSystem
+
+' Classes
+class Course {
+    - String code
+    - String title
+    - List<Student> students
+    - List<Exam> exams
+    + Course(String code, String title)
+    + void addStudent(Student student)
+    + void addExam(Exam exam)
+    + String getTitle()
+}
+
+class Student {
+    - String id
+    - String name
+    - String email
+    - List<Course> courses
+    + Student(String id, String name, String email)
+    + void enroll(Course course)
+    + String getName()
+    + String getEmail()
+}
+
+class Exam {
+    - String date
+    - String time
+    - int totalMarks
+    - Course course
+    - List<Result> results
+    + Exam(String date, String time, int totalMarks, Course course)
+    + Result gradeExam(Student student, int marks, Notifier notifier)
+}
+
+class Result {
+    - Student student
+    - Exam exam
+    - int marks
+    + Result(Student student, Exam exam, int marks)
+    + void notifyStudent(Notifier notifier)
+}
+
+interface Notifier {
+    + void send(String message, Student student)
+}
+
+class EmailNotifier {
+    + void send(String message, Student student)
+}
+
+class SMSNotifier {
+    + void send(String message, Student student)
+}
+
+' Relationships
+Course "1" *-- "many" Student : enrolls
+Course "1" *-- "many" Exam : contains
+Exam "1" *-- "many" Result : generates
+Result "many" --> "1" Student : belongs to
+Result "many" --> "1" Exam : from
+Result ..> Notifier : uses
+EmailNotifier ..|> Notifier : implements
+SMSNotifier ..|> Notifier : implements
+
+' Notes
+note right of Course : Manages students and exams\nfor a specific course
+note right of Exam : Grades students and\ncreates results
+note right of Result : Notifies students about\ntheir exam results
+note right of Notifier : Strategy pattern for\ndifferent notification methods
+
+@enduml
