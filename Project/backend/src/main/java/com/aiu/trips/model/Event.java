@@ -64,6 +64,12 @@ public class Event {
     @Column
     private String imageUrl;
     
+    @Column
+    private LocalDateTime registrationDeadline;
+    
+    @Column
+    private String category; // field trips, seminars, conferences, concerts
+    
     @ManyToOne
     @JoinColumn(name = "created_by")
     private User createdBy;
@@ -115,6 +121,12 @@ public class Event {
     
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    
+    public LocalDateTime getRegistrationDeadline() { return registrationDeadline; }
+    public void setRegistrationDeadline(LocalDateTime registrationDeadline) { this.registrationDeadline = registrationDeadline; }
+    
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
     
     public User getCreatedBy() { return createdBy; }
     public void setCreatedBy(User createdBy) { this.createdBy = createdBy; }
