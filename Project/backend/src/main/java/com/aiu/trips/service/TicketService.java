@@ -44,7 +44,13 @@ public class TicketService {
                 booking.getBookingCode(), 
                 booking.getEvent().getId(), 
                 booking.getUser().getEmail());
-            String qrCodePath = qrCodeGenerator.generateQRCode(qrData, booking.getBookingCode());
+            
+            String qrCodePath;
+            try {
+                qrCodePath = qrCodeGenerator.generateQRCodeBase64(qrData);
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to generate QR code", e);
+            }
             ticket.setQrCode(qrCodePath);
             
             Ticket savedTicket = ticketRepository.save(ticket);
