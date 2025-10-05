@@ -1,0 +1,618 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor #E3F2FD
+    BorderColor #1976D2
+    BorderThickness 2
+    FontSize 11
+}
+skinparam interface {
+    BackgroundColor #FFF9C4
+    BorderColor #F57F17
+    BorderThickness 2
+}
+
+' ==================== CORE INTERFACES ====================
+package "Core Interfaces" #E1BEE7 {
+    interface IAuthenticationService {
+        + authenticate(credentials: Credentials): AuthToken
+        + validateToken(token: String): boolean
+        + generateToken(user: IUser): String
+        + refreshToken(token: String): String
+        + revokeToken(token: String): void
+    }
+
+    interface IUserRepository {
+        + findById(id: String): IUser
+        + findByEmail(email: String): IUser
+        + save(user: IUser): boolean
+        + update(user: IUser): boolean
+        + delete(id: String): boolean
+    }
+
+    interface IUser {
+        + getUserId(): String
+        + getEmail(): String
+        + getRole(): UserRole
+        + isActive(): boolean
+    }
+
+    interface IEventRepository {
+        + findById(id: String): IEvent
+        + findAll(): List<IEvent>
+        + findByCategory(category: String): List<IEvent>
+        + save(event: IEvent): boolean
+        + update(event: IEvent): boolean
+        + delete(id: String): boolean
+    }
+
+    interface IEvent {
+        + getEventId(): String
+        + getTitle(): String
+        + getCapacity(): int
+        + getAvailableSeats(): int
+        + getStatus(): EventStatus
+    }
+
+    interface IBookingRepository {
+        + findById(id: String): IBooking
+        + findByStudent(studentId: String): List<IBooking>
+        + findByEvent(eventId: String): List<IBooking>
+        + save(booking: IBooking): boolean
+        + update(booking: IBooking): boolean
+        + delete(id: String): boolean
+    }
+
+    interface IBooking {
+        + getBookingId(): String
+        + getStudentId(): String
+        + getEventId(): String
+        + getStatus(): BookingStatus
+        + getTotalAmount(): double
+    }
+
+    interface IPaymentGateway {
+        + processPayment(payment: IPayment): boolean
+        + refund(paymentId: String, amount: double): boolean
+        + verifyTransaction(transactionId: String): boolean
+    }
+
+    interface IPayment {
+        + getPaymentId(): String
+        + getAmount(): double
+        + getStatus(): PaymentStatus
+    }
+
+    interface INotificationService {
+        + sendEmail(recipient: String, subject: String, body: String): boolean
+        + sendSMS(phoneNumber: String, message: String): boolean
+        + sendPushNotification(userId: String, message: String): boolean
+    }
+
+    interface IReportGenerator {
+        + generateEventReport(eventId: String): IReport
+        + generateFinancialReport(startDate: Date, endDate: Date): IReport
+        + generateUserReport(userId: String): IReport
+    }
+
+    interface IReport {
+        + getReportId(): String
+        + getReportType(): String
+        + getData(): Object
+        + export(format: String): File
+    }
+
+    interface IAnalyticsService {
+        + getEventStatistics(eventId: String): Statistics
+        + getUserEngagement(): EngagementMetrics
+        + getRevenueAnalytics(): RevenueMetrics
+    }
+}
+
+' ==================== USER MANAGEMENT MODULE ====================
+package "User Management" #FFEBEE {
+    abstract class User implements IUser {
+        # userId: String
+        # username: String
+        # email: String
+        # password: String
+        # phoneNumber: String
+        # registrationDate: Date
+        # status: UserStatus
+        # profilePicture: String
+        + getUserId(): String
+        + getEmail(): String
+        + getRole(): UserRole
+        + isActive(): boolean
+        # validateCredentials(): boolean
+    }
+
+    class Student extends User {
+        - studentId: String
+        - faculty: String
+        - yearOfStudy: int
+        - major: String
+        - eventService: IEventService
+        - bookingService: IBookingService
+        + browseEvents(): List<IEvent>
+        + bookEvent(eventId: String): IBooking
+        + viewBookingHistory(): List<IBooking>
+    }
+
+    class Organizer extends User {
+        - organizerId: String
+        - organizationName: String
+        - department: String
+        - verificationStatus: String
+        - eventService: IEventService
+        - notificationService: INotificationService
+        + createEvent(eventData: EventDTO): IEvent
+        + updateEvent(eventId: String): boolean
+        + viewEventStatistics(eventId: String): Statistics
+    }
+
+    class Administrator extends User {
+        - adminId: String
+        - role: AdminRole
+        - permissions: List<String>
+        - userService: IUserService
+        - reportService: IReportGenerator
+        - analyticsService: IAnalyticsService
+        + manageUsers(): void
+        + approveEvents(): boolean
+        + generateReports(): IReport
+    }
+
+    enum UserStatus {
+        ACTIVE
+        INACTIVE
+        SUSPENDED
+        PENDING_VERIFICATION
+    }
+
+    enum AdminRole {
+        SUPER_ADMIN
+        EVENT_ADMIN
+        FINANCE_ADMIN
+        SUPPORT_ADMIN
+    }
+
+    enum UserRole {
+        STUDENT
+        ORGANIZER
+        ADMINISTRATOR
+    }
+
+    class AuthenticationService implements IAuthenticationService {
+        - userRepository: IUserRepository
+        - tokenManager: ITokenManager
+        + authenticate(credentials: Credentials): AuthToken
+        + validateToken(token: String): boolean
+        + generateToken(user: IUser): String
+        + refreshToken(token: String): String
+        + revokeToken(token: String): void
+    }
+
+    interface ITokenManager {
+        + generate(userId: String): String
+        + validate(token: String): boolean
+        + revoke(token: String): void
+    }
+
+    interface IUserService {
+        + registerUser(userData: UserDTO): IUser
+        + updateUser(userId: String, userData: UserDTO): boolean
+        + deleteUser(userId: String): boolean
+        + getUserById(userId: String): IUser
+    }
+
+    class UserService implements IUserService {
+        - userRepository: IUserRepository
+        - notificationService: INotificationService
+        + registerUser(userData: UserDTO): IUser
+        + updateUser(userId: String, userData: UserDTO): boolean
+        + deleteUser(userId: String): boolean
+        + getUserById(userId: String): IUser
+    }
+}
+
+' ==================== EVENT & TRIP MANAGEMENT MODULE ====================
+package "Event & Trip Management" #E8F5E9 {
+    class Event implements IEvent {
+        # eventId: String
+        # title: String
+        # description: String
+        # eventType: EventType
+        # startDate: DateTime
+        # endDate: DateTime
+        # location: String
+        # capacity: int
+        # availableSeats: int
+        # price: double
+        # status: EventStatus
+        # organizerId: String
+        # imageUrl: String
+        + getEventId(): String
+        + getTitle(): String
+        + getCapacity(): int
+        + getAvailableSeats(): int
+        + getStatus(): EventStatus
+        # validateEventData(): boolean
+    }
+
+    class Trip extends Event {
+        - destination: String
+        - departureLocation: String
+        - departureTime: DateTime
+        - returnTime: DateTime
+        - transportationType: String
+        - accommodationDetails: String
+        - itinerary: List<String>
+    }
+
+    interface IEventService {
+        + createEvent(eventData: EventDTO): IEvent
+        + updateEvent(eventId: String, eventData: EventDTO): boolean
+        + deleteEvent(eventId: String): boolean
+        + getEventById(eventId: String): IEvent
+        + searchEvents(criteria: SearchCriteria): List<IEvent>
+        + publishEvent(eventId: String): boolean
+    }
+
+    class EventService implements IEventService {
+        - eventRepository: IEventRepository
+        - notificationService: INotificationService
+        - validationService: IValidationService
+        + createEvent(eventData: EventDTO): IEvent
+        + updateEvent(eventId: String, eventData: EventDTO): boolean
+        + deleteEvent(eventId: String): boolean
+        + getEventById(eventId: String): IEvent
+        + searchEvents(criteria: SearchCriteria): List<IEvent>
+        + publishEvent(eventId: String): boolean
+    }
+
+    class EventCategory {
+        - categoryId: String
+        - name: String
+        - description: String
+        - icon: String
+    }
+
+    enum EventType {
+        TRIP
+        WORKSHOP
+        SEMINAR
+        CONFERENCE
+        SPORTS
+        CULTURAL
+        SOCIAL
+    }
+
+    enum EventStatus {
+        DRAFT
+        PUBLISHED
+        ONGOING
+        COMPLETED
+        CANCELLED
+        FULL
+    }
+
+    interface IValidationService {
+        + validateEventData(data: EventDTO): boolean
+        + validateBookingData(data: BookingDTO): boolean
+        + validatePaymentData(data: PaymentDTO): boolean
+    }
+
+    class ValidationService implements IValidationService {
+        + validateEventData(data: EventDTO): boolean
+        + validateBookingData(data: BookingDTO): boolean
+        + validatePaymentData(data: PaymentDTO): boolean
+    }
+}
+
+' ==================== BOOKING & TICKETING MODULE ====================
+package "Booking & Ticketing" #FFF3E0 {
+    class Booking implements IBooking {
+        - bookingId: String
+        - studentId: String
+        - eventId: String
+        - bookingDate: DateTime
+        - numberOfSeats: int
+        - totalAmount: double
+        - status: BookingStatus
+        - confirmationCode: String
+        + getBookingId(): String
+        + getStudentId(): String
+        + getEventId(): String
+        + getStatus(): BookingStatus
+        + getTotalAmount(): double
+    }
+
+    enum BookingStatus {
+        PENDING
+        CONFIRMED
+        CANCELLED
+        COMPLETED
+        REFUNDED
+    }
+
+    interface IBookingService {
+        + createBooking(bookingData: BookingDTO): IBooking
+        + cancelBooking(bookingId: String): boolean
+        + confirmBooking(bookingId: String): boolean
+        + getBookingById(bookingId: String): IBooking
+        + getBookingsByStudent(studentId: String): List<IBooking>
+    }
+
+    class BookingService implements IBookingService {
+        - bookingRepository: IBookingRepository
+        - eventRepository: IEventRepository
+        - paymentService: IPaymentService
+        - notificationService: INotificationService
+        - validationService: IValidationService
+        + createBooking(bookingData: BookingDTO): IBooking
+        + cancelBooking(bookingId: String): boolean
+        + confirmBooking(bookingId: String): boolean
+        + getBookingById(bookingId: String): IBooking
+        + getBookingsByStudent(studentId: String): List<IBooking>
+    }
+
+    class Payment implements IPayment {
+        - paymentId: String
+        - bookingId: String
+        - amount: double
+        - paymentMethod: PaymentMethod
+        - paymentDate: DateTime
+        - transactionId: String
+        - status: PaymentStatus
+        + getPaymentId(): String
+        + getAmount(): double
+        + getStatus(): PaymentStatus
+    }
+
+    enum PaymentMethod {
+        CREDIT_CARD
+        DEBIT_CARD
+        BANK_TRANSFER
+        DIGITAL_WALLET
+        CASH
+    }
+
+    enum PaymentStatus {
+        PENDING
+        COMPLETED
+        FAILED
+        REFUNDED
+    }
+
+    interface IPaymentService {
+        + processPayment(paymentData: PaymentDTO): IPayment
+        + refundPayment(paymentId: String): boolean
+        + getPaymentStatus(paymentId: String): PaymentStatus
+    }
+
+    class PaymentService implements IPaymentService {
+        - paymentGateway: IPaymentGateway
+        - bookingRepository: IBookingRepository
+        - notificationService: INotificationService
+        + processPayment(paymentData: PaymentDTO): IPayment
+        + refundPayment(paymentId: String): boolean
+        + getPaymentStatus(paymentId: String): PaymentStatus
+    }
+
+    interface ITicketService {
+        + generateTicket(bookingId: String): ITicket
+        + validateTicket(ticketId: String): boolean
+        + checkInTicket(ticketId: String): boolean
+    }
+
+    interface ITicket {
+        + getTicketId(): String
+        + getQRCode(): String
+        + isValid(): boolean
+    }
+
+    class TicketService implements ITicketService {
+        - bookingRepository: IBookingRepository
+        - qrCodeGenerator: IQRCodeGenerator
+        + generateTicket(bookingId: String): ITicket
+        + validateTicket(ticketId: String): boolean
+        + checkInTicket(ticketId: String): boolean
+    }
+
+    interface IQRCodeGenerator {
+        + generate(data: String): String
+        + validate(qrCode: String): boolean
+    }
+}
+
+' ==================== NOTIFICATION MODULE ====================
+package "Notification Management" #E1F5FE {
+    class NotificationService implements INotificationService {
+        - emailProvider: IEmailProvider
+        - smsProvider: ISMSProvider
+        - pushProvider: IPushProvider
+        - notificationRepository: INotificationRepository
+        + sendEmail(recipient: String, subject: String, body: String): boolean
+        + sendSMS(phoneNumber: String, message: String): boolean
+        + sendPushNotification(userId: String, message: String): boolean
+    }
+
+    interface IEmailProvider {
+        + send(to: String, subject: String, body: String): boolean
+    }
+
+    interface ISMSProvider {
+        + send(phoneNumber: String, message: String): boolean
+    }
+
+    interface IPushProvider {
+        + send(userId: String, message: String): boolean
+    }
+
+    interface INotificationRepository {
+        + save(notification: Notification): boolean
+        + findByUser(userId: String): List<Notification>
+    }
+
+    class Notification {
+        - notificationId: String
+        - userId: String
+        - type: NotificationType
+        - message: String
+        - sentDate: DateTime
+        - status: NotificationStatus
+    }
+
+    enum NotificationType {
+        EMAIL
+        SMS
+        PUSH
+        IN_APP
+    }
+
+    enum NotificationStatus {
+        PENDING
+        SENT
+        FAILED
+        READ
+    }
+}
+
+' ==================== REPORTING & ANALYTICS MODULE ====================
+package "Reporting & Analytics" #F3E5F5 {
+    class ReportGenerator implements IReportGenerator {
+        - eventRepository: IEventRepository
+        - bookingRepository: IBookingRepository
+        - userRepository: IUserRepository
+        - reportBuilder: IReportBuilder
+        + generateEventReport(eventId: String): IReport
+        + generateFinancialReport(startDate: Date, endDate: Date): IReport
+        + generateUserReport(userId: String): IReport
+    }
+
+    interface IReportBuilder {
+        + build(data: Object, template: String): IReport
+    }
+
+    class Report implements IReport {
+        - reportId: String
+        - reportType: String
+        - generatedDate: DateTime
+        - data: Object
+        + getReportId(): String
+        + getReportType(): String
+        + getData(): Object
+        + export(format: String): File
+    }
+
+    class AnalyticsService implements IAnalyticsService {
+        - eventRepository: IEventRepository
+        - bookingRepository: IBookingRepository
+        - dataAggregator: IDataAggregator
+        + getEventStatistics(eventId: String): Statistics
+        + getUserEngagement(): EngagementMetrics
+        + getRevenueAnalytics(): RevenueMetrics
+    }
+
+    interface IDataAggregator {
+        + aggregate(data: List<Object>): Object
+        + calculate(metric: String): double
+    }
+
+    class Statistics {
+        - totalAttendees: int
+        - revenue: double
+        - rating: double
+        - completionRate: double
+    }
+}
+
+' ==================== DATA TRANSFER OBJECTS ====================
+package "DTOs" #FCE4EC {
+    class UserDTO {
+        + username: String
+        + email: String
+        + password: String
+        + role: UserRole
+    }
+
+    class EventDTO {
+        + title: String
+        + description: String
+        + startDate: DateTime
+        + endDate: DateTime
+        + capacity: int
+        + price: double
+    }
+
+    class BookingDTO {
+        + studentId: String
+        + eventId: String
+        + numberOfSeats: int
+    }
+
+    class PaymentDTO {
+        + bookingId: String
+        + amount: double
+        + paymentMethod: PaymentMethod
+    }
+}
+
+' ==================== RELATIONSHIPS ====================
+
+' User relationships
+User ..> IUserService : uses
+Student ..> IEventService : uses
+Student ..> IBookingService : uses
+Organizer ..> IEventService : uses
+Organizer ..> INotificationService : uses
+Administrator ..> IUserService : uses
+Administrator ..> IReportGenerator : uses
+Administrator ..> IAnalyticsService : uses
+
+' Authentication relationships
+AuthenticationService ..> IUserRepository : uses
+AuthenticationService ..> ITokenManager : uses
+UserService ..> IUserRepository : uses
+UserService ..> INotificationService : uses
+
+' Event relationships
+EventService ..> IEventRepository : uses
+EventService ..> INotificationService : uses
+EventService ..> IValidationService : uses
+
+' Booking relationships
+BookingService ..> IBookingRepository : uses
+BookingService ..> IEventRepository : uses
+BookingService ..> IPaymentService : uses
+BookingService ..> INotificationService : uses
+BookingService ..> IValidationService : uses
+
+' Payment relationships
+PaymentService ..> IPaymentGateway : uses
+PaymentService ..> IBookingRepository : uses
+PaymentService ..> INotificationService : uses
+
+' Ticket relationships
+TicketService ..> IBookingRepository : uses
+TicketService ..> IQRCodeGenerator : uses
+
+' Notification relationships
+NotificationService ..> IEmailProvider : uses
+NotificationService ..> ISMSProvider : uses
+NotificationService ..> IPushProvider : uses
+NotificationService ..> INotificationRepository : uses
+
+' Report relationships
+ReportGenerator ..> IEventRepository : uses
+ReportGenerator ..> IBookingRepository : uses
+ReportGenerator ..> IUserRepository : uses
+ReportGenerator ..> IReportBuilder : uses
+
+' Analytics relationships
+AnalyticsService ..> IEventRepository : uses
+AnalyticsService ..> IBookingRepository : uses
+AnalyticsService ..> IDataAggregator : uses
+@enduml

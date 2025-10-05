@@ -1,0 +1,136 @@
+Actors (Users):
+Student
+Log in and create a profile.
+Browse the list of trips and events.
+Book and pay for tickets.
+Receive notifications (time, location, updates).
+Organizer (Event/Trip Organizer)
+Create and manage events/trips.
+Define the number of seats/participants.
+Send alerts to students.
+Admin (University Administrator)
+Manage users (students, organizers).
+Track statistics and reports (number of participants, revenue).
+Control organizer permissions.
+ Functional Requirements(F):
+ F1: Authentication & User Management
+F1.1 The system shall allow users to register with university email, first name, last name, phone number, faculty, academic year, and password
+F1.2 The system shall send email verification links to newly registered users
+F1.3 The system shall authenticate users with email and password credentials
+F1.4 The system shall support role-based access (Student, Organizer, Administrator)
+F1.5 The system shall lock accounts after 5 consecutive failed login attempts
+F1.6 The system shall provide password reset functionality via email
+F1.7 The system shall enforce password strength requirements
+F1.8 The system shall redirect users to role-appropriate dashboards upon login
+F2: Event & Trip Management
+F2.1 The system shall allow organizers to create new events/trips with details (name, description, date, time, location, capacity)
+F2.2 The system shall allow organizers to edit existing event/trip information
+F2.3 The system shall allow organizers to delete events/trips
+F2.4 The system shall display a list of all upcoming events/trips to students
+F2.5 The system shall prevent event capacity from being exceeded
+F2.6 The system shall track available seats in real-time
+F2.7 The system shall allow organizers to set registration deadlines
+F2.8 The system shall categorize events (field trips, seminars, conferences, concerts)
+F3: Booking & Ticketing System
+F3.1 The system shall allow students to browse available events/trips
+F3.2 The system shall allow students to book/reserve seats for events
+F3.3 The system shall send digital tickets to students via email
+F3.4 The system shall prevent duplicate bookings by the same student for the same event
+F3.5 The system shall allow students to view their booking history
+F3.6 The system shall validate QR codes at event entry points
+F4: Notification System
+F4.1 The system shall send notifications to students about new events
+F4.2 The system shall notify students of event updates (time, location changes)
+F4.3 The system shall send cancellation notifications to registered students
+F4.4 The system shall send reminder notifications before event dates
+F4.5 The system shall allow organizers to send custom messages to registered participants
+F5: Reports & Analytics
+F5.1 The system shall generate reports on participant counts per event
+F5.2 The system shall calculate and display revenue collected per event
+F5.3 The system shall track and display total system statistics
+F5.4 The system shall allow administrators to export reports in PDF/CSV formats
+F5.5 The system shall collect and display student feedback/ratings for events
+F5.6 The system shall generate attendance tracking reports
+F5.7 The system shall provide analytics on popular event categories
+F5.8 The system shall track organizer performance metrics
+Non-Functional Requirements(NF):
+NF1: Performance
+NF1.1 The system shall load pages within 3 seconds under normal load
+NF1.2 The system shall support at least 500 concurrent users
+NF2: Security
+NF2.1 The system shall encrypt all passwords using industry-standard hashing (bcrypt)
+NF2.2 The system shall use JWT tokens for session management
+NF2.3 The system shall implement HTTPS for all communications
+NF2.4 The system shall validate and sanitize all user inputs to prevent injection attacks
+NF2.5 The system shall comply with data protection regulations (GDPR)
+NF2.6 The system shall log all authentication attempts for security auditing
+NF3: Reliability & Availability
+NF3.1 The system shall have 99.5% uptime availability
+NF3.2 The system shall perform automated daily backups of the database
+NF3.3 The system shall recover from failures within 1 hour
+NF3.4 The system shall maintain data integrity during transactions
+NF4: Usability
+NF4.1 The system shall have an intuitive, user-friendly interface
+NF4.2 The system shall be responsive and accessible on mobile devices
+NF4.3 The system shall support common web browsers (Chrome, Firefox, Safari, Edge)
+NF4.4 The system shall provide clear error messages to users
+NF4.5 The system shall follow accessibility standards (WCAG 2.1)
+NF5: Scalability & Maintainability
+NF5.1 The system shall be containerized using Docker for easy deployment
+NF5.2 The system shall have modular architecture for easy maintenance
+NF5.3 The system shall support horizontal scaling to handle increased load
+NF5.4 The system shall have comprehensive API documentation
+NF5.5 The system shall use version control (Git/GitHub) for code management
+Customer Requirements (C)
+C1: User Experience Requirements
+C1.1 Students want a single platform to view all university events and trips
+C1.2 Students want instant notifications about event updates
+C1.3 Students want digital tickets accessible on mobile devices
+C1.4 Students want to easily track their booking history
+C2: Organizer Requirements
+C2.1 Organizers need automated capacity management to prevent overbooking
+C2.2 Organizers need ability to communicate with all registered participants
+C2.3 Organizers need reports on attendance and revenue
+C2.4 Organizers need easy event creation and management tools
+C3: Administrative Requirements
+C3.1 Administrators need centralized user management capabilities
+C3.2 Administrators need comprehensive analytics and reporting
+C3.3 Administrators need to control organizer permissions
+C3.4 Administrators need audit trails for financial transactions
+C3.5 Administrators need system-wide statistics for planning
+C4: Operational Requirements
+C4.1 The university needs to eliminate manual paper-based registration
+C4.2 The university needs to reduce administrative overhead
+C4.3 The university needs to improve financial tracking and transparency
+C4.4 The university needs to enhance communication with students
+C4.5 The university needs data-driven insights for future event planning
+Developer Requirements (D)
+D1: Technical Architecture Requirements
+D1.1 Frontend must be built using Next.js with TypeScript
+D1.2 Backend must be built using Nest.js with TypeScript
+D1.3 Database must be MongoDB with Mongoose ODM
+D1.4 Authentication must use JWT tokens
+D1.5 UI must be styled with Tailwind CSS
+D2: Development Tools Requirements
+D2.1 Code must be version-controlled using Git and GitHub
+D2.2 Application must be containerized using Docker
+D2.3 API testing must be performed using Postman
+D2.4 Database management must use MongoDB Compass
+D2.5 UML diagrams must be created using PlantUML
+D3: Code Quality Requirements
+D3.1 Code must follow TypeScript best practices and typing
+D3.2 Code must be modular and follow separation of concerns
+D3.3 Code must include error handling and logging
+D3.4 API endpoints must be RESTful and well-documented
+D3.5 Code must include unit tests for critical functionality
+D4: Integration Requirements
+D4.1 System must integrate email service for notifications
+D4.2 System must generate QR codes using appropriate library
+D4.3 System must support file uploads for event images
+D4.4 System must provide API endpoints for mobile app integration (future)
+D5: Deployment Requirements
+D5.1 Application must be deployable using Docker Compose
+D5.2 Environment configurations must be managed via .env files
+D5.3 Database migrations must be version-controlled
+D5.4 System must have separate development, staging, and production environments
+D5.5 CI/CD pipeline should be implemented for automated testing and deployment

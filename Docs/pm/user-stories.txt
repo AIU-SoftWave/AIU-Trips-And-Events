@@ -1,0 +1,319 @@
+User Story:
+Epic 1: User Authentication & Account Management
+ US1.1: Student Registration
+ As a student
+ I want to register for an account using my university email
+ So that I can access the event management system
+ Acceptance Criteria:
+Registration form includes: first name, last name, university email, phone, faculty, academic year, password
+Password must meet strength requirements (min 8 chars, uppercase, lowercase, number, special char)
+System sends email verification link
+Account is inactive until email is verified
+System prevents duplicate email registrations
+ Priority: High
+ Story Points: 5
+US1.2: User Login
+ As a registered user
+ I want to log in with my credentials
+ So that I can access my personalized dashboard
+ Acceptance Criteria:
+Login with email and password
+System validates credentials
+Account locks after 5 failed attempts
+Redirect to role-appropriate dashboard
+Session maintained with JWT token
+ Priority: High
+ Story Points: 3
+US1.3: Password Reset
+ As a user who forgot my password
+ I want to reset my password via email
+ So that I can regain access to my account
+ Acceptance Criteria:
+"Forgot Password" link available on login page
+System sends reset link to registered email
+Reset link expires after 30 minutes
+User can set new password meeting strength requirements
+Confirmation email sent after successful reset
+ Priority: Medium
+ Story Points: 3
+US1.4: Profile Management
+ As a logged-in user
+ I want to view and edit my profile information
+ So that I can keep my details up to date
+ Acceptance Criteria:
+View current profile information
+Edit name, phone number, faculty, academic year
+Cannot change email address
+Changes saved successfully
+Confirmation message displayed
+ Priority: Low
+ Story Points: 2
+Epic 2: Event Discovery & Management
+ US2.1: Browse Events
+ As a student
+ I want to browse all available events
+ So that I can discover interesting activities
+ Acceptance Criteria:
+Display list of upcoming events
+Show event name, date, location, price, available seats
+Events sorted by date (nearest first)
+Pagination for large lists
+Clear indication of full events
+ Priority: High
+ Story Points: 3
+US2.2: Search and Filter Events
+ As a student
+ I want to search and filter events
+ So that I can quickly find events that interest me
+ Acceptance Criteria:
+Search by event name or description
+Filter by category (trips, seminars, conferences, concerts)
+Filter by date range
+Filter by price range
+Filter by availability
+Search results update in real-time
+ Priority: Medium
+ Story Points: 5
+US2.3: View Event Details
+ As a student
+ I want to view detailed information about an event
+ So that I can decide whether to book it
+ Acceptance Criteria:
+Display full event description
+Show date, time, location, price
+Display available seats count
+Show registration deadline
+Display event category
+Show event image (if available)
+"Book Now" button visible if seats available
+ Priority: High
+ Story Points: 3
+US2.4: Create Event
+ As an organizer
+ I want to create a new event
+ So that students can discover and register for it
+ Acceptance Criteria:
+Form includes all required fields (name, description, date, time, location, capacity, price, category)
+Optional event image upload
+Set registration deadline
+Validate all inputs (no past dates, positive capacity, valid price)
+Event saved to database
+Event immediately visible to students
+Confirmation message displayed
+ Priority: High
+ Story Points: 8
+US2.5: Edit Event
+ As an organizer
+ I want to edit existing event details
+ So that I can update information or fix errors
+ Acceptance Criteria:
+Load existing event data into form
+Allow modification of all fields except bookings count
+Validate changes
+Update database
+Send notification to registered students
+Cannot reduce capacity below current bookings
+Success message displayed
+ Priority: High
+ Story Points: 5
+US2.6: Delete/Cancel Event
+ As an organizer
+ I want to cancel an event
+ So that students know it won't occur and receive refunds
+ Acceptance Criteria:
+Confirmation dialog before deletion
+Check for existing bookings
+Process refunds for all bookings
+Send cancellation notifications
+Remove event from active listings
+Maintain record for reporting purposes
+ Priority: Medium
+ Story Points: 5
+Epic 3: Booking & Ticketing
+ US3.1: Book Event
+ As a student
+ I want to book a seat for an event
+ So that I can attend it
+ Acceptance Criteria:
+Check seat availability before booking
+Prevent duplicate bookings for same event
+Verify registration deadline not passed
+Create booking record
+Display booking summary
+ Priority: High
+ Story Points: 8
+US3.2: View Booking History
+ As a student
+ I want to view my past and upcoming bookings
+ So that I can track my event participation
+ Acceptance Criteria:
+Display all bookings (past and future)
+Show event name, date, booking status
+Filter by status (upcoming, past, cancelled)
+Access tickets for upcoming events
+ Priority: Medium
+ Story Points: 3
+US3.3: Cancel Booking
+ As a student
+ I want to cancel my booking
+ So that I can get a refund if I can't attend
+ Acceptance Criteria:
+Select booking to cancel
+Check cancellation policy/deadline
+Confirmation dialog
+Process refund
+Free up seat for other students
+Send cancellation confirmation email
+Update booking status to cancelled
+ Priority: Medium
+ Story Points: 5
+US3.4: Generate and Receive QR Ticket
+ As a student who completed booking
+ I want to receive a QR code ticket
+ So that I can use it for event entry
+ Acceptance Criteria:
+Generate unique QR code upon booking success
+QR code contains booking ID and validation data
+Send ticket via email immediately
+Include event details in email
+Allow ticket download as PDF
+QR code clearly visible and scannable
+ Priority: High
+ Story Points: 5
+US3.5: Validate Ticket at Entry
+ As an organizer
+ I want to scan and validate QR tickets
+ So that I can verify attendees and prevent fraud
+ Acceptance Criteria:
+Scan QR code using mobile device or scanner
+Validate ticket against database
+Display booking details (student name, event)
+Mark ticket as used (prevent reuse)
+Show validation result (valid/invalid/already used)
+Track attendance in real-time
+ Priority: High
+ Story Points: 5
+Epic 5: Notifications & Communication
+ US5.1: Receive Event Notifications
+ As a student
+ I want to receive notifications about new events
+ So that I don't miss interesting opportunities
+ Acceptance Criteria:
+Email sent when new event is created
+Include event details and link
+Filter by student preferences (future enhancement)
+Notification delivered within 1 minute
+ Priority: Medium
+ Story Points: 3
+US5.2: Receive Event Updates
+ As a registered student
+ I want to receive notifications about event changes
+ So that I stay informed about updates
+ Acceptance Criteria:
+Email sent when event details change
+Include old and new information
+Clear indication of what changed
+Link to updated event details
+ Priority: High
+ Story Points: 3
+US5.3: Receive Event Reminders
+ As a registered student
+ I want to receive reminder before the event
+ So that I don't forget to attend
+ Acceptance Criteria:
+Reminder sent 24 hours before event
+Include event details and ticket
+Include QR code for easy access
+Option to add to calendar
+ Priority: Medium
+ Story Points: 3
+US5.4: Send Custom Messages to Participants
+ As an organizer
+ I want to send messages to all registered participants
+ So that I can communicate important information
+ Acceptance Criteria:
+Message composition interface
+Send to all registered students for specific event
+Preview before sending
+Confirmation of successful delivery
+Message log maintained
+ Priority: Low
+ Story Points: 3
+Epic 6: Reporting & Analytics
+ US6.1: View Analytics Dashboard
+ As an organizer/administrator
+ I want to view an analytics dashboard
+ So that I can monitor system performance
+ Acceptance Criteria:
+Display total registered users
+Show active events count
+Display total bookings
+Show total revenue
+Display popular event categories
+Real-time data updates
+Visual charts and graphs
+ Priority: Medium
+ Story Points: 5
+US6.2: Generate Participant Report
+ As an organizer
+ I want to see participant statistics
+ So that I can understand event popularity
+ Acceptance Criteria:
+Show participant count per event
+Display capacity utilization percentage
+Filter by date range
+Filter by event category
+Export as PDF/CSV
+ Priority: Medium
+ Story Points: 5
+US6.3: Generate Attendance Report
+ As an organizer
+ I want to track actual attendance
+ So that I can measure event success
+ Acceptance Criteria:
+Show tickets validated (QR scans)
+Calculate attendance rate
+Display no-show rate
+Compare with booking count
+Export attendee list
+ Priority: Low
+ Story Points: 3
+Epic 7: System Administration
+ US7.1: Manage User Accounts
+ As an administrator
+ I want to manage user accounts
+ So that I can maintain system integrity
+ Acceptance Criteria:
+View all user accounts
+Search and filter users
+Activate/deactivate accounts
+Delete accounts
+View user activity logs
+Unlock locked accounts
+ Priority: Medium
+ Story Points: 5
+US7.2: Manage Permissions
+ As an administrator
+ I want to assign and modify user roles
+ So that I can control access levels
+ Acceptance Criteria:
+View current user role
+Assign role (Student, Organizer, Administrator)
+Change existing roles
+Confirmation required for role changes
+Audit log of role changes
+ Priority: Low
+ Story Points: 3
+US7.3: View System Logs
+ As an administrator
+ I want to view system logs and security events
+ So that I can monitor for issues and security threats
+ Acceptance Criteria:
+Display authentication logs
+Show system errors
+Display security events
+Filter by date range
+Filter by event type
+Export logs
+ Priority: Low
+ Story Points: 3

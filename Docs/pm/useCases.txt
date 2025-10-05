@@ -1,0 +1,470 @@
+Use Cases:
+Diagram:
+
+Use Case 1: Manage Authentication
+Use Case Name: Manage Authentication
+Use Case ID: UC-01
+Actors: Student, Organizer, Administrator (initiators)
+Type: Primary and essential
+Description: This use case allows users to log in, register new accounts, reset passwords, and access the system based on their roles.
+Main Flow:
+The user navigates to the login page
+The system displays the login form with fields for email and password
+The user enters their credentials and submits the form
+The system validates the credentials against the user database
+The system verifies the user's role (Student, Organizer, or Administrator)
+If credentials are valid, the system authenticates the user and redirects them to the appropriate dashboard based on their role
+Cross Reference: Requirements F1.1-F1.8, User Management Subsystem
+Preconditions:
+User is not currently logged in to the system
+Database is accessible and operational
+Postconditions:
+User is successfully logged in or registered
+The user's session is established with appropriate role-based permissions
+The user is redirected to the appropriate page (student dashboard, organizer dashboard, or admin dashboard)
+Alternate Scenarios:
+AS1: Invalid Credentials
+If the credentials are invalid, the system displays an error message prompting the user to re-enter their credentials
+The system logs the failed attempt
+After 5 consecutive failed attempts, the account is locked
+AS2: Account Locked
+If the account is locked due to multiple failed login attempts, the system displays a message instructing the user to reset their password
+The user must use the password reset functionality to unlock the account
+AS3: Password Reset
+The user clicks on the "Forgot Password" link
+The system prompts the user to enter their email address
+If the email address is valid and exists in the database, the system sends a password reset link to the user's email
+The user clicks on the reset link (valid for 30 minutes)
+The system displays password reset form
+The user enters a new password meeting strength requirements
+The system validates the new password, resets it, and redirects the user to the login page
+The system sends a confirmation email
+AS4: New User Registration
+If the user does not have an account, they click on the "Sign Up" link
+The system displays the registration form with fields for first name, last name, university email, phone number, faculty, academic year, and password
+The user fills in all required information and submits the form
+The system validates the input data and checks for duplicate email addresses
+If validation passes, the system creates the account and sends a verification email to the provided email address
+The user clicks the verification link in the email to activate their account
+The system confirms the account activation and redirects the user to the login page
+Interaction Scenario:
+Actor Intention	System Responsibility
+User opens the application and navigates to the login page	System displays the login form with email and password fields
+"User enters email and password, then clicks ""Login"" button"	System validates credentials against database
+	System verifies user role
+	System establishes authenticated session
+	System redirects user to appropriate dashboard
+
+
+Test Requirements:
+T1.1.1: Validate that the system allows users to log in with valid credentials
+T1.1.2: Validate that users can log in from different devices and browsers
+T1.1.3: Validate that the system displays an error message for invalid login attempts
+T1.1.4: Validate that the system locks the account after 5 consecutive failed login attempts
+T1.1.5: Validate that the system redirects users to the appropriate dashboard based on their role
+T1.2.1: Validate that new users can successfully register with valid information
+T1.2.2: Validate that the system prevents duplicate email addresses
+T1.2.3: Validate that users receive a verification email upon registration
+T1.2.4: Validate that email verification is required before login
+T1.2.5: Validate password strength requirements
+T1.3.1: Validate that password reset links are sent to registered emails
+T1.3.2: Validate that password reset links expire after 30 minutes
+T1.3.3: Validate that passwords can be successfully reset
+T1.3.4: Validate that confirmation emails are sent after password reset
+Use Case 2: Manage Events and Trips
+Use Case Name: Manage Events and Trips
+ Use Case ID: UC-02
+ Actors: Organizer (initiator), Administrator (initiator)
+ Type: Primary and essential
+ Description: This use case allows organizers and administrators to create, update, delete, and manage events and trips including capacity control.
+Main Flow:
+The organizer logs into the system
+The system displays the organizer dashboard
+The organizer navigates to the "Manage Events" section
+The organizer clicks "Create New Event"
+The system displays the event creation form
+The organizer enters event details (name, description, date, time, location, capacity, price, category, registration deadline)
+The organizer optionally uploads event images
+The organizer submits the form
+The system validates the input data
+The system creates the event and stores it in the database
+The system displays a success message and the event appears in the events list
+Cross Reference: Requirements F2.1-F2.8, Event & Trip Management Subsystem
+Preconditions:
+Organizer/Administrator is logged into the system
+User has appropriate permissions to manage events
+Database is accessible
+Postconditions:
+Event is successfully created/updated/deleted in the database
+Event information is available to students for browsing and booking
+Notifications are sent to relevant users (if event is updated/cancelled)
+Capacity tracking is initialized for the event
+Alternate Scenarios:
+AS1: Edit Existing Event
+The organizer selects an existing event from the events list
+The system displays the event details in editable form
+The organizer modifies the desired fields
+The organizer submits the changes
+The system validates the updates
+The system updates the event in the database
+The system sends update notifications to all registered students
+The system displays a success message
+AS2: Delete Event
+The organizer selects an event to delete
+The system displays a confirmation dialog
+The organizer confirms the deletion
+The system checks if students are registered for the event
+If students are registered, the system sends cancellation notifications and processes refunds
+The system deletes the event from the database
+The system displays a success message
+AS3: View Event Details and Statistics
+The organizer selects an event to view
+The system displays comprehensive event details including:
+Number of registered participants
+Available seats
+Revenue collected
+Registration list
+Booking timeline
+The organizer can export this data as needed
+AS4: Invalid Event Data
+If the organizer enters invalid data (e.g., past date, negative capacity, invalid price), the system displays validation errors
+The organizer corrects the data and resubmits
+AS5: Capacity Reached
+When an event reaches maximum capacity, the system automatically closes registration
+The system displays "Event Full" status to students
+Organizers can increase capacity if needed
+Interaction Scenario:
+Actor Intention	System Responsibility
+"Organizer navigates to ""Create New Event"""	System displays event creation form with all required fields
+Organizer fills in event details and uploads image	System validates input in real-time
+"Organizer clicks ""Submit"""	System validates all data
+	System creates event record in database
+	System initializes capacity tracking
+	System displays success message
+	System makes event visible to students
+
+
+Test Requirements:
+T2.1.1: Validate that organizers can create events with all required information
+T2.1.2: Validate that event images can be uploaded successfully
+T2.1.3: Validate that the system prevents creation of events with past dates
+T2.1.4: Validate that capacity must be a positive number
+T2.2.1: Validate that organizers can edit existing events
+T2.2.2: Validate that event updates trigger notifications to registered students
+T2.2.3: Validate that editing preserves existing bookings
+T2.3.1: Validate that organizers can delete events
+T2.3.2: Validate that deleting events with registrations triggers refunds
+T2.3.3: Validate that cancellation notifications are sent
+T2.4.1: Validate that events are categorized correctly
+T2.4.2: Validate that registration closes when capacity is reached
+T2.4.3: Validate that registration deadlines are enforced
+Use Case 3: Book and Pay for Events
+Use Case Name: Book and Pay for Events
+ Use Case ID: UC-03
+ Actors: Student (initiator)
+ Type: Primary and essential
+ Description: This use case allows students to browse available events, make reservations and receive digital tickets.
+Main Flow:
+The student logs into the system
+The system displays the student dashboard with upcoming events
+The student browses available events/trips
+The student selects an event to view details
+The system displays comprehensive event information (description, date, location, price, available seats)
+The student clicks "Book Now"
+The system checks seat availability
+The system displays booking confirmation page with event summary and total price
+The student confirms the booking
+The system generates a unique QR code ticket
+The system sends the digital ticket to the student's email
+The system displays success message with ticket download option
+The system updates available seats count
+Cross Reference: Requirements F3.1-F3.8, Booking
+Preconditions:
+Student is logged into the system
+Event has available seats
+Event registration deadline has not passed
+Student has not already booked the same event
+Postconditions:
+Booking is recorded in the database
+Available seats count is decremented
+Digital ticket with QR code is generated and sent to student
+Booking confirmation notification is sent to student
+Revenue is tracked for the event
+Alternate Scenarios:
+AS1: Event Full
+If no seats are available when student tries to book, the system displays "Event Full" message
+The system offers option to join a waiting list (if implemented)
+No booking is created
+AS2: Duplicate Booking
+If student has already booked the same event, the system displays an error message
+The system prevents duplicate booking
+Student is redirected to their booking history
+AS3: Registration Deadline Passed
+If student attempts to book after registration deadline, the system displays message indicating registration is closed
+No booking is allowed
+AS4: View Booking History
+Student navigates to "My Bookings" section
+System displays all past and upcoming bookings
+Student can view ticket details and QR codes
+Student can download tickets again if needed
+AS5: Cancel Booking
+Student selects a booking to cancel
+System checks cancellation policy (if within allowed timeframe)
+Student confirms cancellation
+System processes refund (if applicable)
+System frees up the seat for other students
+System sends cancellation confirmation
+Interaction Scenario:
+Actor Intention	System Responsibility
+Student browses events list	System displays all available events with filters
+Student selects an event	System displays detailed event information and booking button
+"Student clicks ""Book Now"""	System checks availability
+	System displays booking confirmation page
+Student confirms booking	
+	System generates unique QR code ticket
+	System decrements available seats
+	System sends digital ticket via email
+	System displays success message
+
+
+Test Requirements:
+T3.1.1: Validate that students can browse available events
+T3.1.2: Validate that event details are displayed correctly
+T3.1.3: Validate that booking button is disabled when event is full
+T3.2.1: Validate that system checks seat availability before booking
+T3.2.2: Validate that duplicate bookings are prevented
+T3.2.3: Validate that registration deadline is enforced
+T3.3.1: Validate that unique QR codes are generated
+T3.3.2: Validate that digital tickets are sent via email
+T3.3.3: Validate that tickets can be downloaded and viewed
+T3.4.1: Validate that available seats are updated correctly
+T3.4.2: Validate that booking history is maintained
+T3.5.1: Validate that QR codes can be validated at entry
+Use Case 4: Manage Notifications
+Use Case Name: Manage Notifications
+ Use Case ID: UC-04
+ Actors: Student (receiver), Organizer (initiator), System (initiator)
+ Type: Primary and essential
+ Description: This use case manages all system notifications including event updates, reminders and custom messages from organizers.
+Main Flow:
+An event triggers a notification (e.g., new event created, event updated, booking confirmed)
+The system identifies the target recipients based on the notification type
+The system generates the notification content from templates
+The system queues the notification for delivery
+The system sends the notification via email
+The system logs the notification in the database
+The system marks the notification as sent
+Recipients receive the notification in their email
+Cross Reference: Requirements F4.1-F4.6, Notification Subsystem
+Preconditions:
+Email service is configured and operational
+Notification templates are defined
+User email addresses are valid
+Database is accessible
+Postconditions:
+Notification is successfully sent to intended recipients
+Notification is logged in the system
+Users are informed about relevant events, updates, or actions
+Notification delivery status is tracked
+Alternate Scenarios:
+AS1: Organizer Sends Custom Message
+Organizer navigates to event details
+Organizer selects "Send Message to Participants"
+System displays message composition interface
+Organizer writes custom message
+Organizer clicks "Send"
+System sends message to all registered students for that event
+System confirms message delivery
+AS2: Event Update Notification
+Organizer updates event details (time, location, or other information)
+System detects the change
+System automatically generates update notification
+System sends notification to all registered students
+Notification includes old and new information for clarity
+AS3: Event Cancellation Notification
+Organizer cancels an event
+System generates cancellation notification
+System sends notification to all registered students
+Notification includes refund information
+System processes refunds automatically
+AS4: Reminder Notifications
+System runs scheduled job to check upcoming events
+System identifies events within reminder threshold (e.g., 24 hours before)
+System generates reminder notifications
+System sends reminders to registered students
+Reminder includes event details and ticket information
+AS5: Email Delivery Failure
+If email delivery fails, the system logs the failure
+The system retries delivery up to 3 times
+If all retries fail, the system marks notification as failed
+Administrator is notified of persistent delivery issues
+AS6: Notification Preferences
+Student navigates to notification settings
+System displays notification preference options
+Student selects which types of notifications to receive
+System saves preferences
+System respects preferences for future notifications
+Interaction Scenario:
+Actor Intention	System Responsibility
+System detects booking confirmation	System identifies student email address
+	System generates confirmation message from template
+	System includes booking details and QR code
+	System sends email notification
+	System logs notification in database
+Student receives email	Email contains booking confirmation and ticket
+Organizer wants to update participants	System provides message composition interface
+Organizer writes and sends message	System delivers message to all registered students
+
+
+Test Requirements:
+T4.1.1: Validate that new event notifications are sent to all students
+T4.1.2: Validate that notification content is accurate and complete
+T4.2.1: Validate that event update notifications are sent to registered students only
+T4.2.2: Validate that update notifications include old and new information
+T4.3.1: Validate that cancellation notifications are sent promptly
+T4.3.2: Validate that cancellation includes refund information
+T4.4.1: Validate that confirmations include digital ticket
+T4.5.1: Validate that reminder notifications are sent 24 hours before events
+T4.5.2: Validate that reminders include event details
+T4.6.1: Validate that organizers can send custom messages
+T4.6.2: Validate that custom messages reach all registered participants
+T4.7.1: Validate that email delivery failures are logged
+T4.7.2: Validate that failed deliveries are retried
+T4.8.1: Validate that students can set notification preferences
+T4.8.2: Validate that preferences are respected
+Use Case 5: Generate Reports and Analytics
+Use Case Name: Generate Reports and Analytics
+ Use Case ID: UC-05
+ Actors: Administrator (initiator), Organizer (initiator)
+ Type: Primary and essential
+ Description: This use case allows administrators and organizers to generate various reports, view analytics dashboards, and export data for decision-making and planning.
+Main Flow:
+The administrator/organizer logs into the system
+The system displays the dashboard with analytics overview
+The user navigates to "Reports & Analytics" section
+The system displays available report types and filters
+The user selects report type (participant count, revenue, attendance, feedback, etc.)
+The user sets filter criteria (date range, event category, specific event, organizer)
+The user clicks "Generate Report"
+The system retrieves relevant data from the database
+The system processes and aggregates the data
+The system displays the report with visualizations (charts, graphs, tables)
+The user can export the report in PDF or CSV format
+Cross Reference: Requirements F5.1-F5.8, Reporting & Analytics Subsystem
+Preconditions:
+Administrator/Organizer is logged into the system
+User has appropriate permissions to view reports
+Database contains relevant data
+Database is accessible
+Postconditions:
+Report is successfully generated and displayed
+User gains insights from analytics
+Report can be exported for external use
+Report generation is logged for audit purposes
+Alternate Scenarios:
+AS1: Participant Count Report
+User selects "Participant Count Report"
+User sets date range and optional event filters
+System generates report showing:
+Total participants per event
+Trends over time
+Breakdown by event category
+Comparison with capacity
+System displays data in table and chart formats
+AS2: Revenue Report
+User selects "Revenue Report"
+User sets date range and optional filters
+System generates report showing:
+Total revenue collected
+Revenue per event
+Revenue trends over time
+Revenue by category
+System displays financial visualizations
+AS3: Attendance Tracking Report
+User selects "Attendance Report"
+User selects specific event or date range
+System generates report showing:
+Number of tickets validated (QR scans)
+No-show rate
+Attendance percentage
+Time-based attendance patterns
+System can export attendance list
+AS4: Feedback and Ratings Report
+User selects "Feedback Report"
+User selects event or date range
+System generates report showing:
+Average ratings per event
+Student feedback comments
+Sentiment analysis
+Areas for improvement
+System displays feedback trends
+AS5: Organizer Performance Report
+Administrator selects "Organizer Performance"
+Administrator sets date range
+System generates report showing:
+Number of events created per organizer
+Average attendance rates
+Revenue generated
+Student satisfaction ratings
+Response time to issues
+System provides comparative analytics
+AS6: System-Wide Statistics Dashboard
+User views main analytics dashboard
+System displays real-time statistics:
+Total registered users
+Active events
+Total bookings
+Total revenue
+Upcoming events
+Popular event categories
+Dashboard auto-refreshes periodically
+AS7: Export Report
+After generating any report, user clicks "Export"
+System prompts user to select format (PDF or CSV)
+User selects format
+System generates downloadable file
+System initiates file download
+Report is saved to user's device
+AS8: No Data Available
+If filters return no data, system displays "No data available for selected criteria"
+System suggests adjusting filters
+No report is generated
+AS9: Schedule Automated Reports
+Administrator selects "Schedule Report"
+System displays scheduling interface
+Administrator sets report type, filters, and frequency (daily, weekly, monthly)
+System saves scheduled report
+System automatically generates and emails reports based on schedule
+Interaction Scenario:
+Actor Intention	System Responsibility
+Administrator navigates to Reports section	System displays report types and filter options
+"Administrator selects ""Revenue Report"" and date range"	System displays filter interface
+"Administrator clicks ""Generate Report"""	System queries database for relevant data
+	System processes and aggregates financial data
+	"System generates visualizations (charts, graphs)"
+	System displays comprehensive revenue report
+"Administrator clicks ""Export as PDF"""	System generates PDF file
+	System initiates download
+
+
+Test Requirements:
+T5.1.1: Validate that participant count reports are accurate
+T5.1.2: Validate that reports can be filtered by date range
+T5.1.3: Validate that reports can be filtered by event category
+T5.2.1: Validate that revenue calculations are correct
+T5.2.2: Validate that revenue reports show proper breakdowns
+T5.3.1: Validate that system-wide statistics are accurate
+T5.3.2: Validate that dashboard displays real-time data
+T5.4.1: Validate that reports can be exported as PDF
+T5.4.2: Validate that reports can be exported as CSV
+T5.4.3: Validate that exported files contain complete data
+T5.5.1: Validate that feedback reports aggregate ratings correctly
+T5.5.2: Validate that feedback comments are displayed properly
+T5.6.1: Validate that attendance tracking is accurate
+T5.6.2: Validate that no-show rates are calculated correctly
+T5.7.1: Validate that organizer performance metrics are accurate
+T5.7.2: Validate that comparative analytics work properly
+T5.8.1: Validate that reports handle empty datasets gracefully
+T5.8.2: Validate that large datasets are paginated properly
+T5.9.1: Validate that scheduled reports run automatically
+T5.9.2: Validate that scheduled reports are delivered via email
