@@ -1,8 +1,43 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { motion, useAnimation, useInView } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+
+// Counter component with animation
+function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (isInView) {
+      const duration = 2000; // 2 seconds
+      const steps = 60;
+      const increment = target / steps;
+      let current = 0;
+      
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          setCount(target);
+          clearInterval(timer);
+        } else {
+          setCount(Math.floor(current));
+        }
+      }, duration / steps);
+
+      return () => clearInterval(timer);
+    }
+  }, [isInView, target]);
+
+  return (
+    <span ref={ref} className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-slate-600 bg-clip-text text-transparent">
+      {count}{suffix}
+    </span>
+  );
+}
 
 // @ts-ignore - Lordicon types
 export default function Home() {
@@ -102,8 +137,16 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 1.1, ease: "easeOut" }}
             >
               <motion.div
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
+                initial={{ opacity: 0, y: 40, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ 
+                  duration: 0.8, 
+                  delay: 1.3,
+                  ease: "easeOut",
+                  scale: { type: "spring", stiffness: 100, damping: 15 }
+                }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <Link
                   href="/events"
@@ -121,8 +164,16 @@ export default function Home() {
               </motion.div>
               
               <motion.div
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
+                initial={{ opacity: 0, y: 40, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ 
+                  duration: 0.8, 
+                  delay: 1.5,
+                  ease: "easeOut",
+                  scale: { type: "spring", stiffness: 100, damping: 15 }
+                }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <Link
                   href="/register"
@@ -142,8 +193,25 @@ export default function Home() {
           </motion.div>
           
           {/* Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
-            <div className="bg-white/70 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/30 hover:shadow-2xl hover:bg-white/80 transition-all duration-300">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.5, ease: "easeOut" }}
+          >
+            <motion.div 
+              className="bg-white/70 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/30 hover:shadow-2xl hover:bg-white/80 transition-all duration-300"
+              initial={{ opacity: 0, y: 60, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ 
+                duration: 0.8, 
+                delay: 1.7,
+                ease: "easeOut",
+                scale: { type: "spring", stiffness: 100, damping: 15 }
+              }}
+              whileHover={{ y: -5, scale: 1.02 }}
+            >
+              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-slate-600 rounded-2xl flex items-center justify-center shadow-lg">
                 {/* @ts-ignore */}
                 <lord-icon
                   src="https://cdn.lordicon.com/oqdmuxru.json"
@@ -155,24 +223,44 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-800">Easy Booking</h3>
               <p className="text-gray-600 text-lg leading-relaxed">Reserve your spot with just a few clicks. Our streamlined booking process makes it simple to join any event.</p>
-            </div>
+            </motion.div>
 
-            <div className="bg-white/70 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/30 hover:shadow-2xl hover:bg-white/80 transition-all duration-300">
+            <motion.div 
+              className="bg-white/70 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/30 hover:shadow-2xl hover:bg-white/80 transition-all duration-300"
+              initial={{ opacity: 0, y: 60, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ 
+                duration: 0.8, 
+                delay: 1.9,
+                ease: "easeOut",
+                scale: { type: "spring", stiffness: 100, damping: 15 }
+              }}
+              whileHover={{ y: -5, scale: 1.02 }}
+            >
               <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-slate-500 to-slate-600 rounded-2xl flex items-center justify-center shadow-lg">
-                {/* @ts-ignore */}
-                <lord-icon
-                  src="https://cdn.lordicon.com/qhviklyi.json"
-                  trigger="loop"
-                  delay="1200"
-                  colors="primary:#ffffff,secondary:#e8e8e8"
-                  style={{ width: '32px', height: '32px' }}
+                <Image 
+                  src="/icons/icons8-qr-code-96.gif" 
+                  alt="QR Code"
+                  width="32" 
+                  height="32"
                 />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-800">QR Code Entry</h3>
               <p className="text-gray-600 text-lg leading-relaxed">Get instant access with your personal QR code. No more waiting in lines or lost tickets.</p>
-            </div>
+            </motion.div>
 
-            <div className="bg-white/70 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/30 hover:shadow-2xl hover:bg-white/80 transition-all duration-300">
+            <motion.div 
+              className="bg-white/70 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-white/30 hover:shadow-2xl hover:bg-white/80 transition-all duration-300"
+              initial={{ opacity: 0, y: 60, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ 
+                duration: 0.8, 
+                delay: 2.1,
+                ease: "easeOut",
+                scale: { type: "spring", stiffness: 100, damping: 15 }
+              }}
+              whileHover={{ y: -5, scale: 1.02 }}
+            >
               <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-slate-500 rounded-2xl flex items-center justify-center shadow-lg">
                 {/* @ts-ignore */}
                 <lord-icon
@@ -185,26 +273,38 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-800">Stay Connected</h3>
               <p className="text-gray-600 text-lg leading-relaxed">Receive real-time updates about your bookings, event changes, and exclusive opportunities.</p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Stats Section */}
-          <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/30 mt-16">
+          <motion.div 
+            className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/30 mt-16"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-slate-600 bg-clip-text text-transparent">500+</div>
+                <div>
+                  <AnimatedCounter target={500} suffix="+" />
+                </div>
                 <div className="text-gray-600 font-semibold mt-2">Events Hosted</div>
               </div>
               <div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-slate-600 to-blue-600 bg-clip-text text-transparent">2000+</div>
+                <div>
+                  <AnimatedCounter target={2000} suffix="+" />
+                </div>
                 <div className="text-gray-600 font-semibold mt-2">Happy Students</div>
               </div>
               <div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-slate-600 bg-clip-text text-transparent">50+</div>
+                <div>
+                  <AnimatedCounter target={50} suffix="+" />
+                </div>
                 <div className="text-gray-600 font-semibold mt-2">Destinations</div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 

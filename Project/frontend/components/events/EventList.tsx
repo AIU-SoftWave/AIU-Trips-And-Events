@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { eventApi } from '@/lib/api';
 import EventCard from './EventCard';
 
@@ -35,16 +36,38 @@ export default function EventList() {
   return (
     <div className="space-y-8">
       {/* Filter Buttons */}
-      <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/30">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">Filter Events</h3>
-        <div className="flex flex-wrap gap-3">
-          <button
+      <motion.div 
+        className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/30"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.7, ease: "easeOut" }}
+      >
+        <motion.h3 
+          className="text-lg font-semibold text-gray-800 mb-4"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 1.9, ease: "easeOut" }}
+        >
+          Filter Events
+        </motion.h3>
+        <motion.div 
+          className="flex flex-wrap gap-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 2.0, ease: "easeOut" }}
+        >
+          <motion.button
             onClick={() => setFilter('all')}
             className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
               filter === 'all' 
                 ? 'bg-gradient-to-r from-blue-500 to-slate-500 text-white shadow-lg' 
                 : 'bg-white/80 text-gray-700 hover:bg-white shadow-md border border-gray-200'
             }`}
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.5, delay: 2.1, ease: "easeOut" }}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
           >
             <span className="flex items-center">
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,15 +75,20 @@ export default function EventList() {
               </svg>
               All Events
             </span>
-          </button>
+          </motion.button>
           
-          <button
+          <motion.button
             onClick={() => setFilter('upcoming')}
             className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
               filter === 'upcoming' 
                 ? 'bg-gradient-to-r from-slate-500 to-blue-500 text-white shadow-lg' 
                 : 'bg-white/80 text-gray-700 hover:bg-white shadow-md border border-gray-200'
             }`}
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.5, delay: 2.2, ease: "easeOut" }}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
           >
             <span className="flex items-center">
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,15 +96,20 @@ export default function EventList() {
               </svg>
               Upcoming
             </span>
-          </button>
+          </motion.button>
           
-          <button
+          <motion.button
             onClick={() => setFilter('EVENT')}
             className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
               filter === 'EVENT' 
                 ? 'bg-gradient-to-r from-blue-500 to-slate-500 text-white shadow-lg' 
                 : 'bg-white/80 text-gray-700 hover:bg-white shadow-md border border-gray-200'
             }`}
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.5, delay: 2.3, ease: "easeOut" }}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
           >
             <span className="flex items-center">
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -84,15 +117,20 @@ export default function EventList() {
               </svg>
               Events
             </span>
-          </button>
+          </motion.button>
           
-          <button
+          <motion.button
             onClick={() => setFilter('TRIP')}
             className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
               filter === 'TRIP' 
                 ? 'bg-gradient-to-r from-slate-500 to-blue-500 text-white shadow-lg' 
                 : 'bg-white/80 text-gray-700 hover:bg-white shadow-md border border-gray-200'
             }`}
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.5, delay: 2.4, ease: "easeOut" }}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
           >
             <span className="flex items-center">
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -101,9 +139,9 @@ export default function EventList() {
               </svg>
               Trips
             </span>
-          </button>
-        </div>
-      </div>
+          </motion.button>
+        </motion.div>
+      </motion.div>
 
       {/* Loading State */}
       {loading ? (
@@ -127,11 +165,31 @@ export default function EventList() {
           <p className="text-gray-600">Try adjusting your filters or check back later for new events.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {events.map((event) => (
-            <EventCard key={event.id} event={event} onUpdate={fetchEvents} />
-          ))}
-        </div>
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 2.6, ease: "easeOut" }}
+        >
+          <AnimatePresence>
+            {events.map((event, index) => (
+              <motion.div
+                key={event.id}
+                initial={{ opacity: 0, y: 40, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.9 }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: 2.8 + (index * 0.1),
+                  ease: "easeOut" 
+                }}
+                whileHover={{ y: -5, scale: 1.02 }}
+              >
+                <EventCard event={event} onUpdate={fetchEvents} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       )}
     </div>
   );
