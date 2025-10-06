@@ -12,7 +12,7 @@ public class Event {
     
     public Event() {}
     
-    public Event(Long id, String title, String description, EventType type, LocalDateTime startDate, LocalDateTime endDate, String location, Double price, Integer capacity, Integer availableSeats, String imageUrl, User createdBy, LocalDateTime createdAt, EventStatus status) {
+    public Event(Long id, String title, String description, EventType type, LocalDateTime startDate, LocalDateTime endDate, String location, Integer capacity, Integer availableSeats, String imageUrl, User createdBy, LocalDateTime createdAt, EventStatus status) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -20,7 +20,6 @@ public class Event {
         this.startDate = startDate;
         this.endDate = endDate;
         this.location = location;
-        this.price = price;
         this.capacity = capacity;
         this.availableSeats = availableSeats;
         this.imageUrl = imageUrl;
@@ -51,9 +50,6 @@ public class Event {
     
     @Column(nullable = false)
     private String location;
-    
-    @Column(nullable = false)
-    private Double price;
     
     @Column(nullable = false)
     private Integer capacity;
@@ -103,9 +99,6 @@ public class Event {
     
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
-    
-    public Double getPrice() { return price; }
-    public void setPrice(Double price) { this.price = price; }
     
     public Integer getCapacity() { return capacity; }
     public void setCapacity(Integer capacity) { this.capacity = capacity; }

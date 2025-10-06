@@ -33,12 +33,14 @@ public class ReportService {
         report.put("availableSeats", event.getAvailableSeats());
         report.put("bookedSeats", event.getCapacity() - event.getAvailableSeats());
         report.put("totalParticipants", bookings.size());
-        report.put("totalIncome", bookings.stream()
-            .filter(b -> "CONFIRMED".equals(b.getStatus()))
-            .mapToDouble(Booking::getAmountPaid)
-            .sum());
+        report.put("confirmedBookings", bookings.stream()
+            .filter(b -> "CONFIRMED".equals(b.getStatus().toString()))
+            .count());
+        report.put("attendedCount", bookings.stream()
+            .filter(b -> "ATTENDED".equals(b.getStatus().toString()))
+            .count());
         report.put("cancelledBookings", bookings.stream()
-            .filter(b -> "CANCELLED".equals(b.getStatus()))
+            .filter(b -> "CANCELLED".equals(b.getStatus().toString()))
             .count());
 
         return report;
@@ -51,15 +53,17 @@ public class ReportService {
         Map<String, Object> report = new HashMap<>();
         report.put("totalEvents", events.size());
         report.put("totalBookings", bookings.size());
-        report.put("totalIncome", bookings.stream()
-            .filter(b -> "CONFIRMED".equals(b.getStatus()))
-            .mapToDouble(Booking::getAmountPaid)
-            .sum());
+        report.put("confirmedBookings", bookings.stream()
+            .filter(b -> "CONFIRMED".equals(b.getStatus().toString()))
+            .count());
+        report.put("attendedBookings", bookings.stream()
+            .filter(b -> "ATTENDED".equals(b.getStatus().toString()))
+            .count());
         report.put("activeEvents", events.stream()
-            .filter(e -> "ACTIVE".equals(e.getStatus()))
+            .filter(e -> "ACTIVE".equals(e.getStatus().toString()))
             .count());
         report.put("completedEvents", events.stream()
-            .filter(e -> "COMPLETED".equals(e.getStatus()))
+            .filter(e -> "COMPLETED".equals(e.getStatus().toString()))
             .count());
 
         return report;
