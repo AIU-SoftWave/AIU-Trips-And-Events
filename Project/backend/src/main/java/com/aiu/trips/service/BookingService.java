@@ -48,6 +48,12 @@ public class BookingService {
         if (event.getAvailableSeats() <= 0) {
             throw new BookingException(AppConstants.NO_SEATS_AVAILABLE);
         }
+        
+        // Check if registration deadline has passed
+        if (event.getRegistrationDeadline() != null && 
+            java.time.LocalDateTime.now().isAfter(event.getRegistrationDeadline())) {
+            throw new BookingException("Registration deadline has passed for this event");
+        }
 
         if (bookingRepository.existsByUser_IdAndEvent_Id(user.getId(), eventId)) {
             throw new BookingException("Already booked this event");

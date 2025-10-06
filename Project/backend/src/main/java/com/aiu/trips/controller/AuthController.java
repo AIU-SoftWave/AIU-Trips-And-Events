@@ -25,4 +25,16 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
     }
+    
+    @PostMapping("/password-reset/request")
+    public ResponseEntity<String> requestPasswordReset(@Valid @RequestBody com.aiu.trips.dto.PasswordResetRequest request) {
+        authService.requestPasswordReset(request.getEmail());
+        return ResponseEntity.ok("Password reset link has been sent to your email");
+    }
+    
+    @PostMapping("/password-reset/confirm")
+    public ResponseEntity<String> confirmPasswordReset(@Valid @RequestBody com.aiu.trips.dto.PasswordResetConfirmRequest request) {
+        authService.resetPassword(request.getToken(), request.getNewPassword());
+        return ResponseEntity.ok("Password has been reset successfully");
+    }
 }

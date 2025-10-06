@@ -11,7 +11,7 @@ public class User {
     
     public User() {}
     
-    public User(Long id, String email, String password, String firstName, String lastName, String fullName, UserRole role, String phoneNumber, String faculty, String academicYear, Boolean emailVerified, Boolean accountLocked, Integer failedLoginAttempts, LocalDateTime createdAt) {
+    public User(Long id, String email, String password, String firstName, String lastName, String fullName, UserRole role, String phoneNumber, String faculty, String academicYear, Boolean emailVerified, Boolean accountLocked, Integer failedLoginAttempts, String passwordResetToken, LocalDateTime passwordResetTokenExpiry, LocalDateTime createdAt) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -25,6 +25,8 @@ public class User {
         this.emailVerified = emailVerified;
         this.accountLocked = accountLocked;
         this.failedLoginAttempts = failedLoginAttempts;
+        this.passwordResetToken = passwordResetToken;
+        this.passwordResetTokenExpiry = passwordResetTokenExpiry;
         this.createdAt = createdAt;
     }
     
@@ -68,6 +70,12 @@ public class User {
     
     @Column(nullable = false)
     private Integer failedLoginAttempts = 0;
+    
+    @Column
+    private String passwordResetToken;
+    
+    @Column
+    private LocalDateTime passwordResetTokenExpiry;
     
     @Column
     private LocalDateTime createdAt;
@@ -119,6 +127,12 @@ public class User {
     
     public Integer getFailedLoginAttempts() { return failedLoginAttempts; }
     public void setFailedLoginAttempts(Integer failedLoginAttempts) { this.failedLoginAttempts = failedLoginAttempts; }
+    
+    public String getPasswordResetToken() { return passwordResetToken; }
+    public void setPasswordResetToken(String passwordResetToken) { this.passwordResetToken = passwordResetToken; }
+    
+    public LocalDateTime getPasswordResetTokenExpiry() { return passwordResetTokenExpiry; }
+    public void setPasswordResetTokenExpiry(LocalDateTime passwordResetTokenExpiry) { this.passwordResetTokenExpiry = passwordResetTokenExpiry; }
     
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
