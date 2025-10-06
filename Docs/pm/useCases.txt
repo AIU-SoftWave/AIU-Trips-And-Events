@@ -158,8 +158,8 @@ T2.3.3: Validate that cancellation notifications are sent
 T2.4.1: Validate that events are categorized correctly
 T2.4.2: Validate that registration closes when capacity is reached
 T2.4.3: Validate that registration deadlines are enforced
-Use Case 3: Book and Pay for Events
-Use Case Name: Book and Pay for Events
+Use Case 3: Book for Events
+Use Case Name: Book for Events
  Use Case ID: UC-03
  Actors: Student (initiator)
  Type: Primary and essential
