@@ -8,6 +8,7 @@ import com.aiu.trips.model.Event;
 import com.aiu.trips.model.User;
 import com.aiu.trips.repository.EventRepository;
 import com.aiu.trips.repository.UserRepository;
+import com.aiu.trips.service.interfaces.IEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class EventService {
+public class EventService implements IEventService {
 
     @Autowired
     private EventRepository eventRepository;
@@ -25,6 +26,11 @@ public class EventService {
 
     @Autowired
     private NotificationService notificationService;
+
+    @Override
+    public Event createEvent(Event event) {
+        return eventRepository.save(event);
+    }
 
     public Event createEvent(Event event, String userEmail) {
         User user = userRepository.findByEmail(userEmail)
@@ -42,6 +48,7 @@ public class EventService {
         return savedEvent;
     }
 
+    @Override
     public Event updateEvent(Long id, Event eventDetails) {
         Event event = eventRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + id));
@@ -68,7 +75,25 @@ public class EventService {
         return updatedEvent;
     }
 
-    public void deleteEvent(Long id) {
+    @Override
+    public boolean deleteEvent(Long id) {
+        Event event = eventRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + id));
+        
+        event.setStatus(EventStatus.CANCELLED);
+        eventRepository.save(event);
+        
+        // Notify participants about cancellation
+        notificationService.notifyEventParticipants(
+            id,
+            "Event cancelled: " + event.getTitle(),
+            "WARNING"
+        );
+        
+        return true;
+    }
+
+    public void deleteEventOld(Long id) {
         Event event = eventRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + id));
         
@@ -83,13 +108,24 @@ public class EventService {
         );
     }
 
+    @Override
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }
 
+    @Override
     public Event getEventById(Long id) {
         return eventRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + id));
+    }
+
+    @Override
+    public List<Event> searchEvents(String keyword) {
+        // Simple search implementation - can be enhanced with more complex queries
+        return eventRepository.findAll().stream()
+            .filter(e -> e.getTitle().toLowerCase().contains(keyword.toLowerCase()) ||
+                        e.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+            .toList();
     }
 
     public List<Event> getEventsByType(EventType type) {

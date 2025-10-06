@@ -11,6 +11,7 @@ import com.aiu.trips.model.User;
 import com.aiu.trips.repository.BookingRepository;
 import com.aiu.trips.repository.EventRepository;
 import com.aiu.trips.repository.UserRepository;
+import com.aiu.trips.service.interfaces.IBookingService;
 import com.aiu.trips.util.QRCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class BookingService {
+public class BookingService implements IBookingService {
 
     @Autowired
     private BookingRepository bookingRepository;
@@ -37,6 +38,7 @@ public class BookingService {
     @Autowired
     private NotificationService notificationService;
 
+    @Override
     @Transactional
     public Booking createBooking(Long eventId, String userEmail) {
         User user = userRepository.findByEmail(userEmail)
@@ -84,7 +86,8 @@ public class BookingService {
         return savedBooking;
     }
 
-    public void cancelBooking(Long bookingId, String userEmail) {
+    @Override
+    public boolean cancelBooking(Long bookingId, String userEmail) {
         Booking booking = bookingRepository.findById(bookingId)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.BOOKING_NOT_FOUND + bookingId));
 
@@ -109,12 +112,38 @@ public class BookingService {
             "Booking cancelled for: " + event.getTitle(),
             "INFO"
         );
+        
+        return true;
     }
 
+    @Override
     public List<Booking> getUserBookings(String userEmail) {
         User user = userRepository.findByEmail(userEmail)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.USER_NOT_FOUND + userEmail));
         return bookingRepository.findByUser_Id(user.getId());
+    }
+
+    @Override
+    public Booking getBookingById(Long bookingId) {
+        return bookingRepository.findById(bookingId)
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.BOOKING_NOT_FOUND + bookingId));
+    }
+
+    @Override
+    public Booking confirmBooking(Long bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.BOOKING_NOT_FOUND + bookingId));
+        
+        booking.setStatus(BookingStatus.CONFIRMED);
+        return bookingRepository.save(booking);
+    }
+
+    @Override
+    public int checkAvailability(Long eventId) {
+        Event event = eventRepository.findById(eventId)
+            .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + eventId));
+        
+        return event.getAvailableSeats();
     }
 
     public List<Booking> getEventBookings(Long eventId) {
