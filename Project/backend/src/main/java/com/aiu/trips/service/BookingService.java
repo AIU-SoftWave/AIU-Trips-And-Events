@@ -62,7 +62,6 @@ public class BookingService {
         booking.setUser(user);
         booking.setEvent(event);
         booking.setBookingCode(UUID.randomUUID().toString());
-        booking.setAmountPaid(event.getPrice());
 
         // Generate QR code
         try {

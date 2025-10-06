@@ -112,15 +112,6 @@ export default function EventCard({ event, onUpdate }: EventCardProps) {
               <span className="text-gray-500"> / {event.capacity} seats</span>
             </span>
           </div>
-          
-          <div className="flex items-center text-gray-700">
-            <div className="w-8 h-8 bg-gradient-to-br from-pink-100 to-pink-200 rounded-lg flex items-center justify-center mr-3">
-              <svg className="w-4 h-4 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <span className="font-bold text-lg text-gray-900">${event.price}</span>
-          </div>
         </div>
 
         {/* Availability Indicator */}

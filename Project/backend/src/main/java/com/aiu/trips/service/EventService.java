@@ -52,7 +52,6 @@ public class EventService {
         event.setStartDate(eventDetails.getStartDate());
         event.setEndDate(eventDetails.getEndDate());
         event.setLocation(eventDetails.getLocation());
-        event.setPrice(eventDetails.getPrice());
         event.setCapacity(eventDetails.getCapacity());
         event.setImageUrl(eventDetails.getImageUrl());
         
