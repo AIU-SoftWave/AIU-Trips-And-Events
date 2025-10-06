@@ -61,9 +61,6 @@ export default function BookingCard({ booking, onUpdate }: BookingCardProps) {
           <strong>Location:</strong> {booking.event.location}
         </div>
         <div>
-          <strong>Amount Paid:</strong> ${booking.amountPaid}
-        </div>
-        <div>
           <strong>Booked On:</strong> {new Date(booking.bookingDate).toLocaleDateString()}
         </div>
       </div>
