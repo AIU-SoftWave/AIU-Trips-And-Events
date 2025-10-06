@@ -34,12 +34,51 @@ public class User {
     @Column(nullable = false)
     private String fullName;
     
+    @Column
+    private String firstName;
+    
+    @Column
+    private String lastName;
+    
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private UserRole role; // STUDENT, ADMIN
+    private UserRole role; // STUDENT, ORGANIZER, ADMIN
     
     @Column
     private String phoneNumber;
+    
+    @Column
+    private String faculty;
+    
+    @Column
+    private Integer academicYear;
+    
+    @Column
+    private String major;
+    
+    @Column
+    private Boolean isEmailVerified = false;
+    
+    @Column
+    private Boolean isActive = true;
+    
+    @Column
+    private Integer failedLoginAttempts = 0;
+    
+    @Column
+    private Boolean isAccountLocked = false;
+    
+    @Column
+    private LocalDateTime lockedUntil;
+    
+    @Column
+    private String passwordResetToken;
+    
+    @Column
+    private LocalDateTime passwordResetTokenExpiry;
+    
+    @Column
+    private String emailVerificationToken;
     
     @Column
     private LocalDateTime createdAt;
@@ -62,11 +101,50 @@ public class User {
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
     
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+    
     public UserRole getRole() { return role; }
     public void setRole(UserRole role) { this.role = role; }
     
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    
+    public String getFaculty() { return faculty; }
+    public void setFaculty(String faculty) { this.faculty = faculty; }
+    
+    public Integer getAcademicYear() { return academicYear; }
+    public void setAcademicYear(Integer academicYear) { this.academicYear = academicYear; }
+    
+    public String getMajor() { return major; }
+    public void setMajor(String major) { this.major = major; }
+    
+    public Boolean getIsEmailVerified() { return isEmailVerified; }
+    public void setIsEmailVerified(Boolean isEmailVerified) { this.isEmailVerified = isEmailVerified; }
+    
+    public Boolean getIsActive() { return isActive; }
+    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
+    
+    public Integer getFailedLoginAttempts() { return failedLoginAttempts; }
+    public void setFailedLoginAttempts(Integer failedLoginAttempts) { this.failedLoginAttempts = failedLoginAttempts; }
+    
+    public Boolean getIsAccountLocked() { return isAccountLocked; }
+    public void setIsAccountLocked(Boolean isAccountLocked) { this.isAccountLocked = isAccountLocked; }
+    
+    public LocalDateTime getLockedUntil() { return lockedUntil; }
+    public void setLockedUntil(LocalDateTime lockedUntil) { this.lockedUntil = lockedUntil; }
+    
+    public String getPasswordResetToken() { return passwordResetToken; }
+    public void setPasswordResetToken(String passwordResetToken) { this.passwordResetToken = passwordResetToken; }
+    
+    public LocalDateTime getPasswordResetTokenExpiry() { return passwordResetTokenExpiry; }
+    public void setPasswordResetTokenExpiry(LocalDateTime passwordResetTokenExpiry) { this.passwordResetTokenExpiry = passwordResetTokenExpiry; }
+    
+    public String getEmailVerificationToken() { return emailVerificationToken; }
+    public void setEmailVerificationToken(String emailVerificationToken) { this.emailVerificationToken = emailVerificationToken; }
     
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

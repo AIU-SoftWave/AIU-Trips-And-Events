@@ -41,7 +41,7 @@ public class Event {
     
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private EventType type; // EVENT, TRIP
+    private EventType type; // TRIP, EVENT, WORKSHOP, etc.
     
     @Column(nullable = false)
     private LocalDateTime startDate;
@@ -64,6 +64,9 @@ public class Event {
     @Column
     private String imageUrl;
     
+    @Column
+    private LocalDateTime registrationDeadline;
+    
     @ManyToOne
     @JoinColumn(name = "created_by")
     private User createdBy;
@@ -73,13 +76,13 @@ public class Event {
     
     @Column
     @Enumerated(EnumType.STRING)
-    private EventStatus status; // ACTIVE, CANCELLED, COMPLETED
+    private EventStatus status; // DRAFT, PUBLISHED, ACTIVE, ONGOING, FULL, COMPLETED, CANCELLED
     
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         availableSeats = capacity;
-        status = EventStatus.ACTIVE;
+        status = EventStatus.DRAFT;
     }
     
     // Getters and Setters
@@ -115,6 +118,9 @@ public class Event {
     
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    
+    public LocalDateTime getRegistrationDeadline() { return registrationDeadline; }
+    public void setRegistrationDeadline(LocalDateTime registrationDeadline) { this.registrationDeadline = registrationDeadline; }
     
     public User getCreatedBy() { return createdBy; }
     public void setCreatedBy(User createdBy) { this.createdBy = createdBy; }
