@@ -74,4 +74,30 @@ public class NotificationService {
         notification.setIsRead(true);
         notificationRepository.save(notification);
     }
+    
+    /**
+     * Send email notification (placeholder implementation)
+     * In production, this would integrate with an email service like SendGrid, AWS SES, etc.
+     */
+    public boolean sendEmail(String recipient, String subject, String body) {
+        // Log the email for now
+        System.out.println("=== Email Notification ===");
+        System.out.println("To: " + recipient);
+        System.out.println("Subject: " + subject);
+        System.out.println("Body: " + body);
+        System.out.println("========================");
+        
+        // In production, integrate with actual email service
+        // For now, just create a notification record
+        User user = userRepository.findByEmail(recipient).orElse(null);
+        if (user != null) {
+            Notification notification = new Notification();
+            notification.setUser(user);
+            notification.setMessage(subject + ": " + body);
+            notification.setType("EMAIL");
+            notificationRepository.save(notification);
+        }
+        
+        return true;
+    }
 }
