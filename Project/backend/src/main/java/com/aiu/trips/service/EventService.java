@@ -25,10 +25,16 @@ public class EventService {
 
     @Autowired
     private NotificationService notificationService;
+    
+    @Autowired
+    private ValidationService validationService;
 
     public Event createEvent(Event event, String userEmail) {
         User user = userRepository.findByEmail(userEmail)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.USER_NOT_FOUND + userEmail));
+        
+        // Validate event data
+        validationService.validateEventData(event);
         
         event.setCreatedBy(user);
         Event savedEvent = eventRepository.save(event);
@@ -45,6 +51,9 @@ public class EventService {
     public Event updateEvent(Long id, Event eventDetails) {
         Event event = eventRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + id));
+        
+        // Validate event data
+        validationService.validateEventData(eventDetails);
         
         event.setTitle(eventDetails.getTitle());
         event.setDescription(eventDetails.getDescription());

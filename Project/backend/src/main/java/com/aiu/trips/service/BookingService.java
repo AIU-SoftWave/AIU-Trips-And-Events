@@ -36,6 +36,12 @@ public class BookingService {
 
     @Autowired
     private NotificationService notificationService;
+    
+    @Autowired
+    private TicketService ticketService;
+    
+    @Autowired
+    private ValidationService validationService;
 
     @Transactional
     public Booking createBooking(Long eventId, String userEmail) {
@@ -53,14 +59,24 @@ public class BookingService {
             throw new BookingException("Already booked this event");
         }
 
-        // Update available seats
-        event.setAvailableSeats(event.getAvailableSeats() - 1);
-        eventRepository.save(event);
-
         // Create booking
         Booking booking = new Booking();
         booking.setUser(user);
         booking.setEvent(event);
+        
+        // Validate booking data
+        validationService.validateBookingData(booking);
+
+        // Update available seats
+        event.setAvailableSeats(event.getAvailableSeats() - 1);
+        
+        // Check if event is now full
+        if (event.getAvailableSeats() == 0) {
+            event.setStatus(EventStatus.FULL);
+        }
+        
+        eventRepository.save(event);
+
         booking.setBookingCode(UUID.randomUUID().toString());
         booking.setAmountPaid(event.getPrice());
 
@@ -74,6 +90,9 @@ public class BookingService {
         }
 
         Booking savedBooking = bookingRepository.save(booking);
+        
+        // Generate ticket
+        ticketService.generateTicket(savedBooking.getId());
 
         // Send notification
         notificationService.notifyUser(
