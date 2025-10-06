@@ -1,8 +1,14 @@
+Core Features:
+Authentication & Profiles (Login/Create Account).
+Event/Trip Management (Add/Edit/Delete).
+Booking & Ticketing (Reservation – QR Code for entry).
+Notifications (Messages to students upon any update).
+Reports & Analytics (Participants count, income, feedback).
 Actors (Users):
 Student
 Log in and create a profile.
 Browse the list of trips and events.
-Book and pay for tickets.
+Book and  for tickets.
 Receive notifications (time, location, updates).
 Organizer (Event/Trip Organizer)
 Create and manage events/trips.
@@ -107,7 +113,7 @@ C4.5 The university needs data-driven insights for future event planning
 Developer Requirements (D)
 D1: Technical Architecture Requirements
 D1.1 Frontend must be built using Next.js with TypeScript
-D1.2 Backend must be built using Nest.js with TypeScript
+D1.2 Backend must be built using Java Spring Boot with java
 D1.3 Database must be MongoDB with Mongoose ODM
 D1.4 Authentication must use JWT tokens
 D1.5 UI must be styled with Tailwind CSS
