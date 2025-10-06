@@ -48,6 +48,8 @@ export default function RegisterForm() {
     password: '',
     fullName: '',
     phoneNumber: '',
+    faculty: '',
+    academicYear: undefined as number | undefined,
   });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
@@ -71,8 +73,12 @@ export default function RegisterForm() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData({ 
+      ...formData, 
+      [name]: name === 'academicYear' ? (value ? parseInt(value) : undefined) : value 
+    });
   };
 
   return (
@@ -152,6 +158,60 @@ export default function RegisterForm() {
               placeholder="Enter your phone number"
               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/70 text-gray-900 placeholder-gray-500"
             />
+          </div>
+        </div>
+
+        {/* Faculty Field */}
+        <div className="space-y-2">
+          <label htmlFor="faculty" className="block text-sm font-semibold text-gray-700 mb-2">
+            Faculty <span className="text-gray-400 font-normal">(Optional)</span>
+          </label>
+          <div className="relative group">
+            <select
+              id="faculty"
+              name="faculty"
+              value={formData.faculty}
+              onChange={handleChange}
+              onFocus={() => setFocusedField('faculty')}
+              onBlur={() => setFocusedField(null)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/70 text-gray-900"
+            >
+              <option value="">Select your faculty</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Business Administration">Business Administration</option>
+              <option value="Medicine">Medicine</option>
+              <option value="Arts & Humanities">Arts & Humanities</option>
+              <option value="Science">Science</option>
+              <option value="Law">Law</option>
+              <option value="Education">Education</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Academic Year Field */}
+        <div className="space-y-2">
+          <label htmlFor="academicYear" className="block text-sm font-semibold text-gray-700 mb-2">
+            Academic Year <span className="text-gray-400 font-normal">(Optional)</span>
+          </label>
+          <div className="relative group">
+            <select
+              id="academicYear"
+              name="academicYear"
+              value={formData.academicYear || ''}
+              onChange={handleChange}
+              onFocus={() => setFocusedField('academicYear')}
+              onBlur={() => setFocusedField(null)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/70 text-gray-900"
+            >
+              <option value="">Select your academic year</option>
+              <option value="1">1st Year</option>
+              <option value="2">2nd Year</option>
+              <option value="3">3rd Year</option>
+              <option value="4">4th Year</option>
+              <option value="5">5th Year</option>
+              <option value="6">Graduate</option>
+            </select>
           </div>
         </div>
 
