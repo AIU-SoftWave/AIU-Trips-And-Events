@@ -1,7 +1,6 @@
 package com.aiu.trips.dto;
 
 import com.aiu.trips.enums.BookingStatus;
-import com.aiu.trips.enums.PaymentMethod;
 
 import java.time.LocalDateTime;
 
@@ -11,8 +10,6 @@ public class BookingDTO {
     private BookingStatus status;
     private LocalDateTime bookingDate;
     private String qrCodePath;
-    private Double amountPaid;
-    private PaymentMethod paymentMethod;
     private LocalDateTime validatedAt;
     private String validatedBy;
     private String userName;
@@ -37,12 +34,6 @@ public class BookingDTO {
 
     public String getQrCodePath() { return qrCodePath; }
     public void setQrCodePath(String qrCodePath) { this.qrCodePath = qrCodePath; }
-
-    public Double getAmountPaid() { return amountPaid; }
-    public void setAmountPaid(Double amountPaid) { this.amountPaid = amountPaid; }
-
-    public PaymentMethod getPaymentMethod() { return paymentMethod; }
-    public void setPaymentMethod(PaymentMethod paymentMethod) { this.paymentMethod = paymentMethod; }
 
     public LocalDateTime getValidatedAt() { return validatedAt; }
     public void setValidatedAt(LocalDateTime validatedAt) { this.validatedAt = validatedAt; }

@@ -11,13 +11,15 @@ public class User {
     
     public User() {}
     
-    public User(Long id, String email, String password, String fullName, UserRole role, String phoneNumber, LocalDateTime createdAt) {
+    public User(Long id, String email, String password, String fullName, UserRole role, String phoneNumber, String faculty, Integer academicYear, LocalDateTime createdAt) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.fullName = fullName;
         this.role = role;
         this.phoneNumber = phoneNumber;
+        this.faculty = faculty;
+        this.academicYear = academicYear;
         this.createdAt = createdAt;
     }
     
@@ -36,10 +38,16 @@ public class User {
     
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private UserRole role; // STUDENT, ADMIN
+    private UserRole role; // STUDENT, ORGANIZER, ADMIN
     
     @Column
     private String phoneNumber;
+    
+    @Column
+    private String faculty;
+    
+    @Column
+    private Integer academicYear;
     
     @Column
     private LocalDateTime createdAt;
@@ -67,6 +75,12 @@ public class User {
     
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    
+    public String getFaculty() { return faculty; }
+    public void setFaculty(String faculty) { this.faculty = faculty; }
+    
+    public Integer getAcademicYear() { return academicYear; }
+    public void setAcademicYear(Integer academicYear) { this.academicYear = academicYear; }
     
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

@@ -34,8 +34,8 @@ public class ReportService {
         report.put("bookedSeats", event.getCapacity() - event.getAvailableSeats());
         report.put("totalParticipants", bookings.size());
         report.put("totalIncome", bookings.stream()
-            .filter(b -> "CONFIRMED".equals(b.getStatus()))
-            .mapToDouble(Booking::getAmountPaid)
+            .filter(b -> "CONFIRMED".equals(b.getStatus().toString()))
+            .mapToDouble(b -> b.getEvent().getPrice())
             .sum());
         report.put("cancelledBookings", bookings.stream()
             .filter(b -> "CANCELLED".equals(b.getStatus()))
@@ -52,8 +52,8 @@ public class ReportService {
         report.put("totalEvents", events.size());
         report.put("totalBookings", bookings.size());
         report.put("totalIncome", bookings.stream()
-            .filter(b -> "CONFIRMED".equals(b.getStatus()))
-            .mapToDouble(Booking::getAmountPaid)
+            .filter(b -> "CONFIRMED".equals(b.getStatus().toString()))
+            .mapToDouble(b -> b.getEvent().getPrice())
             .sum());
         report.put("activeEvents", events.stream()
             .filter(e -> "ACTIVE".equals(e.getStatus()))

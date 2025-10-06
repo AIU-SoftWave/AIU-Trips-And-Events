@@ -23,6 +23,10 @@ public class RegisterRequest {
     
     private String phoneNumber;
     
+    private String faculty;
+    
+    private Integer academicYear;
+    
     // Getters and Setters
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
@@ -35,4 +39,10 @@ public class RegisterRequest {
     
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    
+    public String getFaculty() { return faculty; }
+    public void setFaculty(String faculty) { this.faculty = faculty; }
+    
+    public Integer getAcademicYear() { return academicYear; }
+    public void setAcademicYear(Integer academicYear) { this.academicYear = academicYear; }
 }
