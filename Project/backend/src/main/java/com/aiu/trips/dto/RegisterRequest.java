@@ -15,13 +15,20 @@ public class RegisterRequest {
     private String email;
     
     @NotBlank(message = "Password is required")
-    @Size(min = 6, message = "Password must be at least 6 characters")
+    @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
     
-    @NotBlank(message = "Full name is required")
-    private String fullName;
+    @NotBlank(message = "First name is required")
+    private String firstName;
+    
+    @NotBlank(message = "Last name is required")
+    private String lastName;
     
     private String phoneNumber;
+    
+    private String faculty;
+    
+    private String academicYear;
     
     // Getters and Setters
     public String getEmail() { return email; }
@@ -30,9 +37,18 @@ public class RegisterRequest {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
     
-    public String getFullName() { return fullName; }
-    public void setFullName(String fullName) { this.fullName = fullName; }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
     
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    
+    public String getFaculty() { return faculty; }
+    public void setFaculty(String faculty) { this.faculty = faculty; }
+    
+    public String getAcademicYear() { return academicYear; }
+    public void setAcademicYear(String academicYear) { this.academicYear = academicYear; }
 }

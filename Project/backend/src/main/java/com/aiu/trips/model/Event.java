@@ -12,7 +12,7 @@ public class Event {
     
     public Event() {}
     
-    public Event(Long id, String title, String description, EventType type, LocalDateTime startDate, LocalDateTime endDate, String location, Integer capacity, Integer availableSeats, String imageUrl, User createdBy, LocalDateTime createdAt, EventStatus status) {
+    public Event(Long id, String title, String description, EventType type, LocalDateTime startDate, LocalDateTime endDate, String location, LocalDateTime registrationDeadline, Integer capacity, Integer availableSeats, String imageUrl, User createdBy, LocalDateTime createdAt, EventStatus status) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -20,6 +20,7 @@ public class Event {
         this.startDate = startDate;
         this.endDate = endDate;
         this.location = location;
+        this.registrationDeadline = registrationDeadline;
         this.capacity = capacity;
         this.availableSeats = availableSeats;
         this.imageUrl = imageUrl;
@@ -50,6 +51,9 @@ public class Event {
     
     @Column(nullable = false)
     private String location;
+    
+    @Column
+    private LocalDateTime registrationDeadline;
     
     @Column(nullable = false)
     private Integer capacity;
@@ -99,6 +103,9 @@ public class Event {
     
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
+    
+    public LocalDateTime getRegistrationDeadline() { return registrationDeadline; }
+    public void setRegistrationDeadline(LocalDateTime registrationDeadline) { this.registrationDeadline = registrationDeadline; }
     
     public Integer getCapacity() { return capacity; }
     public void setCapacity(Integer capacity) { this.capacity = capacity; }

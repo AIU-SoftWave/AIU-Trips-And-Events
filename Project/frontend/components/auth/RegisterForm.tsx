@@ -46,8 +46,11 @@ export default function RegisterForm() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    fullName: '',
+    firstName: '',
+    lastName: '',
     phoneNumber: '',
+    faculty: '',
+    academicYear: '',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
@@ -71,34 +74,60 @@ export default function RegisterForm() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
     <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 p-8 w-full max-w-md">
       <form onSubmit={handleSubmit} className="space-y-5">
-        {/* Full Name Field */}
+        {/* First Name Field */}
         <div className="space-y-2">
-          <label htmlFor="fullName" className="block text-sm font-semibold text-gray-700 mb-2">
-            Full Name
+          <label htmlFor="firstName" className="block text-sm font-semibold text-gray-700 mb-2">
+            First Name
           </label>
           <div className="relative group">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <UserIcon className={`h-5 w-5 transition-colors duration-200 ${
-                focusedField === 'fullName' ? 'text-purple-500' : 'text-gray-400'
+                focusedField === 'firstName' ? 'text-purple-500' : 'text-gray-400'
               }`} />
             </div>
             <input
-              id="fullName"
-              name="fullName"
+              id="firstName"
+              name="firstName"
               type="text"
-              value={formData.fullName}
+              value={formData.firstName}
               onChange={handleChange}
-              onFocus={() => setFocusedField('fullName')}
+              onFocus={() => setFocusedField('firstName')}
               onBlur={() => setFocusedField(null)}
               required
-              placeholder="Enter your full name"
+              placeholder="Enter your first name"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/70 text-gray-900 placeholder-gray-500"
+            />
+          </div>
+        </div>
+
+        {/* Last Name Field */}
+        <div className="space-y-2">
+          <label htmlFor="lastName" className="block text-sm font-semibold text-gray-700 mb-2">
+            Last Name
+          </label>
+          <div className="relative group">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <UserIcon className={`h-5 w-5 transition-colors duration-200 ${
+                focusedField === 'lastName' ? 'text-purple-500' : 'text-gray-400'
+              }`} />
+            </div>
+            <input
+              id="lastName"
+              name="lastName"
+              type="text"
+              value={formData.lastName}
+              onChange={handleChange}
+              onFocus={() => setFocusedField('lastName')}
+              onBlur={() => setFocusedField(null)}
+              required
+              placeholder="Enter your last name"
               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/70 text-gray-900 placeholder-gray-500"
             />
           </div>
@@ -153,6 +182,54 @@ export default function RegisterForm() {
               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/70 text-gray-900 placeholder-gray-500"
             />
           </div>
+        </div>
+
+        {/* Faculty Field */}
+        <div className="space-y-2">
+          <label htmlFor="faculty" className="block text-sm font-semibold text-gray-700 mb-2">
+            Faculty <span className="text-gray-400 font-normal">(Optional)</span>
+          </label>
+          <select
+            id="faculty"
+            name="faculty"
+            value={formData.faculty}
+            onChange={handleChange}
+            onFocus={() => setFocusedField('faculty')}
+            onBlur={() => setFocusedField(null)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/70 text-gray-900"
+          >
+            <option value="">Select your faculty</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Business">Business</option>
+            <option value="Arts">Arts</option>
+            <option value="Science">Science</option>
+            <option value="Medicine">Medicine</option>
+            <option value="Law">Law</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        {/* Academic Year Field */}
+        <div className="space-y-2">
+          <label htmlFor="academicYear" className="block text-sm font-semibold text-gray-700 mb-2">
+            Academic Year <span className="text-gray-400 font-normal">(Optional)</span>
+          </label>
+          <select
+            id="academicYear"
+            name="academicYear"
+            value={formData.academicYear}
+            onChange={handleChange}
+            onFocus={() => setFocusedField('academicYear')}
+            onBlur={() => setFocusedField(null)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/70 text-gray-900"
+          >
+            <option value="">Select your year</option>
+            <option value="1st Year">1st Year</option>
+            <option value="2nd Year">2nd Year</option>
+            <option value="3rd Year">3rd Year</option>
+            <option value="4th Year">4th Year</option>
+            <option value="Graduate">Graduate</option>
+          </select>
         </div>
 
         {/* Password Field */}

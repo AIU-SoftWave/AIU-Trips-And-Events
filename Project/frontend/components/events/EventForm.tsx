@@ -7,10 +7,11 @@ export default function EventForm({ onSuccess }: { onSuccess: () => void }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    type: "EVENT",
+    type: "FIELD_TRIP",
     startDate: "",
     endDate: "",
     location: "",
+    registrationDeadline: "",
     capacity: "",
     imageUrl: "",
   });
@@ -31,10 +32,11 @@ export default function EventForm({ onSuccess }: { onSuccess: () => void }) {
       setFormData({
         title: "",
         description: "",
-        type: "EVENT",
+        type: "FIELD_TRIP",
         startDate: "",
         endDate: "",
         location: "",
+        registrationDeadline: "",
         capacity: "",
         imageUrl: "",
       });
@@ -94,8 +96,11 @@ export default function EventForm({ onSuccess }: { onSuccess: () => void }) {
           onChange={handleChange}
           className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
         >
-          <option value="EVENT">Event</option>
-          <option value="TRIP">Trip</option>
+          <option value="FIELD_TRIP">Field Trip</option>
+          <option value="SEMINAR">Seminar</option>
+          <option value="CONFERENCE">Conference</option>
+          <option value="CONCERT">Concert</option>
+          <option value="OTHER">Other</option>
         </select>
       </div>
 
@@ -138,6 +143,19 @@ export default function EventForm({ onSuccess }: { onSuccess: () => void }) {
           value={formData.location}
           onChange={handleChange}
           required
+          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Registration Deadline
+        </label>
+        <input
+          type="datetime-local"
+          name="registrationDeadline"
+          value={formData.registrationDeadline}
+          onChange={handleChange}
           className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
         />
       </div>

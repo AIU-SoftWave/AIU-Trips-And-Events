@@ -1,6 +1,9 @@
 package com.aiu.trips.enums;
 
 public enum EventType {
-    EVENT,
-    TRIP
+    FIELD_TRIP,
+    SEMINAR,
+    CONFERENCE,
+    CONCERT,
+    OTHER
 }

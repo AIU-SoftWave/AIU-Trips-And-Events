@@ -39,9 +39,16 @@ public class AuthService {
         User user = new User();
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setFullName(request.getFullName());
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setFullName(request.getFirstName() + " " + request.getLastName());
         user.setPhoneNumber(request.getPhoneNumber());
+        user.setFaculty(request.getFaculty());
+        user.setAcademicYear(request.getAcademicYear());
         user.setRole(UserRole.STUDENT);
+        user.setEmailVerified(false);
+        user.setAccountLocked(false);
+        user.setFailedLoginAttempts(0);
 
         userRepository.save(user);
 
