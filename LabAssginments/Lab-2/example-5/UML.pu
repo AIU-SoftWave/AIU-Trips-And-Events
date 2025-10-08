@@ -1,0 +1,155 @@
+@startuml RideSharingSystem
+
+' Abstract Classes and Interfaces
+abstract class Passenger {
+    - String name
+    - String email
+    + requestRide(pickup: String, dropoff: String): Ride
+    + receiveNotification(message: String): void
+}
+
+interface PaymentMethod {
+    + processPayment(amount: double): boolean
+    + getPaymentDetails(): String
+}
+
+interface Notifier {
+    + sendNotification(recipient: String, message: String): void
+    + getNotificationType(): String
+}
+
+
+
+class PremiumPassenger {
+    - int loyaltyPoints
+    + addLoyaltyPoints(points: int): void
+    + getLoyaltyPoints(): int
+}
+
+' Driver Class
+class Driver {
+    - String name
+    - String licenseNumber
+    + acceptRide(ride: Ride): boolean
+    + completeRide(ride: Ride): void
+}
+
+' Vehicle Classes
+abstract class Vehicle {
+    - String plateNumber
+    - String model
+    + abstract calcFare(distance: double): double
+    + getVehicleInfo(): String
+}
+
+class Car {
+    - int numberOfSeats
+    + calcFare(distance: double): double
+}
+
+class Bike {
+    - String bikeType
+    + calcFare(distance: double): double
+}
+
+class Van {
+    - double cargoCapacity
+    + calcFare(distance: double): double
+}
+
+' Ride Class
+class Ride {
+    - String rideId
+    - Passenger passenger
+    - Driver driver
+    - Vehicle vehicle
+    - String pickupLocation
+    - String dropoffLocation
+    - double fare
+    - String status
+    + calculateFare(): double
+    + completeRide(): void
+    + sendNotification(notifier: Notifier): void
+}
+
+' Payment Class
+class Payment {
+    - String paymentId
+    - double amount
+    - PaymentMethod paymentMethod
+    - String status
+    + processPayment(): boolean
+    + generateReceipt(): String
+}
+
+' Concrete Payment Methods
+class CreditCard {
+    - String cardNumber
+    - String expiryDate
+    + processPayment(amount: double): boolean
+    + getPaymentDetails(): String
+}
+
+class PayPal {
+    - String email
+    - String accountId
+    + processPayment(amount: double): boolean
+    + getPaymentDetails(): String
+}
+
+class Cash {
+    + processPayment(amount: double): boolean
+    + getPaymentDetails(): String
+}
+
+' Concrete Notification Classes
+class EmailNotifier {
+    + sendNotification(recipient: String, message: String): void
+    + getNotificationType(): String
+}
+
+class SMSNotifier {
+    + sendNotification(recipient: String, message: String): void
+    + getNotificationType(): String
+}
+
+' Relationships
+
+' Inheritance
+PremiumPassenger --|> Passenger
+
+Car --|> Vehicle
+Bike --|> Vehicle
+Van --|> Vehicle
+
+' Interface Implementations
+CreditCard ..|> PaymentMethod
+PayPal ..|> PaymentMethod
+Cash ..|> PaymentMethod
+
+EmailNotifier ..|> Notifier
+SMSNotifier ..|> Notifier
+
+' Composition (strong ownership - filled diamond)
+Ride "1" *-- "1" Payment : contains
+
+' Aggregation (weak ownership - empty diamond)
+Driver "1" o-- "1" Vehicle : has
+Ride "1" o-- "1" Vehicle : uses
+
+' Associations (regular usage/reference)
+Ride "1" --> "1" Passenger : requested by
+Ride "1" --> "1" Driver : assigned to
+Payment "1" --> "1" PaymentMethod : uses
+
+' Dependencies
+Ride ..> Notifier : notifies via
+PremiumPassenger ..> Ride : updates points after
+
+' Notes
+note right of Passenger : Base class for all passengers\nHandles basic ride operations
+note right of PremiumPassenger : Extends passenger with\nloyalty points system
+note right of Vehicle : Abstract class implementing\nStrategy pattern for fare calculation
+note right of PaymentMethod : Strategy pattern allows\nadding new payment methods\nwithout code changes
+
+@enduml

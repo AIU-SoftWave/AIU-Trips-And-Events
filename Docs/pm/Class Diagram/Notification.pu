@@ -1,0 +1,86 @@
+@startuml Notification_Updated
+
+!define INTERFACE_COLOR #E8F5E9
+!define SERVICE_COLOR #F3E5F5
+!define ENTITY_COLOR #E3F2FD
+!define ENUM_COLOR #F3E5F5
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+}
+
+package "Notification Component" {
+    
+    ' Interface from Context Level
+    interface INotificationSystem <<interface>> {
+        +sendNotification(userId: String, message: String, type: NotificationType): Response
+        +notifyEventUpdate(eventId: String, message: String): Response
+        +sendBulkNotification(userIds: List<String>, message: String): Response
+    }
+    
+    ' Service Implementation (Realization)
+    class NotificationService <<service>> {
+        -INotificationRepository notificationRepository
+        -IEmailService emailService
+        -IBookingRepository bookingRepository
+        +sendNotification(userId: String, message: String, type: NotificationType): Response
+        +notifyEventUpdate(eventId: String, message: String): Response
+        +sendBulkNotification(userIds: List<String>, message: String): Response
+    }
+    
+    ' Repository Interfaces
+    interface INotificationRepository <<interface>> {
+        +save(notification: Notification): Notification
+        +findByRecipient(userId: String): List<Notification>
+    }
+    
+    interface IBookingRepository <<interface>> {
+        +findByEvent(eventId: String): List<Booking>
+    }
+    
+    ' Supporting Service Interface
+    interface IEmailService <<interface>> {
+        +sendEmail(to: String, subject: String, body: String): Response
+    }
+    
+    ' Entity
+    class Notification <<entity>> {
+        -String notificationId
+        -String recipientId
+        -String message
+        -NotificationType type
+        -Boolean isRead
+        -DateTime sentDate
+    }
+    
+    ' Enum
+    enum NotificationType <<enum>> {
+        NEW_EVENT
+        EVENT_UPDATE
+        REMINDER
+    }
+    
+    ' Relationships (Professional)
+    INotificationSystem <|.. NotificationService : realizes
+    NotificationService o-- INotificationRepository : aggregation
+    NotificationService o-- IEmailService : aggregation
+    NotificationService o-- IBookingRepository : aggregation
+    INotificationRepository ..> Notification : manages
+    Notification *-- NotificationType : composition
+}
+
+note right of NotificationService
+  *SOLID Principles:*
+  - Single Responsibility
+  - Dependency Inversion
+  
+  *Relations:*
+  - Aggregation (o--) with repositories
+  - Composition (*--) with enum
+end note
+
+@enduml

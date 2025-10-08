@@ -1,0 +1,462 @@
+@startuml Complete_System
+
+!define INTERFACE_COLOR #E8F5E9
+!define SERVICE_COLOR #F3E5F5
+!define CONTROLLER_COLOR #FCE4EC
+!define ENTITY_COLOR #E3F2FD
+!define ENUM_COLOR #F3E5F5
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<controller>> CONTROLLER_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+}
+
+' ==================== CONTEXT LEVEL ====================
+package "Context Level" {
+    class UniversityTripsAndEventsManagementSystem {
+        -String systemName
+        -String version
+        +initialize(): void
+        +shutdown(): void
+    }
+
+    interface IAuthenticationUserManagement <<interface>> {
+        +register(userData: UserDTO): Response
+        +login(email: String, password: String): AuthToken
+        +verifyEmail(token: String): Response
+        +resetPassword(email: String): Response
+        +manageUserRole(userId: String, role: UserRole): Response
+    }
+
+    interface IEventTripManagement <<interface>> {
+        +createEvent(eventData: EventDTO): EventDTO
+        +updateEvent(eventId: String, eventData: EventDTO): EventDTO
+        +deleteEvent(eventId: String): Response
+        +getAllEvents(): List<EventDTO>
+        +manageCapacity(eventId: String): Integer
+    }
+
+    interface IBookingTicketingSystem <<interface>> {
+        +browseEvents(filters: EventFilterDTO): List<EventDTO>
+        +bookEvent(studentId: String, eventId: String): BookingDTO
+        +generateTicket(bookingId: String): TicketDTO
+        +validateTicket(qrCode: String): Boolean
+    }
+
+    interface INotificationSystem <<interface>> {
+        +sendNotification(userId: String, message: String, type: NotificationType): Response
+        +notifyEventUpdate(eventId: String, message: String): Response
+        +sendBulkNotification(userIds: List<String>, message: String): Response
+    }
+
+    interface IReportsAnalytics <<interface>> {
+        +generateReport(reportType: ReportType, filters: ReportFilterDTO): ReportDTO
+        +exportReport(reportId: String, format: ExportFormat): FileDTO
+        +getStatistics(): SystemStatisticsDTO
+        +collectFeedback(feedbackData: FeedbackDTO): Response
+    }
+
+    ' Composition: System owns these interfaces
+    UniversityTripsAndEventsManagementSystem *-- IAuthenticationUserManagement
+    UniversityTripsAndEventsManagementSystem *-- IEventTripManagement
+    UniversityTripsAndEventsManagementSystem *-- IBookingTicketingSystem
+    UniversityTripsAndEventsManagementSystem *-- INotificationSystem
+    UniversityTripsAndEventsManagementSystem *-- IReportsAnalytics
+}
+
+' ==================== CONTROLLER LAYER ====================
+package "Controller Layer" {
+    class SystemController <<controller>> {
+        -IAuthenticationUserManagement authService
+        -IEventTripManagement eventService
+        -IBookingTicketingSystem bookingService
+        -INotificationSystem notificationService
+        -IReportsAnalytics reportService
+        +handleRequest(request: HttpRequest): HttpResponse
+        +authenticate(request: HttpRequest): Boolean
+        +register(request: HttpRequest): HttpResponse
+        +login(request: HttpRequest): HttpResponse
+        +createEvent(request: HttpRequest): HttpResponse
+        +bookEvent(request: HttpRequest): HttpResponse
+        +sendNotification(request: HttpRequest): HttpResponse
+        +generateReport(request: HttpRequest): HttpResponse
+    }
+
+    ' Aggregation: Controller uses services but doesn't own them
+    SystemController o-- IAuthenticationUserManagement
+    SystemController o-- IEventTripManagement
+    SystemController o-- IBookingTicketingSystem
+    SystemController o-- INotificationSystem
+    SystemController o-- IReportsAnalytics
+}
+
+' ==================== SERVICE LAYER ====================
+package "Service Layer (Business Logic)" {
+    
+    ' User Management Service
+    class UserManagementService <<service>> {
+        -IUserRepository userRepository
+        -IAuthService authService
+        -IEmailService emailService
+        +register(userData: UserDTO): Response
+        +login(email: String, password: String): AuthToken
+        +verifyEmail(token: String): Response
+        +resetPassword(email: String): Response
+        +manageUserRole(userId: String, role: UserRole): Response
+    }
+
+    ' Event Management Service
+    class EventManagementService <<service>> {
+        -IEventRepository eventRepository
+        -INotificationService notificationService
+        +createEvent(eventData: EventDTO): EventDTO
+        +updateEvent(eventId: String, eventData: EventDTO): EventDTO
+        +deleteEvent(eventId: String): Response
+        +getAllEvents(): List<EventDTO>
+        +manageCapacity(eventId: String): Integer
+    }
+
+    ' Booking Service
+    class BookingService <<service>> {
+        -IBookingRepository bookingRepository
+        -ITicketService ticketService
+        -IEventRepository eventRepository
+        +browseEvents(filters: EventFilterDTO): List<EventDTO>
+        +bookEvent(studentId: String, eventId: String): BookingDTO
+        +generateTicket(bookingId: String): TicketDTO
+        +validateTicket(qrCode: String): Boolean
+    }
+
+    ' Notification Service
+    class NotificationService <<service>> {
+        -INotificationRepository notificationRepository
+        -IEmailService emailService
+        -IBookingRepository bookingRepository
+        +sendNotification(userId: String, message: String, type: NotificationType): Response
+        +notifyEventUpdate(eventId: String, message: String): Response
+        +sendBulkNotification(userIds: List<String>, message: String): Response
+    }
+
+    ' Report Service
+    class ReportService <<service>> {
+        -IReportRepository reportRepository
+        -IEventRepository eventRepository
+        -IBookingRepository bookingRepository
+        -IFeedbackRepository feedbackRepository
+        +generateReport(reportType: ReportType, filters: ReportFilterDTO): ReportDTO
+        +exportReport(reportId: String, format: ExportFormat): FileDTO
+        +getStatistics(): SystemStatisticsDTO
+        +collectFeedback(feedbackData: FeedbackDTO): Response
+    }
+
+    ' Implementation: Services implement interfaces (Realization)
+    IAuthenticationUserManagement <|.. UserManagementService
+    IEventTripManagement <|.. EventManagementService
+    IBookingTicketingSystem <|.. BookingService
+    INotificationSystem <|.. NotificationService
+    IReportsAnalytics <|.. ReportService
+}
+
+' ==================== REPOSITORY INTERFACES ====================
+package "Repository Layer (Data Access)" {
+    
+    interface IUserRepository <<interface>> {
+        +save(user: User): User
+        +findByEmail(email: String): User
+        +update(user: User): User
+    }
+
+    interface IEventRepository <<interface>> {
+        +save(event: Event): Event
+        +findById(eventId: String): Event
+        +findAll(): List<Event>
+        +update(event: Event): Event
+        +delete(eventId: String): Boolean
+    }
+
+    interface IBookingRepository <<interface>> {
+        +save(booking: Booking): Booking
+        +findById(bookingId: String): Booking
+        +findByStudent(studentId: String): List<Booking>
+        +findByEvent(eventId: String): List<Booking>
+    }
+
+    interface INotificationRepository <<interface>> {
+        +save(notification: Notification): Notification
+        +findByRecipient(userId: String): List<Notification>
+    }
+
+    interface IReportRepository <<interface>> {
+        +save(report: Report): Report
+        +findById(reportId: String): Report
+    }
+
+    interface IFeedbackRepository <<interface>> {
+        +save(feedback: Feedback): Feedback
+        +findByEvent(eventId: String): List<Feedback>
+    }
+
+    ' Aggregation: Services use repositories (dependency)
+    UserManagementService o-- IUserRepository
+    
+    EventManagementService o-- IEventRepository
+    
+    BookingService o-- IBookingRepository
+    BookingService o-- IEventRepository
+    
+    NotificationService o-- INotificationRepository
+    NotificationService o-- IBookingRepository
+    
+    ReportService o-- IReportRepository
+    ReportService o-- IEventRepository
+    ReportService o-- IBookingRepository
+    ReportService o-- IFeedbackRepository
+}
+
+' ==================== SUPPORTING SERVICES ====================
+package "Supporting Services" {
+    
+    interface IAuthService <<interface>> {
+        +generateToken(userId: String, role: UserRole): AuthToken
+        +validateToken(token: String): Boolean
+    }
+
+    interface IEmailService <<interface>> {
+        +sendEmail(to: String, subject: String, body: String): Response
+    }
+
+    interface ITicketService <<interface>> {
+        +generateTicket(bookingId: String): TicketDTO
+        +validateQRCode(qrCode: String): Boolean
+    }
+
+    interface INotificationService <<interface>> {
+        +notifyEventChange(eventId: String, message: String): Response
+    }
+
+    ' Aggregation: Services use supporting services
+    UserManagementService o-- IAuthService
+    UserManagementService o-- IEmailService
+    
+    BookingService o-- ITicketService
+    
+    EventManagementService o-- INotificationService
+    
+    NotificationService o-- IEmailService
+}
+
+' ==================== DATA LAYER (ENTITIES) ====================
+package "Data Layer (Entities)" {
+    
+    class User <<entity>> {
+        -String userId
+        -String email
+        -String firstName
+        -String lastName
+        -String phoneNumber
+        -String passwordHash
+        -UserRole role
+        -Boolean isVerified
+        -DateTime createdAt
+    }
+
+    class Event <<entity>> {
+        -String eventId
+        -String name
+        -String description
+        -DateTime eventDate
+        -String location
+        -Integer capacity
+        -Integer availableSeats
+        -Decimal price
+        -EventCategory category
+        -EventStatus status
+        -String organizerId
+        -DateTime createdAt
+    }
+
+    class Booking <<entity>> {
+        -String bookingId
+        -String studentId
+        -String eventId
+        -DateTime bookingDate
+        -BookingStatus status
+        -DateTime createdAt
+    }
+
+    class Ticket <<entity>> {
+        -String ticketId
+        -String bookingId
+        -String qrCode
+        -Boolean isUsed
+        -DateTime issueDate
+    }
+
+    class Notification <<entity>> {
+        -String notificationId
+        -String recipientId
+        -String message
+        -NotificationType type
+        -Boolean isRead
+        -DateTime sentDate
+    }
+
+    class Report <<entity>> {
+        -String reportId
+        -ReportType type
+        -String filePath
+        -DateTime generatedDate
+    }
+
+    class Feedback <<entity>> {
+        -String feedbackId
+        -String studentId
+        -String eventId
+        -Integer rating
+        -String comment
+        -DateTime submittedDate
+    }
+
+    ' Association: User organizes Events (1 to many)
+    User "1" -- "0..*" Event : organizes >
+
+    ' Association: User creates Bookings (1 to many)
+    User "1" -- "0..*" Booking : creates >
+
+    ' Association: User submits Feedback (1 to many)
+    User "1" -- "0..*" Feedback : submits >
+
+    ' Association: Event has Bookings (1 to many)
+    Event "1" -- "0..*" Booking : has >
+
+    ' Association: Event receives Feedback (1 to many)
+    Event "1" -- "0..*" Feedback : receives >
+
+    ' Composition: Booking owns Ticket (1 to 1, strong ownership)
+    Booking "1" *-- "0..1" Ticket : generates
+
+    ' Dependency: Repositories manage entities
+    IUserRepository ..> User : manages
+    IEventRepository ..> Event : manages
+    IBookingRepository ..> Booking : manages
+    INotificationRepository ..> Notification : manages
+    IReportRepository ..> Report : manages
+    IFeedbackRepository ..> Feedback : manages
+}
+
+' ==================== ENUMERATIONS ====================
+package "Enumerations" {
+    enum UserRole <<enum>> {
+        STUDENT
+        ORGANIZER
+        ADMIN
+    }
+
+    enum EventCategory <<enum>> {
+        FIELD_TRIP
+        SEMINAR
+        CONFERENCE
+        CONCERT
+    }
+
+    enum EventStatus <<enum>> {
+        UPCOMING
+        COMPLETED
+        CANCELLED
+    }
+
+    enum BookingStatus <<enum>> {
+        PENDING
+        CONFIRMED
+        CANCELLED
+    }
+
+    enum NotificationType <<enum>> {
+        NEW_EVENT
+        EVENT_UPDATE
+        REMINDER
+    }
+
+    enum ReportType <<enum>> {
+        PARTICIPANTS
+        REVENUE
+        FEEDBACK
+    }
+
+    enum ExportFormat <<enum>> {
+        PDF
+        CSV
+    }
+
+    ' Composition: Entities own their enums (strong ownership)
+    User *-- UserRole
+    Event *-- EventCategory
+    Event *-- EventStatus
+    Booking *-- BookingStatus
+    Notification *-- NotificationType
+    Report *-- ReportType
+}
+
+' ==================== RELATIONSHIP LEGEND ====================
+
+note as RelationshipLegend
+*Professional Relationships:*
+
+*Composition (Black Diamond) *--*
+- Strong ownership
+- Part cannot exist without whole
+- Examples:
+  • System *-- Interfaces
+  • Booking *-- Ticket
+  • Entity *-- Enum
+
+*Aggregation (White Diamond) o--*
+- Weak ownership
+- Part can exist independently
+- Examples:
+  • Controller o-- Services
+  • Services o-- Repositories
+
+*Association (Line) --*
+- Structural relationship
+- Objects collaborate
+- Examples:
+  • User -- Event (organizes)
+  • Event -- Booking (has)
+
+*Dependency (Dashed Arrow) ..>*
+- Usage relationship
+- Class uses another
+- Examples:
+  • Repository ..> Entity
+  • Service ..> Interface
+
+*Realization (Dashed Triangle) <|..*
+- Interface implementation
+- Service implements Interface
+end note
+
+note as SolidNote
+*SOLID Principles:*
+
+*Single Responsibility*
+Each class has ONE reason to change
+
+*Open/Closed*
+Open for extension, closed for modification
+
+*Liskov Substitution*
+Implementations can replace interfaces
+
+*Interface Segregation*
+Small, focused interfaces
+
+*Dependency Inversion*
+Depend on abstractions, not concretions
+end note
+
+@enduml
