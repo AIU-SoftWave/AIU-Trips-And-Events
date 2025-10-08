@@ -1,0 +1,123 @@
+@startuml University_Trips_Events_Management_System
+
+!define INTERFACE_COLOR #E8F5E9
+!define ABSTRACT_COLOR #FFF3E0
+!define ENTITY_COLOR #E3F2FD
+!define SERVICE_COLOR #F3E5F5
+!define CONTROLLER_COLOR #FCE4EC
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<abstract>> ABSTRACT_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<controller>> CONTROLLER_COLOR
+}
+
+' ==================== CONTEXT LEVEL (LEVEL 0) ====================
+package "Context Level (Level 0)" {
+    
+    class UniversityTripsAndEventsManagementSystem {
+        -String systemName
+        -String version
+        +initialize(): void
+        +shutdown(): void
+    }
+
+    ' F1: Authentication & User Management
+    interface IAuthenticationUserManagement <<interface>> {
+        +register(userData: UserDTO): Response
+        +login(email: String, password: String): AuthToken
+        +verifyEmail(token: String): Response
+        +resetPassword(email: String): Response
+        +manageUserRole(userId: String, role: UserRole): Response
+    }
+
+    ' F2: Event & Trip Management
+    interface IEventTripManagement <<interface>> {
+        +createEvent(eventData: EventDTO): EventDTO
+        +updateEvent(eventId: String, eventData: EventDTO): EventDTO
+        +deleteEvent(eventId: String): Response
+        +getAllEvents(): List<EventDTO>
+        +manageCapacity(eventId: String): Integer
+    }
+
+    ' F3: Booking & Ticketing
+    interface IBookingTicketingSystem <<interface>> {
+        +browseEvents(filters: EventFilterDTO): List<EventDTO>
+        +bookEvent(studentId: String, eventId: String): BookingDTO
+        +processPayment(bookingId: String, paymentData: PaymentDTO): PaymentResponse
+        +generateTicket(bookingId: String): TicketDTO
+        +validateTicket(qrCode: String): Boolean
+    }
+
+    ' F4: Notification System
+    interface INotificationSystem <<interface>> {
+        +sendNotification(userId: String, message: String, type: NotificationType): Response
+        +notifyEventUpdate(eventId: String, message: String): Response
+        +sendBulkNotification(userIds: List<String>, message: String): Response
+    }
+
+    ' F5: Reports & Analytics
+    interface IReportsAnalytics <<interface>> {
+        +generateReport(reportType: ReportType, filters: ReportFilterDTO): ReportDTO
+        +exportReport(reportId: String, format: ExportFormat): FileDTO
+        +getStatistics(): SystemStatisticsDTO
+        +collectFeedback(feedbackData: FeedbackDTO): Response
+    }
+
+    ' System provides interfaces
+    UniversityTripsAndEventsManagementSystem ..> IAuthenticationUserManagement : provides
+    UniversityTripsAndEventsManagementSystem ..> IEventTripManagement : provides
+    UniversityTripsAndEventsManagementSystem ..> IBookingTicketingSystem : provides
+    UniversityTripsAndEventsManagementSystem ..> INotificationSystem : provides
+    UniversityTripsAndEventsManagementSystem ..> IReportsAnalytics : provides
+}
+
+note top of UniversityTripsAndEventsManagementSystem
+  *Main System*
+  Entry point providing all functional interfaces
+end note
+
+note right of IAuthenticationUserManagement
+  *F1: User Management*
+  - Register users
+  - Login/Logout
+  - Email verification
+  - Password reset
+  - Role management
+end note
+
+note right of IEventTripManagement
+  *F2: Events & Trips*
+  - Create/Edit/Delete events
+  - View all events
+  - Manage capacity
+end note
+
+note right of IBookingTicketingSystem
+  *F3: Bookings & Tickets*
+  - Browse events
+  - Book seats
+  - Process payments
+  - Generate QR tickets
+  - Validate tickets
+end note
+
+note right of INotificationSystem
+  *F4: Notifications*
+  - Send notifications
+  - Event updates
+  - Bulk messaging
+end note
+
+note right of IReportsAnalytics
+  *F5: Reports & Analytics*
+  - Generate reports
+  - Export (PDF/CSV)
+  - System statistics
+  - Collect feedback
+end note
+
+@enduml

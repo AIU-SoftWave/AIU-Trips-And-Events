@@ -1,0 +1,93 @@
+@startuml Controller_Updated
+
+!define CONTROLLER_COLOR #FCE4EC
+!define INTERFACE_COLOR #E8F5E9
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<controller>> CONTROLLER_COLOR
+    BackgroundColor<<interface>> INTERFACE_COLOR
+}
+
+package "Controller Layer" {
+    
+    ' Main Controller
+    class SystemController <<controller>> {
+        -IAuthenticationUserManagement authService
+        -IEventTripManagement eventService
+        -IBookingTicketingSystem bookingService
+        -INotificationSystem notificationService
+        -IReportsAnalytics reportService
+        +handleRequest(request: HttpRequest): HttpResponse
+        +authenticate(request: HttpRequest): Boolean
+        +register(request: HttpRequest): HttpResponse
+        +login(request: HttpRequest): HttpResponse
+        +createEvent(request: HttpRequest): HttpResponse
+        +updateEvent(request: HttpRequest): HttpResponse
+        +deleteEvent(request: HttpRequest): HttpResponse
+        +bookEvent(request: HttpRequest): HttpResponse
+        +sendNotification(request: HttpRequest): HttpResponse
+        +generateReport(request: HttpRequest): HttpResponse
+    }
+    
+    ' Service Interfaces (from Context Level)
+    interface IAuthenticationUserManagement <<interface>> {
+        +register(userData: UserDTO): Response
+        +login(email: String, password: String): AuthToken
+        +verifyEmail(token: String): Response
+        +resetPassword(email: String): Response
+        +manageUserRole(userId: String, role: UserRole): Response
+    }
+    
+    interface IEventTripManagement <<interface>> {
+        +createEvent(eventData: EventDTO): EventDTO
+        +updateEvent(eventId: String, eventData: EventDTO): EventDTO
+        +deleteEvent(eventId: String): Response
+        +getAllEvents(): List<EventDTO>
+        +manageCapacity(eventId: String): Integer
+    }
+    
+    interface IBookingTicketingSystem <<interface>> {
+        +browseEvents(filters: EventFilterDTO): List<EventDTO>
+        +bookEvent(studentId: String, eventId: String): BookingDTO
+        +generateTicket(bookingId: String): TicketDTO
+        +validateTicket(qrCode: String): Boolean
+    }
+    
+    interface INotificationSystem <<interface>> {
+        +sendNotification(userId: String, message: String, type: NotificationType): Response
+        +notifyEventUpdate(eventId: String, message: String): Response
+        +sendBulkNotification(userIds: List<String>, message: String): Response
+    }
+    
+    interface IReportsAnalytics <<interface>> {
+        +generateReport(reportType: ReportType, filters: ReportFilterDTO): ReportDTO
+        +exportReport(reportId: String, format: ExportFormat): FileDTO
+        +getStatistics(): SystemStatisticsDTO
+        +collectFeedback(feedbackData: FeedbackDTO): Response
+    }
+    
+    ' Relationships - Aggregation (Controller uses services)
+    SystemController o-- IAuthenticationUserManagement : aggregation
+    SystemController o-- IEventTripManagement : aggregation
+    SystemController o-- IBookingTicketingSystem : aggregation
+    SystemController o-- INotificationSystem : aggregation
+    SystemController o-- IReportsAnalytics : aggregation
+}
+
+note top of SystemController
+  *Main Controller*
+  - Single entry point for ALL requests
+  - Routes to appropriate services
+  - Handles authentication
+  
+  *SOLID Principles:*
+  - Dependency Inversion: Uses interfaces only
+  - Single Responsibility: Request coordination
+  
+  *Aggregation Relationship:*
+  Controller uses services but doesn't own them
+  Services can exist independently
+end note
+
+@enduml
