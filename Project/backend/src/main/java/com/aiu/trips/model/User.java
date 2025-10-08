@@ -36,7 +36,7 @@ public class User {
     
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private UserRole role; // STUDENT, ADMIN
+    private UserRole role; // STUDENT, ORGANIZER, ADMIN
     
     @Column
     private String phoneNumber;

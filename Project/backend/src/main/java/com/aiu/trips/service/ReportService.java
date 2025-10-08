@@ -1,5 +1,7 @@
 package com.aiu.trips.service;
 
+import com.aiu.trips.enums.BookingStatus;
+import com.aiu.trips.enums.EventStatus;
 import com.aiu.trips.model.Booking;
 import com.aiu.trips.model.Event;
 import com.aiu.trips.repository.BookingRepository;
@@ -34,7 +36,7 @@ public class ReportService {
         report.put("bookedSeats", event.getCapacity() - event.getAvailableSeats());
         report.put("totalParticipants", bookings.size());
         report.put("cancelledBookings", bookings.stream()
-            .filter(b -> "CANCELLED".equals(b.getStatus()))
+            .filter(b -> BookingStatus.CANCELLED.equals(b.getStatus()))
             .count());
 
         return report;
@@ -48,10 +50,10 @@ public class ReportService {
         report.put("totalEvents", events.size());
         report.put("totalBookings", bookings.size());
         report.put("upcomingEvents", events.stream()
-            .filter(e -> "UPCOMING".equals(e.getStatus()))
+            .filter(e -> EventStatus.UPCOMING.equals(e.getStatus()))
             .count());
         report.put("completedEvents", events.stream()
-            .filter(e -> "COMPLETED".equals(e.getStatus()))
+            .filter(e -> EventStatus.COMPLETED.equals(e.getStatus()))
             .count());
 
         return report;
