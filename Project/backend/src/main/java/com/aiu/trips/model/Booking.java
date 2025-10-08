@@ -1,7 +1,6 @@
 package com.aiu.trips.model;
 
 import com.aiu.trips.enums.BookingStatus;
-import com.aiu.trips.enums.PaymentMethod;
 import jakarta.persistence.*;
 // Lombok temporarily removed due to Java 25 compatibility
 import java.time.LocalDateTime;
@@ -12,7 +11,7 @@ public class Booking {
     
     public Booking() {}
     
-    public Booking(Long id, User user, Event event, String bookingCode, BookingStatus status, LocalDateTime bookingDate, String qrCodePath, Double amountPaid, PaymentMethod paymentMethod, LocalDateTime validatedAt, String validatedBy) {
+    public Booking(Long id, User user, Event event, String bookingCode, BookingStatus status, LocalDateTime bookingDate, String qrCodePath, LocalDateTime validatedAt, String validatedBy) {
         this.id = id;
         this.user = user;
         this.event = event;
@@ -20,8 +19,6 @@ public class Booking {
         this.status = status;
         this.bookingDate = bookingDate;
         this.qrCodePath = qrCodePath;
-        this.amountPaid = amountPaid;
-        this.paymentMethod = paymentMethod;
         this.validatedAt = validatedAt;
         this.validatedBy = validatedBy;
     }
@@ -52,13 +49,6 @@ public class Booking {
     private String qrCodePath;
     
     @Column
-    private Double amountPaid;
-    
-    @Column
-    @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod; // CASH (default)
-    
-    @Column
     private LocalDateTime validatedAt;
     
     @Column
@@ -68,7 +58,6 @@ public class Booking {
     protected void onCreate() {
         bookingDate = LocalDateTime.now();
         status = BookingStatus.CONFIRMED;
-        paymentMethod = PaymentMethod.CASH;
     }
     
     // Getters and Setters
@@ -92,12 +81,6 @@ public class Booking {
     
     public String getQrCodePath() { return qrCodePath; }
     public void setQrCodePath(String qrCodePath) { this.qrCodePath = qrCodePath; }
-    
-    public Double getAmountPaid() { return amountPaid; }
-    public void setAmountPaid(Double amountPaid) { this.amountPaid = amountPaid; }
-    
-    public PaymentMethod getPaymentMethod() { return paymentMethod; }
-    public void setPaymentMethod(PaymentMethod paymentMethod) { this.paymentMethod = paymentMethod; }
     
     public LocalDateTime getValidatedAt() { return validatedAt; }
     public void setValidatedAt(LocalDateTime validatedAt) { this.validatedAt = validatedAt; }

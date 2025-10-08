@@ -1,5 +1,6 @@
 package com.aiu.trips.model;
 
+import com.aiu.trips.enums.EventCategory;
 import com.aiu.trips.enums.EventStatus;
 import com.aiu.trips.enums.EventType;
 import jakarta.persistence.*;
@@ -12,11 +13,12 @@ public class Event {
     
     public Event() {}
     
-    public Event(Long id, String title, String description, EventType type, LocalDateTime startDate, LocalDateTime endDate, String location, Double price, Integer capacity, Integer availableSeats, String imageUrl, User createdBy, LocalDateTime createdAt, EventStatus status) {
+    public Event(Long id, String title, String description, EventType type, EventCategory category, LocalDateTime startDate, LocalDateTime endDate, String location, Double price, Integer capacity, Integer availableSeats, String imageUrl, User createdBy, LocalDateTime createdAt, EventStatus status) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.type = type;
+        this.category = category;
         this.startDate = startDate;
         this.endDate = endDate;
         this.location = location;
@@ -42,6 +44,10 @@ public class Event {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EventType type; // EVENT, TRIP
+    
+    @Column
+    @Enumerated(EnumType.STRING)
+    private EventCategory category; // FIELD_TRIP, SEMINAR, CONFERENCE, CONCERT
     
     @Column(nullable = false)
     private LocalDateTime startDate;
@@ -73,13 +79,13 @@ public class Event {
     
     @Column
     @Enumerated(EnumType.STRING)
-    private EventStatus status; // ACTIVE, CANCELLED, COMPLETED
+    private EventStatus status; // UPCOMING, CANCELLED, COMPLETED
     
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         availableSeats = capacity;
-        status = EventStatus.ACTIVE;
+        status = EventStatus.UPCOMING;
     }
     
     // Getters and Setters
@@ -94,6 +100,9 @@ public class Event {
     
     public EventType getType() { return type; }
     public void setType(EventType type) { this.type = type; }
+    
+    public EventCategory getCategory() { return category; }
+    public void setCategory(EventCategory category) { this.category = category; }
     
     public LocalDateTime getStartDate() { return startDate; }
     public void setStartDate(LocalDateTime startDate) { this.startDate = startDate; }

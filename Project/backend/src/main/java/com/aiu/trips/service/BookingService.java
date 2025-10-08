@@ -62,7 +62,6 @@ public class BookingService {
         booking.setUser(user);
         booking.setEvent(event);
         booking.setBookingCode(UUID.randomUUID().toString());
-        booking.setAmountPaid(event.getPrice());
 
         // Generate QR code
         try {
@@ -142,10 +141,10 @@ public class BookingService {
             throw new BookingException(AppConstants.CANNOT_VALIDATE_CANCELLED);
         }
 
-        // Check if event is active
+        // Check if event is upcoming
         Event event = booking.getEvent();
-        if (!EventStatus.ACTIVE.equals(event.getStatus())) {
-            throw new BookingException("Event is not active");
+        if (!EventStatus.UPCOMING.equals(event.getStatus())) {
+            throw new BookingException("Event is not upcoming");
         }
 
         // Validate the ticket

@@ -1,7 +1,7 @@
 package com.aiu.trips.enums;
 
 public enum EventStatus {
-    ACTIVE,
+    UPCOMING,
     CANCELLED,
     COMPLETED
 }
