@@ -109,6 +109,14 @@ The `index.md` file contains all 8 required deliverables in a single comprehensi
 
 ## Supporting Documents
 
+### NEW_ESTIMATIONS.md
+Updated project estimation with new team structure:
+- Fibonacci-based function point estimation
+- Specialized role assignments
+- 300 developer-days breakdown
+- Team capacity analysis
+- Phase-wise effort distribution
+
 ### FEATURE_DEMO_DETAILS.md
 Detailed demonstration guide for the implemented features:
 - Setup instructions for running demos
@@ -127,6 +135,17 @@ In-depth dependency analysis:
 - Week-by-week parallel execution plan
 - Dependency matrix table
 - Risk mitigation for critical tasks
+
+### csv_data/ Directory
+All charts and diagrams in CSV format:
+- **team_allocation.csv** - Weekly team allocation by role
+- **burndown_chart.csv** - Sprint burndown data
+- **velocity_analysis.csv** - Sprint velocity tracking
+- **estimation_breakdown.csv** - Detailed estimation by phase
+- **feature_allocation.csv** - Feature-wise effort distribution
+- **dependency_tasks.csv** - Task dependencies and critical path
+- **story_points_by_epic.csv** - Story points by epic
+- See `csv_data/README.md` for detailed usage instructions
 
 ---
 
