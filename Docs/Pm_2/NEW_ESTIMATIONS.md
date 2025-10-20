@@ -266,3 +266,50 @@ The total estimation for the AIU Trips & Events Management System equals 40 Fibo
 - **Conversion Rate:** 1 Fibonacci Point = 5 Days
 - **Parallel Execution:** Teams work concurrently on their respective areas
 - **Communication:** Daily stand-ups and weekly cross-team sync meetings
+
+---
+
+## Step 10: Data Visualization Resources
+
+All estimation data, team allocations, and project metrics are available in CSV format for easy import into spreadsheet and visualization tools:
+
+### Available CSV Files (in `/Docs/Pm_2/charts/`)
+
+1. **estimation_breakdown.csv** - Complete feature estimation with team assignments (32 rows)
+2. **team_structure.csv** - 5-team organization structure (5 teams)
+3. **team_allocation.csv** - Weekly team activity breakdown (12 weeks)
+4. **dependency_graph.csv** - Task dependencies and critical path (22 tasks)
+5. **gantt_chart.csv** - Week-by-week timeline (12 weeks × 5 teams)
+6. **burndown_chart.csv** - Sprint progress tracking (6 sprints)
+7. **velocity_analysis.csv** - Team velocity metrics (6 sprints)
+
+### How to Use CSV Files
+
+**For Analysis:**
+- Import into Excel, Google Sheets, or Numbers
+- Create pivot tables to analyze effort by team
+- Generate custom charts and visualizations
+- Calculate team utilization and workload distribution
+
+**For Project Management:**
+- Import into MS Project, Jira, or similar tools
+- Use for resource planning and scheduling
+- Track progress and team utilization
+- Identify bottlenecks and optimize allocation
+
+**For Reporting:**
+- Load into Tableau, Power BI, or similar platforms
+- Create interactive dashboards
+- Generate stakeholder reports
+- Visualize team collaboration patterns
+
+**Example Usage in Excel:**
+```
+1. Open estimation_breakdown.csv
+2. Insert > PivotTable
+3. Rows: Responsible_Team
+4. Values: Sum of Effort_Days
+5. Create a bar chart to visualize team workload
+```
+
+See `/Docs/Pm_2/charts/README.md` for detailed information about each CSV file and usage examples.
