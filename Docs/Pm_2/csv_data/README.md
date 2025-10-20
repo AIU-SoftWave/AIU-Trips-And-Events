@@ -136,31 +136,31 @@ This directory contains all charts, diagrams, and tabular data in CSV format for
 
 The project uses a specialized team structure with 5 members:
 
-### Member 1: Implementation and Deployment (73 days)
+### Member 1: Implementation & Deployment (73 days)
 - Full-stack development (backend + frontend)
 - CI/CD pipeline setup and maintenance
 - Production deployment and monitoring
 - DevOps and infrastructure management
 
-### Member 2: Requirements, Planning and Testing (32 days)
+### Member 2: Requirements Planning & Testing (32 days)
 - Requirements gathering and documentation
 - Test strategy and test case creation
 - User acceptance testing execution
 - Requirements traceability and validation
 
-### Member 3: Architecture and System Design (50 days)
+### Member 3: Architecture & Design (50 days)
 - System architecture design and documentation
 - Database schema design and optimization
 - High-level system design
 - Architecture review and validation
 
-### Member 4: Architecture and System Design (50 days)
+### Member 4: Architecture & Design (50 days)
 - API design and documentation
 - Component architecture and integration design
 - Technical documentation
 - Architecture implementation support
 
-### Member 5: Estimation and Testing (50 days)
+### Member 5: Estimation & Testing (50 days)
 - Project estimation and effort tracking
 - Quality assurance and test automation
 - Performance testing and optimization

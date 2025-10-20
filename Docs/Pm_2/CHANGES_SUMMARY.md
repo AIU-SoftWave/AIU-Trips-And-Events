@@ -12,39 +12,39 @@ October 20, 2025
 
 ### 1. Team Structure Update
 
-**Previous Structure (5 developers):**
-- Developer 1: Backend Lead (Senior Java/Spring Boot)
-- Developer 2: Backend Developer (Java)
-- Developer 3: Frontend Lead (Senior React/Next.js)
-- Developer 4: Frontend Developer (React)
-- Developer 5: Full-Stack (Integration & DevOps)
+**Previous Structure (5 Members):**
+- Member 1: Implementation & Deployment
+- Member 2: Requirements Planning & Testing
+- Member 3: Architecture & Design
+- Member 4: Architecture & Design
+- Member 5: Estimation & Testing
 
 **New Structure (5 specialized members):**
-- **Member 1: Implementation and Deployment** (73 days)
+- **Member 1: Implementation & Deployment** (73 days)
   - Full-stack development (backend + frontend)
   - CI/CD pipeline setup and maintenance
   - Production deployment and monitoring
   - DevOps and infrastructure management
 
-- **Member 2: Requirements, Planning and Testing** (32 days)
+- **Member 2: Requirements Planning & Testing** (32 days)
   - Requirements gathering and documentation
   - Test strategy and test case creation
   - User acceptance testing execution
   - Requirements traceability and validation
 
-- **Member 3: Architecture and System Design** (50 days)
+- **Member 3: Architecture & Design** (50 days)
   - System architecture design and documentation
   - Database schema design and optimization
   - High-level system design
   - Architecture review and validation
 
-- **Member 4: Architecture and System Design** (50 days)
+- **Member 4: Architecture & Design** (50 days)
   - API design and documentation
   - Component architecture and integration design
   - Technical documentation
   - Architecture implementation support
 
-- **Member 5: Estimation and Testing** (50 days)
+- **Member 5: Estimation & Testing** (50 days)
   - Project estimation and effort tracking
   - Quality assurance and test automation
   - Performance testing and optimization
@@ -54,11 +54,11 @@ October 20, 2025
 
 **Previous Estimation:**
 - 40 Fibonacci Points = 200 Developer-Days
-- 5 developers × 40 days
+- 5 Members × 40 days
 
 **New Estimation:**
 - 60 Fibonacci Points = 300 Developer-Days
-- 5 members × 60 days
+- 5 Members × 60 days
 - 255 days allocated + 45 buffer days
 - 98% resource utilization
 

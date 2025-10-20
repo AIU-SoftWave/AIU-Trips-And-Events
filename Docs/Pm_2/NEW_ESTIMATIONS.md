@@ -11,36 +11,36 @@ The project is divided into phases, subsystems, and class-level features. Each f
 - Breakdown Level: From Use Cases → Subsystems → Classes  
 - Conversion Rate: 1 Fibonacci Point = 5 Days  
 - Team Size: 5 Members with specialized roles  
-- Project Duration: 2 Months (60 working days per member → 300 developer-days total)
+- Project Duration: 12 weeks (3 months) (60 working days per member → 300 developer-days total)
 
 ### Team Structure
 The team consists of 5 members with the following role allocations:
 
-1. **Member 1: Implementation and Deployment** (60 days)
+1. **Member 1: Implementation & Deployment** (60 days)
    - Full-stack development
    - CI/CD pipeline setup and management
    - Production deployment and monitoring
    - DevOps responsibilities
 
-2. **Member 2: Requirements, Planning and Testing** (60 days)
+2. **Member 2: Requirements Planning & Testing** (60 days)
    - Requirements gathering and documentation
    - Test planning and test case creation
    - User acceptance testing
    - Project planning support
 
-3. **Member 3: Architecture and System Design** (60 days)
+3. **Member 3: Architecture & Design** (60 days)
    - System architecture design
    - Database schema design
    - High-level system design documentation
    - Architecture reviews
 
-4. **Member 4: Architecture and System Design** (60 days)
+4. **Member 4: Architecture & Design** (60 days)
    - API design and documentation
    - Component architecture design
    - Integration design
    - Architecture implementation support
 
-5. **Member 5: Estimation and Testing** (60 days)
+5. **Member 5: Estimation & Testing** (60 days)
    - Project estimation and effort tracking
    - Quality assurance and testing
    - Performance testing
@@ -143,7 +143,7 @@ The team consists of 5 members with the following role allocations:
 | Team Capacity | 5 Members × 60 Days | 300 Developer-Days |
 | Required Effort From Estimation | — | 300 Developer-Days |
 | Member 1 (Implementation & Deployment) | Full-stack + DevOps | 73 days |
-| Member 2 (Requirements, Planning & Testing) | Requirements + Testing | 32 days |
+| Member 2 (Requirements Planning & Testing) | Requirements + Testing | 32 days |
 | Member 3 (Architecture & Design) | System Architecture | 50 days |
 | Member 4 (Architecture & Design) | API & Component Design | 50 days |
 | Member 5 (Estimation & Testing) | QA + Estimation | 50 days |
@@ -152,11 +152,11 @@ The team consists of 5 members with the following role allocations:
 ---
 
 ## Step 6: Schedule Summary
-The estimated effort of 300 developer-days fits the 2-month duration with the new specialized team structure. Each member contributes according to their role specialization:
-- Implementation and Deployment lead handles the core development work
+The estimated effort of 300 developer-days fits the 12-week (3-month) duration with the new specialized team structure. Each member contributes according to their role specialization:
+- Implementation & Deployment lead handles the core development work
 - Two Architecture members ensure robust system design
-- Requirements and Planning member ensures proper documentation and testing alignment
-- Estimation and Testing member maintains quality and tracks project progress
+- Requirements Planning & Testing member ensures proper documentation and testing alignment
+- Estimation & Testing member maintains quality and tracks project progress
 
 This structure ensures proper separation of concerns, better quality control, and efficient resource utilization.
 
@@ -173,7 +173,7 @@ The total estimation for the AIU Trips & Events Management System equals 60 Fibo
 ### Total Effort Summary
 - Total Fibonacci Estimate: 60 Points  
 - Total Effort: 300 Days (255 allocated + 45 buffer)  
-- Fits in 8 weeks with role specialization
+- Fits in 12 weeks with role specialization
 - Utilization Rate: 98% (optimal efficiency)
 
 ---
@@ -181,7 +181,7 @@ The total estimation for the AIU Trips & Events Management System equals 60 Fibo
 ## Assumptions
 - Team Capacity: 5 Members (specialized roles)
 - Workdays per Week: 5 Days  
-- Total Working Duration: 2 Months (≈ 60 working days per member)  
+- Total Working Duration: 12 weeks (3 months) (≈ 60 working days per member)  
 - Conversion Rate: 1 Fibonacci Point = 5 Days  
 - Role-based allocation ensures expertise in each area
 - Total Duration: 60 Fibonacci Points distributed across specialized roles
@@ -190,31 +190,31 @@ The total estimation for the AIU Trips & Events Management System equals 60 Fibo
 
 ## Team Role Distribution
 
-### Member 1: Implementation and Deployment (73 days allocated)
+### Member 1: Implementation & Deployment (73 days allocated)
 - Core development: 50 days
 - CI/CD setup and management: 10 days
 - Production deployment: 8 days
 - Monitoring and maintenance: 5 days
 
-### Member 2: Requirements, Planning and Testing (32 days allocated)
+### Member 2: Requirements Planning & Testing (32 days allocated)
 - Requirements documentation: 8 days
 - Test planning: 10 days
 - User acceptance testing: 10 days
 - Project planning support: 4 days
 
-### Member 3: Architecture and System Design (50 days allocated)
+### Member 3: Architecture & Design (50 days allocated)
 - System architecture design: 15 days
 - Database schema design: 12 days
 - High-level design documentation: 13 days
 - Architecture reviews: 10 days
 
-### Member 4: Architecture and System Design (50 days allocated)
+### Member 4: Architecture & Design (50 days allocated)
 - API design and documentation: 15 days
 - Component architecture: 15 days
 - Integration design: 12 days
 - Implementation support: 8 days
 
-### Member 5: Estimation and Testing (50 days allocated)
+### Member 5: Estimation & Testing (50 days allocated)
 - Project estimation: 10 days
 - Quality assurance: 20 days
 - Performance testing: 12 days
