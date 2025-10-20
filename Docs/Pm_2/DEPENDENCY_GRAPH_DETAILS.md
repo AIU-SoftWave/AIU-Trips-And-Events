@@ -16,19 +16,19 @@
 
 **A. Project Setup** ★
 - Duration: 3 days
-- Team: Dev 5 (Full-Stack)
+- Team: Team 1 (DevOps) + Team 5 (Estimation Specialist)
 - Dependencies: None (Starting point)
 - Deliverables: Git repo, project structure, build tools
 
 **B. Database Schema Design** ★
 - Duration: 5 days
-- Team: Dev 1, Dev 2
+- Team: Team 3 (Backend Architect + Database Designer)
 - Dependencies: A → B
 - Deliverables: ERD, migration scripts, entity models
 
 **C. CI/CD Pipeline Setup**
 - Duration: 4 days
-- Team: Dev 5
+- Team: Team 1 (DevOps)
 - Dependencies: A → C
 - Slack: 7 days (can be delayed)
 - Deliverables: GitHub Actions, automated tests
@@ -39,20 +39,22 @@
 
 **D. User Authentication Backend** ★
 - Duration: 10 days
-- Team: Dev 1 (Lead), Dev 2
+- Team: Team 1 (Backend Lead + Backend Dev)
+- Architecture Support: Team 3 (Backend Architect)
 - Dependencies: B → D
 - Deliverables: Auth API, JWT, password encryption
 
 **E. User Authentication Frontend**
 - Duration: 7 days
-- Team: Dev 3 (Lead), Dev 4
+- Team: Team 1 (Frontend Lead + Frontend Dev)
+- Architecture Support: Team 4 (Frontend Architect)
 - Dependencies: D → E (needs API contracts)
 - Slack: 2 days
 - Deliverables: Login/register pages, auth context
 
 **H. Integration Testing Phase 1**
 - Duration: 3 days
-- Team: Dev 5
+- Team: Team 5 (Test Architect)
 - Dependencies: E → H
 - Deliverables: Auth flow E2E tests
 
@@ -62,20 +64,22 @@
 
 **F. Event Management Backend** ★
 - Duration: 12 days
-- Team: Dev 1, Dev 2
+- Team: Team 1 (Backend Lead + Backend Dev)
+- Architecture Support: Team 3 (Backend Architect)
 - Dependencies: B → F (can start after DB schema)
 - Deliverables: Event CRUD API, business logic
 
 **G. Event Management Frontend**
 - Duration: 10 days
-- Team: Dev 3, Dev 4
+- Team: Team 1 (Frontend Lead + Frontend Dev)
+- Architecture Support: Team 4 (Frontend Architect + UI/UX Designer)
 - Dependencies: F → G
 - Slack: 2 days
 - Deliverables: Event pages, create/edit forms
 
 **I. Integration Testing Phase 2**
 - Duration: 4 days
-- Team: Dev 5
+- Team: Team 5 (Test Architect)
 - Dependencies: G → I
 - Deliverables: Event management E2E tests
 
@@ -85,26 +89,29 @@
 
 **J. Booking System Backend** ★
 - Duration: 12 days
-- Team: Dev 2 (Lead), Dev 1
+- Team: Team 1 (Backend Lead + Backend Dev)
+- Architecture Support: Team 3 (Backend Architect)
 - Dependencies: F → J (needs event API)
 - Deliverables: Booking API, capacity management
 
 **K. Booking System Frontend**
 - Duration: 10 days
-- Team: Dev 4 (Lead), Dev 3
+- Team: Team 1 (Frontend Lead + Frontend Dev)
+- Architecture Support: Team 4 (Frontend Architect)
 - Dependencies: J → K
 - Slack: 2 days
 - Deliverables: Booking pages, ticket display
 
 **L. QR Code Integration** ★
 - Duration: 5 days
-- Team: Dev 5, Dev 4
+- Team: Team 1 (Frontend Dev + Full-Stack Dev)
+- Testing Support: Team 5 (Performance Engineer)
 - Dependencies: K → L
 - Deliverables: QR generation, validation flow
 
 **M. Integration Testing Phase 3** ★
 - Duration: 4 days
-- Team: Dev 5
+- Team: Team 5 (Test Architect + Performance Engineer)
 - Dependencies: L → M
 - Deliverables: Booking & QR E2E tests
 
@@ -114,41 +121,45 @@
 
 **N. Notification System**
 - Duration: 8 days
-- Team: Dev 2
+- Team: Team 1 (Backend Dev)
+- Architecture Support: Team 3 (Backend Architect)
 - Dependencies: B → N (can start after DB)
 - Slack: 27 days (very flexible)
 - Deliverables: Email service, notification templates
 
 **P. Email Integration**
 - Duration: 4 days
-- Team: Dev 5
+- Team: Team 1 (DevOps)
 - Dependencies: N → P
 - Slack: 23 days
 - Deliverables: SMTP config, email triggers
 
 **O. Reporting Backend**
 - Duration: 10 days
-- Team: Dev 1
+- Team: Team 1 (Backend Lead)
+- Architecture Support: Team 3 (Backend Architect)
 - Dependencies: B → O
 - Slack: 32 days (highest slack)
 - Deliverables: Analytics API, data aggregation
 
 **Q. Reporting Frontend**
 - Duration: 8 days
-- Team: Dev 3
+- Team: Team 1 (Frontend Lead)
+- Architecture Support: Team 4 (UI/UX Designer)
 - Dependencies: O → Q
 - Slack: 24 days
 - Deliverables: Dashboard, charts, export
 
 **R. Integration Testing Phase 4**
 - Duration: 3 days
-- Team: Dev 5
+- Team: Team 5 (Test Architect)
 - Dependencies: Q → R
 - Deliverables: Reporting E2E tests
 
 **S. Admin Features**
 - Duration: 8 days
-- Team: Dev 2, Dev 3
+- Team: Team 1 (Backend Dev + Frontend Dev)
+- Architecture Support: Team 3 + Team 4
 - Dependencies: B → S
 - Slack: 15 days
 - Deliverables: Admin panel, user management
@@ -159,21 +170,26 @@
 
 **T. System Testing** ★
 - Duration: 10 days
-- Team: All developers
+- Team: Team 2 (QA Engineers) + Team 5 (Test Architect + Performance Engineer)
+- Support: Team 1 (All developers for bug fixes)
 - Dependencies: M → T (after core features)
 - Deliverables: Full system test suite, bug reports
 
 **U. UAT & Bug Fixes** ★
 - Duration: 8 days
-- Team: All developers
+- Team: Team 2 (Business Analyst + QA Engineers)
+- Support: Team 1 (All developers for fixes)
 - Dependencies: T → U
 - Deliverables: User acceptance, production-ready code
 
 **V. Deployment & Documentation** ★
 - Duration: 5 days
-- Team: Dev 5 (Lead), All
+- Team: Team 1 (DevOps Lead)
+- Documentation: Team 2 (Project Manager + Business Analyst)
+- Technical Docs: Team 3 + Team 4 (Architects)
+- Validation: Team 5 (Performance Engineer)
 - Dependencies: U → V
-- Deliverables: Live application, user guides
+- Deliverables: Live application, user guides, technical documentation
 
 ---
 
@@ -241,59 +257,67 @@ A(3) → B(5) → N(8) → P(4) → [wait] → T(10) → U(8) → V(5) = 43 days
 
 ## Resource Optimization
 
-With 5 developers working in parallel:
+With 5 teams and 19 members working in parallel:
 
-### Week 1-2 (Days 1-10):
+### Week 1-2 (Days 1-10): Planning & Foundation
 **Parallel Execution:**
-- Dev 1, Dev 2: A → B (8 days)
-- Dev 5: C (4 days, then assist with B)
-- Dev 3, Dev 4: Planning, UI design (non-blocking)
+- Team 1 (DevOps): A - Project Setup (3 days)
+- Team 3 (Architects): B - Database Schema Design (5 days)
+- Team 4 (UI/UX): Frontend Architecture planning (5 days)
+- Team 2 (BA): Requirements gathering (10 days)
+- Team 5 (Estimation): Estimation review and test strategy (10 days)
 
-**Result:** A + B completed in 8 days
+**Result:** Foundation complete in 10 days
 
-### Week 3-4 (Days 11-24):
+### Week 3-4 (Days 11-24): Authentication & Setup
 **Parallel Execution:**
-- Dev 1, Dev 2: D - Auth Backend (10 days)
-- Dev 3, Dev 4: Start E - Auth Frontend after day 18 (when API contracts ready)
-- Dev 5: Continue C, start N (Notifications)
+- Team 1 (Backend): D - Auth Backend (10 days)
+- Team 3: Architecture review and guidance (ongoing)
+- Team 4: Frontend architecture patterns (ongoing)
+- Team 5: Test case design for authentication (10 days)
+- Team 2: Requirements clarification (ongoing)
 
-**Result:** D completed day 18, E starts
+**Result:** D completed day 20, E starts
 
-### Week 5-6 (Days 25-38):
+### Week 5-6 (Days 25-38): Core Features Development
 **Parallel Execution:**
-- Dev 1: F - Event Backend (12 days)
-- Dev 2: F - Event Backend (assist, then start J)
-- Dev 3: E → G - Event Frontend
-- Dev 4: G - Event Frontend
-- Dev 5: H → I - Integration testing
+- Team 1 (Backend): F - Event Backend (12 days)
+- Team 1 (Frontend): E → G - Auth and Event Frontend
+- Team 3: Code reviews and architecture support
+- Team 4: UI/UX reviews and guidance
+- Team 5: Automation framework setup (15 days)
 
 **Result:** F completed day 36
 
-### Week 7-8 (Days 39-52):
+### Week 7-8 (Days 39-52): Booking & Advanced Features
 **Parallel Execution:**
-- Dev 1: Support J - Booking Backend
-- Dev 2: J - Booking Backend (12 days)
-- Dev 3: G → K - Booking Frontend
-- Dev 4: K - Booking Frontend
-- Dev 5: O - Reporting Backend (high slack)
+- Team 1 (Backend): J - Booking Backend (12 days)
+- Team 1 (Frontend): K - Booking Frontend
+- Team 1 (Backend): N - Notification System (8 days, flexible)
+- Team 3: Integration support
+- Team 4: Integration support
+- Team 5: Test framework completion
 
 **Result:** J completed day 50, K completed day 50
 
-### Week 9-10 (Days 53-62):
+### Week 9-10 (Days 53-62): Integration & Testing
 **Parallel Execution:**
-- Dev 4, Dev 5: L - QR Integration (5 days)
-- Dev 5: M - Integration Testing (4 days after L)
-- Dev 1: O - Reporting (catch up)
-- Dev 2: S - Admin Features
-- Dev 3: Q - Reporting Frontend
+- Team 1: L - QR Integration (5 days)
+- Team 5: M - Integration Testing (4 days after L)
+- Team 1 (Backend): O - Reporting Backend (10 days, flexible)
+- Team 1 (Frontend): Q - Reporting Frontend
+- Team 2: UAT preparation
 
 **Result:** Critical path through day 57 (L + M)
 
-### Week 11-12 (Days 63-74):
+### Week 11-12 (Days 63-74): System Testing & Deployment
 **Parallel Execution:**
-- All developers: T - System Testing (10 days)
-- All developers: U - UAT (8 days)
-- Dev 5 Lead: V - Deployment (5 days, others support)
+- Team 2 + Team 5: T - System Testing (10 days)
+- Team 1: Bug fixes (ongoing)
+- Team 2 + Team 5: U - UAT (8 days)
+- Team 1 (DevOps): V - Deployment preparation
+- Team 2: Documentation (5 days)
+- Teams 3 + 4: Technical documentation (5 days)
 
 **Result:** Project complete by day 74
 
@@ -301,19 +325,21 @@ With 5 developers working in parallel:
 
 ## Optimized Schedule: 50 Working Days
 
-By running tasks in parallel and utilizing all 5 developers:
+By running tasks in parallel and utilizing all 5 teams (19 members):
 
 **Critical Path Reduction:**
 - Sequential: 74 days
-- With parallelization: ~50 days
+- With multi-team parallelization: ~50 days
 - Efficiency gain: 32% faster
 
 **How it's achieved:**
-1. Multiple developers on large tasks (F, J)
-2. Frontend/Backend parallel development
-3. Early start on low-dependency tasks (N, O)
-4. Continuous integration testing
-5. Overlapping phases where possible
+1. Multiple teams working on different components simultaneously
+2. Dedicated architecture teams providing continuous guidance
+3. Separate testing team allowing parallel test development
+4. Frontend/Backend parallel development with Team 1
+5. Early start on low-dependency tasks by specialized teams
+6. Continuous integration testing by Team 5
+7. Overlapping phases where possible with team coordination
 
 ---
 
@@ -416,6 +442,8 @@ V                                                                              �
 ```
 
 **Critical Path shown with maximum density**
+
+**See CSV file:** `/Docs/Pm_2/charts/dependency_graph.csv` for complete dependency data with team assignments.
 
 ---
 

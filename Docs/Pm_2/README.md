@@ -3,6 +3,27 @@
 ## Overview
 This directory contains all deliverables for Milestone 2 of the AIU Trips and Events Management System project.
 
+## Team Organization
+
+The project is structured with **5 specialized teams** for optimal efficiency:
+
+1. **Team 1: Implementation and Deployment (6 members)**
+   - Code development, feature implementation, deployment, production setup
+   
+2. **Team 2: Requirements, Planning, and Testing (4 members)**
+   - Requirements gathering, project planning, quality assurance, testing
+   
+3. **Team 3: Architecture and System Design - Backend (3 members)**
+   - System architecture, backend architecture, database design
+   
+4. **Team 4: Architecture and System Design - Frontend (3 members)**
+   - Frontend architecture, UI/UX design, integration architecture
+   
+5. **Team 5: Estimation and Testing (3 members)**
+   - Effort estimation, risk assessment, testing strategy, performance testing
+
+**Total Team Size: 19 members**
+
 ## Deliverables Checklist
 
 - [x] **Task 1 (20 marks):** Stories estimations, use case estimations, feature estimations
@@ -24,8 +45,17 @@ This directory contains all deliverables for Milestone 2 of the AIU Trips and Ev
 Docs/Pm_2/
 ├── README.md (this file)
 ├── index.md (Main PMP document with all sections)
+├── NEW_ESTIMATIONS.md (Updated estimation with 5-team structure)
 ├── FEATURE_DEMO_DETAILS.md (Detailed demo documentation)
-└── DEPENDENCY_GRAPH_DETAILS.md (Detailed dependency analysis)
+├── DEPENDENCY_GRAPH_DETAILS.md (Detailed dependency analysis)
+└── charts/ (CSV files for all charts and diagrams)
+    ├── estimation_breakdown.csv
+    ├── team_allocation.csv
+    ├── team_structure.csv
+    ├── dependency_graph.csv
+    ├── burndown_chart.csv
+    ├── velocity_analysis.csv
+    └── gantt_chart.csv
 
 Docs/pm/
 ├── Gantt Chart.png (Visual Gantt chart)
@@ -39,9 +69,16 @@ Docs/pm/
 The `index.md` file contains all 8 required deliverables in a single comprehensive document:
 
 ### Section 1: Project Estimations (Task 1)
+- **Team Structure:** 5 specialized teams (19 members total)
+  - Team 1: Implementation and Deployment (6 members)
+  - Team 2: Requirements, Planning, and Testing (4 members)
+  - Team 3: Architecture - Backend (3 members)
+  - Team 4: Architecture - Frontend (3 members)
+  - Team 5: Estimation and Testing (3 members)
 - **Agile Estimation:** 104 Story Points across 25 user stories
-- **Formal Estimation:** 40 Fibonacci Points = 200 Developer-Days
-- **Breakdown:** By epic (Authentication, Events, Booking, Notifications, Reports, Admin)
+- **Formal Estimation:** 40 Fibonacci Points = 200 Developer-Days (Team 1)
+- **Breakdown:** By epic with team assignments
+- **CSV Data:** Available in `charts/estimation_breakdown.csv`
 
 ### Section 2: Project Schedule & Milestones (Task 2)
 - **Timeline:** 8-week project with 2-week milestones
@@ -68,33 +105,52 @@ The `index.md` file contains all 8 required deliverables in a single comprehensi
 - **Communication Plan:** Standups, sprints, reports, demos
 
 ### Section 5: Dependency Graph & Critical Path (Task 5)
-- **Task Network:** 22 tasks with dependencies mapped
+- **Task Network:** 22 tasks with dependencies mapped and team assignments
 - **Critical Path:** A → B → D → F → J → L → M → T → U → V
 - **Maximum Path Value:** 74 days (sequential)
-- **Optimized Duration:** 50 days (with 5 developers in parallel)
+- **Optimized Duration:** 50 days (with parallel team execution)
 - **Slack Time Analysis:** Up to 32 days slack on non-critical tasks
+- **CSV Data:** Available in `charts/dependency_graph.csv`
 
 ### Section 6: Gantt Chart (Task 6)
 - **Visual Chart:** Available at `/Docs/pm/Gantt Chart.png`
 - **Features:** Task timeline, dependencies, milestones, color coding
+- **Team Allocation:** Shows 5 teams working in parallel
 - **Reference:** Embedded in index.md
+- **CSV Data:** Available in `charts/gantt_chart.csv`
 
 ### Section 7: Team Allocation Chart (Task 7)
-- **Team Structure:** 2 Backend, 2 Frontend, 1 Full-Stack developer
-- **Weekly Allocation:** 12-week breakdown by developer
-- **Feature Allocation:** Developer-days per feature
-- **Utilization:** 98% resource utilization
+- **Team Structure:** 5 specialized teams (19 members total)
+  - Team 1: 6 developers (2 Backend, 2 Frontend, 1 DevOps, 1 Full-Stack)
+  - Team 2: 4 members (BA, PM, 2 QA Engineers)
+  - Team 3: 3 architects (Solutions, Backend, Database)
+  - Team 4: 3 architects (Frontend, UI/UX, Integration)
+  - Team 5: 3 specialists (Estimation, Test Architect, Performance)
+- **Weekly Allocation:** 12-week breakdown by team
+- **Feature Allocation:** Person-days per feature with team assignments
+- **Utilization:** 95% resource utilization across all teams
+- **CSV Data:** Available in `charts/team_allocation.csv` and `charts/team_structure.csv`
 
 ### Section 8: Burndown Chart (Task 8)
 - **Scope:** 122 Story Points over 6 sprints
-- **Planned vs Actual:** Week-by-week comparison
+- **Planned vs Actual:** Week-by-week comparison with team contributions
 - **Velocity Analysis:** Average 20.3 SP/week
 - **Variance:** Started 8 SP behind, finished 1 SP ahead
 - **Cumulative Flow:** Visual representation of progress
+- **Team Contributions:** Each sprint shows which teams contributed
+- **CSV Data:** Available in `charts/burndown_chart.csv` and `charts/velocity_analysis.csv`
 
 ---
 
 ## Supporting Documents
+
+### NEW_ESTIMATIONS.md
+Complete estimation documentation with the new 5-team structure:
+- Team organization and responsibilities
+- Detailed phase breakdown with team assignments
+- Cross-team collaboration model
+- Effort estimation by team
+- Timeline with parallel team execution
 
 ### FEATURE_DEMO_DETAILS.md
 Detailed demonstration guide for the implemented features:
@@ -107,13 +163,23 @@ Detailed demonstration guide for the implemented features:
 
 ### DEPENDENCY_GRAPH_DETAILS.md
 In-depth dependency analysis:
-- Complete task list with durations
+- Complete task list with durations and team assignments
 - All dependency paths calculated
 - Critical path analysis
-- Resource optimization strategy
+- Resource optimization strategy with multi-team execution
 - Week-by-week parallel execution plan
 - Dependency matrix table
 - Risk mitigation for critical tasks
+
+### charts/ Directory
+CSV files for all charts and diagrams:
+- **estimation_breakdown.csv** - All features with Fibonacci points and team assignments
+- **team_allocation.csv** - Weekly allocation for all 5 teams
+- **team_structure.csv** - Team composition and responsibilities
+- **dependency_graph.csv** - All tasks with dependencies and team assignments
+- **burndown_chart.csv** - Sprint-by-sprint progress with team contributions
+- **velocity_analysis.csv** - Velocity metrics by sprint and team
+- **gantt_chart.csv** - Week-by-week task timeline for all teams
 
 ---
 
@@ -125,14 +191,16 @@ In-depth dependency analysis:
 3. Review Gantt Chart for timeline visualization
 
 ### For Development Team:
-1. Reference **Section 7** for your role and allocation
+1. Reference **Section 7** for your team and role allocation
 2. Check **DEPENDENCY_GRAPH_DETAILS.md** for task dependencies
 3. Use **FEATURE_DEMO_DETAILS.md** for implementation guidance
+4. Review CSV files in **charts/** for detailed allocation data
 
 ### For Project Manager:
 1. Monitor **Section 8** (Burndown Chart) for progress tracking
 2. Review **Section 5** (Critical Path) for scheduling decisions
 3. Reference **Section 4** (SPMP) for risk management
+4. Use **charts/team_allocation.csv** for resource planning
 
 ### For Evaluators:
 1. All 8 deliverables are clearly marked in **index.md**
@@ -147,11 +215,14 @@ In-depth dependency analysis:
 |--------|-------|-------|
 | **Total Story Points** | 122 SP | Adjusted from 104 SP |
 | **Project Duration** | 12 weeks | Fits 3-month constraint |
-| **Team Size** | 5 developers | Optimal for scope |
+| **Team Size** | 19 members | 5 specialized teams |
+| **Implementation Team** | 6 developers | Team 1 |
+| **Architecture Teams** | 6 architects | Teams 3 + 4 |
+| **Testing Teams** | 7 members | Teams 2 + 5 |
 | **Critical Path** | 74 days | Sequential maximum |
-| **Parallel Execution** | 50 days | With resource optimization |
+| **Parallel Execution** | 50 days | With multi-team optimization |
 | **Estimation Variance** | 17.5% | Based on demo features |
-| **Resource Utilization** | 98% | Very high efficiency |
+| **Resource Utilization** | 95% | Optimal efficiency |
 | **On-Time Delivery** | 100% | Project completed as planned |
 | **Test Coverage** | 72% | Exceeds 70% target |
 

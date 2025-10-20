@@ -1,0 +1,34 @@
+Phase,Subsystem,Feature,Fibonacci_Points,Effort_Days,Responsible_Team,Testing_Team
+Phase 1,Authentication,UserRegistration,2,10,Team 1 (Backend),Team 2 + Team 5
+Phase 1,Authentication,Login,1,5,Team 1 (Backend),Team 2 + Team 5
+Phase 1,Authentication,ResetPassword,1,5,Team 1 (Backend),Team 2 + Team 5
+Phase 1,Authentication,EmailVerification,1,5,Team 1 (Backend),Team 2 + Team 5
+Phase 1,Event Management,EventCreator,3,15,Team 1 (Backend),Team 2 + Team 5
+Phase 1,Event Management,EventEditor,2,10,Team 1 (Backend),Team 2 + Team 5
+Phase 1,Event Management,EventRemover,1,5,Team 1 (Backend),Team 2 + Team 5
+Phase 1,Event Management,CapacityChecker,3,15,Team 1 (Backend),Team 5 (Performance)
+Phase 1,Booking & Ticketing,BookingCreator,3,15,Team 1 (Backend),Team 2 + Team 5
+Phase 1,Booking & Ticketing,BookingCanceller,2,10,Team 1 (Backend),Team 2 + Team 5
+Phase 1,Booking & Ticketing,DuplicateChecker,1,5,Team 1 (Backend),Team 5 (Performance)
+Phase 1,Booking & Ticketing,TicketGenerator (QR),2,10,Team 1 (Backend),Team 2 + Team 5
+Phase 1,Booking & Ticketing,TicketValidator,1,5,Team 1 (Backend),Team 2 + Team 5
+Phase 1,Notifications,NotificationSender,1,5,Team 1 (Backend),Team 2 + Team 5
+Phase 1,Notifications,ReminderScheduler,1,5,Team 1 (Backend),Team 2 + Team 5
+Phase 1,Reports & Analytics,ReportGenerator,2,10,Team 1 (Backend),Team 2 + Team 5
+Phase 1,Reports & Analytics,TrendAnalyzer,3,15,Team 1 (Backend),Team 5 (Performance)
+Phase 1,Reports & Analytics,ExportManager,1,5,Team 1 (Backend),Team 2 + Team 5
+Phase 2,Design,System Architecture,3,15,Team 3,Team 4
+Phase 2,Design,Database Schema,2,10,Team 3,Team 5
+Phase 2,Design,UML Diagrams,1,5,Team 3 + Team 4,Team 2
+Phase 2,Design,UI Mockups,1,5,Team 4,Team 2
+Phase 3,Implementation,Backend Logic,3,15,Team 1 (Backend),Team 3
+Phase 3,Implementation,Frontend Pages,3,15,Team 1 (Frontend),Team 4
+Phase 3,Implementation,Integrations,2,10,Team 1 (DevOps),Team 3 + Team 4
+Phase 3,Implementation,Database Integration,2,10,Team 1 (Backend),Team 3
+Phase 4,Testing,Unit Testing,2,10,Team 5,Team 1
+Phase 4,Testing,Integration Testing,2,10,Team 5,Team 1 + Team 3 + Team 4
+Phase 4,Testing,User Acceptance Testing,1,5,Team 2,Team 5
+Phase 4,Testing,Non-Functional Testing,2,10,Team 5,Team 1 + Team 3
+Phase 5,Deployment,Deployment Setup,2,10,Team 1 (DevOps),Team 3
+Phase 5,Deployment,Documentation,1,5,Team 2,Teams 3 + Team 4
+Phase 5,Deployment,Maintenance,1,5,Team 1,Team 5

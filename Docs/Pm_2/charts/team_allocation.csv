@@ -1,0 +1,13 @@
+Week,Phase,Team_1_Implementation,Team_2_Requirements_Testing,Team_3_Backend_Architecture,Team_4_Frontend_Architecture,Team_5_Estimation_Testing
+1-2,Planning & Design,Environment Setup,Requirements Gathering,System Architecture,Frontend Architecture,Estimation Review
+1-2,Planning & Design,Initial Scaffolding,User Stories,Database Schema,UI/UX Mockups,Test Strategy Planning
+3-4,Implementation,Backend Development,Requirements Clarification,Code Reviews,Code Reviews,Test Case Design
+3-4,Implementation,Frontend Development,Acceptance Criteria,Architectural Guidance,Architectural Guidance,Automation Framework
+5-6,Implementation,API Integration,Ongoing Requirements,Code Reviews,Integration Support,Test Framework Setup
+5-6,Implementation,Full Development,Acceptance Testing Prep,Architecture Support,Architecture Support,Test Preparation
+7,Testing,Bug Fixes,User Acceptance Testing,Integration Support,Integration Support,Unit Testing
+7,Testing,Optimization,Functional Testing,Testing Support,Testing Support,Integration Testing
+7,Testing,Performance Tuning,UAT Coordination,Code Review,Code Review,Performance Testing
+8,Deployment,Production Deployment,User Documentation,Technical Documentation,Technical Documentation,Performance Validation
+8,Deployment,Monitoring Setup,Training Materials,Architecture Docs,Architecture Docs,Post-Deployment Testing
+8,Deployment,Support Preparation,Handover Documentation,Knowledge Transfer,Knowledge Transfer,Final Validation

@@ -1,0 +1,32 @@
+Week,Task_Name,Team_1,Team_2,Team_3,Team_4,Team_5,Dependencies,Milestone
+1,Project Setup,████,-,-,-,████,-,Setup Complete
+1,Requirements Gathering,-,████,-,-,-,Project Setup,-
+1,System Architecture,-,-,████,-,-,Project Setup,-
+1,Frontend Architecture,-,-,-,████,-,Project Setup,-
+1,Test Strategy,-,-,-,-,████,Project Setup,-
+2,Database Schema,-,-,████,-,-,Project Setup,Foundation Complete
+2,Environment Setup,████,-,-,-,████,Project Setup,-
+2,UI/UX Mockups,-,-,-,████,-,Frontend Architecture,-
+2,Initial Scaffolding,████,-,-,-,-,Database Schema,-
+3,Auth Backend,████,-,Support,-,-,Database Schema,-
+3,Requirements Review,-,████,-,-,-,Requirements Gathering,-
+3,Code Review Support,-,-,Support,Support,-,Auth Backend,-
+4,Auth Frontend,████,-,-,Support,-,Auth Backend,-
+4,Test Case Design,-,-,-,-,████,Auth Backend,Auth Complete
+4,Acceptance Criteria,-,████,-,-,-,Auth Frontend,-
+5,Event Backend,████,-,Support,-,-,Database Schema,-
+5,Automation Framework,-,-,-,-,████,Test Case Design,-
+6,Event Frontend,████,-,-,Support,-,Event Backend,-
+6,Integration Testing,-,Support,-,-,████,Event Frontend,Core Features Complete
+7,Booking Backend,████,-,Support,-,-,Event Backend,-
+7,Requirements Update,-,████,-,-,-,Event Frontend,-
+8,Booking Frontend,████,-,-,Support,-,Booking Backend,-
+8,Test Framework,-,-,-,-,████,Booking Frontend,-
+9,QR Integration,████,-,-,-,Support,Booking Frontend,-
+9,Integration Testing,-,Support,-,-,████,QR Integration,-
+10,System Testing,Support,████,Support,Support,████,QR Integration,Testing Complete
+10,Performance Testing,-,Support,-,-,████,System Testing,-
+11,UAT,Support,████,-,-,Support,System Testing,-
+11,Bug Fixes,████,-,-,-,-,UAT,-
+12,Deployment,████,-,Support,Support,Support,Bug Fixes,Deployment Complete
+12,Documentation,-,████,████,████,Support,Deployment,-

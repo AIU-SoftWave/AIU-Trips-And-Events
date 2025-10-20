@@ -1,0 +1,6 @@
+Team_ID,Team_Name,Team_Size,Primary_Responsibilities,Key_Deliverables,Working_Weeks
+Team 1,Implementation and Deployment,6,"Code development, Feature implementation, Deployment, Production setup","Working software, Deployed application, Infrastructure setup",8
+Team 2,Requirements Planning and Testing,4,"Requirements gathering, Project planning, Quality assurance, Testing","Requirements docs, Test cases, UAT results, User documentation",8
+Team 3,Architecture and System Design (Backend),3,"System architecture, Backend architecture, Database design","System architecture docs, Database schema, API design, Technical specs",6
+Team 4,Architecture and System Design (Frontend),3,"Frontend architecture, UI/UX design, Integration architecture","UI/UX designs, Frontend patterns, Component architecture, Integration docs",6
+Team 5,Estimation and Testing,3,"Effort estimation, Risk assessment, Testing strategy, Performance testing","Estimation reports, Test strategy, Automation framework, Performance reports",8

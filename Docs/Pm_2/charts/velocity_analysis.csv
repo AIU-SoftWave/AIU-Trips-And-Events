@@ -1,0 +1,8 @@
+Sprint,Week_Range,Planned_Velocity_SP,Actual_Velocity_SP,Variance_Percent,Primary_Team,Support_Teams
+Sprint 1,Weeks 1-2,20,15,-25%,Team 1,Team 3 + Team 4 + Team 5
+Sprint 2,Weeks 3-4,28,25,-11%,Team 1,Team 2 + Team 5
+Sprint 3,Weeks 5-6,26,24,-8%,Team 1,Team 2 + Team 5
+Sprint 4,Weeks 7-8,24,26,8%,Team 1,Team 2 + Team 5
+Sprint 5,Weeks 9-10,20,22,10%,Team 2 + Team 5,Team 1
+Sprint 6,Weeks 11-12,10,10,0%,Team 1 + Team 2,Team 5
+Average,All,21.3,20.3,-4.7%,Team 1,All Teams

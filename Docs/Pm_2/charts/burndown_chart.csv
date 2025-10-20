@@ -1,0 +1,14 @@
+Sprint,Week,Planned_Remaining_SP,Actual_Remaining_SP,Variance,Status,Completed_By_Team
+Start,0,122,122,0,On Track,All Teams
+Sprint 1,1,108,110,2,Slightly Behind,Team 1 + Team 3 + Team 4
+Sprint 1,2,102,107,5,Behind,Team 1 + Team 3 + Team 4
+Sprint 2,3,88,95,7,Behind,Team 1 + Team 5
+Sprint 2,4,74,82,8,Behind (Max),Team 1 + Team 5
+Sprint 3,5,60,70,10,Recovery Started,Team 1
+Sprint 3,6,54,58,4,Catching Up,Team 1 + Team 2
+Sprint 4,7,42,45,3,On Track,Team 1 + Team 2 + Team 5
+Sprint 4,8,30,32,2,On Track,Team 1 + Team 5
+Sprint 5,9,20,20,0,On Track,Team 2 + Team 5
+Sprint 5,10,10,10,0,On Track,Team 1 + Team 2 + Team 5
+Sprint 6,11,5,4,-1,Ahead,Team 1 + Team 2
+Sprint 6,12,0,0,0,Complete,All Teams

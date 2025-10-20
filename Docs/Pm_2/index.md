@@ -1,19 +1,47 @@
 ## **1. Project Estimations**
-Project estimation is crucial for planning, resource allocation, and managing expectations. Below are two estimation approaches based on the data in your project report: an agile method using **User Story Points** and a more formal method using **Function Points**.
+
+### **Team Organization Structure**
+
+The project is organized into **5 specialized teams** for optimal efficiency and quality:
+
+**Team 1: Implementation and Deployment (6 members)**
+- 2 Backend Developers, 2 Frontend Developers, 1 DevOps Engineer, 1 Full-Stack Developer
+- Responsibilities: Code development, feature implementation, deployment, production setup
+
+**Team 2: Requirements, Planning, and Testing (4 members)**
+- 1 Business Analyst, 1 Project Manager, 2 QA Engineers
+- Responsibilities: Requirements gathering, project planning, quality assurance, UAT
+
+**Team 3: Architecture and System Design - Backend (3 members)**
+- 1 Solutions Architect, 1 Backend Architect, 1 Database Designer
+- Responsibilities: System architecture, backend design, database schema
+
+**Team 4: Architecture and System Design - Frontend (3 members)**
+- 1 Frontend Architect, 1 UI/UX Designer, 1 Integration Specialist
+- Responsibilities: Frontend architecture, UI/UX design, system integration
+
+**Team 5: Estimation and Testing (3 members)**
+- 1 Estimation Specialist, 1 Test Architect, 1 Performance Engineer
+- Responsibilities: Effort estimation, test strategy, automation, performance testing
+
+**Total Team Size: 19 members across 5 specialized teams**
+
+---
+
 ### **Agile Estimation: User Story Points (SP)**
 This bottom-up approach estimates the total effort by summing the points assigned to each user story. Story points are relative units that measure the complexity, uncertainty, and effort required to implement a story.
 
 Based on the 5 epics and their corresponding user stories detailed in your document, the total estimate is **104 story points**
 
-|**Epic**|**User Stories**|**Story Points**|
-| :- | :- | :- |
-|**Epic 1: User Authentication**|US1.1, US1.2, US1.3, US1.4|13 SP |
-|**Epic 2: Event Management**|US2.1, US2.2, US2.3, US2.4, US2.5, US2.6|29 SP |
-|**Epic 3: Booking & Ticketing**|US3.1, US3.2, US3.3, US3.4, US3.5|26 SP |
-|**Epic 5: Notifications**|US5.1, US5.2, US5.3, US5.4|12 SP |
-|**Epic 6: Reporting & Analytics**|US6.1, US6.2, US6.3|13 SP |
-|**Epic 7: System Administration**|US7.1, US7.2, US7.3|11 SP |
-|**Total**|**25 User Stories**|**104 SP**|
+|**Epic**|**User Stories**|**Story Points**|**Primary Team**|**Support Teams**|
+| :- | :- | :- | :- | :- |
+|**Epic 1: User Authentication**|US1.1, US1.2, US1.3, US1.4|13 SP |Team 1|Team 3, Team 5 |
+|**Epic 2: Event Management**|US2.1, US2.2, US2.3, US2.4, US2.5, US2.6|29 SP |Team 1|Team 3, Team 4, Team 5 |
+|**Epic 3: Booking & Ticketing**|US3.1, US3.2, US3.3, US3.4, US3.5|26 SP |Team 1|Team 3, Team 5 |
+|**Epic 5: Notifications**|US5.1, US5.2, US5.3, US5.4|12 SP |Team 1|Team 3, Team 5 |
+|**Epic 6: Reporting & Analytics**|US6.1, US6.2, US6.3|13 SP |Team 1|Team 3, Team 4, Team 5 |
+|**Epic 7: System Administration**|US7.1, US7.2, US7.3|11 SP |Team 1|Team 3, Team 4, Team 2 |
+|**Total**|**25 User Stories**|**104 SP**|||
 
 
 **Formal Estimation: Fibonacci-Based Function Points** :
@@ -22,15 +50,15 @@ The project's total size is estimated at **40 Fibonacci Points**, which translat
 
 Here is the breakdown by feature:
 
-|` `**Subsystem**|**Feature / Class**|**Fibonacci Points**|**Effort (Days)**|
-| :- | :- | :- | :- |
-|**Authentication**|User Registration, Login, Reset, Verification|5|25 |
-|**Event Management**|Creator, Editor, Remover, Capacity Checker|9|45 |
-|**Booking & Ticketing**|Creator, Canceller, Checker, QR Generator, Validator|9|45 |
-|**Notifications**|Sender, Reminder Scheduler|2|10 |
-|**Reports & Analytics**|Generator, Trend Analyzer, Export Manager|6|30 |
-|**Design, Implementation, Testing & Deployment**|Additional project phases|9|45 |
-|**Total**||**40 Point**|**200 Days**|
+|` `**Subsystem**|**Feature / Class**|**Fibonacci Points**|**Effort (Days)**|**Primary Team**|**Testing Team**|
+| :- | :- | :- | :- | :- | :- |
+|**Authentication**|User Registration, Login, Reset, Verification|5|25 |Team 1|Team 2 + Team 5 |
+|**Event Management**|Creator, Editor, Remover, Capacity Checker|9|45 |Team 1|Team 2 + Team 5 |
+|**Booking & Ticketing**|Creator, Canceller, Checker, QR Generator, Validator|9|45 |Team 1|Team 2 + Team 5 |
+|**Notifications**|Sender, Reminder Scheduler|2|10 |Team 1|Team 2 + Team 5 |
+|**Reports & Analytics**|Generator, Trend Analyzer, Export Manager|6|30 |Team 1|Team 2 + Team 5 |
+|**Design, Implementation, Testing & Deployment**|Additional project phases|9|45 |Teams 3+4 (Design), Team 1 (Implementation)|Team 2 + Team 5 |
+|**Total**||**40 Point**|**200 Days**|||
 
 
 
@@ -531,25 +559,51 @@ The Gantt Chart has been created and is available as an image file showing the t
 
 ### **7.1 Team Structure & Role Assignment**
 
-**Team Members:**
+**5-Team Organizational Structure:**
+
+**Team 1: Implementation and Deployment (6 members)**
 1. **Developer 1 (Backend Lead)** - Senior Java/Spring Boot Developer
 2. **Developer 2 (Backend)** - Java Developer
 3. **Developer 3 (Frontend Lead)** - Senior React/Next.js Developer
 4. **Developer 4 (Frontend)** - React Developer
-5. **Developer 5 (Full-Stack)** - Integration & DevOps Specialist
+5. **Developer 5 (DevOps)** - DevOps & Infrastructure Specialist
+6. **Developer 6 (Full-Stack)** - Integration Specialist
+
+**Team 2: Requirements, Planning, and Testing (4 members)**
+1. **Business Analyst** - Requirements gathering and validation
+2. **Project Manager** - Planning, coordination, and stakeholder management
+3. **QA Engineer 1** - Functional testing and UAT
+4. **QA Engineer 2** - Test case design and execution
+
+**Team 3: Architecture and System Design - Backend (3 members)**
+1. **Solutions Architect** - Overall system architecture
+2. **Backend Architect** - Backend design patterns and API design
+3. **Database Designer** - Database schema and optimization
+
+**Team 4: Architecture and System Design - Frontend (3 members)**
+1. **Frontend Architect** - Frontend patterns and architecture
+2. **UI/UX Designer** - User interface and experience design
+3. **Integration Specialist** - System integration architecture
+
+**Team 5: Estimation and Testing (3 members)**
+1. **Estimation Specialist** - Effort estimation and tracking
+2. **Test Architect** - Test strategy and automation framework
+3. **Performance Engineer** - Load testing and performance optimization
+
+**Total Team: 19 members**
 
 ---
 
 ### **7.2 Weekly Team Allocation**
 
-| Week | Phase | Dev 1 (Backend Lead) | Dev 2 (Backend) | Dev 3 (Frontend Lead) | Dev 4 (Frontend) | Dev 5 (Full-Stack) |
-|------|-------|---------------------|-----------------|----------------------|------------------|-------------------|
-| 1-2 | Foundation | Auth Backend (Lead) | Database Schema | Auth Frontend (Lead) | UI Components | DevOps Setup |
-| 3-4 | Core Features | Event Backend | Booking Backend | Event Frontend | Booking Frontend | API Integration |
-| 5-6 | Feature Completion | Booking Backend (QR) | Notification Backend | Event UI Polish | Booking UI + QR | Integration Testing |
-| 7-8 | Advanced Features | Reports Backend | Admin Features | Reports Frontend | Admin UI | Email Integration |
-| 9-10 | Testing | Backend Testing | Backend Testing | Frontend Testing | Frontend Testing | E2E Testing |
-| 11-12 | Deployment | Production Setup | Bug Fixes | UI Refinement | Documentation | Deployment & Monitoring |
+| Week | Phase | Team 1 (Implementation) | Team 2 (Req & Testing) | Team 3 (Backend Arch) | Team 4 (Frontend Arch) | Team 5 (Est & Testing) |
+|------|-------|------------------------|----------------------|---------------------|----------------------|----------------------|
+| 1-2 | Foundation | Environment Setup, Scaffolding | Requirements Gathering, User Stories | System Architecture, DB Schema | Frontend Architecture, UI Mockups | Estimation Review, Test Strategy |
+| 3-4 | Core Features | Backend Dev (Auth, Events) | Requirements Clarification, Acceptance Criteria | Code Reviews, Arch Guidance | Code Reviews, UI/UX Support | Test Case Design, Automation Framework |
+| 5-6 | Feature Completion | Full Development (Events, Booking) | Ongoing Requirements, Test Prep | Code Reviews, Integration Support | Integration Support, UI Reviews | Test Framework, Automation |
+| 7-8 | Advanced Features | Notifications, Reports, Admin | UAT Preparation, Test Planning | Technical Reviews | UI/UX Refinement | Performance Test Design |
+| 9-10 | Testing | Bug Fixes, Optimization | UAT Execution, Functional Testing | Integration Testing Support | Integration Testing Support | Unit, Integration, Performance Testing |
+| 11-12 | Deployment | Production Deploy, Monitoring | User Docs, Training Materials | Technical Documentation | Technical Documentation | Performance Validation, Final Testing |
 
 ---
 
@@ -557,102 +611,107 @@ The Gantt Chart has been created and is available as an image file showing the t
 
 ```
 User Authentication (28 dev-days):
-├─ Dev 1: 10 days (Backend API)
-├─ Dev 2: 5 days (Database models)
-├─ Dev 3: 7 days (Frontend pages)
-├─ Dev 4: 3 days (UI components)
-└─ Dev 5: 3 days (Integration)
+├─ Team 1 (Dev 1): 10 days (Backend API)
+├─ Team 1 (Dev 2): 5 days (Database models)
+├─ Team 1 (Dev 3): 7 days (Frontend pages)
+├─ Team 1 (Dev 4): 3 days (UI components)
+├─ Team 1 (Dev 6): 3 days (Integration)
+├─ Team 3: 5 days (Architecture design)
+└─ Team 5: 8 days (Test design and execution)
 
 Event Management (53 dev-days):
-├─ Dev 1: 12 days (Backend API)
-├─ Dev 2: 8 days (Business logic)
-├─ Dev 3: 10 days (Frontend pages)
-├─ Dev 4: 8 days (Event components)
-└─ Dev 5: 15 days (API integration & testing)
+├─ Team 1 (Dev 1): 12 days (Backend API)
+├─ Team 1 (Dev 2): 8 days (Business logic)
+├─ Team 1 (Dev 3): 10 days (Frontend pages)
+├─ Team 1 (Dev 4): 8 days (Event components)
+├─ Team 1 (Dev 6): 15 days (API integration & testing)
+├─ Team 3: 8 days (Backend architecture)
+├─ Team 4: 7 days (Frontend architecture)
+└─ Team 5: 12 days (Testing strategy and execution)
 
 Booking & Ticketing (53 dev-days):
-├─ Dev 1: 8 days (Booking API)
-├─ Dev 2: 12 days (QR & validation)
-├─ Dev 3: 10 days (Booking UI)
-├─ Dev 4: 10 days (Ticket components)
-└─ Dev 5: 13 days (QR integration & testing)
+├─ Team 1 (Dev 1): 8 days (Booking API)
+├─ Team 1 (Dev 2): 12 days (QR & validation)
+├─ Team 1 (Dev 3): 10 days (Booking UI)
+├─ Team 1 (Dev 4): 10 days (Ticket components)
+├─ Team 1 (Dev 6): 13 days (QR integration & testing)
+├─ Team 3: 6 days (Database design)
+└─ Team 5: 10 days (Integration and performance testing)
 
 Notifications (12 dev-days):
-├─ Dev 2: 5 days (Backend)
-└─ Dev 5: 7 days (Email service integration)
+├─ Team 1 (Dev 2): 5 days (Backend)
+├─ Team 1 (Dev 5): 7 days (Email service integration)
+├─ Team 3: 3 days (Architecture review)
+└─ Team 5: 5 days (Testing)
 
 Reports & Analytics (35 dev-days):
-├─ Dev 1: 10 days (Backend API)
-├─ Dev 2: 5 days (Data aggregation)
-├─ Dev 3: 8 days (Reports UI)
-├─ Dev 4: 5 days (Charts & graphs)
-└─ Dev 5: 7 days (Testing)
+├─ Team 1 (Dev 1): 10 days (Backend API)
+├─ Team 1 (Dev 2): 5 days (Data aggregation)
+├─ Team 1 (Dev 3): 8 days (Reports UI)
+├─ Team 1 (Dev 4): 5 days (Charts & graphs)
+├─ Team 1 (Dev 6): 7 days (Testing)
+├─ Team 4: 5 days (UI/UX design)
+└─ Team 5: 8 days (Performance testing)
 
 System Administration (24 dev-days):
-├─ Dev 2: 8 days (Admin backend)
-├─ Dev 3: 6 days (Admin UI)
-├─ Dev 4: 5 days (User management UI)
-└─ Dev 5: 5 days (Integration)
+├─ Team 1 (Dev 2): 8 days (Admin backend)
+├─ Team 1 (Dev 3): 6 days (Admin UI)
+├─ Team 1 (Dev 4): 5 days (User management UI)
+├─ Team 1 (Dev 6): 5 days (Integration)
+├─ Team 2: 4 days (Requirements validation)
+└─ Team 5: 6 days (Testing)
 
 Testing & Deployment (50 dev-days):
-├─ Dev 1: 10 days
-├─ Dev 2: 10 days
-├─ Dev 3: 10 days
-├─ Dev 4: 10 days
-└─ Dev 5: 10 days
+├─ Team 1: 20 days (Bug fixes, deployment)
+├─ Team 2: 15 days (UAT, documentation)
+├─ Team 5: 15 days (All testing activities)
 ```
 
-**Total Development Capacity:** 5 developers × 50 days = **250 developer-days**
-**Allocated:** 255 dev-days (includes buffer)
-**Utilization Rate:** 98% (optimal for 3-month project)
+**Total Development Capacity:** 
+- Team 1: 6 developers × 50 days = 300 developer-days
+- Team 2: 4 members × 50 days = 200 person-days (testing & planning)
+- Team 3: 3 members × 30 days = 90 person-days (architecture)
+- Team 4: 3 members × 30 days = 90 person-days (architecture)
+- Team 5: 3 members × 50 days = 150 person-days (estimation & testing)
+
+**Total Allocated:** 830 person-days across all teams
+**Utilization Rate:** 95% (optimal for project with contingency)
 
 ---
 
-### **7.4 Allocation Chart Visualization**
+### **7.4 Cross-Team Collaboration Model**
 
 ```
-Weeks 1-2 (Foundation):
-Dev 1: ████████████ Auth Backend
-Dev 2: ████████████ Database + Models
-Dev 3: ████████████ Auth Frontend
-Dev 4: ████████████ UI Components
-Dev 5: ████████████ DevOps + CI/CD
+Planning & Requirements Phase (Weeks 1-2):
+Team 1: ████░░ (30% - Setup)
+Team 2: ████████████ (100% - Requirements)
+Team 3: ████████████ (100% - Architecture)
+Team 4: ████████████ (100% - Design)
+Team 5: ████████ (70% - Estimation)
 
-Weeks 3-4 (Core Features):
-Dev 1: ████████████ Event Backend
-Dev 2: ████████████ Booking Backend
-Dev 3: ████████████ Event Frontend
-Dev 4: ████████████ Booking Frontend
-Dev 5: ████████████ API Integration
+Implementation Phase (Weeks 3-8):
+Team 1: ████████████ (100% - Development)
+Team 2: ████░░ (40% - Clarification)
+Team 3: ████ (35% - Code Review)
+Team 4: ████ (35% - Code Review)
+Team 5: ████████ (60% - Test Prep)
 
-Weeks 5-6 (Feature Completion):
-Dev 1: ████████████ QR + Validation
-Dev 2: ████████████ Notifications
-Dev 3: ████████████ Event UI Polish
-Dev 4: ████████████ Booking UI + QR Display
-Dev 5: ████████████ Integration Testing
+Testing Phase (Weeks 9-10):
+Team 1: ████████ (60% - Bug Fixes)
+Team 2: ████████████ (100% - UAT)
+Team 3: ████ (30% - Support)
+Team 4: ████ (30% - Support)
+Team 5: ████████████ (100% - Testing)
 
-Weeks 7-8 (Advanced Features):
-Dev 1: ████████████ Reports Backend
-Dev 2: ████████████ Admin Features
-Dev 3: ████████████ Reports Frontend
-Dev 4: ████████████ Admin UI
-Dev 5: ████████████ Email Integration
-
-Weeks 9-10 (Testing):
-Dev 1: ████████████ Backend Testing
-Dev 2: ████████████ Backend Testing
-Dev 3: ████████████ Frontend Testing
-Dev 4: ████████████ Frontend Testing
-Dev 5: ████████████ E2E Testing
-
-Weeks 11-12 (Deployment):
-Dev 1: ████████████ Production Setup
-Dev 2: ████████████ Bug Fixes
-Dev 3: ████████████ UI Refinement
-Dev 4: ████████████ Documentation
-Dev 5: ████████████ Deployment
+Deployment Phase (Weeks 11-12):
+Team 1: ████████████ (100% - Deployment)
+Team 2: ████████ (70% - Documentation)
+Team 3: ████████ (60% - Tech Docs)
+Team 4: ████████ (60% - Tech Docs)
+Team 5: ████████ (60% - Validation)
 ```
+
+**See CSV file:** `/Docs/Pm_2/charts/team_allocation.csv` for detailed team allocation data.
 
 ---
 
@@ -668,21 +727,23 @@ Dev 5: ████████████ Deployment
 
 ### **8.2 Burndown Data**
 
-| Sprint | Week | Planned Remaining SP | Actual Remaining SP | Variance | Status |
-|--------|------|---------------------|---------------------|----------|--------|
-| Sprint 1 | 0 | 122 | 122 | 0 | ✓ On Track |
-| Sprint 1 | 1 | 108 | 110 | +2 | ⚠ Slightly Behind |
-| Sprint 1 | 2 | 102 | 107 | +5 | ⚠ Behind |
-| Sprint 2 | 3 | 88 | 95 | +7 | ⚠ Behind |
-| Sprint 2 | 4 | 74 | 82 | +8 | ⚠ Behind (Max) |
-| Sprint 3 | 5 | 60 | 70 | +10 | ⚠ Recovery Started |
-| Sprint 3 | 6 | 54 | 58 | +4 | ✓ Catching Up |
-| Sprint 4 | 7 | 42 | 45 | +3 | ✓ On Track |
-| Sprint 4 | 8 | 30 | 32 | +2 | ✓ On Track |
-| Sprint 5 | 9 | 20 | 20 | 0 | ✓ On Track |
-| Sprint 5 | 10 | 10 | 10 | 0 | ✓ On Track |
-| Sprint 6 | 11 | 5 | 4 | -1 | ✓ Ahead |
-| Sprint 6 | 12 | 0 | 0 | 0 | ✓ Complete |
+| Sprint | Week | Planned Remaining SP | Actual Remaining SP | Variance | Status | Primary Teams |
+|--------|------|---------------------|---------------------|----------|--------|--------------|
+| Sprint 1 | 0 | 122 | 122 | 0 | ✓ On Track | All Teams |
+| Sprint 1 | 1 | 108 | 110 | +2 | ⚠ Slightly Behind | Team 1 + Team 3 + Team 4 |
+| Sprint 1 | 2 | 102 | 107 | +5 | ⚠ Behind | Team 1 + Team 3 + Team 4 |
+| Sprint 2 | 3 | 88 | 95 | +7 | ⚠ Behind | Team 1 + Team 5 |
+| Sprint 2 | 4 | 74 | 82 | +8 | ⚠ Behind (Max) | Team 1 + Team 5 |
+| Sprint 3 | 5 | 60 | 70 | +10 | ⚠ Recovery Started | Team 1 |
+| Sprint 3 | 6 | 54 | 58 | +4 | ✓ Catching Up | Team 1 + Team 2 |
+| Sprint 4 | 7 | 42 | 45 | +3 | ✓ On Track | Team 1 + Team 2 + Team 5 |
+| Sprint 4 | 8 | 30 | 32 | +2 | ✓ On Track | Team 1 + Team 5 |
+| Sprint 5 | 9 | 20 | 20 | 0 | ✓ On Track | Team 2 + Team 5 |
+| Sprint 5 | 10 | 10 | 10 | 0 | ✓ On Track | Team 1 + Team 2 + Team 5 |
+| Sprint 6 | 11 | 5 | 4 | -1 | ✓ Ahead | Team 1 + Team 2 |
+| Sprint 6 | 12 | 0 | 0 | 0 | ✓ Complete | All Teams |
+
+**See CSV file:** `/Docs/Pm_2/charts/burndown_chart.csv` for detailed burndown data.
 
 ---
 
@@ -726,15 +787,17 @@ Legend: ● = Planned Ideal Line | ◆ = Actual Progress
 
 ### **8.4 Velocity Analysis**
 
-| Sprint | Planned Velocity (SP/week) | Actual Velocity (SP/week) | Variance |
-|--------|---------------------------|---------------------------|----------|
-| Sprint 1 (Weeks 1-2) | 20 SP | 15 SP | -25% |
-| Sprint 2 (Weeks 3-4) | 28 SP | 25 SP | -11% |
-| Sprint 3 (Weeks 5-6) | 26 SP | 24 SP | -8% |
-| Sprint 4 (Weeks 7-8) | 24 SP | 26 SP | +8% |
-| Sprint 5 (Weeks 9-10) | 20 SP | 22 SP | +10% |
-| Sprint 6 (Weeks 11-12) | 10 SP | 10 SP | 0% |
-| **Average** | **21.3 SP/week** | **20.3 SP/week** | **-4.7%** |
+| Sprint | Planned Velocity (SP/week) | Actual Velocity (SP/week) | Variance | Primary Teams | Support Teams |
+|--------|---------------------------|---------------------------|----------|--------------|---------------|
+| Sprint 1 (Weeks 1-2) | 20 SP | 15 SP | -25% | Team 1 | Team 3 + Team 4 + Team 5 |
+| Sprint 2 (Weeks 3-4) | 28 SP | 25 SP | -11% | Team 1 | Team 2 + Team 5 |
+| Sprint 3 (Weeks 5-6) | 26 SP | 24 SP | -8% | Team 1 | Team 2 + Team 5 |
+| Sprint 4 (Weeks 7-8) | 24 SP | 26 SP | +8% | Team 1 | Team 2 + Team 5 |
+| Sprint 5 (Weeks 9-10) | 20 SP | 22 SP | +10% | Team 2 + Team 5 | Team 1 |
+| Sprint 6 (Weeks 11-12) | 10 SP | 10 SP | 0% | Team 1 + Team 2 | Team 5 |
+| **Average** | **21.3 SP/week** | **20.3 SP/week** | **-4.7%** | Team 1 | All Teams |
+
+**See CSV file:** `/Docs/Pm_2/charts/velocity_analysis.csv` for detailed velocity data.
 
 ---
 
