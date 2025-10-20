@@ -52,7 +52,7 @@
 
 **H. Integration Testing Phase 1**
 - Duration: 3 days
-- Team: Dev 5
+- Team: Member 2 (Requirements Planning & Testing), Member 5 (Estimation & Testing)
 - Dependencies: E → H
 - Deliverables: Auth flow E2E tests
 
@@ -62,20 +62,20 @@
 
 **F. Event Management Backend** ★
 - Duration: 12 days
-- Team: Dev 1, Dev 2
+- Team: Member 1 (Implementation & Deployment), Member 3 (Architecture & Design)
 - Dependencies: B → F (can start after DB schema)
 - Deliverables: Event CRUD API, business logic
 
 **G. Event Management Frontend**
 - Duration: 10 days
-- Team: Dev 3, Dev 4
+- Team: Member 1 (Implementation & Deployment), Member 4 (Architecture & Design)
 - Dependencies: F → G
 - Slack: 2 days
 - Deliverables: Event pages, create/edit forms
 
 **I. Integration Testing Phase 2**
 - Duration: 4 days
-- Team: Dev 5
+- Team: Member 2 (Requirements Planning & Testing), Member 5 (Estimation & Testing)
 - Dependencies: G → I
 - Deliverables: Event management E2E tests
 
