@@ -16,19 +16,19 @@
 
 **A. Project Setup** ★
 - Duration: 3 days
-- Team: Dev 5 (Full-Stack)
+- Team: Member 1 (Implementation & Deployment)
 - Dependencies: None (Starting point)
 - Deliverables: Git repo, project structure, build tools
 
 **B. Database Schema Design** ★
 - Duration: 5 days
-- Team: Dev 1, Dev 2
+- Team: Member 3, Member 4 (Architecture & Design)
 - Dependencies: A → B
 - Deliverables: ERD, migration scripts, entity models
 
 **C. CI/CD Pipeline Setup**
 - Duration: 4 days
-- Team: Dev 5
+- Team: Member 1 (Implementation & Deployment)
 - Dependencies: A → C
 - Slack: 7 days (can be delayed)
 - Deliverables: GitHub Actions, automated tests
@@ -39,13 +39,13 @@
 
 **D. User Authentication Backend** ★
 - Duration: 10 days
-- Team: Dev 1 (Lead), Dev 2
+- Team: Member 1 (Implementation), Member 3 (Architecture)
 - Dependencies: B → D
 - Deliverables: Auth API, JWT, password encryption
 
 **E. User Authentication Frontend**
 - Duration: 7 days
-- Team: Dev 3 (Lead), Dev 4
+- Team: Member 1 (Implementation), Member 4 (Architecture)
 - Dependencies: D → E (needs API contracts)
 - Slack: 2 days
 - Deliverables: Login/register pages, auth context
@@ -85,26 +85,26 @@
 
 **J. Booking System Backend** ★
 - Duration: 12 days
-- Team: Dev 2 (Lead), Dev 1
+- Team: Member 1 (Implementation), Member 3 (Architecture)
 - Dependencies: F → J (needs event API)
 - Deliverables: Booking API, capacity management
 
 **K. Booking System Frontend**
 - Duration: 10 days
-- Team: Dev 4 (Lead), Dev 3
+- Team: Member 1 (Implementation), Member 4 (Architecture)
 - Dependencies: J → K
 - Slack: 2 days
 - Deliverables: Booking pages, ticket display
 
 **L. QR Code Integration** ★
 - Duration: 5 days
-- Team: Dev 5, Dev 4
+- Team: Member 1 (Implementation), Member 5 (QA)
 - Dependencies: K → L
 - Deliverables: QR generation, validation flow
 
 **M. Integration Testing Phase 3** ★
 - Duration: 4 days
-- Team: Dev 5
+- Team: Member 2 (Testing), Member 5 (QA)
 - Dependencies: L → M
 - Deliverables: Booking & QR E2E tests
 
@@ -114,41 +114,41 @@
 
 **N. Notification System**
 - Duration: 8 days
-- Team: Dev 2
+- Team: Member 1 (Implementation), Member 2 (Requirements)
 - Dependencies: B → N (can start after DB)
 - Slack: 27 days (very flexible)
 - Deliverables: Email service, notification templates
 
 **P. Email Integration**
 - Duration: 4 days
-- Team: Dev 5
+- Team: Member 1 (Implementation)
 - Dependencies: N → P
 - Slack: 23 days
 - Deliverables: SMTP config, email triggers
 
 **O. Reporting Backend**
 - Duration: 10 days
-- Team: Dev 1
+- Team: Member 1 (Implementation), Member 3 (Architecture)
 - Dependencies: B → O
 - Slack: 32 days (highest slack)
 - Deliverables: Analytics API, data aggregation
 
 **Q. Reporting Frontend**
 - Duration: 8 days
-- Team: Dev 3
+- Team: Member 1 (Implementation), Member 4 (Architecture)
 - Dependencies: O → Q
 - Slack: 24 days
 - Deliverables: Dashboard, charts, export
 
 **R. Integration Testing Phase 4**
 - Duration: 3 days
-- Team: Dev 5
+- Team: Member 2 (Testing), Member 5 (QA)
 - Dependencies: Q → R
 - Deliverables: Reporting E2E tests
 
 **S. Admin Features**
 - Duration: 8 days
-- Team: Dev 2, Dev 3
+- Team: Member 3 (Architecture), Member 4 (Architecture)
 - Dependencies: B → S
 - Slack: 15 days
 - Deliverables: Admin panel, user management
@@ -159,19 +159,19 @@
 
 **T. System Testing** ★
 - Duration: 10 days
-- Team: All developers
+- Team: Member 2 (Testing), Member 5 (QA)
 - Dependencies: M → T (after core features)
 - Deliverables: Full system test suite, bug reports
 
 **U. UAT & Bug Fixes** ★
 - Duration: 8 days
-- Team: All developers
+- Team: Member 2 (Testing), Member 1 (Implementation)
 - Dependencies: T → U
 - Deliverables: User acceptance, production-ready code
 
 **V. Deployment & Documentation** ★
 - Duration: 5 days
-- Team: Dev 5 (Lead), All
+- Team: Member 1 (Deployment), Member 2 (Documentation)
 - Dependencies: U → V
 - Deliverables: Live application, user guides
 
@@ -423,10 +423,56 @@ V                                                                              �
 
 - **Total Tasks:** 22
 - **Critical Path Length:** 74 days (sequential)
-- **Optimized Duration:** 50 working days (with 5 developers)
+- **Optimized Duration:** 50 working days (with 5 team members)
 - **Critical Tasks:** 10 tasks (no slack)
 - **Flexible Tasks:** 12 tasks (with slack)
 - **Maximum Slack:** 32 days (Reporting features)
 - **Parallel Efficiency:** 32% reduction
 - **Resource Utilization:** 98% (very high)
 - **Buffer Time:** 2 weeks (built into 12-week plan)
+
+---
+
+## Team Structure Summary
+
+**Member 1: Implementation and Deployment**
+- Primary role in all implementation tasks (A, D, E, F, G, J, K, L, N, O, P, Q)
+- Deployment and production setup (V)
+- CI/CD pipeline management (C)
+
+**Member 2: Requirements, Planning and Testing**
+- Testing tasks (H, I, M, R, T)
+- UAT and bug fixes (U)
+- Documentation (V)
+- Requirements validation
+
+**Member 3: Architecture and System Design**
+- Database schema design (B)
+- System architecture for major features (D, F, J, O)
+- Admin features design (S)
+
+**Member 4: Architecture and System Design**
+- Frontend architecture (E, G, K, Q)
+- API design and documentation
+- Component architecture (L, S)
+
+**Member 5: Estimation and Testing**
+- Quality assurance across all testing phases (H, I, M, R, T)
+- Performance testing and optimization
+- Estimation tracking and analysis
+
+---
+
+## CSV Data Files
+
+All dependency and task data is available in CSV format:
+- **dependency_tasks.csv** - Complete task list with dependencies, durations, and team assignments
+- **team_allocation.csv** - Weekly team allocation by role
+- **estimation_breakdown.csv** - Detailed effort estimation by phase and feature
+
+These CSV files can be used for:
+- Project management tools import
+- Gantt chart generation
+- Resource planning
+- Dependency analysis
+- Critical path visualization

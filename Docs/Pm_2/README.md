@@ -24,8 +24,17 @@ This directory contains all deliverables for Milestone 2 of the AIU Trips and Ev
 Docs/Pm_2/
 ├── README.md (this file)
 ├── index.md (Main PMP document with all sections)
+├── NEW_ESTIMATIONS.md (Updated estimation with new team structure)
 ├── FEATURE_DEMO_DETAILS.md (Detailed demo documentation)
-└── DEPENDENCY_GRAPH_DETAILS.md (Detailed dependency analysis)
+├── DEPENDENCY_GRAPH_DETAILS.md (Detailed dependency analysis)
+└── csv_data/ (CSV files for all charts and diagrams)
+    ├── team_allocation.csv
+    ├── burndown_chart.csv
+    ├── velocity_analysis.csv
+    ├── estimation_breakdown.csv
+    ├── feature_allocation.csv
+    ├── dependency_tasks.csv
+    └── story_points_by_epic.csv
 
 Docs/pm/
 ├── Gantt Chart.png (Visual Gantt chart)
@@ -80,9 +89,13 @@ The `index.md` file contains all 8 required deliverables in a single comprehensi
 - **Reference:** Embedded in index.md
 
 ### Section 7: Team Allocation Chart (Task 7)
-- **Team Structure:** 2 Backend, 2 Frontend, 1 Full-Stack developer
-- **Weekly Allocation:** 12-week breakdown by developer
-- **Feature Allocation:** Developer-days per feature
+- **Team Structure:** 
+  - 1 member: Implementation and Deployment
+  - 1 member: Requirements, Planning and Testing
+  - 2 members: Architecture and System Design
+  - 1 member: Estimation and Testing
+- **Weekly Allocation:** 12-week breakdown by role
+- **Feature Allocation:** Member-days per feature (see csv_data/feature_allocation.csv)
 - **Utilization:** 98% resource utilization
 
 ### Section 8: Burndown Chart (Task 8)
@@ -147,7 +160,7 @@ In-depth dependency analysis:
 |--------|-------|-------|
 | **Total Story Points** | 122 SP | Adjusted from 104 SP |
 | **Project Duration** | 12 weeks | Fits 3-month constraint |
-| **Team Size** | 5 developers | Optimal for scope |
+| **Team Size** | 5 members | Specialized roles for optimal delivery |
 | **Critical Path** | 74 days | Sequential maximum |
 | **Parallel Execution** | 50 days | With resource optimization |
 | **Estimation Variance** | 17.5% | Based on demo features |

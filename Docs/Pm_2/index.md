@@ -15,6 +15,8 @@ Based on the 5 epics and their corresponding user stories detailed in your docum
 |**Epic 7: System Administration**|US7.1, US7.2, US7.3|11 SP |
 |**Total**|**25 User Stories**|**104 SP**|
 
+**CSV Data:** See `csv_data/story_points_by_epic.csv` for detailed breakdown
+
 
 **Formal Estimation: Fibonacci-Based Function Points** :
 
@@ -32,10 +34,21 @@ Here is the breakdown by feature:
 |**Design, Implementation, Testing & Deployment**|Additional project phases|9|45 |
 |**Total**||**40 Point**|**200 Days**|
 
+**CSV Data:** See `csv_data/estimation_breakdown.csv` for complete phase-wise estimation
+
+**Note:** Updated estimations with new team structure are available in `NEW_ESTIMATIONS.md`
+
 
 
 ## **2. Project Schedule & Milestones**
-This schedule outlines the key activities and milestones for the **8-week (40 working days)** project timeline, designed for a team of 5 developers. Milestones are set every two weeks to ensure progress is tracked effectively.
+This schedule outlines the key activities and milestones for the **12-week** project timeline, designed for a team of 5 members with specialized roles. Milestones are set every two weeks to ensure progress is tracked effectively.
+
+**Team Structure:**
+- Member 1: Implementation and Deployment
+- Member 2: Requirements, Planning and Testing
+- Member 3: Architecture and System Design
+- Member 4: Architecture and System Design
+- Member 5: Estimation and Testing
 ### **Weeks 1-2: Foundation & Core Authentication**
 This phase focuses on setting up the project's foundation and implementing the critical user authentication flow.
 
@@ -532,79 +545,86 @@ The Gantt Chart has been created and is available as an image file showing the t
 ### **7.1 Team Structure & Role Assignment**
 
 **Team Members:**
-1. **Developer 1 (Backend Lead)** - Senior Java/Spring Boot Developer
-2. **Developer 2 (Backend)** - Java Developer
-3. **Developer 3 (Frontend Lead)** - Senior React/Next.js Developer
-4. **Developer 4 (Frontend)** - React Developer
-5. **Developer 5 (Full-Stack)** - Integration & DevOps Specialist
+1. **Member 1 (Implementation and Deployment)** - Full-stack development, CI/CD, and production deployment specialist
+2. **Member 2 (Requirements, Planning and Testing)** - Requirements documentation, test planning, and UAT specialist
+3. **Member 3 (Architecture and System Design)** - System architecture, database design, and high-level design specialist
+4. **Member 4 (Architecture and System Design)** - API design, component architecture, and integration design specialist
+5. **Member 5 (Estimation and Testing)** - Project estimation, quality assurance, and performance testing specialist
 
 ---
 
 ### **7.2 Weekly Team Allocation**
 
-| Week | Phase | Dev 1 (Backend Lead) | Dev 2 (Backend) | Dev 3 (Frontend Lead) | Dev 4 (Frontend) | Dev 5 (Full-Stack) |
-|------|-------|---------------------|-----------------|----------------------|------------------|-------------------|
-| 1-2 | Foundation | Auth Backend (Lead) | Database Schema | Auth Frontend (Lead) | UI Components | DevOps Setup |
-| 3-4 | Core Features | Event Backend | Booking Backend | Event Frontend | Booking Frontend | API Integration |
-| 5-6 | Feature Completion | Booking Backend (QR) | Notification Backend | Event UI Polish | Booking UI + QR | Integration Testing |
-| 7-8 | Advanced Features | Reports Backend | Admin Features | Reports Frontend | Admin UI | Email Integration |
-| 9-10 | Testing | Backend Testing | Backend Testing | Frontend Testing | Frontend Testing | E2E Testing |
-| 11-12 | Deployment | Production Setup | Bug Fixes | UI Refinement | Documentation | Deployment & Monitoring |
+| Week | Phase | Member 1 (Implementation & Deployment) | Member 2 (Requirements Planning & Testing) | Member 3 (Architecture & Design) | Member 4 (Architecture & Design) | Member 5 (Estimation & Testing) |
+|------|-------|---------------------------------------|-------------------------------------------|----------------------------------|----------------------------------|--------------------------------|
+| 1-2 | Foundation | DevOps Setup & Initial Implementation | Requirements Documentation & Test Planning | Database Schema Design | System Architecture Design | Effort Estimation & Test Cases |
+| 3-4 | Core Features | Backend & Frontend Implementation | User Stories Validation & Test Execution | Event System Architecture | Booking System Architecture | Feature Estimation & Testing |
+| 5-6 | Feature Completion | Integration & Deployment Scripts | Acceptance Testing & Planning | System Integration Design | API Design & Documentation | Effort Tracking & Testing |
+| 7-8 | Advanced Features | Feature Implementation & CI/CD | Requirements Traceability & Testing | Reports Architecture Design | Admin System Architecture | Time Estimation & Quality Testing |
+| 9-10 | Testing | Deployment Testing & Production Setup | Test Plan Execution & Validation | Testing Infrastructure Design | Performance Architecture | Estimation Analysis & Test Coverage |
+| 11-12 | Deployment | Final Deployment & Monitoring | Final Testing & Sign-off | Deployment Architecture Review | Documentation & Architecture Finalization | Final Estimation Report & Quality Metrics |
+
+**CSV Data:** Full allocation details available in `csv_data/team_allocation.csv`
 
 ---
 
 ### **7.3 Allocation by Feature**
 
 ```
-User Authentication (28 dev-days):
-├─ Dev 1: 10 days (Backend API)
-├─ Dev 2: 5 days (Database models)
-├─ Dev 3: 7 days (Frontend pages)
-├─ Dev 4: 3 days (UI components)
-└─ Dev 5: 3 days (Integration)
+User Authentication (28 member-days):
+├─ Member 1: 10 days (Full-stack implementation)
+├─ Member 2: 3 days (Test planning & execution)
+├─ Member 3: 7 days (Database design & architecture)
+├─ Member 4: 5 days (API design)
+└─ Member 5: 3 days (Estimation & QA)
 
-Event Management (53 dev-days):
-├─ Dev 1: 12 days (Backend API)
-├─ Dev 2: 8 days (Business logic)
-├─ Dev 3: 10 days (Frontend pages)
-├─ Dev 4: 8 days (Event components)
-└─ Dev 5: 15 days (API integration & testing)
+Event Management (53 member-days):
+├─ Member 1: 15 days (Implementation & deployment)
+├─ Member 2: 5 days (Requirements & testing)
+├─ Member 3: 12 days (System architecture)
+├─ Member 4: 13 days (Component design)
+└─ Member 5: 8 days (Estimation & testing)
 
-Booking & Ticketing (53 dev-days):
-├─ Dev 1: 8 days (Booking API)
-├─ Dev 2: 12 days (QR & validation)
-├─ Dev 3: 10 days (Booking UI)
-├─ Dev 4: 10 days (Ticket components)
-└─ Dev 5: 13 days (QR integration & testing)
+Booking & Ticketing (53 member-days):
+├─ Member 1: 13 days (Implementation)
+├─ Member 2: 5 days (Testing)
+├─ Member 3: 10 days (Database & architecture)
+├─ Member 4: 12 days (API & integration design)
+└─ Member 5: 13 days (QA & performance testing)
 
-Notifications (12 dev-days):
-├─ Dev 2: 5 days (Backend)
-└─ Dev 5: 7 days (Email service integration)
+Notifications (12 member-days):
+├─ Member 1: 7 days (Implementation & deployment)
+├─ Member 2: 2 days (Testing)
+└─ Member 5: 3 days (Quality assurance)
 
-Reports & Analytics (35 dev-days):
-├─ Dev 1: 10 days (Backend API)
-├─ Dev 2: 5 days (Data aggregation)
-├─ Dev 3: 8 days (Reports UI)
-├─ Dev 4: 5 days (Charts & graphs)
-└─ Dev 5: 7 days (Testing)
+Reports & Analytics (35 member-days):
+├─ Member 1: 10 days (Implementation)
+├─ Member 2: 3 days (Requirements & testing)
+├─ Member 3: 10 days (Architecture design)
+├─ Member 4: 8 days (API & data design)
+└─ Member 5: 4 days (Testing & validation)
 
-System Administration (24 dev-days):
-├─ Dev 2: 8 days (Admin backend)
-├─ Dev 3: 6 days (Admin UI)
-├─ Dev 4: 5 days (User management UI)
-└─ Dev 5: 5 days (Integration)
+System Administration (24 member-days):
+├─ Member 1: 8 days (Implementation)
+├─ Member 2: 2 days (Testing)
+├─ Member 3: 6 days (System design)
+├─ Member 4: 5 days (Component design)
+└─ Member 5: 3 days (QA)
 
-Testing & Deployment (50 dev-days):
-├─ Dev 1: 10 days
-├─ Dev 2: 10 days
-├─ Dev 3: 10 days
-├─ Dev 4: 10 days
-└─ Dev 5: 10 days
+Testing & Deployment (50 member-days):
+├─ Member 1: 10 days (Deployment & production)
+├─ Member 2: 12 days (Test execution & UAT)
+├─ Member 3: 5 days (Architecture validation)
+├─ Member 4: 7 days (Integration validation)
+└─ Member 5: 16 days (Comprehensive testing & estimation analysis)
 ```
 
-**Total Development Capacity:** 5 developers × 50 days = **250 developer-days**
-**Allocated:** 255 dev-days (includes buffer)
+**Total Development Capacity:** 5 members × 60 days = **300 member-days**
+**Allocated:** 255 member-days
+**Buffer:** 45 member-days
 **Utilization Rate:** 98% (optimal for 3-month project)
+
+**CSV Data:** Detailed feature allocation available in `csv_data/feature_allocation.csv`
 
 ---
 
@@ -612,47 +632,79 @@ Testing & Deployment (50 dev-days):
 
 ```
 Weeks 1-2 (Foundation):
-Dev 1: ████████████ Auth Backend
-Dev 2: ████████████ Database + Models
-Dev 3: ████████████ Auth Frontend
-Dev 4: ████████████ UI Components
-Dev 5: ████████████ DevOps + CI/CD
+Member 1: ████████████ DevOps Setup & Initial Implementation
+Member 2: ████████████ Requirements Documentation & Test Planning
+Member 3: ████████████ Database Schema Design
+Member 4: ████████████ System Architecture Design
+Member 5: ████████████ Effort Estimation & Test Cases
 
 Weeks 3-4 (Core Features):
-Dev 1: ████████████ Event Backend
-Dev 2: ████████████ Booking Backend
-Dev 3: ████████████ Event Frontend
-Dev 4: ████████████ Booking Frontend
-Dev 5: ████████████ API Integration
+Member 1: ████████████ Backend & Frontend Implementation
+Member 2: ████████████ User Stories Validation & Test Execution
+Member 3: ████████████ Event System Architecture
+Member 4: ████████████ Booking System Architecture
+Member 5: ████████████ Feature Estimation & Testing
 
 Weeks 5-6 (Feature Completion):
-Dev 1: ████████████ QR + Validation
-Dev 2: ████████████ Notifications
-Dev 3: ████████████ Event UI Polish
-Dev 4: ████████████ Booking UI + QR Display
-Dev 5: ████████████ Integration Testing
+Member 1: ████████████ Integration & Deployment Scripts
+Member 2: ████████████ Acceptance Testing & Planning
+Member 3: ████████████ System Integration Design
+Member 4: ████████████ API Design & Documentation
+Member 5: ████████████ Effort Tracking & Testing
 
 Weeks 7-8 (Advanced Features):
-Dev 1: ████████████ Reports Backend
-Dev 2: ████████████ Admin Features
-Dev 3: ████████████ Reports Frontend
-Dev 4: ████████████ Admin UI
-Dev 5: ████████████ Email Integration
+Member 1: ████████████ Feature Implementation & CI/CD
+Member 2: ████████████ Requirements Traceability & Testing
+Member 3: ████████████ Reports Architecture Design
+Member 4: ████████████ Admin System Architecture
+Member 5: ████████████ Time Estimation & Quality Testing
 
 Weeks 9-10 (Testing):
-Dev 1: ████████████ Backend Testing
-Dev 2: ████████████ Backend Testing
-Dev 3: ████████████ Frontend Testing
-Dev 4: ████████████ Frontend Testing
-Dev 5: ████████████ E2E Testing
+Member 1: ████████████ Deployment Testing & Production Setup
+Member 2: ████████████ Test Plan Execution & Validation
+Member 3: ████████████ Testing Infrastructure Design
+Member 4: ████████████ Performance Architecture
+Member 5: ████████████ Estimation Analysis & Test Coverage
 
 Weeks 11-12 (Deployment):
-Dev 1: ████████████ Production Setup
-Dev 2: ████████████ Bug Fixes
-Dev 3: ████████████ UI Refinement
-Dev 4: ████████████ Documentation
-Dev 5: ████████████ Deployment
+Member 1: ████████████ Final Deployment & Monitoring
+Member 2: ████████████ Final Testing & Sign-off
+Member 3: ████████████ Deployment Architecture Review
+Member 4: ████████████ Documentation & Architecture Finalization
+Member 5: ████████████ Final Estimation Report & Quality Metrics
 ```
+
+### **7.5 Role Responsibilities Summary**
+
+**Member 1: Implementation and Deployment (73 days)**
+- Full-stack development (backend + frontend)
+- CI/CD pipeline setup and maintenance
+- Production deployment and monitoring
+- DevOps and infrastructure management
+
+**Member 2: Requirements, Planning and Testing (32 days)**
+- Requirements gathering and documentation
+- Test strategy and test case creation
+- User acceptance testing execution
+- Requirements traceability and validation
+
+**Member 3: Architecture and System Design (50 days)**
+- System architecture design and documentation
+- Database schema design and optimization
+- High-level system design
+- Architecture review and validation
+
+**Member 4: Architecture and System Design (50 days)**
+- API design and documentation
+- Component architecture and integration design
+- Technical documentation
+- Architecture implementation support
+
+**Member 5: Estimation and Testing (50 days)**
+- Project estimation and effort tracking
+- Quality assurance and test automation
+- Performance testing and optimization
+- Estimation accuracy analysis and reporting
 
 ---
 
@@ -683,6 +735,8 @@ Dev 5: ████████████ Deployment
 | Sprint 5 | 10 | 10 | 10 | 0 | ✓ On Track |
 | Sprint 6 | 11 | 5 | 4 | -1 | ✓ Ahead |
 | Sprint 6 | 12 | 0 | 0 | 0 | ✓ Complete |
+
+**CSV Data:** See `csv_data/burndown_chart.csv` for detailed burndown data
 
 ---
 
@@ -735,6 +789,8 @@ Legend: ● = Planned Ideal Line | ◆ = Actual Progress
 | Sprint 5 (Weeks 9-10) | 20 SP | 22 SP | +10% |
 | Sprint 6 (Weeks 11-12) | 10 SP | 10 SP | 0% |
 | **Average** | **21.3 SP/week** | **20.3 SP/week** | **-4.7%** |
+
+**CSV Data:** See `csv_data/velocity_analysis.csv` for detailed sprint velocity data
 
 ---
 

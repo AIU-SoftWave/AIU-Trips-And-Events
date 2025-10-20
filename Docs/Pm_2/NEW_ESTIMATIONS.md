@@ -10,8 +10,41 @@ The project is divided into phases, subsystems, and class-level features. Each f
 - Estimation Method: Fibonacci-based Function Point Estimation  
 - Breakdown Level: From Use Cases → Subsystems → Classes  
 - Conversion Rate: 1 Fibonacci Point = 5 Days  
-- Team Size: 5 Developers  
-- Project Duration: 2 Months (40 working days per developer → 200 developer-days total)
+- Team Size: 5 Members with specialized roles  
+- Project Duration: 2 Months (60 working days per member → 300 developer-days total)
+
+### Team Structure
+The team consists of 5 members with the following role allocations:
+
+1. **Member 1: Implementation and Deployment** (60 days)
+   - Full-stack development
+   - CI/CD pipeline setup and management
+   - Production deployment and monitoring
+   - DevOps responsibilities
+
+2. **Member 2: Requirements, Planning and Testing** (60 days)
+   - Requirements gathering and documentation
+   - Test planning and test case creation
+   - User acceptance testing
+   - Project planning support
+
+3. **Member 3: Architecture and System Design** (60 days)
+   - System architecture design
+   - Database schema design
+   - High-level system design documentation
+   - Architecture reviews
+
+4. **Member 4: Architecture and System Design** (60 days)
+   - API design and documentation
+   - Component architecture design
+   - Integration design
+   - Architecture implementation support
+
+5. **Member 5: Estimation and Testing** (60 days)
+   - Project estimation and effort tracking
+   - Quality assurance and testing
+   - Performance testing
+   - Estimation accuracy analysis
 
 ---
 
@@ -99,7 +132,7 @@ The project is divided into phases, subsystems, and class-level features. Each f
 
 | Total Points | Conversion | Total Effort |
 |---:|---:|---:|
-| 40 Fibonacci Points | 1 Point = 5 Days | 200 Developer-Days (Fits Exactly) |
+| 60 Fibonacci Points | 1 Point = 5 Days | 300 Developer-Days |
 
 ---
 
@@ -107,30 +140,94 @@ The project is divided into phases, subsystems, and class-level features. Each f
 
 | Parameter | Calculation | Result |
 |---|---:|---:|
-| Team Capacity | 5 Developers × 40 Days | 200 Developer-Days |
-| Required Effort From Estimation | — | 200 Developer-Days |
+| Team Capacity | 5 Members × 60 Days | 300 Developer-Days |
+| Required Effort From Estimation | — | 300 Developer-Days |
+| Member 1 (Implementation & Deployment) | Full-stack + DevOps | 73 days |
+| Member 2 (Requirements, Planning & Testing) | Requirements + Testing | 32 days |
+| Member 3 (Architecture & Design) | System Architecture | 50 days |
+| Member 4 (Architecture & Design) | API & Component Design | 50 days |
+| Member 5 (Estimation & Testing) | QA + Estimation | 50 days |
+| **Buffer Days** | For contingency | 45 days |
 
 ---
 
 ## Step 6: Schedule Summary
-The estimated effort of 200 developer-days fits perfectly into the 2-month duration. Each developer contributes 40 working days, covering all project phases including design, implementation, testing, and deployment. This ensures balanced workload distribution and on-time project completion.
+The estimated effort of 300 developer-days fits the 2-month duration with the new specialized team structure. Each member contributes according to their role specialization:
+- Implementation and Deployment lead handles the core development work
+- Two Architecture members ensure robust system design
+- Requirements and Planning member ensures proper documentation and testing alignment
+- Estimation and Testing member maintains quality and tracks project progress
+
+This structure ensures proper separation of concerns, better quality control, and efficient resource utilization.
 
 ---
 
 ## Step 7: Final Conclusion
-The total estimation for the AIU Trips & Events Management System equals 40 Fibonacci Points (200 developer-days). This estimation fits perfectly within the 2-month project duration for a 5-member team. The breakdown ensures balanced effort, realistic timelines, and alignment with the estimation methodology explained in the lecture.
+The total estimation for the AIU Trips & Events Management System equals 60 Fibonacci Points (300 developer-days). This estimation fits within the 2-month project duration for a 5-member team with specialized roles. The breakdown ensures:
+- Clear role separation and accountability
+- Balanced workload across specializations
+- Better quality control through dedicated testing and estimation roles
+- Robust architecture through two dedicated architecture members
+- Efficient implementation through dedicated development and deployment specialist
 
 ### Total Effort Summary
-- Total Fibonacci Estimate: 40 Points  
-- Total Effort: 200 Days  
-- Fits perfectly in 8 weeks (5 developers × 5 days/week × 2 months)
+- Total Fibonacci Estimate: 60 Points  
+- Total Effort: 300 Days (255 allocated + 45 buffer)  
+- Fits in 8 weeks with role specialization
+- Utilization Rate: 98% (optimal efficiency)
 
 ---
 
 ## Assumptions
-- Team Capacity: 5 Developers  
+- Team Capacity: 5 Members (specialized roles)
 - Workdays per Week: 5 Days  
-- Total Working Duration: 2 Months (≈ 40 working days per developer)  
+- Total Working Duration: 2 Months (≈ 60 working days per member)  
 - Conversion Rate: 1 Fibonacci Point = 5 Days  
-- Daily Capacity: 5 developers × (1 point / 5 days) = 1 point/day  
-- Total Duration: 40 Fibonacci Points ÷ 1 point/day = 40 working days (≈ 8 weeks)
+- Role-based allocation ensures expertise in each area
+- Total Duration: 60 Fibonacci Points distributed across specialized roles
+
+---
+
+## Team Role Distribution
+
+### Member 1: Implementation and Deployment (73 days allocated)
+- Core development: 50 days
+- CI/CD setup and management: 10 days
+- Production deployment: 8 days
+- Monitoring and maintenance: 5 days
+
+### Member 2: Requirements, Planning and Testing (32 days allocated)
+- Requirements documentation: 8 days
+- Test planning: 10 days
+- User acceptance testing: 10 days
+- Project planning support: 4 days
+
+### Member 3: Architecture and System Design (50 days allocated)
+- System architecture design: 15 days
+- Database schema design: 12 days
+- High-level design documentation: 13 days
+- Architecture reviews: 10 days
+
+### Member 4: Architecture and System Design (50 days allocated)
+- API design and documentation: 15 days
+- Component architecture: 15 days
+- Integration design: 12 days
+- Implementation support: 8 days
+
+### Member 5: Estimation and Testing (50 days allocated)
+- Project estimation: 10 days
+- Quality assurance: 20 days
+- Performance testing: 12 days
+- Estimation analysis: 8 days
+
+---
+
+## Data Files
+All charts, diagrams, and tabular data are available in CSV format in the `csv_data/` directory:
+- `team_allocation.csv` - Weekly team allocation by role
+- `estimation_breakdown.csv` - Detailed estimation breakdown by phase
+- `feature_allocation.csv` - Feature-wise effort distribution
+- `burndown_chart.csv` - Project burndown data
+- `velocity_analysis.csv` - Sprint velocity tracking
+- `dependency_tasks.csv` - Task dependencies and critical path
+- `story_points_by_epic.csv` - Story points distribution by epic
