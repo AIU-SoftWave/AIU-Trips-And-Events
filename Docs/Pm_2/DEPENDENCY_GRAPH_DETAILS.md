@@ -354,23 +354,23 @@ By running tasks in parallel and utilizing all 5 members with aggressive schedul
 |------|-----------|---------|--------------|
 | A | - | B, C | 0 ★ |
 | B | A | D, F, J, N, O, S | 0 ★ |
-| C | A | - | 7 |
+| C | A | - | 6 (reduced) |
 | D | B | E | 0 ★ |
 | E | D | H | 2 |
 | F | B | G, J | 0 ★ |
 | G | F | I | 2 |
-| H | E | - | 5 |
-| I | G | - | 8 |
+| H | E | - | 4 (reduced) |
+| I | G | - | 6 (reduced) |
 | J | F | K | 0 ★ |
 | K | J | L | 2 |
 | L | K | M | 0 ★ |
 | M | L | T | 0 ★ |
-| N | B | P | 27 |
-| O | B | Q | 32 |
-| P | N | - | 23 |
-| Q | O | R | 24 |
-| R | Q | - | 22 |
-| S | B | - | 15 |
+| N | B | P | 12 (reduced) |
+| O | B | Q | 16 (reduced) |
+| P | N | - | 10 (reduced) |
+| Q | O | R | 12 (reduced) |
+| R | Q | - | 10 (reduced) |
+| S | B | - | 8 (reduced) |
 | T | M | U | 0 ★ |
 | U | T | V | 0 ★ |
 | V | U | - | 0 ★ |

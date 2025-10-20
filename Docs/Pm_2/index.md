@@ -479,21 +479,21 @@ Project Start
 
 ### **5.2 Critical Path Analysis**
 
-**Path Calculation:**
+**Path Calculation (Compressed Timeline):**
 
 **Path 1 (Authentication → Event → Booking → QR → Testing → Deployment):**
-A(3) → B(5) → D(10) → F(12) → J(12) → L(5) → M(4) → T(10) → U(8) → V(5) = **74 days**
+A(2) → B(4) → D(7) → F(8) → J(8) → L(3) → M(3) → T(6) → U(5) → V(4) = **50 days**
 
 **Path 2 (Authentication → Booking → QR → Testing → Deployment):**
-A(3) → B(5) → D(10) → J(12) → K(10) → L(5) → M(4) → T(10) → U(8) → V(5) = **72 days**
+A(2) → B(4) → D(7) → J(8) → K(6) → L(3) → M(3) → T(6) → U(5) → V(4) = **48 days**
 
 **Path 3 (Setup → Event → Integration → Testing → Deployment):**
-A(3) → B(5) → F(12) → G(10) → I(4) → T(10) → U(8) → V(5) = **57 days**
+A(2) → B(4) → F(8) → G(6) → I(3) → T(6) → U(5) → V(4) = **38 days**
 
 **Path 4 (Setup → Reports → Testing → Deployment):**
-A(3) → B(5) → O(10) → Q(8) → R(3) → T(10) → U(8) → V(5) = **52 days**
+A(2) → B(4) → O(6) → Q(5) → R(2) → T(6) → U(5) → V(4) = **34 days**
 
-**Critical Path:** Path 1 = **74 days** (Maximum Path Value)
+**Critical Path:** Path 1 = **50 days** (Maximum Path Value - Compressed from 74 days)
 
 **Critical Tasks:**
 1. Project Setup (A) - 2 days
@@ -520,26 +520,26 @@ A(3) → B(5) → O(10) → Q(8) → R(3) → T(10) → U(8) → V(5) = **52 day
 
 | Task | Duration | Earliest Start | Latest Start | Slack Time |
 |------|----------|----------------|--------------|------------|
-| A - Project Setup | 3 | 0 | 0 | 0 (Critical) |
-| B - Database Schema | 5 | 3 | 3 | 0 (Critical) |
-| C - CI/CD Setup | 4 | 3 | 10 | 7 days |
-| D - Auth Backend | 10 | 8 | 8 | 0 (Critical) |
-| E - Auth Frontend | 7 | 18 | 20 | 2 days |
-| F - Event Backend | 12 | 18 | 18 | 0 (Critical) |
-| G - Event Frontend | 10 | 30 | 32 | 2 days |
-| J - Booking Backend | 12 | 30 | 30 | 0 (Critical) |
-| K - Booking Frontend | 10 | 42 | 44 | 2 days |
-| L - QR Integration | 5 | 52 | 52 | 0 (Critical) |
-| N - Notifications | 8 | 8 | 35 | 27 days |
-| O - Reporting Backend | 10 | 8 | 40 | 32 days |
-| T - System Testing | 10 | 61 | 61 | 0 (Critical) |
-| U - UAT | 8 | 71 | 71 | 0 (Critical) |
-| V - Deployment | 5 | 79 | 79 | 0 (Critical) |
+| A - Project Setup | 2 | 0 | 0 | 0 (Critical) |
+| B - Database Schema | 4 | 2 | 2 | 0 (Critical) |
+| C - CI/CD Setup | 3 | 2 | 8 | 6 days |
+| D - Auth Backend | 7 | 6 | 6 | 0 (Critical) |
+| E - Auth Frontend | 5 | 13 | 15 | 2 days |
+| F - Event Backend | 8 | 13 | 13 | 0 (Critical) |
+| G - Event Frontend | 6 | 21 | 23 | 2 days |
+| J - Booking Backend | 8 | 21 | 21 | 0 (Critical) |
+| K - Booking Frontend | 6 | 29 | 31 | 2 days |
+| L - QR Integration | 3 | 35 | 35 | 0 (Critical) |
+| N - Notifications | 5 | 6 | 18 | 12 days |
+| O - Reporting Backend | 6 | 6 | 22 | 16 days |
+| T - System Testing | 6 | 41 | 41 | 0 (Critical) |
+| U - UAT | 5 | 47 | 47 | 0 (Critical) |
+| V - Deployment | 4 | 52 | 52 | 0 (Critical) |
 
-**Tasks with Highest Slack (Flexible Scheduling):**
-- Reporting features: 32 days slack
-- Notification system: 27 days slack
-- CI/CD setup: 7 days slack
+**Tasks with Highest Slack (Flexible Scheduling - Reduced for Compressed Timeline):**
+- Reporting features: 16 days slack (reduced from 32)
+- Notification system: 12 days slack (reduced from 27)
+- CI/CD setup: 6 days slack (reduced from 7)
 
 ---
 
