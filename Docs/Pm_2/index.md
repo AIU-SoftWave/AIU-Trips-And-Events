@@ -262,13 +262,16 @@ Based on the actual implementation data from the two demo features, we can recal
 
 **Revised Timeline:**
 - Original: 8 weeks (40 working days) with 5 members = 200 dev-days
-- Adjusted: 10 weeks (50 working days) with 5 members = 250 dev-days
-- Buffer: 25% additional time for testing and integration
+- Adjusted: 8 weeks (40 working days) with 5 members = 200 dev-days
+- Buffer: 0% - aggressive compressed timeline requires maximum efficiency
 
 **Recommendation:**
-Given the 3-month constraint (12 weeks), the adjusted timeline fits comfortably with:
-- 10 weeks for development
-- 2 weeks for final testing, deployment, and documentation
+Given the 2-month constraint (8 weeks), the adjusted timeline requires:
+- Weeks 1-2: Foundation & Authentication
+- Weeks 3-4: Core Features & Integration
+- Weeks 5-6: Advanced Features & Testing
+- Weeks 7-8: Final Testing, Deployment & Documentation
+- Intensive parallel work and 100% resource utilization throughout
 
 ---
 
@@ -553,13 +556,11 @@ The Gantt Chart has been created and is available as an image file showing the t
 - Shows milestone markers at 2-week intervals
 - Color-coded by feature area (Authentication, Events, Booking, etc.)
 
-**Key Milestones Shown:**
+**Key Milestones Shown (8-Week Compressed Timeline):**
 - ✓ Week 2: Foundation & Authentication Complete
-- ✓ Week 4: Core Features Implemented
-- ✓ Week 6: Event & Booking System Operational
-- ✓ Week 8: All Features Complete
-- ✓ Week 10: Testing Complete
-- ✓ Week 12: Production Deployment
+- ✓ Week 4: Core Features & Integration Implemented
+- ✓ Week 6: Advanced Features & Comprehensive Testing Complete
+- ✓ Week 8: Production Deployment & Handover
 
 ![Gantt Chart](../pm/Gantt%20Chart.png)
 
@@ -594,58 +595,59 @@ The Gantt Chart has been created and is available as an image file showing the t
 ### **7.3 Allocation by Feature**
 
 ```
-User Authentication (28 member-days):
-├─ Member 1: 10 days (Full-stack implementation)
-├─ Member 2: 3 days (Test planning & execution)
-├─ Member 3: 7 days (Database design & architecture)
-├─ Member 4: 5 days (API design)
-└─ Member 5: 3 days (Estimation & QA)
+User Authentication (20 member-days):
+├─ Member 1: 6 days (Full-stack implementation)
+├─ Member 2: 4 days (Test planning & execution)
+├─ Member 3: 5 days (Database design & architecture)
+├─ Member 4: 3 days (API design)
+└─ Member 5: 2 days (Estimation & QA)
 
-Event Management (53 member-days):
-├─ Member 1: 15 days (Implementation & deployment)
-├─ Member 2: 5 days (Requirements & testing)
-├─ Member 3: 12 days (System architecture)
-├─ Member 4: 13 days (Component design)
-└─ Member 5: 8 days (Estimation & testing)
+Event Management (40 member-days):
+├─ Member 1: 11 days (Implementation & deployment)
+├─ Member 2: 7 days (Requirements & testing)
+├─ Member 3: 10 days (System architecture)
+├─ Member 4: 8 days (Component design)
+└─ Member 5: 4 days (Estimation & testing)
 
-Booking & Ticketing (53 member-days):
-├─ Member 1: 13 days (Implementation)
-├─ Member 2: 5 days (Testing)
-├─ Member 3: 10 days (Database & architecture)
-├─ Member 4: 12 days (API & integration design)
-└─ Member 5: 13 days (QA & performance testing)
-
-Notifications (12 member-days):
-├─ Member 1: 7 days (Implementation & deployment)
-├─ Member 2: 2 days (Testing)
-└─ Member 5: 3 days (Quality assurance)
-
-Reports & Analytics (35 member-days):
+Booking & Ticketing (40 member-days):
 ├─ Member 1: 10 days (Implementation)
-├─ Member 2: 3 days (Requirements & testing)
-├─ Member 3: 10 days (Architecture design)
-├─ Member 4: 8 days (API & data design)
-└─ Member 5: 4 days (Testing & validation)
+├─ Member 2: 7 days (Testing)
+├─ Member 3: 9 days (Database & architecture)
+├─ Member 4: 10 days (API & integration design)
+└─ Member 5: 4 days (QA & performance testing)
 
-System Administration (24 member-days):
-├─ Member 1: 8 days (Implementation)
+Notifications (8 member-days):
+├─ Member 1: 3 days (Implementation & deployment)
 ├─ Member 2: 2 days (Testing)
-├─ Member 3: 6 days (System design)
-├─ Member 4: 5 days (Component design)
-└─ Member 5: 3 days (QA)
+├─ Member 4: 1 day (Integration)
+└─ Member 5: 2 days (Quality assurance)
 
-Testing & Deployment (50 member-days):
+Reports & Analytics (28 member-days):
+├─ Member 1: 6 days (Implementation)
+├─ Member 2: 6 days (Requirements & testing)
+├─ Member 3: 7 days (Architecture design)
+├─ Member 4: 6 days (API & data design)
+└─ Member 5: 3 days (Testing & validation)
+
+System Administration (16 member-days):
+├─ Member 1: 4 days (Implementation)
+├─ Member 2: 3 days (Testing)
+├─ Member 3: 4 days (System design)
+├─ Member 4: 4 days (Component design)
+└─ Member 5: 1 day (QA)
+
+Testing & Deployment (48 member-days):
 ├─ Member 1: 10 days (Deployment & production)
-├─ Member 2: 12 days (Test execution & UAT)
+├─ Member 2: 15 days (Test execution & UAT)
 ├─ Member 3: 5 days (Architecture validation)
-├─ Member 4: 7 days (Integration validation)
-└─ Member 5: 16 days (Comprehensive testing & estimation analysis)
+├─ Member 4: 4 days (Integration validation)
+└─ Member 5: 14 days (Comprehensive testing & estimation analysis)
 ```
 
-**Total Development Capacity:** 5 members × 60 days = **300 member-days**
-**Allocated:** 255 member-days
-**Buffer:** 45 member-days
-**Utilization Rate:** 98% (optimal for 3-month project)
+**Total Development Capacity:** 5 members × 40 days = **200 member-days**
+**Allocated:** 200 member-days
+**Buffer:** 0 member-days (aggressive, compressed timeline)
+**Utilization Rate:** 100% (maximum efficiency for 8-week project)
 
 **CSV Data:** Detailed feature allocation available in `csv_data/feature_allocation.csv`
 
@@ -888,16 +890,16 @@ Legend: ░ To Do | ▒ In Review | ▓ In Progress | █ Done
 
 ## **Conclusion**
 
-This Project Management Plan (PMP) provides a comprehensive framework for the successful delivery of the AIU Trips and Events Management System within the 3-month constraint. The plan incorporates:
+This Project Management Plan (PMP) provides a comprehensive framework for the successful delivery of the AIU Trips and Events Management System within the compressed 8-week (2-month) timeline. The plan incorporates:
 
 1. **Realistic Estimates** based on actual implementation data showing 17.5% variance
-2. **Detailed Schedule** with clear milestones every two weeks
+2. **Compressed Schedule** with clear milestones every two weeks (4 milestones total)
 3. **Working Demos** of authentication and event/booking features with estimation error analysis
 4. **Complete SPMP** including WBS, resource allocation, and risk management
-5. **Dependency Analysis** with critical path of 74 days optimized to 50 days with parallel execution
-6. **Gantt Chart** visualization of the entire project timeline
-7. **Team Allocation** strategy optimizing 5 Members across all features
-8. **Burndown Tracking** showing recovery from early delays to on-time completion
+5. **Dependency Analysis** with critical path compressed from 74 days to 50 days, optimized to 40 days with aggressive parallel execution
+6. **Gantt Chart** visualization of the entire compressed project timeline
+7. **Team Allocation** strategy with 100% utilization of 5 members across all features
+8. **Burndown Tracking** showing intensive velocity (30.5 SP/week average) to achieve on-time completion in 8 weeks
 
-The project is well-positioned for success with proper planning, resource allocation, and continuous monitoring of progress through the burndown chart and sprint reviews.
+The project requires maximum efficiency and aggressive parallel work execution with zero buffer time. Success depends on proper planning, full resource utilization, and continuous monitoring of progress through the burndown chart and sprint reviews.
 

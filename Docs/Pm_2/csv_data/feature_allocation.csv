@@ -1,10 +1,10 @@
 Feature,Total Dev-Days,Member 1 (Implementation & Deployment),Member 2 (Requirements Planning & Testing),Member 3 (Architecture & Design),Member 4 (Architecture & Design),Member 5 (Estimation & Testing)
-User Authentication,28,10,3,7,5,3
-Event Management,53,15,5,12,13,8
-Booking & Ticketing,53,13,5,10,12,13
-Notifications,12,7,2,0,0,3
-Reports & Analytics,35,10,3,10,8,4
-System Administration,24,8,2,6,5,3
-Testing & Deployment,50,10,12,5,7,16
-Total,255,73,32,50,50,50
-Utilization Rate,98%,98%,98%,98%,98%,98%
+User Authentication,20,6,4,5,3,2
+Event Management,40,11,7,10,8,4
+Booking & Ticketing,40,10,7,9,10,4
+Notifications,8,3,2,0,1,2
+Reports & Analytics,28,6,6,7,6,3
+System Administration,16,4,3,4,4,1
+Testing & Deployment,48,10,15,5,4,14
+Total,200,50,44,40,36,30
+Utilization Rate (8 weeks),100%,100%,100%,100%,100%,100%

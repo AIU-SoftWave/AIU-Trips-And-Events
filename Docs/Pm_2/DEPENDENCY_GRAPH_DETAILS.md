@@ -246,57 +246,40 @@ With 5 members working in parallel:
 
 ### Week 1-2 (Days 1-10):
 **Parallel Execution:**
-- Member 1, Member 2: A → B (8 days)
-- Member 5: C (4 days, then assist with B)
-- Member 3, Member 4: Planning, UI design (non-blocking)
+- Member 1, Member 3: A → B (6 days total)
+- Member 4: C - CI/CD (3 days, then assist with B)
+- Member 2, Member 5: Planning, Test case prep
 
-**Result:** A + B completed in 8 days
+**Result:** A + B completed in 6 days
 
-### Week 3-4 (Days 11-24):
+### Week 3-4 (Days 11-20):
 **Parallel Execution:**
-- Member 1, Member 2: D - Auth Backend (10 days)
-- Member 3, Member 4: Start E - Auth Frontend after day 18 (when API contracts ready)
-- Member 5: Continue C, start N (Notifications)
+- Member 1, Member 3: D - Auth Backend (7 days)
+- Member 1, Member 4: E - Auth Frontend (5 days after D)
+- Member 2, Member 5: Start N (Notifications) in parallel
+- All: H - Integration Testing Phase 1 (2 days)
 
-**Result:** D completed day 18, E starts
+**Result:** Authentication complete by day 20
 
-### Week 5-6 (Days 25-38):
+### Week 5-6 (Days 21-30):
 **Parallel Execution:**
-- Member 1: F - Event Backend (12 days)
-- Member 2: F - Event Backend (assist, then start J)
-- Member 3: E → G - Event Frontend
-- Member 4: G - Event Frontend
-- Member 5: H → I - Integration testing
+- Member 1, Member 3: F - Event Backend + J - Booking Backend (8 days each, overlap)
+- Member 1, Member 4: G - Event Frontend + K - Booking Frontend (6 days each)
+- Member 2, Member 5: I - Integration Testing, O - Reporting Backend
+- All: Begin advanced features (N, O, S) in parallel
 
-**Result:** F completed day 36
+**Result:** Core features complete by day 30
 
-### Week 7-8 (Days 39-52):
+### Week 7-8 (Days 31-40):
 **Parallel Execution:**
-- Member 1: Support J - Booking Backend
-- Member 2: J - Booking Backend (12 days)
-- Member 3: G → K - Booking Frontend
-- Member 4: K - Booking Frontend
-- Member 5: O - Reporting Backend (high slack)
+- Member 1, Member 5: L - QR Integration (3 days)
+- Member 2, Member 5: M - Integration Testing Phase 3 (3 days)
+- Member 3, Member 4: Complete O, Q, S (Reporting, Admin)
+- All members: T - System Testing (6 days)
+- All members: U - UAT & Bug Fixes (5 days)
+- Member 1, Member 2: V - Deployment (4 days)
 
-**Result:** J completed day 50, K completed day 50
-
-### Week 9-10 (Days 53-62):
-**Parallel Execution:**
-- Member 4, Member 5: L - QR Integration (5 days)
-- Member 5: M - Integration Testing (4 days after L)
-- Member 1: O - Reporting (catch up)
-- Member 2: S - Admin Features
-- Member 3: Q - Reporting Frontend
-
-**Result:** Critical path through day 57 (L + M)
-
-### Week 11-12 (Days 63-74):
-**Parallel Execution:**
-- All members: T - System Testing (10 days)
-- All members: U - UAT (8 days)
-- Member 1 Lead: V - Deployment (5 days, others support)
-
-**Result:** Project complete by day 74
+**Result:** Project complete by day 40 (8 weeks)
 
 ---
 
@@ -394,32 +377,32 @@ By running tasks in parallel and utilizing all 5 members with aggressive schedul
 
 ---
 
-## Gantt Representation (Text Format)
+## Gantt Representation (Text Format) - 8 Week Compressed Timeline
 
 ```
-Week:  1    2    3    4    5    6    7    8    9   10   11   12
+Week:  1    2    3    4    5    6    7    8
 Task
-A    ███
-B       █████
-C       ████
-D           ██████████
-E                     ███████
-F                  ████████████
-G                              ██████████
-J                              ████████████
-K                                          ██████████
-L                                                    █████
-M                                                        ████
-N           ████████
-O                                      ██████████
-Q                                                  ████████
-S                                  ████████
-T                                                            ██████████
-U                                                                      ████████
-V                                                                              █████
+A    ██
+B      ████
+C      ███
+D          ███████
+E                 █████
+F             ████████
+G                     ██████
+J                     ████████
+K                             ██████
+L                                   ███
+M                                      ███
+N          █████
+O                     ██████
+Q                           █████
+S              █████
+T                                        ██████
+U                                              █████
+V                                                    ████
 ```
 
-**Critical Path shown with maximum density**
+**Critical Path shown with maximum density (compressed timeline)**
 
 ---
 
