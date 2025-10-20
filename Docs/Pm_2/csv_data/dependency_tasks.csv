@@ -1,23 +1,23 @@
 Task ID,Task Name,Duration (Days),Dependencies,Team Members,Critical Path
-A,Project Setup,3,None,Member 1 (Implementation & Deployment),Yes
-B,Database Schema Design,5,A,Member 3 (Architecture & Design) & Member 4 (Architecture & Design),Yes
-C,CI/CD Pipeline Setup,4,A,Member 1 (Implementation & Deployment),No
-D,User Authentication Backend,10,B,Member 1 (Implementation & Deployment) & Member 3 (Architecture & Design),Yes
-E,User Authentication Frontend,7,D,Member 1 (Implementation & Deployment) & Member 4 (Architecture & Design),No
-F,Event Management Backend,12,B,Member 1 (Implementation & Deployment) & Member 3 (Architecture & Design),Yes
-G,Event Management Frontend,10,F,Member 1 (Implementation & Deployment) & Member 4 (Architecture & Design),No
-H,Integration Testing Phase 1,3,E,Member 2 (Requirements Planning & Testing) & Member 5 (Estimation & Testing),No
-I,Integration Testing Phase 2,4,G,Member 2 (Requirements Planning & Testing) & Member 5 (Estimation & Testing),No
-J,Booking System Backend,12,F,Member 1 (Implementation & Deployment) & Member 3 (Architecture & Design),Yes
-K,Booking System Frontend,10,J,Member 1 (Implementation & Deployment) & Member 4 (Architecture & Design),No
-L,QR Code Integration,5,K,Member 1 (Implementation & Deployment) & Member 5 (Estimation & Testing),Yes
-M,Integration Testing Phase 3,4,L,Member 2 (Requirements Planning & Testing) & Member 5 (Estimation & Testing),Yes
-N,Notification System,8,B,Member 1 (Implementation & Deployment) & Member 2 (Requirements Planning & Testing),No
-O,Reporting Backend,10,B,Member 1 (Implementation & Deployment) & Member 3 (Architecture & Design),No
-P,Email Integration,4,N,Member 1 (Implementation & Deployment),No
-Q,Reporting Frontend,8,O,Member 1 (Implementation & Deployment) & Member 4 (Architecture & Design),No
-R,Integration Testing Phase 4,3,Q,Member 2 (Requirements Planning & Testing) & Member 5 (Estimation & Testing),No
-S,Admin Features,8,B,Member 3 (Architecture & Design) & Member 4 (Architecture & Design),No
-T,System Testing,10,M,Member 2 (Requirements Planning & Testing) & Member 5 (Estimation & Testing),Yes
-U,UAT & Bug Fixes,8,T,Member 2 (Requirements Planning & Testing) & Member 1 (Implementation & Deployment),Yes
-V,Deployment & Documentation,5,U,Member 1 (Implementation & Deployment) & Member 2 (Requirements Planning & Testing),Yes
+A,Project Setup,2,None,Member 1 (Implementation & Deployment),Yes
+B,Database Schema Design,4,A,Member 3 (Architecture & Design) & Member 4 (Architecture & Design),Yes
+C,CI/CD Pipeline Setup,3,A,Member 1 (Implementation & Deployment),No
+D,User Authentication Backend,7,B,Member 1 (Implementation & Deployment) & Member 3 (Architecture & Design),Yes
+E,User Authentication Frontend,5,D,Member 1 (Implementation & Deployment) & Member 4 (Architecture & Design),No
+F,Event Management Backend,8,B,Member 1 (Implementation & Deployment) & Member 3 (Architecture & Design),Yes
+G,Event Management Frontend,6,F,Member 1 (Implementation & Deployment) & Member 4 (Architecture & Design),No
+H,Integration Testing Phase 1,2,E,Member 2 (Requirements Planning & Testing) & Member 5 (Estimation & Testing),No
+I,Integration Testing Phase 2,3,G,Member 2 (Requirements Planning & Testing) & Member 5 (Estimation & Testing),No
+J,Booking System Backend,8,F,Member 1 (Implementation & Deployment) & Member 3 (Architecture & Design),Yes
+K,Booking System Frontend,6,J,Member 1 (Implementation & Deployment) & Member 4 (Architecture & Design),No
+L,QR Code Integration,3,K,Member 1 (Implementation & Deployment) & Member 5 (Estimation & Testing),Yes
+M,Integration Testing Phase 3,3,L,Member 2 (Requirements Planning & Testing) & Member 5 (Estimation & Testing),Yes
+N,Notification System,5,B,Member 1 (Implementation & Deployment) & Member 2 (Requirements Planning & Testing),No
+O,Reporting Backend,6,B,Member 1 (Implementation & Deployment) & Member 3 (Architecture & Design),No
+P,Email Integration,3,N,Member 1 (Implementation & Deployment),No
+Q,Reporting Frontend,5,O,Member 1 (Implementation & Deployment) & Member 4 (Architecture & Design),No
+R,Integration Testing Phase 4,2,Q,Member 2 (Requirements Planning & Testing) & Member 5 (Estimation & Testing),No
+S,Admin Features,5,B,Member 3 (Architecture & Design) & Member 4 (Architecture & Design),No
+T,System Testing,6,M,Member 2 (Requirements Planning & Testing) & Member 5 (Estimation & Testing),Yes
+U,UAT & Bug Fixes,5,T,Member 2 (Requirements Planning & Testing) & Member 1 (Implementation & Deployment),Yes
+V,Deployment & Documentation,4,U,Member 1 (Implementation & Deployment) & Member 2 (Requirements Planning & Testing),Yes

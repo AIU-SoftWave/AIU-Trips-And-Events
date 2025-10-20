@@ -15,22 +15,22 @@
 ### Phase 1: Setup & Foundation
 
 **A. Project Setup** ★
-- Duration: 3 days
+- Duration: 2 days (compressed from 3 days)
 - Team: Member 1 (Implementation & Deployment)
 - Dependencies: None (Starting point)
 - Deliverables: Git repo, project structure, build tools
 
 **B. Database Schema Design** ★
-- Duration: 5 days
+- Duration: 4 days (compressed from 5 days)
 - Team: Member 3, Member 4 (Architecture & Design)
 - Dependencies: A → B
 - Deliverables: ERD, migration scripts, entity models
 
 **C. CI/CD Pipeline Setup**
-- Duration: 4 days
+- Duration: 3 days (compressed from 4 days)
 - Team: Member 1 (Implementation & Deployment)
 - Dependencies: A → C
-- Slack: 7 days (can be delayed)
+- Slack: 3 days (reduced slack for compressed timeline)
 - Deliverables: GitHub Actions, automated tests
 
 ---
@@ -38,20 +38,20 @@
 ### Phase 2: Authentication
 
 **D. User Authentication Backend** ★
-- Duration: 10 days
+- Duration: 7 days (compressed from 10 days)
 - Team: Member 1 (Implementation), Member 3 (Architecture)
 - Dependencies: B → D
 - Deliverables: Auth API, JWT, password encryption
 
 **E. User Authentication Frontend**
-- Duration: 7 days
+- Duration: 5 days (compressed from 7 days)
 - Team: Member 1 (Implementation), Member 4 (Architecture)
 - Dependencies: D → E (needs API contracts)
-- Slack: 2 days
+- Slack: 1 day (reduced slack)
 - Deliverables: Login/register pages, auth context
 
 **H. Integration Testing Phase 1**
-- Duration: 3 days
+- Duration: 2 days (compressed from 3 days)
 - Team: Member 2 (Requirements Planning & Testing), Member 5 (Estimation & Testing)
 - Dependencies: E → H
 - Deliverables: Auth flow E2E tests
@@ -61,20 +61,20 @@
 ### Phase 3: Core Features - Events
 
 **F. Event Management Backend** ★
-- Duration: 12 days
+- Duration: 8 days (compressed from 12 days)
 - Team: Member 1 (Implementation & Deployment), Member 3 (Architecture & Design)
 - Dependencies: B → F (can start after DB schema)
 - Deliverables: Event CRUD API, business logic
 
 **G. Event Management Frontend**
-- Duration: 10 days
+- Duration: 6 days (compressed from 10 days)
 - Team: Member 1 (Implementation & Deployment), Member 4 (Architecture & Design)
 - Dependencies: F → G
-- Slack: 2 days
+- Slack: 1 day (reduced slack)
 - Deliverables: Event pages, create/edit forms
 
 **I. Integration Testing Phase 2**
-- Duration: 4 days
+- Duration: 3 days (compressed from 4 days)
 - Team: Member 2 (Requirements Planning & Testing), Member 5 (Estimation & Testing)
 - Dependencies: G → I
 - Deliverables: Event management E2E tests
@@ -84,26 +84,26 @@
 ### Phase 4: Core Features - Booking
 
 **J. Booking System Backend** ★
-- Duration: 12 days
+- Duration: 8 days (compressed from 12 days)
 - Team: Member 1 (Implementation), Member 3 (Architecture)
 - Dependencies: F → J (needs event API)
 - Deliverables: Booking API, capacity management
 
 **K. Booking System Frontend**
-- Duration: 10 days
+- Duration: 6 days (compressed from 10 days)
 - Team: Member 1 (Implementation), Member 4 (Architecture)
 - Dependencies: J → K
-- Slack: 2 days
+- Slack: 1 day (reduced slack)
 - Deliverables: Booking pages, ticket display
 
 **L. QR Code Integration** ★
-- Duration: 5 days
+- Duration: 3 days (compressed from 5 days)
 - Team: Member 1 (Implementation), Member 5 (QA)
 - Dependencies: K → L
 - Deliverables: QR generation, validation flow
 
 **M. Integration Testing Phase 3** ★
-- Duration: 4 days
+- Duration: 3 days (compressed from 4 days)
 - Team: Member 2 (Testing), Member 5 (QA)
 - Dependencies: L → M
 - Deliverables: Booking & QR E2E tests
@@ -113,44 +113,44 @@
 ### Phase 5: Advanced Features
 
 **N. Notification System**
-- Duration: 8 days
+- Duration: 5 days (compressed from 8 days)
 - Team: Member 1 (Implementation), Member 2 (Requirements)
 - Dependencies: B → N (can start after DB)
-- Slack: 27 days (very flexible)
+- Slack: 10 days (reduced for compressed timeline)
 - Deliverables: Email service, notification templates
 
 **P. Email Integration**
-- Duration: 4 days
+- Duration: 3 days (compressed from 4 days)
 - Team: Member 1 (Implementation)
 - Dependencies: N → P
-- Slack: 23 days
+- Slack: 8 days (reduced)
 - Deliverables: SMTP config, email triggers
 
 **O. Reporting Backend**
-- Duration: 10 days
+- Duration: 6 days (compressed from 10 days)
 - Team: Member 1 (Implementation), Member 3 (Architecture)
 - Dependencies: B → O
-- Slack: 32 days (highest slack)
+- Slack: 12 days (reduced from 32 days)
 - Deliverables: Analytics API, data aggregation
 
 **Q. Reporting Frontend**
-- Duration: 8 days
+- Duration: 5 days (compressed from 8 days)
 - Team: Member 1 (Implementation), Member 4 (Architecture)
 - Dependencies: O → Q
-- Slack: 24 days
+- Slack: 8 days (reduced)
 - Deliverables: Dashboard, charts, export
 
 **R. Integration Testing Phase 4**
-- Duration: 3 days
+- Duration: 2 days (compressed from 3 days)
 - Team: Member 2 (Testing), Member 5 (QA)
 - Dependencies: Q → R
 - Deliverables: Reporting E2E tests
 
 **S. Admin Features**
-- Duration: 8 days
+- Duration: 5 days (compressed from 8 days)
 - Team: Member 3 (Architecture), Member 4 (Architecture)
 - Dependencies: B → S
-- Slack: 15 days
+- Slack: 6 days (reduced)
 - Deliverables: Admin panel, user management
 
 ---
@@ -158,19 +158,19 @@
 ### Phase 6: Testing & Deployment
 
 **T. System Testing** ★
-- Duration: 10 days
+- Duration: 6 days (compressed from 10 days)
 - Team: Member 2 (Testing), Member 5 (QA)
 - Dependencies: M → T (after core features)
 - Deliverables: Full system test suite, bug reports
 
 **U. UAT & Bug Fixes** ★
-- Duration: 8 days
+- Duration: 5 days (compressed from 8 days)
 - Team: Member 2 (Testing), Member 1 (Implementation)
 - Dependencies: T → U
 - Deliverables: User acceptance, production-ready code
 
 **V. Deployment & Documentation** ★
-- Duration: 5 days
+- Duration: 4 days (compressed from 5 days)
 - Team: Member 1 (Deployment), Member 2 (Documentation)
 - Dependencies: U → V
 - Deliverables: Live application, user guides
@@ -181,61 +181,62 @@
 
 ### Path 1: Main Critical Path ★
 ```
-A(3) → B(5) → D(10) → F(12) → J(12) → L(5) → M(4) → T(10) → U(8) → V(5) = 74 days
+A(2) → B(4) → D(7) → F(8) → J(8) → L(3) → M(3) → T(6) → U(5) → V(4) = 50 days
 ```
 
 **Analysis:**
-- This is the longest path through the network
+- This is the longest path through the network (compressed)
 - Contains all major feature dependencies
 - No slack time available on this path
 - Any delay here impacts final delivery
+- Aggressive timeline requires maximum efficiency
 
 ### Path 2: Alternative Path (Authentication focused)
 ```
-A(3) → B(5) → D(10) → E(7) → H(3) → [join with main] → T(10) → U(8) → V(5) = 51 days
+A(2) → B(4) → D(7) → E(5) → H(2) → [join with main] → T(6) → U(5) → V(4) = 35 days
 ```
 
 **Analysis:**
 - Shorter than critical path
 - Can be completed in parallel with events/booking
-- 23 days earlier than critical path
+- 15 days earlier than critical path
 
 ### Path 3: Events to Testing
 ```
-A(3) → B(5) → F(12) → G(10) → I(4) → [join] → T(10) → U(8) → V(5) = 57 days
+A(2) → B(4) → F(8) → G(6) → I(3) → [join] → T(6) → U(5) → V(4) = 38 days
 ```
 
 **Analysis:**
-- 17 days slack compared to critical path
-- Frontend work can be delayed slightly
+- 12 days slack compared to critical path (reduced)
+- Frontend work has minimal slack
 
 ### Path 4: Notifications Path
 ```
-A(3) → B(5) → N(8) → P(4) → [wait] → T(10) → U(8) → V(5) = 43 days
+A(2) → B(4) → N(5) → P(3) → [wait] → T(6) → U(5) → V(4) = 29 days
 ```
 
 **Analysis:**
-- 31 days earlier than critical path
-- Very high slack (can start late)
-- Lowest priority for scheduling
+- 21 days earlier than critical path
+- Reduced slack (can start later but less flexibility)
+- Lower priority for scheduling
 
 ---
 
-## Maximum Path Value: 74 Days
+## Maximum Path Value: 50 Days (Compressed from 74 Days)
 
 **Critical Path Tasks:**
-1. A - Project Setup (3 days)
-2. B - Database Schema (5 days)
-3. D - Auth Backend (10 days)
-4. F - Event Backend (12 days)
-5. J - Booking Backend (12 days)
-6. L - QR Integration (5 days)
-7. M - Integration Testing 3 (4 days)
-8. T - System Testing (10 days)
-9. U - UAT & Fixes (8 days)
-10. V - Deployment (5 days)
+1. A - Project Setup (2 days - compressed from 3)
+2. B - Database Schema (4 days - compressed from 5)
+3. D - Auth Backend (7 days - compressed from 10)
+4. F - Event Backend (8 days - compressed from 12)
+5. J - Booking Backend (8 days - compressed from 12)
+6. L - QR Integration (3 days - compressed from 5)
+7. M - Integration Testing 3 (3 days - compressed from 4)
+8. T - System Testing (6 days - compressed from 10)
+9. U - UAT & Fixes (5 days - compressed from 8)
+10. V - Deployment (4 days - compressed from 5)
 
-**Total: 74 days (sequential)**
+**Total: 50 days (sequential, compressed timeline)**
 
 ---
 
@@ -299,21 +300,24 @@ With 5 members working in parallel:
 
 ---
 
-## Optimized Schedule: 50 Working Days
+## Optimized Schedule: 40 Working Days (8 Weeks)
 
-By running tasks in parallel and utilizing all 5 members:
+By running tasks in parallel and utilizing all 5 members with aggressive scheduling:
 
 **Critical Path Reduction:**
-- Sequential: 74 days
-- With parallelization: ~50 days
-- Efficiency gain: 32% faster
+- Original Sequential: 74 days
+- Compressed Sequential: 50 days
+- With aggressive parallelization: ~40 days (8 weeks)
+- Efficiency gain: 46% faster than original
 
 **How it's achieved:**
-1. Multiple members on large tasks (F, J)
-2. Frontend/Backend parallel development
-3. Early start on low-dependency tasks (N, O)
-4. Continuous integration testing
-5. Overlapping phases where possible
+1. Compressed task durations with focused work
+2. Multiple members on large tasks (F, J)
+3. Aggressive frontend/Backend parallel development
+4. Overlapping phases wherever possible
+5. Continuous integration testing
+6. Reduced slack time on non-critical tasks
+7. Maximum team efficiency and productivity
 
 ---
 
@@ -422,14 +426,14 @@ V                                                                              �
 ## Summary
 
 - **Total Tasks:** 22
-- **Critical Path Length:** 74 days (sequential)
-- **Optimized Duration:** 50 working days (with 5 team members)
+- **Critical Path Length:** 50 days (compressed sequential)
+- **Optimized Duration:** 40 working days (8 weeks with 5 team members)
 - **Critical Tasks:** 10 tasks (no slack)
-- **Flexible Tasks:** 12 tasks (with slack)
-- **Maximum Slack:** 32 days (Reporting features)
-- **Parallel Efficiency:** 32% reduction
-- **Resource Utilization:** 98% (very high)
-- **Buffer Time:** 2 weeks (built into 12-week plan)
+- **Flexible Tasks:** 12 tasks (minimal slack)
+- **Maximum Slack:** 12 days (Reporting features - reduced)
+- **Parallel Efficiency:** 46% reduction from original timeline
+- **Resource Utilization:** 100% (maximum efficiency required)
+- **Buffer Time:** 0 weeks (aggressive, compressed 8-week plan)
 
 ---
 

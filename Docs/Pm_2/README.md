@@ -54,13 +54,11 @@ The `index.md` file contains all 8 required deliverables in a single comprehensi
 - **Breakdown:** By epic (Authentication, Events, Booking, Notifications, Reports, Admin)
 
 ### Section 2: Project Schedule & Milestones (Task 2)
-- **Timeline:** 12-week project with 2-week milestones
+- **Timeline:** 8-week project with 2-week milestones
 - **Milestone 1 (Weeks 1-2):** Foundation & Core Authentication
-- **Milestone 2 (Weeks 3-4):** Core Feature Implementation (Events, Booking)
-- **Milestone 3 (Weeks 5-6):** Feature Completion & System Integration
-- **Milestone 4 (Weeks 7-8):** Advanced Features
-- **Milestone 5 (Weeks 9-10):** Testing
-- **Milestone 6 (Weeks 11-12):** Deployment & Handover
+- **Milestone 2 (Weeks 3-4):** Core Feature Implementation & Integration (Events, Booking)
+- **Milestone 3 (Weeks 5-6):** Advanced Features & Comprehensive Testing
+- **Milestone 4 (Weeks 7-8):** Final Testing, Deployment & Handover
 
 ### Section 3: Feature Demo & Estimation Error (Task 3)
 - **Demo 1:** User Authentication System
@@ -72,8 +70,8 @@ The `index.md` file contains all 8 required deliverables in a single comprehensi
 - **Updated Estimates:** 122 SP total (17.5% adjustment factor)
 
 ### Section 4: Finalized SPMP (Task 4)
-- **Project Overview:** 12 weeks, 5 members, 3-month constraint
-- **Work Breakdown Structure (WBS):** 6 phases, detailed tasks
+- **Project Overview:** 8 weeks, 5 members, 2-month constraint
+- **Work Breakdown Structure (WBS):** 5 phases, detailed tasks
 - **Resource Allocation:** Team composition and tools
 - **Risk Management:** 6 key risks with mitigation strategies
 - **Quality Assurance:** Testing strategy and metrics
@@ -82,9 +80,9 @@ The `index.md` file contains all 8 required deliverables in a single comprehensi
 ### Section 5: Dependency Graph & Critical Path (Task 5)
 - **Task Network:** 22 tasks with dependencies mapped
 - **Critical Path:** A → B → D → F → J → L → M → T → U → V
-- **Maximum Path Value:** 74 days (sequential)
-- **Optimized Duration:** 50 days (with 5 members in parallel)
-- **Slack Time Analysis:** Up to 32 days slack on non-critical tasks
+- **Maximum Path Value:** 50 days (compressed from 74 days)
+- **Optimized Duration:** 40 days (with 5 members in aggressive parallel execution)
+- **Slack Time Analysis:** Reduced slack for compressed timeline
 
 ### Section 6: Gantt Chart (Task 6)
 - **Visual Chart:** Available at `/Docs/pm/Gantt Chart.png`
@@ -97,15 +95,15 @@ The `index.md` file contains all 8 required deliverables in a single comprehensi
   - 1 member: Requirements Planning & Testing
   - 2 members: Architecture & Design
   - 1 member: Estimation & Testing
-- **Weekly Allocation:** 12-week breakdown by role
+- **Weekly Allocation:** 8-week breakdown by role
 - **Feature Allocation:** Member-days per feature (see csv_data/feature_allocation.csv)
-- **Utilization:** 98% resource utilization
+- **Utilization:** 100% resource utilization (intensive schedule)
 
 ### Section 8: Burndown Chart (Task 8)
-- **Scope:** 122 Story Points over 6 sprints
+- **Scope:** 122 Story Points over 4 sprints
 - **Planned vs Actual:** Week-by-week comparison
-- **Velocity Analysis:** Average 20.3 SP/week
-- **Variance:** Started 8 SP behind, finished 1 SP ahead
+- **Velocity Analysis:** Average 30.5 SP/week (intensive schedule)
+- **Variance:** Started 8 SP behind, recovered with high velocity in later sprints
 - **Cumulative Flow:** Visual representation of progress
 
 ---
@@ -189,12 +187,12 @@ All charts and diagrams in CSV format:
 | Metric | Value | Notes |
 |--------|-------|-------|
 | **Total Story Points** | 122 SP | Adjusted from 104 SP |
-| **Project Duration** | 12 weeks | Fits 3-month constraint |
+| **Project Duration** | 8 weeks | Fits 2-month constraint (compressed) |
 | **Team Size** | 5 members | Specialized roles for optimal delivery |
-| **Critical Path** | 74 days | Sequential maximum |
-| **Parallel Execution** | 50 days | With resource optimization |
+| **Critical Path** | 50 days | Compressed from 74 days |
+| **Parallel Execution** | 40 days | Aggressive resource optimization |
 | **Estimation Variance** | 17.5% | Based on demo features |
-| **Resource Utilization** | 98% | Very high efficiency |
+| **Resource Utilization** | 100% | Maximum efficiency (intensive schedule) |
 | **On-Time Delivery** | 100% | Project completed as planned |
 | **Test Coverage** | 72% | Exceeds 70% target |
 

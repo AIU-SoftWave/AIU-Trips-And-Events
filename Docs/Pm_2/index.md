@@ -41,7 +41,7 @@ Here is the breakdown by feature:
 
 
 ## **2. Project Schedule & Milestones**
-This schedule outlines the key activities and milestones for the **12-week** project timeline, designed for a team of 5 members with specialized roles. Milestones are set every two weeks to ensure progress is tracked effectively.
+This schedule outlines the key activities and milestones for the **8-week** project timeline, designed for a team of 5 members with specialized roles. Milestones are set every two weeks to ensure progress is tracked effectively.
 
 **Team Structure:**
 - Member 1: Implementation & Deployment
@@ -61,72 +61,58 @@ This phase focuses on setting up the project's foundation and implementing the c
 - **Visibility Point (Deliverable):**
   - A working API for user registration and login, testable with Postman.
   - A live demo of a user successfully logging in and being assigned a role.
-### **Weeks 3-4: Core Feature Implementation**
-With authentication in place, the focus shifts to building the system's primary functionalities for event management and booking.
+### **Weeks 3-4: Core Feature Implementation & Integration**
+With authentication in place, the focus shifts to building and integrating the system's primary functionalities for event management and booking.
 
-- **⭐ Milestone 2:** **Primary features for event creation and booking are functional.**
+- **⭐ Milestone 2:** **Core features for event and booking management are functional and integrated.**
 - **Key Activities:**
   - Develop the **Event & Trip Management Subsystem**, allowing organizers to create, update, and manage events.
-  - Implement the backend logic for the **Booking & Ticketing Subsystem**.
-  - Develop frontend pages for browsing events, viewing event details, and the main user dashboard.
-  - Integrate the email service for sending registration confirmation emails.
+  - Implement the backend logic for the **Booking & Ticketing Subsystem** in parallel.
+  - Integrate the QR code generation library for ticketing.
+  - Develop frontend pages for browsing events, viewing event details, booking, and the main user dashboard.
+  - API design & documentation; system integration design.
+  - Begin intensive integration testing to ensure all parts of the system communicate correctly.
 - **Visibility Point (Deliverable):**
   - API endpoints allowing organizers to manage events.
   - A functional frontend where students can browse the list of available trips and events.
+  - A full-flow demo: a student books an event, receives a QR code ticket, and the booking appears in the organizer's dashboard.
   - Mid-project review and demo.
-### **Weeks 5-6: Feature Completion & System Integration**
-This phase aims to complete all remaining features and ensure all subsystems work together seamlessly.
 
-- **⭐ Milestone 3:** **System is feature-complete and ready for comprehensive testing.**
-- **Key Activities:**
-  - Complete remaining frontend pages, including booking history and profile management.
-  - Integrate the QR code generation library for ticketing.
-  - API design & documentation; system integration design.
-  - Acceptance testing preparation and planning.
-  - Begin intensive integration testing to ensure all parts of the system communicate correctly.
-- **Visibility Point (Deliverable):**
-  - A full-flow demo: a student books an event, receives a confirmation email with a QR code ticket, and the booking appears in the organizer's dashboard.
-### **Weeks 7-8: Advanced Features**
-Focus on delivering advanced features and solidifying architecture and CI/CD.
+### **Weeks 5-6: Advanced Features & Testing**
+Focus on delivering advanced features, comprehensive testing, and CI/CD solidification.
 
-- **⭐ Milestone 4:** **Advanced features are implemented and integrated.**
+- **⭐ Milestone 3:** **Advanced features implemented and system passes comprehensive testing.**
 - **Key Activities:**
   - Implement the **Notification Subsystem** (emails, reminders, confirmations).
-  - Develop **Reporting & Analytics** features and dashboards.
+  - Develop **Reporting & Analytics** features and dashboards in parallel.
   - Implement **Admin System** features and finalize component architecture.
   - CI/CD enhancements and release hardening.
-  - Requirements traceability and targeted testing.
-  - Documentation and architecture finalization.
-- **Visibility Point (Deliverable):**
-  - Advanced features functional end-to-end.
-  - Updated technical documentation and improved CI pipeline.
-  - Initial reports (e.g., participant count) can be generated and displayed.
-
-### **Weeks 9-10: Testing**
-Comprehensive verification to ensure quality and readiness.
-
-- **⭐ Milestone 5:** **System passes UAT and non-functional criteria.**
-- **Key Activities:**
   - Conduct **User Acceptance Testing (UAT)** with stakeholders.
   - Perform **Non-Functional Testing**: performance, security, and reliability.
   - Execute test plans and validate requirements coverage.
-  - Address feedback and fix outstanding bugs; integration validation.
+  - Address feedback and fix outstanding bugs.
 - **Visibility Point (Deliverable):**
+  - Advanced features functional end-to-end.
+  - Updated technical documentation and improved CI pipeline.
+  - Reports (e.g., participant count) can be generated and displayed.
   - Test reports, coverage metrics, and issue resolution logs.
   - Go-live readiness sign-off.
 
-### **Weeks 11-12: Deployment & Handover**
-Prepare production, deploy, and complete handover activities.
+### **Weeks 7-8: Final Testing, Deployment & Handover**
+Final verification, production deployment, and complete handover activities.
 
-- **⭐ Milestone 6:** **Production deployment and official handover completed.**
+- **⭐ Milestone 4:** **Production deployment and official handover completed.**
 - **Key Activities:**
+  - Final integration and system testing.
   - Production environment setup and application deployment (Docker).
   - Monitoring and final validation in production.
   - Final documentation (user guides, developer manuals) and training.
+  - Requirements traceability and documentation finalization.
   - Final project presentation and handover.
 - **Visibility Point (Deliverable):**
   - Stable, deployed application accessible to end-users.
   - Completed documentation and handover package.
+  - System fully operational in production.
 
 ---
 
@@ -292,7 +278,7 @@ Given the 3-month constraint (12 weeks), the adjusted timeline fits comfortably 
 
 **Project Name:** AIU Trips and Events Management System
 
-**Project Duration:** 12 weeks (3 months)
+**Project Duration:** 8 weeks (2 months)
 
 **Team Size:** 5 members
 
@@ -304,7 +290,7 @@ Given the 3-month constraint (12 weeks), the adjusted timeline fits comfortably 
 - Generate reports and analytics for administrators
 
 **Constraints:**
-- Fixed 3-month timeline
+- Fixed 2-month timeline (8 weeks)
 - Team of 5 members
 - Must be production-ready by end of semester
 
@@ -359,24 +345,21 @@ Given the 3-month constraint (12 weeks), the adjusted timeline fits comfortably 
   - 4.3.2 System configuration
   - 4.3.3 Feedback management
 
-**Phase 5: Testing (Weeks 9-10)**
-- 5.1 Testing
+**Phase 5: Testing & Deployment (Weeks 7-8)**
+- 5.1 Comprehensive Testing
   - 5.1.1 Unit testing
   - 5.1.2 Integration testing
   - 5.1.3 User acceptance testing
-- 5.2 Performance & Validation
-  - 5.2.1 Performance architecture validation
-  - 5.2.2 Test plan execution & validation
-  - 5.2.3 Estimation analysis & test coverage
-
-**Phase 6: Deployment (Weeks 11-12)**
-- 6.1 Deployment
-  - 6.1.1 Production environment setup
-  - 6.1.2 Application deployment
-  - 6.1.3 Documentation finalization
-  - 6.1.4 Final testing & sign-off
-  - 6.1.5 Final deployment & monitoring
-  - 6.1.6 Deployment architecture review
+  - 5.1.4 Performance architecture validation
+  - 5.1.5 Test plan execution & validation
+  - 5.1.6 Estimation analysis & test coverage
+- 5.2 Production Deployment
+  - 5.2.1 Production environment setup
+  - 5.2.2 Application deployment
+  - 5.2.3 Documentation finalization
+  - 5.2.4 Final testing & sign-off
+  - 5.2.5 Final deployment & monitoring
+  - 5.2.6 Deployment architecture review
 
 ---
 
@@ -510,23 +493,23 @@ A(3) → B(5) → O(10) → Q(8) → R(3) → T(10) → U(8) → V(5) = **52 day
 **Critical Path:** Path 1 = **74 days** (Maximum Path Value)
 
 **Critical Tasks:**
-1. Project Setup (A) - 3 days
-2. Database Schema Design (B) - 5 days
-3. User Authentication Backend (D) - 10 days
-4. Event Management Backend (F) - 12 days
-5. Booking System Backend (J) - 12 days
-6. QR Code Integration (L) - 5 days
-7. Integration Testing Phase 3 (M) - 4 days
-8. System Testing (T) - 10 days
-9. UAT & Bug Fixes (U) - 8 days
-10. Deployment & Documentation (V) - 5 days
+1. Project Setup (A) - 2 days
+2. Database Schema Design (B) - 4 days
+3. User Authentication Backend (D) - 7 days
+4. Event Management Backend (F) - 8 days
+5. Booking System Backend (J) - 8 days
+6. QR Code Integration (L) - 3 days
+7. Integration Testing Phase 3 (M) - 3 days
+8. System Testing (T) - 6 days
+9. UAT & Bug Fixes (U) - 5 days
+10. Deployment & Documentation (V) - 4 days
 
-**Total Critical Path Duration: 74 days**
+**Total Critical Path Duration: 50 days** (Compressed from 74 days)
 
-**With 5 members (Parallel Execution):**
-- Effective Duration: **~50 working days (10 weeks)**
-- Plus 2-week buffer for unforeseen issues
-- **Total Project Duration: 12 weeks** ✓ (Fits 3-month constraint)
+**With 5 members (Parallel Execution & Aggressive Timeline):**
+- Effective Duration: **~40 working days (8 weeks)**
+- Intensive parallel work and optimized workflows
+- **Total Project Duration: 8 weeks** ✓ (Fits 2-month constraint)
 
 ---
 
@@ -600,11 +583,9 @@ The Gantt Chart has been created and is available as an image file showing the t
 | Week | Phase | Member 1 (Implementation & Deployment) | Member 2 (Requirements Planning & Testing) | Member 3 (Architecture & Design) | Member 4 (Architecture & Design) | Member 5 (Estimation & Testing) |
 |------|-------|---------------------------------------|-------------------------------------------|----------------------------------|----------------------------------|--------------------------------|
 | 1-2 | Foundation | DevOps Setup & Initial Implementation | Requirements Documentation & Test Planning | Database Schema Design | System Architecture Design | Effort Estimation & Test Cases |
-| 3-4 | Core Features | Backend & Frontend Implementation | User Stories Validation & Test Execution | Event System Architecture | Booking System Architecture | Feature Estimation & Testing |
-| 5-6 | Feature Completion | Integration & Deployment Scripts | Acceptance Testing & Planning | System Integration Design | API Design & Documentation | Effort Tracking & Testing |
-| 7-8 | Advanced Features | Feature Implementation & CI/CD | Requirements Traceability & Testing | Reports Architecture Design | Admin System Architecture | Time Estimation & Quality Testing |
-| 9-10 | Testing | Deployment Testing & Production Setup | Test Plan Execution & Validation | Testing Infrastructure Design | Performance Architecture | Estimation Analysis & Test Coverage |
-| 11-12 | Deployment | Final Deployment & Monitoring | Final Testing & Sign-off | Deployment Architecture Review | Documentation & Architecture Finalization | Final Estimation Report & Quality Metrics |
+| 3-4 | Core Features & Integration | Backend & Frontend Implementation | User Stories Validation & Test Execution | Event & Booking System Architecture | API Design & Documentation | Feature Estimation & Testing |
+| 5-6 | Advanced Features & Testing | Feature Implementation & CI/CD | Acceptance Testing & Validation | Reports & Admin Architecture | Performance Architecture | Comprehensive Testing & QA |
+| 7-8 | Final Testing & Deployment | Production Deployment & Monitoring | Final Testing & Sign-off | Architecture Review & Validation | Documentation Finalization | Estimation Report & Quality Metrics |
 
 **CSV Data:** Full allocation details available in `csv_data/team_allocation.csv`
 
@@ -680,69 +661,55 @@ Member 3: ████████████ Database Schema Design
 Member 4: ████████████ System Architecture Design
 Member 5: ████████████ Effort Estimation & Test Cases
 
-Weeks 3-4 (Core Features):
+Weeks 3-4 (Core Features & Integration):
 Member 1: ████████████ Backend & Frontend Implementation
 Member 2: ████████████ User Stories Validation & Test Execution
-Member 3: ████████████ Event System Architecture
-Member 4: ████████████ Booking System Architecture
+Member 3: ████████████ Event & Booking System Architecture
+Member 4: ████████████ API Design & Documentation
 Member 5: ████████████ Feature Estimation & Testing
 
-Weeks 5-6 (Feature Completion):
-Member 1: ████████████ Integration & Deployment Scripts
-Member 2: ████████████ Acceptance Testing & Planning
-Member 3: ████████████ System Integration Design
-Member 4: ████████████ API Design & Documentation
-Member 5: ████████████ Effort Tracking & Testing
-
-Weeks 7-8 (Advanced Features):
+Weeks 5-6 (Advanced Features & Testing):
 Member 1: ████████████ Feature Implementation & CI/CD
-Member 2: ████████████ Requirements Traceability & Testing
-Member 3: ████████████ Reports Architecture Design
-Member 4: ████████████ Admin System Architecture
-Member 5: ████████████ Time Estimation & Quality Testing
-
-Weeks 9-10 (Testing):
-Member 1: ████████████ Deployment Testing & Production Setup
-Member 2: ████████████ Test Plan Execution & Validation
-Member 3: ████████████ Testing Infrastructure Design
+Member 2: ████████████ Acceptance Testing & Validation
+Member 3: ████████████ Reports & Admin Architecture Design
 Member 4: ████████████ Performance Architecture
-Member 5: ████████████ Estimation Analysis & Test Coverage
+Member 5: ████████████ Comprehensive Testing & QA
 
-Weeks 11-12 (Deployment):
-Member 1: ████████████ Final Deployment & Monitoring
+Weeks 7-8 (Final Testing & Deployment):
+Member 1: ████████████ Production Deployment & Monitoring
 Member 2: ████████████ Final Testing & Sign-off
-Member 3: ████████████ Deployment Architecture Review
-Member 4: ████████████ Documentation & Architecture Finalization
-Member 5: ████████████ Final Estimation Report & Quality Metrics
+Member 3: ████████████ Architecture Review & Validation
+Member 4: ████████████ Documentation Finalization
+Member 5: ████████████ Estimation Report & Quality Metrics
 ```
 
 ### **7.5 Role Responsibilities Summary**
 
-**Member 1: Implementation & Deployment (73 days)**
+**Member 1: Implementation & Deployment (40 days)**
 - Full-stack development (backend + frontend)
 - CI/CD pipeline setup and maintenance
 - Production deployment and monitoring
 - DevOps and infrastructure management
 
-**Member 2: Requirements Planning & Testing (32 days)**
+**Member 2: Requirements Planning & Testing (40 days)**
 - Requirements gathering and documentation
 - Test strategy and test case creation
 - User acceptance testing execution
 - Requirements traceability and validation
 
-**Member 3: Architecture & Design (50 days)**
+**Member 3: Architecture & Design (40 days)**
 - System architecture design and documentation
 - Database schema design and optimization
 - High-level system design
 - Architecture review and validation
 
-**Member 4: Architecture & Design (50 days)**
+**Member 4: Architecture & Design (40 days)**
 - API design and documentation
 - Component architecture and integration design
 - Technical documentation
 - Architecture implementation support
 
-**Member 5: Estimation & Testing (50 days)**
+**Member 5: Estimation & Testing (40 days)**
 - Project estimation and effort tracking
 - Quality assurance and test automation
 - Performance testing and optimization
@@ -756,7 +723,7 @@ Member 5: ████████████ Final Estimation Report & Quality
 
 **Project Scope:** 122 Story Points (Adjusted)
 
-**Sprint Structure:** 6 sprints × 2 weeks each
+**Sprint Structure:** 4 sprints × 2 weeks each
 
 ---
 
@@ -765,18 +732,14 @@ Member 5: ████████████ Final Estimation Report & Quality
 | Sprint | Week | Planned Remaining SP | Actual Remaining SP | Variance | Status |
 |--------|------|---------------------|---------------------|----------|--------|
 | Sprint 1 | 0 | 122 | 122 | 0 | ✓ On Track |
-| Sprint 1 | 1 | 112 | 117 | -5 | ⚠ Behind |
-| Sprint 1 | 2 | 102 | 109 | -7 | ⚠ Behind |
-| Sprint 2 | 3 | 88 | 101 | -13 | ⚠ Behind |
-| Sprint 2 | 4 | 74 | 93 | -19 | ⚠ Behind (Max) |
-| Sprint 3 | 5 | 60 | 85 | -25 | ⚠ Behind |
-| Sprint 3 | 6 | 48 | 69 | -21 | ⚠ Behind |
-| Sprint 4 | 7 | 36 | 52 | -16 | ⚠ Behind |
-| Sprint 4 | 8 | 24 | 34 | -10 | ⚠ Behind |
-| Sprint 5 | 9 | 16 | 18 | -2 | ⚠ Behind |
-| Sprint 5 | 10 | 8 | 8 | 0 | ✓ On Track |
-| Sprint 6 | 11 | 2 | 1 | 1 | ✓ Ahead |
-| Sprint 6 | 12 | 0 | 0 | 0 | ✓ Complete |
+| Sprint 1 | 1 | 107 | 112 | -5 | ⚠ Behind |
+| Sprint 1 | 2 | 92 | 100 | -8 | ⚠ Behind |
+| Sprint 2 | 3 | 77 | 90 | -13 | ⚠ Behind |
+| Sprint 2 | 4 | 62 | 78 | -16 | ⚠ Behind (Max) |
+| Sprint 3 | 5 | 47 | 63 | -16 | ⚠ Behind |
+| Sprint 3 | 6 | 32 | 44 | -12 | ⚠ Behind |
+| Sprint 4 | 7 | 17 | 20 | -3 | ⚠ Behind |
+| Sprint 4 | 8 | 0 | 0 | 0 | ✓ Complete |
 
 **CSV Data:** See `csv_data/burndown_chart.csv` for detailed burndown data
 
@@ -789,31 +752,31 @@ Story Points
      │
  120 │ ●
      │  ╲
- 110 │   ◆─◆ (Actual - Initially behind)
-     │    ╲  ╲
- 100 │     ╲  ◆
-     │      ╲  ╲
+ 110 │   ╲◆ (Actual - Initially behind)
+     │    ╲ ╲
+ 100 │     ╲ ◆
+     │      ●  ╲
   90 │       ╲  ◆
-     │        ●  ╲
-  80 │         ╲  ◆
-     │          ●  ╲
-  70 │           ╲  ◆
+     │        ╲  ╲
+  80 │         ●  ◆
+     │          ╲  ╲
+  70 │           ╲  ╲
      │            ●  ╲
   60 │             ╲  ◆─◆ (Recovery phase)
-     │              ●   ╲
-  50 │               ╲   ◆
-     │                ●   ╲
-  40 │                 ╲   ◆─◆
-     │                  ●   ╲
-  30 │                   ╲   ◆─◆
-     │                    ●   ╲
-  20 │                     ╲   ◆─●
-     │                      ●   ╲
-  10 │                       ╲   ●─◆
-     │                        ●   ╲
-   0 │                         ╲   ●─◆
-     └─────────────────────────────────────► Time
-       0  1  2  3  4  5  6  7  8  9 10 11 12 (Weeks)
+     │              ╲  ╲
+  50 │               ●  ╲
+     │                ╲  ╲
+  40 │                 ╲  ◆─◆
+     │                  ●  ╲
+  30 │                   ╲  ◆
+     │                    ╲  ╲
+  20 │                     ●  ◆─●
+     │                      ╲
+  10 │                       ╲
+     │                        ●
+   0 │                         ●─◆
+     └──────────────────────────────► Time
+       0   1   2   3   4   5   6   7   8 (Weeks)
 
 Legend: ● = Planned Ideal Line | ◆ = Actual Progress
 ```
@@ -824,13 +787,11 @@ Legend: ● = Planned Ideal Line | ◆ = Actual Progress
 
 | Sprint | Planned Velocity (SP/week) | Actual Velocity (SP/week) | Variance |
 |--------|---------------------------|---------------------------|----------|
-| Sprint 1 (Weeks 1-2) | 20 SP | 15 SP | -25% |
-| Sprint 2 (Weeks 3-4) | 28 SP | 25 SP | -11% |
-| Sprint 3 (Weeks 5-6) | 26 SP | 24 SP | -8% |
-| Sprint 4 (Weeks 7-8) | 24 SP | 26 SP | +8% |
-| Sprint 5 (Weeks 9-10) | 20 SP | 22 SP | +10% |
-| Sprint 6 (Weeks 11-12) | 10 SP | 10 SP | 0% |
-| **Average** | **21.3 SP/week** | **20.3 SP/week** | **-4.7%** |
+| Sprint 1 (Weeks 1-2) | 30 SP | 22 SP | -27% |
+| Sprint 2 (Weeks 3-4) | 30 SP | 28 SP | -7% |
+| Sprint 3 (Weeks 5-6) | 30 SP | 34 SP | +13% |
+| Sprint 4 (Weeks 7-8) | 32 SP | 38 SP | +19% |
+| **Average** | **30.5 SP/week** | **30.5 SP/week** | **0%** |
 
 **CSV Data:** See `csv_data/velocity_analysis.csv` for detailed sprint velocity data
 
@@ -838,38 +799,39 @@ Legend: ● = Planned Ideal Line | ◆ = Actual Progress
 
 ### **8.5 Analysis & Insights**
 
-**Early Phase (Weeks 1-4):**
+**Early Phase (Weeks 1-2):**
 - Team started slower due to setup and learning curve
 - Authentication complexity underestimated
-- Maximum variance of 8 SP behind at Week 4
+- Maximum variance of 5-8 SP behind at Week 2
 
-**Mid Phase (Weeks 5-8):**
-- Team velocity increased as processes matured
-- Better understanding of codebase and patterns
-- Recovered 6 SP deficit through focused effort
+**Mid Phase (Weeks 3-4):**
+- Parallel development accelerated progress
+- Maximum variance of 16 SP behind at Week 4
+- Intensive collaboration required to manage aggressive timeline
 
-**Late Phase (Weeks 9-12):**
-- Consistent velocity maintained
-- Testing phase went smoother than expected
-- Finished 1 SP ahead of schedule due to earlier planning
+**Late Phase (Weeks 5-8):**
+- Team velocity significantly increased through optimization
+- Better understanding of codebase and established patterns
+- Recovered deficit and exceeded targets in final sprints
+- Strong finish with +19% velocity in Sprint 4
 
-**Key Factors for Variance:**
-1. **Initial Setup Overhead:** DevOps and architecture decisions took longer
-2. **Learning Curve:** New technologies (JWT, QR codes) required research
-3. **Process Improvement:** Daily standups and code reviews improved efficiency
-4. **Team Collaboration:** Better communication reduced rework
+**Key Factors for Success:**
+1. **Aggressive Parallelization:** Multiple features developed simultaneously
+2. **Rapid Learning:** Quick adaptation to technologies (JWT, QR codes)
+3. **Process Optimization:** Daily standups and immediate issue resolution
+4. **Team Collaboration:** Constant communication and pair programming
 
 **Corrective Actions Taken:**
-- Week 3: Added daily sync meetings
-- Week 4: Pair programming on complex features
-- Week 5: Code review checklist implemented
-- Week 6: Automated testing improved velocity
+- Week 2: Increased pair programming on critical path tasks
+- Week 3: Daily sync meetings and immediate blockers resolution
+- Week 4: Code review checklist and automated testing implemented
+- Week 5: Parallel work streams optimized for maximum throughput
 
 **Final Outcome:**
-- ✓ Project completed on time (Week 12)
+- ✓ Project completed on time (Week 8)
 - ✓ All 122 story points delivered
 - ✓ Quality metrics met (70% test coverage)
-- ✓ Within 3-month constraint
+- ✓ Within 2-month constraint (compressed timeline)
 
 ---
 
@@ -878,21 +840,21 @@ Legend: ● = Planned Ideal Line | ◆ = Actual Progress
 ```
 Story Points in Each State Over Time
 
- 120│                                         Done ████
-    │                                    ████████████████
- 100│                              ██████████████████████
-    │                         █████████████████████████▓▓
-  80│                    ██████████████████████████▓▓▓▓▓▓
-    │               █████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓
-  60│          ████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒  In Progress ▓▓▓▓
-    │     ████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒
-  40│ ████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒░░░░
-    │ ████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒░░░░░░░░
-  20│ ████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░  To Do ░░░░
-    │ ████████████▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░
+ 120│                                  Done ████
+    │                            █████████████████
+ 100│                      ████████████████████████
+    │                 ████████████████████████▓▓▓▓▓
+  80│            ████████████████████████▓▓▓▓▓▓▓▓▓▓▓
+    │       ████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒  In Progress ▓▓▓▓
+  60│   ████████████████████████▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒
+    │ ████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒░░░░
+  40│ ████████████████▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒░░░░░░░░
+    │ ████████████▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒░░░░░░░░░░░░  To Do ░░░░
+  20│ ████████▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░
+    │ ████▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░
    0│
-    └────────────────────────────────────────────────────► Time
-      0   1   2   3   4   5   6   7   8   9  10  11  12 (Weeks)
+    └─────────────────────────────────────────────► Time
+      0   1   2   3   4   5   6   7   8 (Weeks)
 
 Legend: ░ To Do | ▒ In Review | ▓ In Progress | █ Done
 ```
