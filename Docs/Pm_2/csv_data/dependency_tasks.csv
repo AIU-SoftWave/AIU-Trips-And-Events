@@ -1,0 +1,23 @@
+Task ID,Task Name,Duration (Days),Dependencies,Team Members,Critical Path
+A,Project Setup,3,None,Member 1,Yes
+B,Database Schema Design,5,A,Member 3 & Member 4,Yes
+C,CI/CD Pipeline Setup,4,A,Member 1,No
+D,User Authentication Backend,7,B,Member 1 & Member 3,Yes
+E,User Authentication Frontend,7,D,Member 1 & Member 4,No
+F,Event Management Backend,5,D,Member 1 & Member 3,Yes
+G,Event Management Frontend,6,F,Member 1 & Member 4,No
+H,Booking Backend,7,F,Member 1 & Member 3,No
+I,Booking Frontend,6,H,Member 1 & Member 4,No
+J,QR Code Integration,4,H,Member 1 & Member 5,Yes
+K,Notification System,4,D,Member 1 & Member 2,No
+L,Reports Backend,5,F,Member 3 & Member 4,Yes
+M,Reports Frontend,4,L,Member 4,Yes
+N,Admin Backend,5,F,Member 3 & Member 4,No
+O,Admin Frontend,4,N,Member 4,No
+P,Unit Testing,8,E,Member 2 & Member 5,No
+Q,Integration Testing,10,J,Member 2 & Member 5,No
+R,UAT Testing,5,Q,Member 2,No
+S,Performance Testing,6,Q,Member 5,No
+T,Documentation,3,M,Member 2 & Member 4,Yes
+U,Deployment Setup,4,T,Member 1,Yes
+V,Production Release,2,U,Member 1,Yes

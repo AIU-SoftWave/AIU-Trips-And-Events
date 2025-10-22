@@ -1,0 +1,10 @@
+Feature,Total Dev-Days,Member 1 (Implementation & Deployment),Member 2 (Requirements Planning & Testing),Member 3 (Architecture & Design),Member 4 (Architecture & Design),Member 5 (Estimation & Testing)
+User Authentication,22,8,2,6,4,2
+Event Management,42,12,4,10,10,6
+Booking & Ticketing,42,11,4,8,9,10
+Notifications,9,5,2,0,0,2
+Reports & Analytics,27,8,2,8,6,3
+System Administration,19,6,2,5,4,2
+Testing & Deployment,39,8,9,4,5,13
+Total,200,58,25,41,38,38
+Utilization Rate,100%,100%,100%,100%,100%,100%
