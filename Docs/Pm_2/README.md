@@ -8,11 +8,11 @@ This directory contains all deliverables for Milestone 2 of the AIU Trips and Ev
 - [x] **Task 1 (20 marks):** Stories estimations, use case estimations, feature estimations
 - [x] **Task 2 (20 marks):** Schedule for tasks and activities with two-week milestones
 - [x] **Task 3 (20 marks):** Demo for implemented features with estimation error analysis
-- [x] **Task 4 (10 marks):** Finalized SPMP for 3-month timeline
+- [x] **Task 4 (10 marks):** Finalized SPMP for 2-month timeline
 - [x] **Task 5 (10 marks):** Dependency graph and maximum path value
 - [x] **Task 6 (5 marks):** Gantt Chart
 - [x] **Task 7 (5 marks):** Team allocation chart
-- [x] **Task 8 (10 marks):** Burndown chart (planned vs actual)
+- [x] **Task 8 (10 marks):** Burnout chart (planned vs actual)
 
 **Total: 100 marks**
 
@@ -27,7 +27,6 @@ Docs/Pm_2/
 ├── NEW_ESTIMATIONS.md (Updated estimation with new team structure)
 ├── FEATURE_DEMO_DETAILS.md (Detailed demo documentation)
 ├── DEPENDENCY_GRAPH_DETAILS.md (Detailed dependency analysis)
-├── DATA_CONSISTENCY_REPORT.md (Consistency scan results and validation)
 └── csv_data/ (CSV files for all charts and diagrams)
     ├── team_allocation.csv
     ├── burndown_chart.csv
@@ -54,13 +53,11 @@ The `index.md` file contains all 8 required deliverables in a single comprehensi
 - **Breakdown:** By epic (Authentication, Events, Booking, Notifications, Reports, Admin)
 
 ### Section 2: Project Schedule & Milestones (Task 2)
-- **Timeline:** 12-week project with 2-week milestones
+- **Timeline:** 8-week project with 2-week milestones
 - **Milestone 1 (Weeks 1-2):** Foundation & Core Authentication
-- **Milestone 2 (Weeks 3-4):** Core Feature Implementation (Events, Booking)
-- **Milestone 3 (Weeks 5-6):** Feature Completion & System Integration
-- **Milestone 4 (Weeks 7-8):** Advanced Features
-- **Milestone 5 (Weeks 9-10):** Testing
-- **Milestone 6 (Weeks 11-12):** Deployment & Handover
+- **Milestone 2 (Weeks 3-4):** Primary features (Events, Booking)
+- **Milestone 3 (Weeks 5-6):** Feature completion & Integration
+- **Milestone 4 (Weeks 7-8):** Testing, Deployment, Handover
 
 ### Section 3: Feature Demo & Estimation Error (Task 3)
 - **Demo 1:** User Authentication System
@@ -72,8 +69,8 @@ The `index.md` file contains all 8 required deliverables in a single comprehensi
 - **Updated Estimates:** 122 SP total (17.5% adjustment factor)
 
 ### Section 4: Finalized SPMP (Task 4)
-- **Project Overview:** 12 weeks, 5 members, 3-month constraint
-- **Work Breakdown Structure (WBS):** 6 phases, detailed tasks
+- **Project Overview:** 8 weeks, 5 developers, 2-month constraint
+- **Work Breakdown Structure (WBS):** 4 phases, detailed tasks
 - **Resource Allocation:** Team composition and tools
 - **Risk Management:** 6 key risks with mitigation strategies
 - **Quality Assurance:** Testing strategy and metrics
@@ -83,7 +80,7 @@ The `index.md` file contains all 8 required deliverables in a single comprehensi
 - **Task Network:** 22 tasks with dependencies mapped
 - **Critical Path:** A → B → D → F → J → L → M → T → U → V
 - **Maximum Path Value:** 74 days (sequential)
-- **Optimized Duration:** 50 days (with 5 members in parallel)
+- **Optimized Duration:** 50 days (with 5 developers in parallel)
 - **Slack Time Analysis:** Up to 32 days slack on non-critical tasks
 
 ### Section 6: Gantt Chart (Task 6)
@@ -93,16 +90,16 @@ The `index.md` file contains all 8 required deliverables in a single comprehensi
 
 ### Section 7: Team Allocation Chart (Task 7)
 - **Team Structure:** 
-  - 1 member: Implementation & Deployment
-  - 1 member: Requirements Planning & Testing
-  - 2 members: Architecture & Design
-  - 1 member: Estimation & Testing
-- **Weekly Allocation:** 12-week breakdown by role
+  - 1 member: Implementation and Deployment
+  - 1 member: Requirements, Planning and Testing
+  - 2 members: Architecture and System Design
+  - 1 member: Estimation and Testing
+- **Weekly Allocation:** 8-week breakdown by role
 - **Feature Allocation:** Member-days per feature (see csv_data/feature_allocation.csv)
 - **Utilization:** 98% resource utilization
 
 ### Section 8: Burndown Chart (Task 8)
-- **Scope:** 122 Story Points over 6 sprints
+- **Scope:** 122 Story Points over 4 sprints
 - **Planned vs Actual:** Week-by-week comparison
 - **Velocity Analysis:** Average 20.3 SP/week
 - **Variance:** Started 8 SP behind, finished 1 SP ahead
@@ -112,19 +109,11 @@ The `index.md` file contains all 8 required deliverables in a single comprehensi
 
 ## Supporting Documents
 
-### DATA_CONSISTENCY_REPORT.md
-Comprehensive data consistency scan results:
-- Complete validation of all numerical values
-- Team member reference consistency check
-- CSV data accuracy verification
-- Documents fixes applied
-- Provides consistency guidelines
-
 ### NEW_ESTIMATIONS.md
 Updated project estimation with new team structure:
 - Fibonacci-based function point estimation
 - Specialized role assignments
-- 300 developer-days breakdown
+- 200 developer-days breakdown
 - Team capacity analysis
 - Phase-wise effort distribution
 
@@ -189,10 +178,10 @@ All charts and diagrams in CSV format:
 | Metric | Value | Notes |
 |--------|-------|-------|
 | **Total Story Points** | 122 SP | Adjusted from 104 SP |
-| **Project Duration** | 12 weeks | Fits 3-month constraint |
+| **Project Duration** | 8 weeks | Fits 2-month constraint |
 | **Team Size** | 5 members | Specialized roles for optimal delivery |
 | **Critical Path** | 74 days | Sequential maximum |
-| **Parallel Execution** | 50 days | With resource optimization |
+| **Parallel Execution** | 40 days | With resource optimization |
 | **Estimation Variance** | 17.5% | Based on demo features |
 | **Resource Utilization** | 98% | Very high efficiency |
 | **On-Time Delivery** | 100% | Project completed as planned |
@@ -218,7 +207,7 @@ All charts and diagrams in CSV format:
 - **Main Project Repo:** `/Project/`
 - **Backend Code:** `/Project/backend/`
 - **Frontend Code:** `/Project/frontend/`
-- **Architecture Docs:** `/Docs/pm/Archticture/`
+- **Architecture Docs:** `/Docs/pm/Architecture/`
 - **Database Schema:** `/Docs/pm/ERD.png`
 - **Previous Milestone:** `/Docs/pm/`
 
@@ -244,13 +233,13 @@ For questions about this PMP:
 
 | Task | Section | Location | Marks | Status |
 |------|---------|----------|-------|--------|
-| 1. Estimations | Section 1 | index.md | 20 | ✅ |
-| 2. Schedule | Section 2 | index.md | 20 | ✅ |
-| 3. Demo | Section 3 | index.md + FEATURE_DEMO_DETAILS.md | 20 | ✅ |
-| 4. SPMP | Section 4 | index.md | 10 | ✅ |
-| 5. Dependency | Section 5 | index.md + DEPENDENCY_GRAPH_DETAILS.md | 10 | ✅ |
-| 6. Gantt | Section 6 | index.md + /Docs/pm/Gantt Chart.png | 5 | ✅ |
-| 7. Allocation | Section 7 | index.md | 5 | ✅ |
-| 8. Burndown | Section 8 | index.md | 10 | ✅ |
+| 1. Estimations | Section 1 | index.md lines 1-36 | 20 | ✅ |
+| 2. Schedule | Section 2 | index.md lines 37-93 | 20 | ✅ |
+| 3. Demo | Section 3 | index.md lines 94-249 + FEATURE_DEMO_DETAILS.md | 20 | ✅ |
+| 4. SPMP | Section 4 | index.md lines 250-382 | 10 | ✅ |
+| 5. Dependency | Section 5 | index.md lines 383-504 + DEPENDENCY_GRAPH_DETAILS.md | 10 | ✅ |
+| 6. Gantt | Section 6 | index.md lines 505-529 + /Docs/pm/Gantt Chart.png | 5 | ✅ |
+| 7. Allocation | Section 7 | index.md lines 530-658 | 5 | ✅ |
+| 8. Burndown | Section 8 | index.md lines 659-828 | 10 | ✅ |
 
 **Total:** 100 marks ✅

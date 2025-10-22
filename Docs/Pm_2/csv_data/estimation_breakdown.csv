@@ -1,35 +1,35 @@
 Phase,Subsystem/Feature,Fibonacci Points,Effort (Days),Team Members Assigned
-Phase 1,User Registration,2,10,Member 1 & Member 3
-Phase 1,Login,1,5,Member 1 & Member 3
-Phase 1,Reset Password,1,5,Member 1 & Member 4
-Phase 1,Email Verification,1,5,Member 1 & Member 5
-Phase 1,Event Creator,3,15,Member 1 & Member 3
-Phase 1,Event Editor,2,10,Member 1 & Member 4
-Phase 1,Event Remover,1,5,Member 1 & Member 5
-Phase 1,Capacity Checker,3,15,Member 3 & Member 4
-Phase 1,Booking Creator,3,15,Member 1 & Member 3
-Phase 1,Booking Canceller,2,10,Member 1 & Member 4
-Phase 1,Duplicate Checker,1,5,Member 4 & Member 5
-Phase 1,Ticket Generator (QR),2,10,Member 1 & Member 3
-Phase 1,Ticket Validator,1,5,Member 4 & Member 5
-Phase 1,Notification Sender,1,5,Member 1 & Member 2
-Phase 1,Reminder Scheduler,1,5,Member 1 & Member 5
-Phase 1,Report Generator,2,10,Member 3 & Member 4
-Phase 1,Trend Analyzer,3,15,Member 3 & Member 4
-Phase 1,Export Manager,1,5,Member 1 & Member 5
-Phase 2,System Architecture,3,15,Member 3 & Member 4
-Phase 2,Database Schema,2,10,Member 3 & Member 4
-Phase 2,UML Diagrams,1,5,Member 3 & Member 4
-Phase 2,UI Mockups,1,5,Member 2 & Member 4
-Phase 3,Backend Logic,3,15,Member 1 & Member 3
-Phase 3,Frontend Pages,3,15,Member 1 & Member 4
-Phase 3,Integrations,2,10,Member 1 & Member 5
-Phase 3,Database Integration,2,10,Member 1 & Member 3
-Phase 4,Unit Testing,2,10,Member 2 & Member 5
-Phase 4,Integration Testing,2,10,Member 2 & Member 5
-Phase 4,User Acceptance Testing,1,5,Member 2 & Member 5
-Phase 4,Non-Functional Testing,2,10,Member 2 & Member 5
-Phase 5,Deployment Setup,2,10,Member 1
-Phase 5,Documentation,1,5,Member 2 & Member 4
-Phase 5,Maintenance,1,5,Member 1 & Member 5
-Total,,60,300,5 Members
+Phase 1,User Registration,2,7,Member 1 & Member 3
+Phase 1,Login,1,3,Member 1 & Member 3
+Phase 1,Reset Password,1,3,Member 1 & Member 4
+Phase 1,Email Verification,1,3,Member 1 & Member 5
+Phase 1,Event Creator,3,10,Member 1 & Member 3
+Phase 1,Event Editor,2,7,Member 1 & Member 4
+Phase 1,Event Remover,1,3,Member 1 & Member 5
+Phase 1,Capacity Checker,3,10,Member 3 & Member 4
+Phase 1,Booking Creator,3,10,Member 1 & Member 3
+Phase 1,Booking Canceller,2,7,Member 1 & Member 4
+Phase 1,Duplicate Checker,1,3,Member 4 & Member 5
+Phase 1,Ticket Generator (QR),2,7,Member 1 & Member 3
+Phase 1,Ticket Validator,1,3,Member 4 & Member 5
+Phase 1,Notification Sender,1,3,Member 1 & Member 2
+Phase 1,Reminder Scheduler,1,3,Member 1 & Member 5
+Phase 1,Report Generator,2,7,Member 3 & Member 4
+Phase 1,Trend Analyzer,3,10,Member 3 & Member 4
+Phase 1,Export Manager,1,3,Member 1 & Member 5
+Phase 2,System Architecture,3,10,Member 3 & Member 4
+Phase 2,Database Schema,2,7,Member 3 & Member 4
+Phase 2,UML Diagrams,1,3,Member 3 & Member 4
+Phase 2,UI Mockups,1,3,Member 2 & Member 4
+Phase 3,Backend Logic,3,10,Member 1 & Member 3
+Phase 3,Frontend Pages,3,10,Member 1 & Member 4
+Phase 3,Integrations,2,7,Member 1 & Member 5
+Phase 3,Database Integration,2,7,Member 1 & Member 3
+Phase 4,Unit Testing,2,7,Member 2 & Member 5
+Phase 4,Integration Testing,2,7,Member 2 & Member 5
+Phase 4,User Acceptance Testing,1,3,Member 2 & Member 5
+Phase 4,Non-Functional Testing,2,7,Member 2 & Member 5
+Phase 5,Deployment Setup,2,7,Member 1
+Phase 5,Documentation,1,3,Member 2 & Member 4
+Phase 5,Maintenance,1,3,Member 1 & Member 5
+Total,,60,200,5 Members

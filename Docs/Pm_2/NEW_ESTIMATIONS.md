@@ -11,36 +11,36 @@ The project is divided into phases, subsystems, and class-level features. Each f
 - Breakdown Level: From Use Cases → Subsystems → Classes  
 - Conversion Rate: 1 Fibonacci Point = 5 Days  
 - Team Size: 5 Members with specialized roles  
-- Project Duration: 12 weeks (3 months) (60 working days per member → 300 developer-days total)
+- Project Duration: 2 Months (40 working days per member → 200 developer-days total)
 
 ### Team Structure
 The team consists of 5 members with the following role allocations:
 
-1. **Member 1: Implementation & Deployment** (60 days)
+1. **Member 1: Implementation and Deployment** (58 days)
    - Full-stack development
    - CI/CD pipeline setup and management
    - Production deployment and monitoring
    - DevOps responsibilities
 
-2. **Member 2: Requirements Planning & Testing** (60 days)
+2. **Member 2: Requirements, Planning and Testing** (25 days)
    - Requirements gathering and documentation
    - Test planning and test case creation
    - User acceptance testing
    - Project planning support
 
-3. **Member 3: Architecture & Design** (60 days)
+3. **Member 3: Architecture and System Design** (41 days)
    - System architecture design
    - Database schema design
    - High-level system design documentation
    - Architecture reviews
 
-4. **Member 4: Architecture & Design** (60 days)
+4. **Member 4: Architecture and System Design** (38 days)
    - API design and documentation
    - Component architecture design
    - Integration design
    - Architecture implementation support
 
-5. **Member 5: Estimation & Testing** (60 days)
+5. **Member 5: Estimation and Testing** (38 days)
    - Project estimation and effort tracking
    - Quality assurance and testing
    - Performance testing
@@ -50,81 +50,18 @@ The team consists of 5 members with the following role allocations:
 
 ## Step 3: Phase Breakdown and Estimation
 
-### Phase 1 – Use Cases & Core Functionalities
+### Consolidated Breakdown (40 FP → 200 Days)
 
-| Subsystem | Class / Feature | Fibonacci Points | Effort (Days) |
-|---|---:|---:|---:|
-| Authentication | UserRegistration | 2 | 10 |
-|  | Login | 1 | 5 |
-|  | ResetPassword | 1 | 5 |
-|  | EmailVerification | 1 | 5 |
-| Event Management | EventCreator | 3 | 15 |
-|  | EventEditor | 2 | 10 |
-|  | EventRemover | 1 | 5 |
-|  | CapacityChecker | 3 | 15 |
-| Booking & Ticketing | BookingCreator | 3 | 15 |
-|  | BookingCanceller | 2 | 10 |
-|  | DuplicateChecker | 1 | 5 |
-|  | TicketGenerator (QR) | 2 | 10 |
-|  | TicketValidator | 1 | 5 |
-| Notifications | NotificationSender | 1 | 5 |
-|  | ReminderScheduler | 1 | 5 |
-| Reports & Analytics | ReportGenerator | 2 | 10 |
-|  | TrendAnalyzer | 3 | 15 |
-|  | ExportManager | 1 | 5 |
+| Subsystem | Features | Fibonacci Points | Effort (Days) |
+|---|---|---:|---:|
+| Authentication | User Registration, Login, Reset, Verification | 5 | 25 |
+| Event Management | Creator, Editor, Remover, Capacity Checker | 9 | 45 |
+| Booking & Ticketing | Creator, Canceller, Checker, QR Generator, Validator | 9 | 45 |
+| Notifications | Sender, Reminder Scheduler | 2 | 10 |
+| Reports & Analytics | Generator, Trend Analyzer, Export Manager | 6 | 30 |
+| Design, Implementation, Testing & Deployment | Additional project phases | 9 | 45 |
 
-**Subtotal (Phase 1): 32 Points → 160 Days**
-
----
-
-### Phase 2 – Design
-
-| Task Description | Points | Days |
-|---|---:|---:|
-| System Architecture — Define system layers and interactions | 3 | 15 |
-| Database Schema — Create ERD and relationships | 2 | 10 |
-| UML Diagrams — Class and sequence diagrams | 1 | 5 |
-| UI Mockups — Interface sketches | 1 | 5 |
-
-**Subtotal (Phase 2): 7 Points → 35 Days**
-
----
-
-### Phase 3 – Implementation
-
-| Task Description | Points | Days |
-|---|---:|---:|
-| Backend Logic — Business logic and API controllers | 3 | 15 |
-| Frontend Pages — User interface & validation | 3 | 15 |
-| Integrations — Email, QR, and payment APIs | 2 | 10 |
-| Database Integration — CRUD operations | 2 | 10 |
-
-**Subtotal (Phase 3): 10 Points → 50 Days**
-
----
-
-### Phase 4 – Testing
-
-| Task Description | Points | Days |
-|---|---:|---:|
-| Unit Testing — Test individual classes | 2 | 10 |
-| Integration Testing — Test interactions between modules | 2 | 10 |
-| User Acceptance Testing — Simulate user scenarios | 1 | 5 |
-| Non-Functional Testing — Security & performance | 2 | 10 |
-
-**Subtotal (Phase 4): 7 Points → 35 Days**
-
----
-
-### Phase 5 – Deployment & Documentation
-
-| Task Description | Points | Days |
-|---|---:|---:|
-| Deployment Setup — Docker and environment configs | 2 | 10 |
-| Documentation — User & developer guide | 1 | 5 |
-| Maintenance — Minor fixes after release | 1 | 5 |
-
-**Subtotal (Phase 5): 4 Points → 20 Days**
+**Total**: 40 Points → 200 Days
 
 ---
 
@@ -132,7 +69,7 @@ The team consists of 5 members with the following role allocations:
 
 | Total Points | Conversion | Total Effort |
 |---:|---:|---:|
-| 60 Fibonacci Points | 1 Point = 5 Days | 300 Developer-Days |
+| 40 Fibonacci Points | 1 Point = 5 Days | 200 Developer-Days |
 
 ---
 
@@ -140,30 +77,30 @@ The team consists of 5 members with the following role allocations:
 
 | Parameter | Calculation | Result |
 |---|---:|---:|
-| Team Capacity | 5 Members × 60 Days | 300 Developer-Days |
-| Required Effort From Estimation | — | 300 Developer-Days |
-| Member 1 (Implementation & Deployment) | Full-stack + DevOps | 73 days |
-| Member 2 (Requirements Planning & Testing) | Requirements + Testing | 32 days |
-| Member 3 (Architecture & Design) | System Architecture | 50 days |
-| Member 4 (Architecture & Design) | API & Component Design | 50 days |
-| Member 5 (Estimation & Testing) | QA + Estimation | 50 days |
-| **Buffer Days** | For contingency | 45 days |
+| Team Capacity | 5 Members × 40 Days | 200 Developer-Days |
+| Required Effort From Estimation | — | 200 Developer-Days |
+| Member 1 (Implementation & Deployment) | Full-stack + DevOps | 58 days |
+| Member 2 (Requirements, Planning & Testing) | Requirements + Testing | 25 days |
+| Member 3 (Architecture & Design) | System Architecture | 41 days |
+| Member 4 (Architecture & Design) | API & Component Design | 38 days |
+| Member 5 (Estimation & Testing) | QA + Estimation | 38 days |
+| **Buffer Days** | For contingency | 0 days |
 
 ---
 
 ## Step 6: Schedule Summary
-The estimated effort of 300 developer-days fits the 12-week (3-month) duration with the new specialized team structure. Each member contributes according to their role specialization:
-- Implementation & Deployment lead handles the core development work
+The estimated effort of 200 developer-days fits the 2-month duration with the new specialized team structure. Each member contributes according to their role specialization:
+- Implementation and Deployment lead handles the core development work
 - Two Architecture members ensure robust system design
-- Requirements Planning & Testing member ensures proper documentation and testing alignment
-- Estimation & Testing member maintains quality and tracks project progress
+- Requirements and Planning member ensures proper documentation and testing alignment
+- Estimation and Testing member maintains quality and tracks project progress
 
 This structure ensures proper separation of concerns, better quality control, and efficient resource utilization.
 
 ---
 
 ## Step 7: Final Conclusion
-The total estimation for the AIU Trips & Events Management System equals 60 Fibonacci Points (300 developer-days). This estimation fits within the 2-month project duration for a 5-member team with specialized roles. The breakdown ensures:
+The total estimation for the AIU Trips & Events Management System equals 40 Fibonacci Points (200 developer-days). This estimation fits within the 2-month project duration for a 5-member team with specialized roles. The breakdown ensures:
 - Clear role separation and accountability
 - Balanced workload across specializations
 - Better quality control through dedicated testing and estimation roles
@@ -171,54 +108,54 @@ The total estimation for the AIU Trips & Events Management System equals 60 Fibo
 - Efficient implementation through dedicated development and deployment specialist
 
 ### Total Effort Summary
-- Total Fibonacci Estimate: 60 Points  
-- Total Effort: 300 Days (255 allocated + 45 buffer)  
-- Fits in 12 weeks with role specialization
-- Utilization Rate: 98% (optimal efficiency)
+- Total Fibonacci Estimate: 40 Points  
+- Total Effort: 200 Days (no buffer)  
+- Fits in 8 weeks with role specialization
+- Utilization Rate: 100% (balanced to capacity)
 
 ---
 
 ## Assumptions
 - Team Capacity: 5 Members (specialized roles)
 - Workdays per Week: 5 Days  
-- Total Working Duration: 12 weeks (3 months) (≈ 60 working days per member)  
+- Total Working Duration: 2 Months (≈ 40 working days per member)  
 - Conversion Rate: 1 Fibonacci Point = 5 Days  
 - Role-based allocation ensures expertise in each area
-- Total Duration: 60 Fibonacci Points distributed across specialized roles
+- Total Duration: 40 Fibonacci Points distributed across specialized roles
 
 ---
 
 ## Team Role Distribution
 
-### Member 1: Implementation & Deployment (73 days allocated)
-- Core development: 50 days
-- CI/CD setup and management: 10 days
-- Production deployment: 8 days
-- Monitoring and maintenance: 5 days
+### Member 1: Implementation and Deployment (58 days allocated)
+- Core development: 40 days
+- CI/CD setup and management: 8 days
+- Production deployment: 6 days
+- Monitoring and maintenance: 4 days
 
-### Member 2: Requirements Planning & Testing (32 days allocated)
-- Requirements documentation: 8 days
-- Test planning: 10 days
-- User acceptance testing: 10 days
-- Project planning support: 4 days
+### Member 2: Requirements, Planning and Testing (25 days allocated)
+- Requirements documentation: 6 days
+- Test planning: 9 days
+- User acceptance testing: 8 days
+- Project planning support: 2 days
 
-### Member 3: Architecture & Design (50 days allocated)
-- System architecture design: 15 days
-- Database schema design: 12 days
-- High-level design documentation: 13 days
-- Architecture reviews: 10 days
+### Member 3: Architecture and System Design (41 days allocated)
+- System architecture design: 12 days
+- Database schema design: 10 days
+- High-level design documentation: 11 days
+- Architecture reviews: 8 days
 
-### Member 4: Architecture & Design (50 days allocated)
-- API design and documentation: 15 days
-- Component architecture: 15 days
-- Integration design: 12 days
-- Implementation support: 8 days
+### Member 4: Architecture and System Design (38 days allocated)
+- API design and documentation: 12 days
+- Component architecture: 12 days
+- Integration design: 8 days
+- Implementation support: 6 days
 
-### Member 5: Estimation & Testing (50 days allocated)
-- Project estimation: 10 days
-- Quality assurance: 20 days
-- Performance testing: 12 days
-- Estimation analysis: 8 days
+### Member 5: Estimation and Testing (38 days allocated)
+- Project estimation: 8 days
+- Quality assurance: 16 days
+- Performance testing: 8 days
+- Estimation analysis: 6 days
 
 ---
 

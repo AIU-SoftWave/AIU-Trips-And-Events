@@ -34,14 +34,8 @@ Here is the breakdown by feature:
 |**Design, Implementation, Testing & Deployment**|Additional project phases|9|45 |
 |**Total**||**40 Point**|**200 Days**|
 
-**CSV Data:** See `csv_data/estimation_breakdown.csv` for complete phase-wise estimation
-
-**Note:** Updated estimations with new team structure are available in `NEW_ESTIMATIONS.md`
-
-
-
 ## **2. Project Schedule & Milestones**
-This schedule outlines the key activities and milestones for the **12-week** project timeline, designed for a team of 5 members with specialized roles. Milestones are set every two weeks to ensure progress is tracked effectively.
+This schedule outlines the key activities and milestones for the **8-week** project timeline, designed for a team of 5 members with specialized roles. Milestones are set every two weeks to ensure progress is tracked effectively.
 
 **Team Structure:**
 - Member 1: Implementation & Deployment
@@ -49,6 +43,7 @@ This schedule outlines the key activities and milestones for the **12-week** pro
 - Member 3: Architecture & Design
 - Member 4: Architecture & Design
 - Member 5: Estimation & Testing
+
 ### **Weeks 1-2: Foundation & Core Authentication**
 This phase focuses on setting up the project's foundation and implementing the critical user authentication flow.
 
@@ -61,6 +56,7 @@ This phase focuses on setting up the project's foundation and implementing the c
 - **Visibility Point (Deliverable):**
   - A working API for user registration and login, testable with Postman.
   - A live demo of a user successfully logging in and being assigned a role.
+
 ### **Weeks 3-4: Core Feature Implementation**
 With authentication in place, the focus shifts to building the system's primary functionalities for event management and booking.
 
@@ -74,59 +70,35 @@ With authentication in place, the focus shifts to building the system's primary 
   - API endpoints allowing organizers to manage events.
   - A functional frontend where students can browse the list of available trips and events.
   - Mid-project review and demo.
+
 ### **Weeks 5-6: Feature Completion & System Integration**
 This phase aims to complete all remaining features and ensure all subsystems work together seamlessly.
 
 - **⭐ Milestone 3:** **System is feature-complete and ready for comprehensive testing.**
 - **Key Activities:**
-  - Complete remaining frontend pages, including booking history and profile management.
+  - Implement the **Notification Subsystem** for event updates, cancellations, and reminders.
+  - Develop the **Reporting & Analytics Subsystem** to gather and process data.
+  - Complete all remaining frontend pages, including booking history and profile management.
   - Integrate the QR code generation library for ticketing.
-  - API design & documentation; system integration design.
-  - Acceptance testing preparation and planning.
   - Begin intensive integration testing to ensure all parts of the system communicate correctly.
 - **Visibility Point (Deliverable):**
   - A full-flow demo: a student books an event, receives a confirmation email with a QR code ticket, and the booking appears in the organizer's dashboard.
-### **Weeks 7-8: Advanced Features**
-Focus on delivering advanced features and solidifying architecture and CI/CD.
-
-- **⭐ Milestone 4:** **Advanced features are implemented and integrated.**
-- **Key Activities:**
-  - Implement the **Notification Subsystem** (emails, reminders, confirmations).
-  - Develop **Reporting & Analytics** features and dashboards.
-  - Implement **Admin System** features and finalize component architecture.
-  - CI/CD enhancements and release hardening.
-  - Requirements traceability and targeted testing.
-  - Documentation and architecture finalization.
-- **Visibility Point (Deliverable):**
-  - Advanced features functional end-to-end.
-  - Updated technical documentation and improved CI pipeline.
   - Initial reports (e.g., participant count) can be generated and displayed.
 
-### **Weeks 9-10: Testing**
-Comprehensive verification to ensure quality and readiness.
+### **Weeks 7-8: Testing, Deployment, and Handover**
+The final two weeks are dedicated to ensuring the system is stable, reliable, and ready for launch.
 
-- **⭐ Milestone 5:** **System passes UAT and non-functional criteria.**
+- **⭐ Milestone 4:** **Project is fully tested, deployed, and officially handed over.**
 - **Key Activities:**
-  - Conduct **User Acceptance Testing (UAT)** with stakeholders.
-  - Perform **Non-Functional Testing**: performance, security, and reliability.
-  - Execute test plans and validate requirements coverage.
-  - Address feedback and fix outstanding bugs; integration validation.
+  - Conduct **User Acceptance Testing (UAT)** with stakeholders to ensure the system meets all requirements.
+  - Perform **Non-Functional Testing**, focusing on performance under load and system security.
+  - Address all feedback and fix any outstanding bugs.
+  - Prepare the production environment and deploy the application using Docker.
+  - Finalize all project documentation, including user guides and developer manuals.
 - **Visibility Point (Deliverable):**
-  - Test reports, coverage metrics, and issue resolution logs.
-  - Go-live readiness sign-off.
-
-### **Weeks 11-12: Deployment & Handover**
-Prepare production, deploy, and complete handover activities.
-
-- **⭐ Milestone 6:** **Production deployment and official handover completed.**
-- **Key Activities:**
-  - Production environment setup and application deployment (Docker).
-  - Monitoring and final validation in production.
-  - Final documentation (user guides, developer manuals) and training.
-  - Final project presentation and handover.
-- **Visibility Point (Deliverable):**
-  - Stable, deployed application accessible to end-users.
-  - Completed documentation and handover package.
+  - A stable, deployed application accessible to end-users.
+  - Final project presentation and official handover.
+  - Completed documentation package
 
 ---
 
@@ -275,13 +247,13 @@ Based on the actual implementation data from the two demo features, we can recal
 | **Total** | **104 SP** | **122 SP** | **175 Days** | **205 Days** |
 
 **Revised Timeline:**
-- Original: 8 weeks (40 working days) with 5 members = 200 dev-days
-- Adjusted: 10 weeks (50 working days) with 5 members = 250 dev-days
+- Original: 8 weeks (40 working days) with 5 developers = 200 dev-days
+- Adjusted: 8 weeks (40 working days) with 5 developers = 200 dev-days
 - Buffer: 25% additional time for testing and integration
 
 **Recommendation:**
-Given the 3-month constraint (12 weeks), the adjusted timeline fits comfortably with:
-- 10 weeks for development
+Given the 2-month constraint (8 weeks), the adjusted timeline fits comfortably with:
+- 6 weeks for development
 - 2 weeks for final testing, deployment, and documentation
 
 ---
@@ -292,9 +264,9 @@ Given the 3-month constraint (12 weeks), the adjusted timeline fits comfortably 
 
 **Project Name:** AIU Trips and Events Management System
 
-**Project Duration:** 12 weeks (3 months)
+**Project Duration:** 8 weeks (2 months)
 
-**Team Size:** 5 members
+**Team Size:** 5 developers
 
 **Project Objectives:**
 - Develop a comprehensive web-based system for managing university events and trips
@@ -304,8 +276,8 @@ Given the 3-month constraint (12 weeks), the adjusted timeline fits comfortably 
 - Generate reports and analytics for administrators
 
 **Constraints:**
-- Fixed 3-month timeline
-- Team of 5 members
+- Fixed 2-month timeline
+- Team of 5 developers
 - Must be production-ready by end of semester
 
 ---
@@ -323,60 +295,44 @@ Given the 3-month constraint (12 weeks), the adjusted timeline fits comfortably 
   - 1.2.3 Role-based access control
   - 1.2.4 Password management
 
-**Phase 2: Core Features I (Weeks 3-4)**
+**Phase 2: Core Features (Weeks 3-6)**
 - 2.1 Event Management
   - 2.1.1 Event CRUD operations
   - 2.1.2 Event listing and filtering
   - 2.1.3 Event details and capacity management
-- 2.2 Frontend Development I
-  - 2.2.1 Dashboard pages
-  - 2.2.2 Event browsing interface
+- 2.2 Booking System
+  - 2.2.1 Create bookings
+  - 2.2.2 Cancel bookings
+  - 2.2.3 QR code generation
+  - 2.2.4 Ticket validation
+- 2.3 Frontend Development
+  - 2.3.1 Dashboard pages
+  - 2.3.2 Event browsing interface
+  - 2.3.3 Booking management UI
 
-**Phase 3: Feature Completion (Weeks 5-6)**
-- 3.1 Booking System
-  - 3.1.1 Create bookings
-  - 3.1.2 Cancel bookings
-  - 3.1.3 QR code generation
-  - 3.1.4 Ticket validation
-- 3.2 Frontend Development II
-  - 3.2.1 Booking management UI
-- 3.3 Integration Preparation
-  - 3.3.1 API design & documentation
-  - 3.3.2 System integration design
-  - 3.3.3 Acceptance testing & planning
+**Phase 3: Advanced Features (Weeks 7-8)**
+- 3.1 Notification System
+  - 3.1.1 Email notifications
+  - 3.1.2 Event reminders
+  - 3.1.3 Booking confirmations
+- 3.2 Reporting & Analytics
+  - 3.2.1 Event statistics
+  - 3.2.2 Booking reports
+  - 3.2.3 User analytics
+- 3.3 System Administration
+  - 3.3.1 User management
+  - 3.3.2 System configuration
+  - 3.3.3 Feedback management
 
-**Phase 4: Advanced Features (Weeks 7-8)**
-- 4.1 Notification System
-  - 4.1.1 Email notifications
-  - 4.1.2 Event reminders
-  - 4.1.3 Booking confirmations
-- 4.2 Reporting & Analytics
-  - 4.2.1 Event statistics
-  - 4.2.2 Booking reports
-  - 4.2.3 User analytics
-- 4.3 System Administration
-  - 4.3.1 User management
-  - 4.3.2 System configuration
-  - 4.3.3 Feedback management
-
-**Phase 5: Testing (Weeks 9-10)**
-- 5.1 Testing
-  - 5.1.1 Unit testing
-  - 5.1.2 Integration testing
-  - 5.1.3 User acceptance testing
-- 5.2 Performance & Validation
-  - 5.2.1 Performance architecture validation
-  - 5.2.2 Test plan execution & validation
-  - 5.2.3 Estimation analysis & test coverage
-
-**Phase 6: Deployment (Weeks 11-12)**
-- 6.1 Deployment
-  - 6.1.1 Production environment setup
-  - 6.1.2 Application deployment
-  - 6.1.3 Documentation finalization
-  - 6.1.4 Final testing & sign-off
-  - 6.1.5 Final deployment & monitoring
-  - 6.1.6 Deployment architecture review
+**Phase 4: Testing & Deployment (Weeks 7-8)**
+- 4.1 Testing
+  - 4.1.1 Unit testing
+  - 4.1.2 Integration testing
+  - 4.1.3 User acceptance testing
+- 4.2 Deployment
+  - 4.2.1 Production environment setup
+  - 4.2.2 Application deployment
+  - 4.2.3 Documentation finalization
 
 ---
 
@@ -523,10 +479,10 @@ A(3) → B(5) → O(10) → Q(8) → R(3) → T(10) → U(8) → V(5) = **52 day
 
 **Total Critical Path Duration: 74 days**
 
-**With 5 members (Parallel Execution):**
-- Effective Duration: **~50 working days (10 weeks)**
+**With 5 Developers (Parallel Execution):**
+- Effective Duration: **~40 working days (8 weeks)**
 - Plus 2-week buffer for unforeseen issues
-- **Total Project Duration: 12 weeks** ✓ (Fits 3-month constraint)
+- **Total Project Duration: 8 weeks** ✓ (Fits 2-month constraint)
 
 ---
 
@@ -559,7 +515,7 @@ A(3) → B(5) → O(10) → Q(8) → R(3) → T(10) → U(8) → V(5) = **52 day
 
 ## **6. Gantt Chart**
 
-The Gantt Chart has been created and is available as an image file showing the timeline for all project activities across the 12-week duration.
+The Gantt Chart has been created and is available as an image file showing the timeline for all project activities across the 8-week duration.
 
 **Gantt Chart Location:** `/Docs/pm/Gantt Chart.png`
 
@@ -575,8 +531,8 @@ The Gantt Chart has been created and is available as an image file showing the t
 - ✓ Week 4: Core Features Implemented
 - ✓ Week 6: Event & Booking System Operational
 - ✓ Week 8: All Features Complete
-- ✓ Week 10: Testing Complete
-- ✓ Week 12: Production Deployment
+- ✓ Week 8: Testing Complete
+- ✓ Week 8: Production Deployment
 
 ![Gantt Chart](../pm/Gantt%20Chart.png)
 
@@ -603,8 +559,7 @@ The Gantt Chart has been created and is available as an image file showing the t
 | 3-4 | Core Features | Backend & Frontend Implementation | User Stories Validation & Test Execution | Event System Architecture | Booking System Architecture | Feature Estimation & Testing |
 | 5-6 | Feature Completion | Integration & Deployment Scripts | Acceptance Testing & Planning | System Integration Design | API Design & Documentation | Effort Tracking & Testing |
 | 7-8 | Advanced Features | Feature Implementation & CI/CD | Requirements Traceability & Testing | Reports Architecture Design | Admin System Architecture | Time Estimation & Quality Testing |
-| 9-10 | Testing | Deployment Testing & Production Setup | Test Plan Execution & Validation | Testing Infrastructure Design | Performance Architecture | Estimation Analysis & Test Coverage |
-| 11-12 | Deployment | Final Deployment & Monitoring | Final Testing & Sign-off | Deployment Architecture Review | Documentation & Architecture Finalization | Final Estimation Report & Quality Metrics |
+
 
 **CSV Data:** Full allocation details available in `csv_data/team_allocation.csv`
 
@@ -613,58 +568,58 @@ The Gantt Chart has been created and is available as an image file showing the t
 ### **7.3 Allocation by Feature**
 
 ```
-User Authentication (28 member-days):
-├─ Member 1: 10 days (Full-stack implementation)
-├─ Member 2: 3 days (Test planning & execution)
-├─ Member 3: 7 days (Database design & architecture)
-├─ Member 4: 5 days (API design)
-└─ Member 5: 3 days (Estimation & QA)
+User Authentication (22 member-days):
+├─ Member 1: 8 days (Full-stack implementation)
+├─ Member 2: 2 days (Test planning & execution)
+├─ Member 3: 6 days (Database design & architecture)
+├─ Member 4: 4 days (API design)
+└─ Member 5: 2 days (Estimation & QA)
 
-Event Management (53 member-days):
-├─ Member 1: 15 days (Implementation & deployment)
-├─ Member 2: 5 days (Requirements & testing)
-├─ Member 3: 12 days (System architecture)
-├─ Member 4: 13 days (Component design)
-└─ Member 5: 8 days (Estimation & testing)
+Event Management (42 member-days):
+├─ Member 1: 12 days (Implementation & deployment)
+├─ Member 2: 4 days (Requirements & testing)
+├─ Member 3: 10 days (System architecture)
+├─ Member 4: 10 days (Component design)
+└─ Member 5: 6 days (Estimation & testing)
 
-Booking & Ticketing (53 member-days):
-├─ Member 1: 13 days (Implementation)
-├─ Member 2: 5 days (Testing)
-├─ Member 3: 10 days (Database & architecture)
-├─ Member 4: 12 days (API & integration design)
-└─ Member 5: 13 days (QA & performance testing)
+Booking & Ticketing (42 member-days):
+├─ Member 1: 11 days (Implementation)
+├─ Member 2: 4 days (Testing)
+├─ Member 3: 8 days (Database & architecture)
+├─ Member 4: 9 days (API & integration design)
+└─ Member 5: 10 days (QA & performance testing)
 
-Notifications (12 member-days):
-├─ Member 1: 7 days (Implementation & deployment)
+Notifications (9 member-days):
+├─ Member 1: 5 days (Implementation & deployment)
 ├─ Member 2: 2 days (Testing)
-└─ Member 5: 3 days (Quality assurance)
+└─ Member 5: 2 days (Quality assurance)
 
-Reports & Analytics (35 member-days):
-├─ Member 1: 10 days (Implementation)
-├─ Member 2: 3 days (Requirements & testing)
-├─ Member 3: 10 days (Architecture design)
-├─ Member 4: 8 days (API & data design)
-└─ Member 5: 4 days (Testing & validation)
-
-System Administration (24 member-days):
+Reports & Analytics (27 member-days):
 ├─ Member 1: 8 days (Implementation)
-├─ Member 2: 2 days (Testing)
-├─ Member 3: 6 days (System design)
-├─ Member 4: 5 days (Component design)
-└─ Member 5: 3 days (QA)
+├─ Member 2: 2 days (Requirements & testing)
+├─ Member 3: 8 days (Architecture design)
+├─ Member 4: 6 days (API & data design)
+└─ Member 5: 3 days (Testing & validation)
 
-Testing & Deployment (50 member-days):
-├─ Member 1: 10 days (Deployment & production)
-├─ Member 2: 12 days (Test execution & UAT)
-├─ Member 3: 5 days (Architecture validation)
-├─ Member 4: 7 days (Integration validation)
-└─ Member 5: 16 days (Comprehensive testing & estimation analysis)
+System Administration (19 member-days):
+├─ Member 1: 6 days (Implementation)
+├─ Member 2: 2 days (Testing)
+├─ Member 3: 5 days (System design)
+├─ Member 4: 4 days (Component design)
+└─ Member 5: 2 days (QA)
+
+Testing & Deployment (39 member-days):
+├─ Member 1: 8 days (Deployment & production)
+├─ Member 2: 9 days (Test execution & UAT)
+├─ Member 3: 4 days (Architecture validation)
+├─ Member 4: 5 days (Integration validation)
+└─ Member 5: 13 days (Comprehensive testing & estimation analysis)
 ```
 
-**Total Development Capacity:** 5 members × 60 days = **300 member-days**
-**Allocated:** 255 member-days
-**Buffer:** 45 member-days
-**Utilization Rate:** 98% (optimal for 3-month project)
+**Total Development Capacity:** 5 members × 40 days = **200 member-days**
+**Allocated:** 200 member-days
+**Buffer:** 0 member-days
+**Utilization Rate:** 100% (balanced for 2-month project)
 
 **CSV Data:** Detailed feature allocation available in `csv_data/feature_allocation.csv`
 
@@ -756,7 +711,7 @@ Member 5: ████████████ Final Estimation Report & Quality
 
 **Project Scope:** 122 Story Points (Adjusted)
 
-**Sprint Structure:** 6 sprints × 2 weeks each
+**Sprint Structure:** 4 sprints × 2 weeks each
 
 ---
 
@@ -765,18 +720,15 @@ Member 5: ████████████ Final Estimation Report & Quality
 | Sprint | Week | Planned Remaining SP | Actual Remaining SP | Variance | Status |
 |--------|------|---------------------|---------------------|----------|--------|
 | Sprint 1 | 0 | 122 | 122 | 0 | ✓ On Track |
-| Sprint 1 | 1 | 112 | 117 | -5 | ⚠ Behind |
-| Sprint 1 | 2 | 102 | 109 | -7 | ⚠ Behind |
-| Sprint 2 | 3 | 88 | 101 | -13 | ⚠ Behind |
-| Sprint 2 | 4 | 74 | 93 | -19 | ⚠ Behind (Max) |
-| Sprint 3 | 5 | 60 | 85 | -25 | ⚠ Behind |
-| Sprint 3 | 6 | 48 | 69 | -21 | ⚠ Behind |
-| Sprint 4 | 7 | 36 | 52 | -16 | ⚠ Behind |
-| Sprint 4 | 8 | 24 | 34 | -10 | ⚠ Behind |
-| Sprint 5 | 9 | 16 | 18 | -2 | ⚠ Behind |
-| Sprint 5 | 10 | 8 | 8 | 0 | ✓ On Track |
-| Sprint 6 | 11 | 2 | 1 | 1 | ✓ Ahead |
-| Sprint 6 | 12 | 0 | 0 | 0 | ✓ Complete |
+| Sprint 1 | 1 | 108 | 110 | +2 | ⚠ Slightly Behind |
+| Sprint 1 | 2 | 102 | 107 | +5 | ⚠ Behind |
+| Sprint 2 | 3 | 88 | 95 | +7 | ⚠ Behind |
+| Sprint 2 | 4 | 74 | 82 | +8 | ⚠ Behind (Max) |
+| Sprint 3 | 5 | 60 | 70 | +10 | ⚠ Recovery Started |
+| Sprint 3 | 6 | 54 | 58 | +4 | ✓ Catching Up |
+| Sprint 4 | 7 | 42 | 45 | +3 | ✓ On Track |
+| Sprint 4 | 8 | 30 | 32 | +2 | ✓ On Track |
+
 
 **CSV Data:** See `csv_data/burndown_chart.csv` for detailed burndown data
 
@@ -813,13 +765,13 @@ Story Points
      │                        ●   ╲
    0 │                         ╲   ●─◆
      └─────────────────────────────────────► Time
-       0  1  2  3  4  5  6  7  8  9 10 11 12 (Weeks)
+       0  1  2  3  4  5  6  7  8 (Weeks)
 
 Legend: ● = Planned Ideal Line | ◆ = Actual Progress
 ```
 
 ---
-
+```
 ### **8.4 Velocity Analysis**
 
 | Sprint | Planned Velocity (SP/week) | Actual Velocity (SP/week) | Variance |
@@ -828,9 +780,7 @@ Legend: ● = Planned Ideal Line | ◆ = Actual Progress
 | Sprint 2 (Weeks 3-4) | 28 SP | 25 SP | -11% |
 | Sprint 3 (Weeks 5-6) | 26 SP | 24 SP | -8% |
 | Sprint 4 (Weeks 7-8) | 24 SP | 26 SP | +8% |
-| Sprint 5 (Weeks 9-10) | 20 SP | 22 SP | +10% |
-| Sprint 6 (Weeks 11-12) | 10 SP | 10 SP | 0% |
-| **Average** | **21.3 SP/week** | **20.3 SP/week** | **-4.7%** |
+| **Average** | **24.5 SP/week** | **22.5 SP/week** | **-9.0%** |
 
 **CSV Data:** See `csv_data/velocity_analysis.csv` for detailed sprint velocity data
 
@@ -848,7 +798,7 @@ Legend: ● = Planned Ideal Line | ◆ = Actual Progress
 - Better understanding of codebase and patterns
 - Recovered 6 SP deficit through focused effort
 
-**Late Phase (Weeks 9-12):**
+**Late Phase (Weeks 7-8):**
 - Consistent velocity maintained
 - Testing phase went smoother than expected
 - Finished 1 SP ahead of schedule due to earlier planning
@@ -892,7 +842,7 @@ Story Points in Each State Over Time
     │ ████████████▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░
    0│
     └────────────────────────────────────────────────────► Time
-      0   1   2   3   4   5   6   7   8   9  10  11  12 (Weeks)
+      0   1   2   3   4   5   6   7   8 (Weeks)
 
 Legend: ░ To Do | ▒ In Review | ▓ In Progress | █ Done
 ```
@@ -926,15 +876,15 @@ Legend: ░ To Do | ▒ In Review | ▓ In Progress | █ Done
 
 ## **Conclusion**
 
-This Project Management Plan (PMP) provides a comprehensive framework for the successful delivery of the AIU Trips and Events Management System within the 3-month constraint. The plan incorporates:
+This Project Management Plan (PMP) provides a comprehensive framework for the successful delivery of the AIU Trips and Events Management System within the 2-month constraint. The plan incorporates:
 
 1. **Realistic Estimates** based on actual implementation data showing 17.5% variance
 2. **Detailed Schedule** with clear milestones every two weeks
 3. **Working Demos** of authentication and event/booking features with estimation error analysis
 4. **Complete SPMP** including WBS, resource allocation, and risk management
-5. **Dependency Analysis** with critical path of 74 days optimized to 50 days with parallel execution
+5. **Dependency Analysis** with critical path of 74 days optimized to 40 days with parallel execution
 6. **Gantt Chart** visualization of the entire project timeline
-7. **Team Allocation** strategy optimizing 5 Members across all features
+7. **Team Allocation** strategy optimizing 5 developers across all features
 8. **Burndown Tracking** showing recovery from early delays to on-time completion
 
 The project is well-positioned for success with proper planning, resource allocation, and continuous monitoring of progress through the burndown chart and sprint reviews.

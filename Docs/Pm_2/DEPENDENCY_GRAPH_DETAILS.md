@@ -52,7 +52,7 @@
 
 **H. Integration Testing Phase 1**
 - Duration: 3 days
-- Team: Member 2 (Requirements Planning & Testing), Member 5 (Estimation & Testing)
+- Team: Dev 5
 - Dependencies: E → H
 - Deliverables: Auth flow E2E tests
 
@@ -62,20 +62,20 @@
 
 **F. Event Management Backend** ★
 - Duration: 12 days
-- Team: Member 1 (Implementation & Deployment), Member 3 (Architecture & Design)
+- Team: Dev 1, Dev 2
 - Dependencies: B → F (can start after DB schema)
 - Deliverables: Event CRUD API, business logic
 
 **G. Event Management Frontend**
 - Duration: 10 days
-- Team: Member 1 (Implementation & Deployment), Member 4 (Architecture & Design)
+- Team: Dev 3, Dev 4
 - Dependencies: F → G
 - Slack: 2 days
 - Deliverables: Event pages, create/edit forms
 
 **I. Integration Testing Phase 2**
 - Duration: 4 days
-- Team: Member 2 (Requirements Planning & Testing), Member 5 (Estimation & Testing)
+- Team: Dev 5
 - Dependencies: G → I
 - Deliverables: Event management E2E tests
 
@@ -241,75 +241,75 @@ A(3) → B(5) → N(8) → P(4) → [wait] → T(10) → U(8) → V(5) = 43 days
 
 ## Resource Optimization
 
-With 5 members working in parallel:
+With 5 developers working in parallel:
 
 ### Week 1-2 (Days 1-10):
 **Parallel Execution:**
-- Member 1, Member 2: A → B (8 days)
-- Member 5: C (4 days, then assist with B)
-- Member 3, Member 4: Planning, UI design (non-blocking)
+- Dev 1, Dev 2: A → B (8 days)
+- Dev 5: C (4 days, then assist with B)
+- Dev 3, Dev 4: Planning, UI design (non-blocking)
 
 **Result:** A + B completed in 8 days
 
 ### Week 3-4 (Days 11-24):
 **Parallel Execution:**
-- Member 1, Member 2: D - Auth Backend (10 days)
-- Member 3, Member 4: Start E - Auth Frontend after day 18 (when API contracts ready)
-- Member 5: Continue C, start N (Notifications)
+- Dev 1, Dev 2: D - Auth Backend (10 days)
+- Dev 3, Dev 4: Start E - Auth Frontend after day 18 (when API contracts ready)
+- Dev 5: Continue C, start N (Notifications)
 
 **Result:** D completed day 18, E starts
 
 ### Week 5-6 (Days 25-38):
 **Parallel Execution:**
-- Member 1: F - Event Backend (12 days)
-- Member 2: F - Event Backend (assist, then start J)
-- Member 3: E → G - Event Frontend
-- Member 4: G - Event Frontend
-- Member 5: H → I - Integration testing
+- Dev 1: F - Event Backend (12 days)
+- Dev 2: F - Event Backend (assist, then start J)
+- Dev 3: E → G - Event Frontend
+- Dev 4: G - Event Frontend
+- Dev 5: H → I - Integration testing
 
 **Result:** F completed day 36
 
 ### Week 7-8 (Days 39-52):
 **Parallel Execution:**
-- Member 1: Support J - Booking Backend
-- Member 2: J - Booking Backend (12 days)
-- Member 3: G → K - Booking Frontend
-- Member 4: K - Booking Frontend
-- Member 5: O - Reporting Backend (high slack)
+- Dev 1: Support J - Booking Backend
+- Dev 2: J - Booking Backend (12 days)
+- Dev 3: G → K - Booking Frontend
+- Dev 4: K - Booking Frontend
+- Dev 5: O - Reporting Backend (high slack)
 
 **Result:** J completed day 50, K completed day 50
 
 ### Week 9-10 (Days 53-62):
 **Parallel Execution:**
-- Member 4, Member 5: L - QR Integration (5 days)
-- Member 5: M - Integration Testing (4 days after L)
-- Member 1: O - Reporting (catch up)
-- Member 2: S - Admin Features
-- Member 3: Q - Reporting Frontend
+- Dev 4, Dev 5: L - QR Integration (5 days)
+- Dev 5: M - Integration Testing (4 days after L)
+- Dev 1: O - Reporting (catch up)
+- Dev 2: S - Admin Features
+- Dev 3: Q - Reporting Frontend
 
 **Result:** Critical path through day 57 (L + M)
 
 ### Week 11-12 (Days 63-74):
 **Parallel Execution:**
-- All members: T - System Testing (10 days)
-- All members: U - UAT (8 days)
-- Member 1 Lead: V - Deployment (5 days, others support)
+- All developers: T - System Testing (10 days)
+- All developers: U - UAT (8 days)
+- Dev 5 Lead: V - Deployment (5 days, others support)
 
 **Result:** Project complete by day 74
 
 ---
 
-## Optimized Schedule: 50 Working Days
+## Optimized Schedule: 40 Working Days
 
-By running tasks in parallel and utilizing all 5 members:
+By running tasks in parallel and utilizing all 5 developers:
 
 **Critical Path Reduction:**
 - Sequential: 74 days
-- With parallelization: ~50 days
-- Efficiency gain: 32% faster
+- With parallelization: ~40 days
+- Efficiency gain: 46% faster
 
 **How it's achieved:**
-1. Multiple members on large tasks (F, J)
+1. Multiple developers on large tasks (F, J)
 2. Frontend/Backend parallel development
 3. Early start on low-dependency tasks (N, O)
 4. Continuous integration testing
@@ -325,7 +325,7 @@ By running tasks in parallel and utilizing all 5 members:
 - Security requirements changes
 
 **Mitigation:**
-- Assign senior member (Member 1)
+- Assign senior developer (Dev 1)
 - Early spike for JWT implementation
 - Security review at day 5
 
@@ -335,7 +335,7 @@ By running tasks in parallel and utilizing all 5 members:
 - Database optimization needed
 
 **Mitigation:**
-- Two members assigned
+- Two developers assigned
 - Code review after each endpoint
 - Performance testing early
 
@@ -423,40 +423,40 @@ V                                                                              �
 
 - **Total Tasks:** 22
 - **Critical Path Length:** 74 days (sequential)
-- **Optimized Duration:** 50 working days (with 5 team members)
+- **Optimized Duration:** 40 working days (with 5 team members)
 - **Critical Tasks:** 10 tasks (no slack)
 - **Flexible Tasks:** 12 tasks (with slack)
 - **Maximum Slack:** 32 days (Reporting features)
-- **Parallel Efficiency:** 32% reduction
+- **Parallel Efficiency:** 46% reduction
 - **Resource Utilization:** 98% (very high)
-- **Buffer Time:** 2 weeks (built into 12-week plan)
+- **Buffer Time:** 2 weeks (built into 8-week plan)
 
 ---
 
 ## Team Structure Summary
 
-**Member 1: Implementation & Deployment**
+**Member 1: Implementation and Deployment**
 - Primary role in all implementation tasks (A, D, E, F, G, J, K, L, N, O, P, Q)
 - Deployment and production setup (V)
 - CI/CD pipeline management (C)
 
-**Member 2: Requirements Planning & Testing**
+**Member 2: Requirements, Planning and Testing**
 - Testing tasks (H, I, M, R, T)
 - UAT and bug fixes (U)
 - Documentation (V)
 - Requirements validation
 
-**Member 3: Architecture & Design**
+**Member 3: Architecture and System Design**
 - Database schema design (B)
 - System architecture for major features (D, F, J, O)
 - Admin features design (S)
 
-**Member 4: Architecture & Design**
+**Member 4: Architecture and System Design**
 - Frontend architecture (E, G, K, Q)
 - API design and documentation
 - Component architecture (L, S)
 
-**Member 5: Estimation & Testing**
+**Member 5: Estimation and Testing**
 - Quality assurance across all testing phases (H, I, M, R, T)
 - Performance testing and optimization
 - Estimation tracking and analysis
