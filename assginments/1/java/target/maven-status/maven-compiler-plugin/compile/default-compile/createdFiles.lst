@@ -1,8 +1,0 @@
-com/aiu/spaceprobe/builder/MissionControl.class
-com/aiu/spaceprobe/builder/JupiterProbeBuilder.class
-com/aiu/spaceprobe/singleton/ConfigurationManager.class
-com/aiu/spaceprobe/builder/MarsProbeBuilder.class
-com/aiu/spaceprobe/model/SpaceProbe.class
-com/aiu/spaceprobe/app/SpaceMissionApp.class
-com/aiu/spaceprobe/builder/SpaceProbeBuilder.class
-com/aiu/spaceprobe/prototype/IPrototype.class
