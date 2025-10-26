@@ -1,0 +1,156 @@
+@startuml
+' ==================== Color Definitions ====================
+!define INTERFACE_COLOR #E8F5E9
+!define ABSTRACT_COLOR #FFF3E0
+!define ENTITY_COLOR #E3F2FD
+!define SERVICE_COLOR #F3E5F5
+!define FACTORY_COLOR #FFF9C4
+!define BUILDER_COLOR #FFFDE7
+!define ENUM_COLOR #E0F7FA
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<abstract>> ABSTRACT_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<factory>> FACTORY_COLOR
+    BackgroundColor<<builder>> BUILDER_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+}
+
+package "Activity Management Component" {
+
+    ' ==================== High-Level Interfaces ====================
+    interface IActivityManagement <<interface>> {
+        +createActivity(data: ActivityDTO, type: ActivityType): ActivityDTO
+        +updateActivity(id: String, data: ActivityDTO): ActivityDTO
+        +deleteActivity(id: String): Response
+        +getAllActivities(): List<ActivityDTO>
+    }
+
+    interface INotificationService <<interface>> {
+        +notify(activity: Activity): void
+    }
+
+    ' ==================== Prototype Pattern ====================
+    interface IPrototype<T> <<interface>> {
+        +clone(): T
+    }
+
+    ' ==================== Service Layer ====================
+    class ActivityManagementService <<service>> {
+        -IActivityFactory activityFactory
+        -INotificationService notificationService
+        +createActivity(data: ActivityDTO, type: ActivityType): ActivityDTO
+        +updateActivity(id: String, data: ActivityDTO): ActivityDTO
+        +deleteActivity(id: String): Response
+        +getAllActivities(): List<ActivityDTO>
+    }
+
+    enum ActivityType <<enum>> {
+        EVENT
+        TRIP
+    }
+
+    ' ==================== Entities ====================
+    abstract class Activity <<abstract>> {
+        -String activityId
+        -String name
+        -String description
+        -DateTime date
+        -Address location
+        -Integer capacity
+        -Decimal price
+        +clone(): Activity
+    }
+
+    class Event <<entity>> {
+        -List<String> speakers
+        -String topic
+        -String venue
+    }
+
+    class Trip <<entity>> {
+        -String destination
+        -Integer durationDays
+        -String transportMode
+        -Address startLocation
+        -Address endLocation
+    }
+
+    class Address <<entity>> {
+        -String city
+        -String country
+        -String details
+    }
+
+    Activity <|-- Event
+    Activity <|-- Trip
+    Activity *-- Address : composition
+    Activity ..|> IPrototype : implements
+
+    ' ==================== Abstract Factory ====================
+    interface IActivityFactory <<interface>> {
+        +createActivity(data: ActivityDTO): Activity
+        +clonePrototype(activity: Activity): Activity
+    }
+
+    class EventFactory <<factory>> {
+        -IActivityBuilder builder
+        +EventFactory(builder: IActivityBuilder)
+        +createActivity(data: ActivityDTO): Event
+        +clonePrototype(activity: Activity): Event
+    }
+
+    class TripFactory <<factory>> {
+        -IActivityBuilder builder
+        +TripFactory(builder: IActivityBuilder)
+        +createActivity(data: ActivityDTO): Trip
+        +clonePrototype(activity: Activity): Trip
+    }
+
+    IActivityFactory <|.. EventFactory
+    IActivityFactory <|.. TripFactory
+
+    ' ==================== Builder Pattern ====================
+    interface IActivityBuilder <<builder>> {
+        +reset()
+        +setBasicInfo(data: ActivityDTO)
+        +setDetails()
+        +getResult(): Activity
+    }
+
+    class EventBuilder <<builder>> {
+        -Event event
+        +reset()
+        +setBasicInfo(data: ActivityDTO)
+        +setDetails()
+        +getResult(): Event
+    }
+
+    class TripBuilder <<builder>> {
+        -Trip trip
+        +reset()
+        +setBasicInfo(data: ActivityDTO)
+        +setDetails()
+        +getResult(): Trip
+    }
+
+    IActivityBuilder <|.. EventBuilder
+    IActivityBuilder <|.. TripBuilder
+
+    ' ==================== Relationships ====================
+    EventBuilder --> Event : "builds"
+    TripBuilder --> Trip : "builds"
+
+    EventFactory o-- IActivityBuilder : "uses builder"
+    TripFactory o-- IActivityBuilder : "uses builder"
+
+    ActivityManagementService o-- IActivityFactory : "uses factory"
+    ActivityManagementService o-- INotificationService : "uses service"
+    IActivityManagement <|.. ActivityManagementService : implements
+}
+
+
+@enduml
