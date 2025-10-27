@@ -1,0 +1,106 @@
+@startuml Booking_Ticketing_Updated
+
+!define INTERFACE_COLOR #E8F5E9
+!define SERVICE_COLOR #F3E5F5
+!define ENTITY_COLOR #E3F2FD
+!define ENUM_COLOR #F3E5F5
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+}
+
+package "Booking & Ticketing Component" {
+    
+    ' Interface from Context Level
+    interface IBookingTicketingSystem <<interface>> {
+        +browseEvents(filters: EventFilterDTO): List<EventDTO>
+        +bookEvent(studentId: String, eventId: String): BookingDTO
+        +generateTicket(bookingId: String): TicketDTO
+        +validateTicket(qrCode: String): Boolean
+    }
+    
+    ' Service Implementation (Realization)
+    class BookingService <<service>> {
+        -IBookingRepository bookingRepository
+        -ITicketService ticketService
+        -IEventRepository eventRepository
+        +browseEvents(filters: EventFilterDTO): List<EventDTO>
+        +bookEvent(studentId: String, eventId: String): BookingDTO
+        +generateTicket(bookingId: String): TicketDTO
+        +validateTicket(qrCode: String): Boolean
+    }
+    
+    ' Repository Interfaces
+    interface IBookingRepository <<interface>> {
+        +save(booking: Booking): Booking
+        +findById(bookingId: String): Booking
+        +findByStudent(studentId: String): List<Booking>
+        +findByEvent(eventId: String): List<Booking>
+    }
+    
+    interface IEventRepository <<interface>> {
+        +findAll(): List<Event>
+        +findById(eventId: String): Event
+    }
+    
+    ' Supporting Service Interface
+    interface ITicketService <<interface>> {
+        +generateTicket(bookingId: String): TicketDTO
+        +validateQRCode(qrCode: String): Boolean
+    }
+    
+    ' Entities
+    class Booking <<entity>> {
+        -String bookingId
+        -String studentId
+        -String eventId
+        -DateTime bookingDate
+        -BookingStatus status
+    }
+    
+    class Ticket <<entity>> {
+        -String ticketId
+        -String bookingId
+        -String qrCode
+        -Boolean isUsed
+        -DateTime issueDate
+    }
+    
+    ' Enum
+    enum BookingStatus <<enum>> {
+        PENDING
+        CONFIRMED
+        CANCELLED
+    }
+    
+    ' Relationships (Professional)
+    IBookingTicketingSystem <|.. BookingService : realizes
+    BookingService o-- IBookingRepository : aggregation
+    BookingService o-- ITicketService : aggregation
+    BookingService o-- IEventRepository : aggregation
+    IBookingRepository ..> Booking : manages
+    Booking "1" *-- "0..1" Ticket : composition (owns)
+    Booking *-- BookingStatus : composition
+}
+
+note right of BookingService
+  *SOLID Principles:*
+  - Single Responsibility
+  - Dependency Inversion
+  
+  *Relations:*
+  - Aggregation (o--) with repositories
+  - Composition (*--) Booking owns Ticket
+end note
+
+note bottom of Booking
+  *Composition with Ticket*
+  Ticket cannot exist without Booking
+  Strong ownership relationship
+end note
+
+@enduml

@@ -1,0 +1,186 @@
+@startuml Notification_Updated
+
+!define INTERFACE_COLOR #E8F5E9
+!define SERVICE_COLOR #F3E5F5
+!define ENTITY_COLOR #E3F2FD
+!define ENUM_COLOR #F3E5F5
+!define ADAPTER_COLOR #FFE0B2
+!define BRIDGE_COLOR #C5E1A5
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+    BackgroundColor<<adapter>> ADAPTER_COLOR
+    BackgroundColor<<bridge>> BRIDGE_COLOR
+    BackgroundColor<<abstraction>> BRIDGE_COLOR
+}
+
+package "Notification Component" {
+    
+    ' Interface from Context Level
+    interface INotificationSystem <<interface>> {
+        +sendNotification(userId: String, message: String, type: NotificationType): Response
+        +notifyEventUpdate(eventId: String, message: String): Response
+        +sendBulkNotification(userIds: List<String>, message: String): Response
+    }
+    
+    ' Service Implementation (Realization)
+    class NotificationService <<service>> {
+        -INotificationRepository notificationRepository
+        -IEmailService emailService
+        -IBookingRepository bookingRepository
+        +sendNotification(userId: String, message: String, type: NotificationType): Response
+        +notifyEventUpdate(eventId: String, message: String): Response
+        +sendBulkNotification(userIds: List<String>, message: String): Response
+    }
+    
+    ' ==================== BRIDGE PATTERN ====================
+    package "Notification Bridge Pattern" {
+        
+        ' Implementation Side (Channels)
+        interface NotificationChannel <<interface>> {
+            +send(recipient: String, content: String): Response
+        }
+        
+        class EmailChannel <<bridge>> {
+            -IEmailService emailService
+            +send(recipient: String, content: String): Response
+        }
+        
+        class SmsChannel <<bridge>> {
+            -String apiKey
+            +send(recipient: String, content: String): Response
+        }
+        
+        class PushChannel <<bridge>> {
+            -String fcmKey
+            +send(recipient: String, content: String): Response
+        }
+        
+        NotificationChannel <|.. EmailChannel : implements
+        NotificationChannel <|.. SmsChannel : implements
+        NotificationChannel <|.. PushChannel : implements
+        
+        ' Abstraction Side (Messages)
+        abstract class NotificationMessage <<abstraction>> {
+            #NotificationChannel channel
+            +NotificationMessage(channel: NotificationChannel)
+            +send(recipient: String): Response
+            #{abstract} formatContent(): String
+        }
+        
+        class NewEventMessage <<abstraction>> {
+            -String eventName
+            -DateTime eventDate
+            +formatContent(): String
+        }
+        
+        class EventUpdateMessage <<abstraction>> {
+            -String eventName
+            -String updateDetails
+            +formatContent(): String
+        }
+        
+        class ReminderMessage <<abstraction>> {
+            -String eventName
+            -Integer hoursUntilEvent
+            +formatContent(): String
+        }
+        
+        NotificationMessage <|-- NewEventMessage : extends
+        NotificationMessage <|-- EventUpdateMessage : extends
+        NotificationMessage <|-- ReminderMessage : extends
+        
+        NotificationMessage o-- NotificationChannel : uses
+    }
+    
+    NotificationService ..> NotificationMessage : uses
+    NotificationService ..> NotificationChannel : uses
+    
+    ' Repository Interfaces
+    interface INotificationRepository <<interface>> {
+        +save(notification: Notification): Notification
+        +findByRecipient(userId: String): List<Notification>
+    }
+    
+    interface IBookingRepository <<interface>> {
+        +findByEvent(eventId: String): List<Booking>
+    }
+    
+    ' Supporting Service Interface
+    interface IEmailService <<interface>> {
+        +sendEmail(to: String, subject: String, body: String): Response
+    }
+    
+    ' ==================== ADAPTER PATTERN ====================
+    package "Email Service Adapters" {
+        
+        ' External Services (Third-party)
+        class JavaMailSender {
+            +send(message: MimeMessage): void
+        }
+        
+        class SendGridClient {
+            +sendEmail(request: SendGridRequest): SendGridResponse
+        }
+        
+        class AmazonSESClient {
+            +sendEmail(request: SendEmailRequest): SendEmailResult
+        }
+        
+        ' Adapters
+        class SmtpEmailAdapter <<adapter>> {
+            -JavaMailSender mailSender
+            +sendEmail(to: String, subject: String, body: String): Response
+        }
+        
+        class SendGridAdapter <<adapter>> {
+            -SendGridClient client
+            +sendEmail(to: String, subject: String, body: String): Response
+        }
+        
+        class AwsSesAdapter <<adapter>> {
+            -AmazonSESClient sesClient
+            +sendEmail(to: String, subject: String, body: String): Response
+        }
+        
+        ' Adapter Pattern Relationships
+        IEmailService <|.. SmtpEmailAdapter : implements
+        IEmailService <|.. SendGridAdapter : implements
+        IEmailService <|.. AwsSesAdapter : implements
+        
+        SmtpEmailAdapter o-- JavaMailSender : uses
+        SendGridAdapter o-- SendGridClient : uses
+        AwsSesAdapter o-- AmazonSESClient : uses
+    }
+    
+    ' Entity
+    class Notification <<entity>> {
+        -String notificationId
+        -String recipientId
+        -String message
+        -NotificationType type
+        -Boolean isRead
+        -DateTime sentDate
+    }
+    
+    ' Enum
+    enum NotificationType <<enum>> {
+        NEW_EVENT
+        EVENT_UPDATE
+        REMINDER
+    }
+    
+    ' Relationships (Professional)
+    INotificationSystem <|.. NotificationService : realizes
+    NotificationService o-- INotificationRepository : aggregation
+    NotificationService o-- IEmailService : aggregation
+    NotificationService o-- IBookingRepository : aggregation
+    INotificationRepository ..> Notification : manages
+    Notification *-- NotificationType : composition
+}
+
+@enduml

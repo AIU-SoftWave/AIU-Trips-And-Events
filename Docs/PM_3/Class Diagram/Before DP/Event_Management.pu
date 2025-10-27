@@ -1,0 +1,101 @@
+@startuml Event_Management_Updated
+
+!define INTERFACE_COLOR #E8F5E9
+!define SERVICE_COLOR #F3E5F5
+!define ENTITY_COLOR #E3F2FD
+!define ENUM_COLOR #F3E5F5
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+}
+
+package "Event Management Component" {
+    
+    ' Interface from Context Level
+    interface IEventTripManagement <<interface>> {
+        +createEvent(eventData: EventDTO): EventDTO
+        +updateEvent(eventId: String, eventData: EventDTO): EventDTO
+        +deleteEvent(eventId: String): Response
+        +getAllEvents(): List<EventDTO>
+        +manageCapacity(eventId: String): Integer
+    }
+    
+    ' Service Implementation (Realization)
+    class EventManagementService <<service>> {
+        -IEventRepository eventRepository
+        -INotificationService notificationService
+        +createEvent(eventData: EventDTO): EventDTO
+        +updateEvent(eventId: String, eventData: EventDTO): EventDTO
+        +deleteEvent(eventId: String): Response
+        +getAllEvents(): List<EventDTO>
+        +manageCapacity(eventId: String): Integer
+    }
+    
+    ' Repository Interface
+    interface IEventRepository <<interface>> {
+        +save(event: Event): Event
+        +findById(eventId: String): Event
+        +findAll(): List<Event>
+        +update(event: Event): Event
+        +delete(eventId: String): Boolean
+    }
+    
+    ' Supporting Service Interface
+    interface INotificationService <<interface>> {
+        +notifyEventChange(eventId: String, message: String): Response
+    }
+    
+    ' Entity
+    class Event <<entity>> {
+        -String eventId
+        -String name
+        -String description
+        -DateTime eventDate
+        -String location
+        -Integer capacity
+        -Integer availableSeats
+        -Decimal price
+        -EventCategory category
+        -EventStatus status
+        -String organizerId
+    }
+    
+    ' Enums
+    enum EventCategory <<enum>> {
+        FIELD_TRIP
+        SEMINAR
+        CONFERENCE
+        CONCERT
+    }
+    
+    enum EventStatus <<enum>> {
+        UPCOMING
+        COMPLETED
+        CANCELLED
+    }
+    
+    ' Relationships (Professional)
+    IEventTripManagement <|.. EventManagementService : realizes
+    EventManagementService o-- IEventRepository : aggregation
+    EventManagementService o-- INotificationService : aggregation
+    IEventRepository ..> Event : manages
+    Event *-- EventCategory : composition
+    Event *-- EventStatus : composition
+}
+
+note right of EventManagementService
+  *SOLID Principles:*
+  - Single Responsibility
+  - Open/Closed
+  - Dependency Inversion
+  
+  *Relations:*
+  - Aggregation (o--) with services
+  - Composition (*--) with enums
+end note
+
+@enduml

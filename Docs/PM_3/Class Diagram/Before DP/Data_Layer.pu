@@ -1,0 +1,209 @@
+@startuml Data_Layer_Updated
+
+!define ENTITY_COLOR #E3F2FD
+!define ENUM_COLOR #F3E5F5
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+}
+
+' ==================== ENTITIES ====================
+package "Entities (Domain Models)" {
+    
+    class User <<entity>> {
+        -String userId
+        -String email
+        -String firstName
+        -String lastName
+        -String phoneNumber
+        -String passwordHash
+        -UserRole role
+        -Boolean isVerified
+        -DateTime createdAt
+    }
+    
+    class Event <<entity>> {
+        -String eventId
+        -String name
+        -String description
+        -DateTime eventDate
+        -String location
+        -Integer capacity
+        -Integer availableSeats
+        -Decimal price
+        -EventCategory category
+        -EventStatus status
+        -String organizerId
+        -DateTime createdAt
+    }
+    
+    class Booking <<entity>> {
+        -String bookingId
+        -String studentId
+        -String eventId
+        -DateTime bookingDate
+        -BookingStatus status
+        -DateTime createdAt
+    }
+    
+    class Ticket <<entity>> {
+        -String ticketId
+        -String bookingId
+        -String qrCode
+        -Boolean isUsed
+        -DateTime issueDate
+    }
+    
+    class Notification <<entity>> {
+        -String notificationId
+        -String recipientId
+        -String message
+        -NotificationType type
+        -Boolean isRead
+        -DateTime sentDate
+    }
+    
+    class Report <<entity>> {
+        -String reportId
+        -ReportType type
+        -String filePath
+        -DateTime generatedDate
+    }
+    
+    class Feedback <<entity>> {
+        -String feedbackId
+        -String studentId
+        -String eventId
+        -Integer rating
+        -String comment
+        -DateTime submittedDate
+    }
+    
+    ' Professional Relationships
+    
+    ' Association: User organizes Events (1 to many)
+    User "1" -- "0..*" Event : organizes >
+    
+    ' Association: User creates Bookings (1 to many)
+    User "1" -- "0..*" Booking : creates >
+    
+    ' Association: User submits Feedback (1 to many)
+    User "1" -- "0..*" Feedback : submits >
+    
+    ' Association: Event has Bookings (1 to many)
+    Event "1" -- "0..*" Booking : has >
+    
+    ' Association: Event receives Feedback (1 to many)
+    Event "1" -- "0..*" Feedback : receives >
+    
+    ' Composition: Booking owns Ticket (strong ownership)
+    Booking "1" *-- "0..1" Ticket : owns >
+}
+
+' ==================== ENUMERATIONS ====================
+package "Enumerations" {
+    
+    enum UserRole <<enum>> {
+        STUDENT
+        ORGANIZER
+        ADMIN
+    }
+    
+    enum EventCategory <<enum>> {
+        FIELD_TRIP
+        SEMINAR
+        CONFERENCE
+        CONCERT
+    }
+    
+    enum EventStatus <<enum>> {
+        UPCOMING
+        COMPLETED
+        CANCELLED
+    }
+    
+    enum BookingStatus <<enum>> {
+        PENDING
+        CONFIRMED
+        CANCELLED
+    }
+    
+    enum NotificationType <<enum>> {
+        NEW_EVENT
+        EVENT_UPDATE
+        REMINDER
+    }
+    
+    enum ReportType <<enum>> {
+        PARTICIPANTS
+        REVENUE
+        FEEDBACK
+    }
+    
+    enum ExportFormat <<enum>> {
+        PDF
+        CSV
+    }
+    
+    ' Composition: Entities own their enums (strong ownership)
+    User *-- UserRole : composition
+    Event *-- EventCategory : composition
+    Event *-- EventStatus : composition
+    Booking *-- BookingStatus : composition
+    Notification *-- NotificationType : composition
+    Report *-- ReportType : composition
+}
+
+' ==================== NOTES ====================
+
+note as RelationshipNote
+*Professional Relationships:*
+
+*Composition (--)**
+- Strong ownership
+- Part cannot exist without whole
+- Examples:
+  • Booking *-- Ticket
+  • Entity *-- Enum
+
+*Association (--)*
+- Structural relationship
+- Objects collaborate
+- Examples:
+  • User -- Event (organizes)
+  • Event -- Booking (has)
+  • User -- Feedback (submits)
+
+*Multiplicity:*
+- "1" : Exactly one
+- "0..*" : Zero or many
+- "0..1" : Zero or one
+end note
+
+note top of User
+  *Core Entity*
+  Represents all system users
+  Can be: Student, Organizer, or Admin
+end note
+
+note right of Event
+  *Core Entity*
+  Represents trips/events
+  Organized by Users
+end note
+
+note bottom of Booking
+  *Association Entity*
+  Links Students to Events
+  Owns Ticket (Composition)
+end note
+
+note bottom of Ticket
+  *Dependent Entity*
+  Cannot exist without Booking
+  Composition relationship
+end note
+
+@enduml

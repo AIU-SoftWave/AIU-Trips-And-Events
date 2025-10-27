@@ -1,0 +1,164 @@
+@startuml Booking_Ticketing_Updated
+
+!define INTERFACE_COLOR #E8F5E9
+!define SERVICE_COLOR #F3E5F5
+!define ENTITY_COLOR #E3F2FD
+!define ENUM_COLOR #F3E5F5
+!define DECORATOR_COLOR #FFF9C4
+!define HANDLER_COLOR #E1BEE7
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+    BackgroundColor<<decorator>> DECORATOR_COLOR
+    BackgroundColor<<base>> #E8EAF6
+    BackgroundColor<<handler>> HANDLER_COLOR
+}
+
+package "Booking & Ticketing Component" {
+    
+    ' Interface from Context Level
+    interface IBookingTicketingSystem <<interface>> {
+        +browseEvents(filters: EventFilterDTO): List<EventDTO>
+        +bookEvent(studentId: String, eventId: String): BookingDTO
+        +generateTicket(bookingId: String): TicketDTO
+        +validateTicket(qrCode: String): Boolean
+    }
+    
+    ' Service Implementation (Realization)
+    class BookingService <<service>> {
+        -IBookingRepository bookingRepository
+        -ITicketService ticketService
+        -IEventRepository eventRepository
+        -BookingHandler validationChain
+        +browseEvents(filters: EventFilterDTO): List<EventDTO>
+        +bookEvent(studentId: String, eventId: String): BookingDTO
+        +generateTicket(bookingId: String): TicketDTO
+        +validateTicket(qrCode: String): Boolean
+    }
+    
+    ' ==================== CHAIN OF RESPONSIBILITY ====================
+    package "Booking Validation Chain" {
+        
+        abstract class BookingHandler <<handler>> {
+            #BookingHandler next
+            +setNext(handler: BookingHandler): BookingHandler
+            +handle(booking: BookingDTO): void
+        }
+        
+        class EligibilityHandler <<handler>> {
+            +handle(booking: BookingDTO): void
+        }
+        
+        class CapacityHandler <<handler>> {
+            +handle(booking: BookingDTO): void
+        }
+        
+        class PaymentHandler <<handler>> {
+            +handle(booking: BookingDTO): void
+        }
+        
+        BookingHandler <|-- EligibilityHandler
+        BookingHandler <|-- CapacityHandler
+        BookingHandler <|-- PaymentHandler
+    }
+    
+    BookingService o-- BookingHandler : uses
+    
+    ' Repository Interfaces
+    interface IBookingRepository <<interface>> {
+        +save(booking: Booking): Booking
+        +findById(bookingId: String): Booking
+        +findByStudent(studentId: String): List<Booking>
+        +findByEvent(eventId: String): List<Booking>
+    }
+    
+    interface IEventRepository <<interface>> {
+        +findAll(): List<Event>
+        +findById(eventId: String): Event
+    }
+    
+    ' Supporting Service Interface
+    interface ITicketService <<interface>> {
+        +generateTicket(bookingId: String): TicketDTO
+        +validateQRCode(qrCode: String): Boolean
+    }
+    
+    ' ==================== DECORATOR PATTERN FOR TICKET SERVICE ====================
+    package "Ticket Service Decorator Pattern" {
+        
+        ' Base Implementation
+        class BaseTicketService <<base>> {
+            -IBookingRepository bookingRepository
+            +generateTicket(bookingId: String): TicketDTO
+            +validateQRCode(qrCode: String): Boolean
+        }
+        
+        ' Abstract Decorator
+        abstract class TicketServiceDecorator <<decorator>> {
+            #ITicketService wrappedService
+            +TicketServiceDecorator(service: ITicketService)
+            +generateTicket(bookingId: String): TicketDTO
+            +validateQRCode(qrCode: String): Boolean
+        }
+        
+        ' Concrete Decorators
+        class SignedQrDecorator <<decorator>> {
+            -String secretKey
+            +generateTicket(bookingId: String): TicketDTO
+            +validateQRCode(qrCode: String): Boolean
+        }
+        
+        class AuditLogDecorator <<decorator>> {
+            -IAuditLogger auditLogger
+            +generateTicket(bookingId: String): TicketDTO
+            +validateQRCode(qrCode: String): Boolean
+        }
+        
+        ' Decorator Pattern Relationships
+        ITicketService <|.. BaseTicketService : implements
+        ITicketService <|.. TicketServiceDecorator : implements
+        TicketServiceDecorator <|-- SignedQrDecorator : extends
+        TicketServiceDecorator <|-- AuditLogDecorator : extends
+        
+        TicketServiceDecorator o-- ITicketService : wraps
+    }
+    
+    ' Entities
+    class Booking <<entity>> {
+        -String bookingId
+        -String studentId
+        -String eventId
+        -DateTime bookingDate
+        -BookingStatus status
+    }
+    
+    class Ticket <<entity>> {
+        -String ticketId
+        -String bookingId
+        -String qrCode
+        -Boolean isUsed
+        -DateTime issueDate
+    }
+    
+    ' Enum
+    enum BookingStatus <<enum>> {
+        PENDING
+        CONFIRMED
+        CANCELLED
+    }
+    
+    ' Relationships (Professional)
+    IBookingTicketingSystem <|.. BookingService : realizes
+    BookingService o-- IBookingRepository : aggregation
+    BookingService o-- ITicketService : aggregation
+    BookingService o-- IEventRepository : aggregation
+    IBookingRepository ..> Booking : manages
+    Booking "1" *-- "0..1" Ticket : composition (owns)
+    Booking *-- BookingStatus : composition
+}
+
+@enduml

@@ -1,0 +1,178 @@
+@startuml Reports_Analytics_Updated_With_Builder_V2
+
+!define INTERFACE_COLOR #E8F5E9
+!define SERVICE_COLOR #F3E5F5
+!define ENTITY_COLOR #E3F2FD
+!define ENUM_COLOR #F3E5F5
+!define BUILDER_COLOR #FFF9C4
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+    BackgroundColor<<Builder>> BUILDER_COLOR
+    BackgroundColor<<Product>> BUILDER_COLOR
+}
+
+package "Reports & Analytics Component" {
+    
+    ' Interface from Context Level
+    interface IReportsAnalytics <<interface>> {
+        +generateReport(reportType: ReportType, filters: ReportFilterDTO, format: ExportFormat): ReportDTO
+        +exportReport(reportId: String, format: ExportFormat): FileDTO
+        +getStatistics(): SystemStatisticsDTO
+        +collectFeedback(feedbackData: FeedbackDTO): Response
+    }
+
+    class ReportService <<service>> {
+        -IReportRepository reportRepository
+        -IEventRepository eventRepository
+        -IBookingRepository bookingRepository
+        -IFeedbackRepository feedbackRepository
+        +generateReport(reportType: ReportType, filters: ReportFilterDTO, format: ExportFormat): ReportDTO
+        +exportReport(reportId: String, format: ExportFormat): FileDTO
+        +getStatistics(): SystemStatisticsDTO
+        +collectFeedback(feedbackData: FeedbackDTO): Response
+    }
+
+    interface IReportRepository <<interface>> {
+        +save(report: Report): Report
+        +findById(reportId: String): Report
+    }
+
+    interface IFeedbackRepository <<interface>> {
+        +save(feedback: Feedback): Feedback
+        +findByEvent(eventId: String): List<Feedback>
+    }
+
+    interface IEventRepository <<interface>> {
+        +findAll(): List<Event>
+        +findById(eventId: String): Event
+    }
+
+    interface IBookingRepository <<interface>> {
+        +findAll(): List<Booking>
+        +findByEvent(eventId: String): List<Booking>
+    }
+
+    class Report <<entity>> {
+        -String reportId
+        -ReportType type
+        -String filePath
+        -DateTime generatedDate
+    }
+
+    class Feedback <<entity>> {
+        -String feedbackId
+        -String studentId
+        -String eventId
+        -Integer rating
+        -String comment
+        -DateTime submittedDate
+    }
+
+    enum ReportType <<enum>> {
+        PARTICIPANTS
+        REVENUE
+        FEEDBACK
+    }
+
+    enum ExportFormat <<enum>> {
+        PDF
+        CSV
+    }
+
+    ' ==================== REPORT BUILDER PATTERN (UPDATED) ====================
+    package "Report Builder Pattern" {
+        skinparam class {
+            BackgroundColor<<Product>> BUILDER_COLOR
+            BackgroundColor<<Builder>> BUILDER_COLOR
+        }
+
+        ' === Abstract Builder Interface ===
+        interface IReportBuilder <<interface>> {
+            +reset()
+            +buildHeader()
+            +buildBody(data: List)
+            +buildFooter(stats: SystemStatisticsDTO)
+            +getProduct(): IReportProduct
+        }
+
+        ' === Product Interface ===
+        interface IReportProduct <<interface>> {
+            +export(): FileDTO
+        }
+
+        ' === PDF Product ===
+        class PdfReport <<Product>> {
+            -String pdfHeader
+            -String pdfBody
+            -String pdfFooter
+            +setHeader(h: String)
+            +setBody(b: String)
+            +setFooter(f: String)
+            +export(): FileDTO
+        }
+
+        ' === CSV Product ===
+        class CsvReport <<Product>> {
+            -String csvHeader
+            -String csvBody
+            -String csvFooter
+            +setHeader(h: String)
+            +setBody(b: String)
+            +setFooter(f: String)
+            +export(): FileDTO
+        }
+
+        ' === Concrete Builders ===
+        class PdfReportBuilder <<Builder>> {
+            -product: PdfReport
+            +reset()
+            +buildHeader()
+            +buildBody(data: List)
+            +buildFooter(stats: SystemStatisticsDTO)
+            +getProduct(): PdfReport
+        }
+
+        class CsvReportBuilder <<Builder>> {
+            -product: CsvReport
+            +reset()
+            +buildHeader()
+            +buildBody(data: List)
+            +buildFooter(stats: SystemStatisticsDTO)
+            +getProduct(): CsvReport
+        }
+
+        ' --- Relationships ---
+        IReportBuilder <|.. PdfReportBuilder
+        IReportBuilder <|.. CsvReportBuilder
+        IReportProduct <|.. PdfReport
+        IReportProduct <|.. CsvReport
+
+        PdfReportBuilder ..> PdfReport : "creates"
+        CsvReportBuilder ..> CsvReport : "creates"
+    }
+
+    ' --- External Relationships ---
+    IReportsAnalytics <|.. ReportService : realizes
+    ReportService o-- IReportRepository
+    ReportService o-- IEventRepository
+    ReportService o-- IBookingRepository
+    ReportService o-- IFeedbackRepository
+    IReportRepository ..> Report
+    IFeedbackRepository ..> Feedback
+    Report *-- ReportType
+    ReportService o-- IReportBuilder : "uses (Director)"
+}
+
+note right of ReportService
+  Acts as Director:
+  - Selects builder type (PDF or CSV)
+  - Invokes build steps
+  - Returns product as FileDTO
+end note
+
+@enduml

@@ -1,0 +1,115 @@
+@startuml Reports_Analytics_Updated
+
+!define INTERFACE_COLOR #E8F5E9
+!define SERVICE_COLOR #F3E5F5
+!define ENTITY_COLOR #E3F2FD
+!define ENUM_COLOR #F3E5F5
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+}
+
+package "Reports & Analytics Component" {
+    
+    ' Interface from Context Level
+    interface IReportsAnalytics <<interface>> {
+        +generateReport(reportType: ReportType, filters: ReportFilterDTO): ReportDTO
+        +exportReport(reportId: String, format: ExportFormat): FileDTO
+        +getStatistics(): SystemStatisticsDTO
+        +collectFeedback(feedbackData: FeedbackDTO): Response
+    }
+    
+    ' Service Implementation (Realization)
+    class ReportService <<service>> {
+        -IReportRepository reportRepository
+        -IEventRepository eventRepository
+        -IBookingRepository bookingRepository
+        -IFeedbackRepository feedbackRepository
+        +generateReport(reportType: ReportType, filters: ReportFilterDTO): ReportDTO
+        +exportReport(reportId: String, format: ExportFormat): FileDTO
+        +getStatistics(): SystemStatisticsDTO
+        +collectFeedback(feedbackData: FeedbackDTO): Response
+    }
+    
+    ' Repository Interfaces (ALL INTERFACES)
+    interface IReportRepository <<interface>> {
+        +save(report: Report): Report
+        +findById(reportId: String): Report
+    }
+    
+    interface IFeedbackRepository <<interface>> {
+        +save(feedback: Feedback): Feedback
+        +findByEvent(eventId: String): List<Feedback>
+    }
+    
+    interface IEventRepository <<interface>> {
+        +findAll(): List<Event>
+        +findById(eventId: String): Event
+    }
+    
+    interface IBookingRepository <<interface>> {
+        +findAll(): List<Booking>
+        +findByEvent(eventId: String): List<Booking>
+    }
+    
+    ' Entities
+    class Report <<entity>> {
+        -String reportId
+        -ReportType type
+        -String filePath
+        -DateTime generatedDate
+    }
+    
+    class Feedback <<entity>> {
+        -String feedbackId
+        -String studentId
+        -String eventId
+        -Integer rating
+        -String comment
+        -DateTime submittedDate
+    }
+    
+    ' Enums
+    enum ReportType <<enum>> {
+        PARTICIPANTS
+        REVENUE
+        FEEDBACK
+    }
+    
+    enum ExportFormat <<enum>> {
+        PDF
+        CSV
+    }
+    
+    ' Relationships (Professional)
+    IReportsAnalytics <|.. ReportService : realizes
+    ReportService o-- IReportRepository : aggregation
+    ReportService o-- IEventRepository : aggregation
+    ReportService o-- IBookingRepository : aggregation
+    ReportService o-- IFeedbackRepository : aggregation
+    IReportRepository ..> Report : manages
+    IFeedbackRepository ..> Feedback : manages
+    Report *-- ReportType : composition
+}
+
+note right of ReportService
+  *SOLID Principles:*
+  - Single Responsibility: Reports only
+  - Dependency Inversion: All interfaces
+  
+  *Relations:*
+  - Aggregation (o--) with multiple repos
+  - Composition (*--) with enum
+end note
+
+note bottom of IEventRepository
+  *All are INTERFACES*
+  Used to aggregate data
+  from different sources
+end note
+
+@enduml
