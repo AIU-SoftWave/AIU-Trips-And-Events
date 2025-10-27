@@ -29,8 +29,9 @@ package "Activity Management Component" {
         +getAllActivities(): List<ActivityDTO>
     }
 
-    interface INotificationService <<interface>> {
-        +notify(activity: Activity): void
+    interface INotificationSystem <<interface>> {
+        +sendNotification(userId: String, message: String, type: NotificationType): Response
+        +notifyEventUpdate(eventId: String, message: String): Response
     }
 
     ' ==================== Prototype Pattern ====================
@@ -41,7 +42,7 @@ package "Activity Management Component" {
     ' ==================== Service Layer ====================
     class ActivityManagementService <<service>> {
         -IActivityFactory activityFactory
-        -INotificationService notificationService
+        -INotificationSystem notificationSystem
         +createActivity(data: ActivityDTO, type: ActivityType): ActivityDTO
         +updateActivity(id: String, data: ActivityDTO): ActivityDTO
         +deleteActivity(id: String): Response
@@ -148,7 +149,7 @@ package "Activity Management Component" {
     TripFactory o-- IActivityBuilder : "uses builder"
 
     ActivityManagementService o-- IActivityFactory : "uses factory"
-    ActivityManagementService o-- INotificationService : "uses service"
+    ActivityManagementService o-- INotificationSystem : "uses service"
     IActivityManagement <|.. ActivityManagementService : implements
 }
 

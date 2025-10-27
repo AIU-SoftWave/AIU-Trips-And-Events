@@ -30,7 +30,7 @@ package "Notification Component" {
     ' Service Implementation (Realization)
     class NotificationService <<service>> {
         -INotificationRepository notificationRepository
-        -IEmailService emailService
+        -NotificationChannel channel
         -IBookingRepository bookingRepository
         +sendNotification(userId: String, message: String, type: NotificationType): Response
         +notifyEventUpdate(eventId: String, message: String): Response
@@ -63,6 +63,8 @@ package "Notification Component" {
         NotificationChannel <|.. EmailChannel : implements
         NotificationChannel <|.. SmsChannel : implements
         NotificationChannel <|.. PushChannel : implements
+        
+        EmailChannel o-- IEmailService : uses
         
         ' Abstraction Side (Messages)
         abstract class NotificationMessage <<abstraction>> {
@@ -177,7 +179,7 @@ package "Notification Component" {
     ' Relationships (Professional)
     INotificationSystem <|.. NotificationService : realizes
     NotificationService o-- INotificationRepository : aggregation
-    NotificationService o-- IEmailService : aggregation
+    NotificationService o-- NotificationChannel : aggregation
     NotificationService o-- IBookingRepository : aggregation
     INotificationRepository ..> Notification : manages
     Notification *-- NotificationType : composition

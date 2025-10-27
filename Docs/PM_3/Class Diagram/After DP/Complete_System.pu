@@ -24,12 +24,11 @@ package "Core System Interfaces" {
         +manageUserRole(userId: String, role: UserRole): Response
     }
 
-    interface IEventTripManagement <<interface>> {
-        +createEvent(eventData: EventDTO): EventDTO
-        +updateEvent(eventId: String, eventData: EventDTO): EventDTO
-        +deleteEvent(eventId: String): Response
-        +getAllEvents(): List<EventDTO>
-        +manageCapacity(eventId: String): Integer
+    interface IActivityManagement <<interface>> {
+        +createActivity(data: ActivityDTO, type: ActivityType): ActivityDTO
+        +updateActivity(id: String, data: ActivityDTO): ActivityDTO
+        +deleteActivity(id: String): Response
+        +getAllActivities(): List<ActivityDTO>
     }
 
     interface IBookingTicketingSystem <<interface>> {
@@ -59,7 +58,7 @@ package "Controller Layer" {
     interface IApplicationFacade <<interface>> {
         +register(userData: UserDTO): Response
         +login(email: String, password: String): AuthToken
-        +createEvent(eventData: EventDTO): EventDTO
+        +createActivity(data: ActivityDTO, type: ActivityType): ActivityDTO
         +bookEvent(studentId: String, eventId: String): BookingDTO
         +sendNotification(userId: String, message: String, type: NotificationType): Response
         +generateReport(reportType: ReportType, filters: ReportFilterDTO): ReportDTO
@@ -67,7 +66,7 @@ package "Controller Layer" {
     
     class ApplicationFacade <<facade>> {
         -IAuthenticationUserManagement authService
-        -IEventTripManagement eventService
+        -IActivityManagement activityService
         -IBookingTicketingSystem bookingService
         -INotificationSystem notificationService
         -IReportsAnalytics reportService
@@ -83,7 +82,7 @@ package "Controller Layer" {
     SystemController o-- IApplicationFacade
     
     ApplicationFacade o-- IAuthenticationUserManagement
-    ApplicationFacade o-- IEventTripManagement
+    ApplicationFacade o-- IActivityManagement
     ApplicationFacade o-- IBookingTicketingSystem
     ApplicationFacade o-- INotificationSystem
     ApplicationFacade o-- IReportsAnalytics
