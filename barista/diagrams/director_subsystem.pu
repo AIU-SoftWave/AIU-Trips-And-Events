@@ -1,0 +1,71 @@
+@startuml Director Subsystem
+
+' ==================== Color Definitions ====================
+!define DIRECTOR_COLOR #FCE4EC
+!define INTERFACE_COLOR #E8F5E9
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<director>> DIRECTOR_COLOR
+    BackgroundColor<<interface>> INTERFACE_COLOR
+}
+
+title Director Subsystem
+
+together {
+    ' External interfaces (from other subsystems) - positioned above
+    interface IBuilder <<interface>> {
+        +createCoffeeBuilder(): CoffeeBuilder
+        +createTeaBuilder(): TeaBuilder
+    }
+}
+
+together {
+    interface ICoffee <<interface>>
+    interface ITea <<interface>>
+}
+
+package "Director Subsystem" <<Rectangle>> #FCE4EC {
+    
+    ' Interface (exposed to other subsystems)
+    interface IDrinkDirector <<interface>> {
+        +buildCoffee(builder, type): ICoffee
+        +buildTea(builder, type): ITea
+    }
+    
+    ' Implementation
+    class DrinkDirector <<director>> {
+        -coffeeDirector: CoffeeDirector
+        -teaDirector: TeaDirector
+        +DrinkDirector()
+        +buildCoffee(builder, type): ICoffee
+        +buildTea(builder, type): ITea
+    }
+    
+    ' Internal components
+    class CoffeeDirector <<director>> {
+        +makeLatte(builder): ICoffee
+        +makeBlackCoffee(builder): ICoffee
+    }
+    
+    class TeaDirector <<director>> {
+        +makeEnglishTea(builder): ITea
+        +makeGreenTea(builder): ITea
+    }
+    
+    DrinkDirector ..|> IDrinkDirector
+    DrinkDirector --> CoffeeDirector : uses
+    DrinkDirector --> TeaDirector : uses
+    
+}
+
+' Layout hints
+IBuilder -[hidden]down- "Director Subsystem"
+
+' Relationships
+CoffeeDirector -up-> IBuilder : uses
+TeaDirector -up-> IBuilder : uses
+IDrinkDirector ..> ICoffee : returns
+IDrinkDirector ..> ITea : returns
+
+@enduml

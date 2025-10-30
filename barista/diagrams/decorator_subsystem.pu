@@ -1,0 +1,77 @@
+@startuml Decorator Subsystem
+
+' ==================== Color Definitions ====================
+!define DECORATOR_COLOR #E1F5FE
+!define INTERFACE_COLOR #E8F5E9
+!define ABSTRACT_COLOR #FFF3E0
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<decorator>> DECORATOR_COLOR
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<abstract>> ABSTRACT_COLOR
+}
+
+' ==================== External Interfaces ====================
+' Reference to IDrink interface from Product Subsystem
+interface IDrink << (I,External) >> {
+    +getName(): String
+    +getTemperature(): int
+    +setName(name: String): void
+    +setTemperature(temp: int): void
+    +getDescription(): String
+    +getCost(): double
+}
+
+
+
+package "Decorator Subsystem" <<Rectangle>> #E1F5FE {
+    ' Base Decorator
+    abstract class DrinkDecorator <<abstract, decorator>> {
+        -wrapped: IDrink
+        +{abstract} getName(): String
+        +{abstract} getTemperature(): int
+        +{abstract} setName(name: String): void
+        +{abstract} setTemperature(temp: int): void
+        +DrinkDecorator(drink: IDrink)
+    }
+    
+    ' Concrete Decorators
+    class MilkAddon <<decorator>> {
+        +MilkAddon(drink: IDrink)
+        +getName(): String
+        +getTemperature(): int
+        +setName(name: String): void
+        +setTemperature(temp: int): void
+    }
+    
+    class SugarAddon <<decorator>> {
+        +SugarAddon(drink: IDrink)
+        +getName(): String
+        +getTemperature(): int
+        +setName(name: String): void
+        +setTemperature(temp: int): void
+    }
+    
+    class VanillaSyrupAddon <<decorator>> {
+        +VanillaSyrupAddon(drink: IDrink)
+        +getName(): String
+        +getTemperature(): int
+        +setName(name: String): void
+        +setTemperature(temp: int): void
+    }
+}
+
+
+' ==================== Relationships ====================
+IDrink <|.. DrinkDecorator
+DrinkDecorator o-- IDrink
+DrinkDecorator <|-- MilkAddon
+DrinkDecorator <|-- SugarAddon
+DrinkDecorator <|-- VanillaSyrupAddon
+
+' Hide these implementation details
+hide empty members
+hide empty fields
+
+@enduml

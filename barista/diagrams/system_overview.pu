@@ -1,0 +1,124 @@
+@startuml Barista Machine System Overview
+
+' ==================== Color Definitions ====================
+!define FACTORY_COLOR #FFF9C4
+!define DIRECTOR_COLOR #FCE4EC
+!define BUILDER_COLOR #E8F5E9
+!define DECORATOR_COLOR #E1F5FE
+!define PRODUCT_COLOR #F3E5F5
+!define INTERFACE_COLOR #E8F5E9
+!define CLIENT_COLOR #FFECB3
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<factory>> FACTORY_COLOR
+    BackgroundColor<<director>> DIRECTOR_COLOR
+    BackgroundColor<<builder>> BUILDER_COLOR
+    BackgroundColor<<decorator>> DECORATOR_COLOR
+    BackgroundColor<<product>> PRODUCT_COLOR
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<client>> CLIENT_COLOR
+}
+
+title Barista Machine System
+
+' ==================== Client ====================
+package "Client" <<Rectangle>> #FFECB3 {
+    [Client Code] as client
+}
+
+' ==================== Factory Subsystem ====================
+package "Factory Subsystem" <<Rectangle>> #FFF9C4 {
+    abstract class AFactory <<abstract>> {
+        +createCoffee(): ICoffee
+        +createTea(): ITea
+    }
+    
+    class ClassicFactory <<factory>> {}
+    class DietFactory <<factory>> {}
+    
+    AFactory <|-- ClassicFactory
+    AFactory <|-- DietFactory
+}
+
+' ==================== Director Subsystem ====================
+package "Director Subsystem" <<Rectangle>> #FCE4EC {
+    class DrinkDirector <<director>> {
+        +buildCoffee(builder, type): ICoffee
+        +buildTea(builder, type): ITea
+    }
+}
+
+' ==================== Builder Subsystem ====================
+package "Builder Subsystem" <<Rectangle>> #E8F5E9 {
+    class BuilderFacade <<builder>> {
+        +createCoffeeBuilder(): CoffeeBuilder
+        +createTeaBuilder(): TeaBuilder
+    }
+}
+
+' ==================== Product Subsystem ====================
+package "Product Subsystem" <<Rectangle>> #F3E5F5 {
+    interface IDrink <<interface>> {
+        +getDescription(): String
+        +getCost(): double
+    }
+    
+    interface ICoffee <<interface>> {}
+    interface ITea <<interface>> {}
+    
+    class LatteCoffee <<product>> {}
+    class BlackCoffee <<product>> {}
+    class EnglishTea <<product>> {}
+    class GreenTea <<product>> {}
+    
+    IDrink <|-- ICoffee
+    IDrink <|-- ITea
+    ICoffee <|.. LatteCoffee
+    ICoffee <|.. BlackCoffee
+    ITea <|.. EnglishTea
+    ITea <|.. GreenTea
+}
+
+' ==================== Decorator Subsystem ====================
+package "Decorator Subsystem" <<Rectangle>> #E1F5FE {
+    abstract class DrinkDecorator <<abstract, decorator>> {
+        -decoratedDrink: IDrink
+        +getDescription(): String
+        +getCost(): double
+    }
+    
+    class MilkAddon <<decorator>> {}
+    class SugarAddon <<decorator>> {}
+    class VanillaSyrupAddon <<decorator>> {}
+    
+    DrinkDecorator <|-- MilkAddon
+    DrinkDecorator <|-- SugarAddon
+    DrinkDecorator <|-- VanillaSyrupAddon
+}
+
+' ==================== Relationships ====================
+' Client uses Factory
+client --> AFactory
+
+' Factory depends on Director and Builder
+AFactory --> DrinkDirector
+AFactory --> BuilderFacade
+
+' Director uses Builders
+DrinkDirector --> CoffeeBuilder
+DrinkDirector --> TeaBuilder
+
+' Builders create Products
+CoffeeBuilder ..> ICoffee
+TeaBuilder ..> ITea
+
+' Decorator wraps Products
+IDrink <|.. DrinkDecorator
+DrinkDecorator o-- IDrink
+
+' Hide implementation details
+hide empty members
+hide empty fields
+
+@enduml

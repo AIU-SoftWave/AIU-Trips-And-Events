@@ -1,0 +1,81 @@
+@startuml Builder Subsystem
+
+' ==================== Color Definitions ====================
+!define BUILDER_COLOR #FFFDE7
+!define INTERFACE_COLOR #E8F5E9
+!define ABSTRACT_COLOR #FFF3E0
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<builder>> BUILDER_COLOR
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<abstract>> ABSTRACT_COLOR
+}
+
+title Builder Subsystem
+
+together {
+    ' External interface (from Product Subsystem) - positioned above
+    interface IDrink << (I,External) >> {
+        +getName(): String
+        +getTemperature(): int
+        +setName(name: String): void
+        +setTemperature(temp: int): void
+        +getDescription(): String
+        +getCost(): double
+    }
+}
+
+package "Builder Subsystem" <<Rectangle>> #FFFDE7 {
+    
+    ' Interface (exposed to other subsystems)
+    interface IBuilder <<interface>> {
+        +createCoffeeBuilder(): CoffeeBuilder
+        +createTeaBuilder(): TeaBuilder
+    }
+    
+    interface IDrinkBuilder <<interface>> {
+        +reset(): void
+        +setName(name: String): void
+        +setTemperature(temp: int): void
+        +build(): IDrink
+    }
+    
+    ' Implementation
+    class BuilderFactory <<builder>> {
+        +createCoffeeBuilder(): CoffeeBuilder
+        +createTeaBuilder(): TeaBuilder
+    }
+    
+    ' Internal components
+    abstract class AbstractDrinkBuilder <<abstract>> {
+        +drink: IDrink
+        +reset(): void
+        +setName(name: String): void
+        +setTemperature(temp: int): void
+        +build(): IDrink
+    }
+    
+    class CoffeeBuilder <<builder>> {
+        +setCoffeeType(type: String): void
+    }
+    
+    class TeaBuilder <<builder>> {
+        +setTeaType(type: String): void
+    }
+    
+    BuilderFactory ..|> IBuilder
+    AbstractDrinkBuilder ..|> IDrinkBuilder
+    CoffeeBuilder --|> AbstractDrinkBuilder
+    TeaBuilder --|> AbstractDrinkBuilder
+    BuilderFactory --> CoffeeBuilder : creates
+    BuilderFactory --> TeaBuilder : creates
+}
+
+' Layout hints
+IDrink -[hidden]down- "Builder Subsystem"
+
+' Relationships
+IDrinkBuilder -up-> IDrink : builds
+
+@enduml

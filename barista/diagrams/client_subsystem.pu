@@ -1,0 +1,47 @@
+@startuml Client Subsystem
+
+' ==================== Color Definitions ====================
+!define CLIENT_COLOR #FFEBEE
+!define INTERFACE_COLOR #E8F5E9
+!define ABSTRACT_COLOR #FFF3E0
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<client>> CLIENT_COLOR
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<abstract>> ABSTRACT_COLOR
+}
+
+title Client Subsystem
+
+package "Client Subsystem" <<Rectangle>> #FFEBEE {
+    
+    class BaristaMachine <<client>> {
+        -factory: AFactory
+        +BaristaMachine(factory: AFactory)
+        +serveCombo(): void
+        +serveCoffee(): void
+        +serveTea(): void
+    }
+    
+    note right of BaristaMachine
+        <b>Client Subsystem</b>
+        
+        Responsibilities:
+        • Serve drinks to customers
+        • Use factory to create drinks
+        
+        Dependencies:
+        • Factory Subsystem (via AFactory)
+    end note
+}
+
+' External interface (from Factory Subsystem)
+abstract class AFactory <<abstract>> {
+    +{abstract} createCoffee(): ICoffee
+    +{abstract} createTea(): ITea
+}
+
+BaristaMachine --> AFactory : uses
+
+@enduml
