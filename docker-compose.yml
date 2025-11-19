@@ -14,12 +14,6 @@ services:
     restart: unless-stopped
     networks:
       - aiu-network
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
 
   frontend:
     image: ${FRONTEND_IMAGE:-ghcr.io/aiu-softwave/aiu-frontend:latest}
@@ -29,17 +23,10 @@ services:
     environment:
       - NEXT_PUBLIC_API_URL=http://backend:8080
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     restart: unless-stopped
     networks:
       - aiu-network
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
 
 volumes:
   backend-data:

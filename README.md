@@ -227,7 +227,7 @@ Configure these secrets in your GitHub repository settings:
 | `SSH_HOST` | VM hostname or IP address | `your-server.com` or `192.168.1.100` |
 | `SSH_USER` | SSH username | `deploy` |
 | `SSH_PRIVATE_KEY` | SSH private key for authentication | Contents of your private key file |
-| `SSH_PORT` | SSH port (optional, defaults to 22) | `22` |
+| `SSH_PORT` | SSH port (optional, defaults to 22 if not set) | `22` or `2222` |
 
 #### VM Setup for Deployment
 
