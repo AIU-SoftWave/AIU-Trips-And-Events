@@ -1,0 +1,63 @@
+@startuml Event Management System
+
+class User {
+  +id: Long
+  +username: String
+  +email: String
+  +firstName: String
+  +lastName: String
+  +createdAt: LocalDateTime
+  +role: String
+}
+
+class Event {
+  +id: Long
+  +title: String
+  +description: String
+  +eventType: String
+  +startDate: LocalDate
+  +endDate: LocalDate
+  +location: String
+  +capacity: Integer
+  +price: Double
+  +status: String
+}
+
+class Booking {
+  +id: Long
+  +userId: Long
+  +eventId: Long
+  +bookingCode: String
+  +numberOfSeats: Integer
+  +totalAmount: Double
+  +status: String
+  +paymentMethod: String
+  +bookingDate: LocalDateTime
+  +validated: Boolean
+}
+
+class Feedback {
+  +id: Long
+  +userId: Long
+  +eventId: Long
+  +rating: Integer
+  +comment: String
+  +createdAt: LocalDateTime
+}
+
+class Notification {
+  +id: Long
+  +userId: Long
+  +message: String
+  +type: String
+  +read: Boolean
+  +createdAt: LocalDateTime
+}
+
+User "1" -- "*" Booking : makes
+Event "1" -- "*" Booking : has
+User "1" -- "*" Feedback : provides
+Event "1" -- "*" Feedback : receives
+User "1" -- "*" Notification : receives
+
+@enduml

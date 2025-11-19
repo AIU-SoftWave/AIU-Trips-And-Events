@@ -36,6 +36,7 @@ A university system that manages events and trips through a web app that manages
 - Java 17 or higher
 - Node.js 18 or higher
 - Maven
+- Docker and Docker Compose (optional, for containerized deployment)
 
 ### Backend Setup
 
@@ -194,6 +195,129 @@ AIU-Trips-And-Events/
 │   └── CODE_STRUCTURE_IMPROVEMENTS.md
 └── README.md
 ```
+
+## CI/CD and Automation
+
+### Continuous Integration
+
+The project includes automated CI workflows that run on every push and pull request:
+
+- **CI Workflow** (`.github/workflows/ci.yml`):
+  - Runs tests for both backend (Maven) and frontend (npm)
+  - Uses Node.js 18 and Java 17
+  - Caches dependencies for faster builds
+  - Automatically triggered on pushes to `main` and `develop` branches
+
+### Deployment
+
+The project supports automated deployment to a VM using Docker:
+
+- **Deploy to VM Workflow** (`.github/workflows/deploy-to-vm.yml`):
+  - Builds multi-arch Docker images for backend and frontend
+  - Pushes images to GitHub Container Registry (GHCR)
+  - Deploys to a remote VM via SSH using docker-compose
+  - Triggers on pushes to `main` branch or manual dispatch
+
+#### Required Secrets for Deployment
+
+Configure these secrets in your GitHub repository settings:
+
+| Secret | Description | Example |
+|--------|-------------|---------|
+| `SSH_HOST` | VM hostname or IP address | `your-server.com` or `192.168.1.100` |
+| `SSH_USER` | SSH username | `deploy` |
+| `SSH_PRIVATE_KEY` | SSH private key for authentication | Contents of your private key file |
+| `SSH_PORT` | SSH port (optional, defaults to 22) | `22` |
+
+#### VM Setup for Deployment
+
+1. Install Docker and Docker Compose on your VM
+2. Create deployment directory:
+   ```bash
+   sudo mkdir -p /opt/aiu-trips-events
+   sudo chown $USER:$USER /opt/aiu-trips-events
+   ```
+3. Copy `docker-compose.yml` to the VM deployment directory
+4. Ensure the deploy user has Docker permissions:
+   ```bash
+   sudo usermod -aG docker $USER
+   ```
+
+### Docker Deployment
+
+#### Local Development with Docker
+
+```bash
+# Start all services in development mode
+docker-compose -f docker-compose.dev.yml up
+
+# Stop all services
+docker-compose -f docker-compose.dev.yml down
+```
+
+#### Production Deployment with Docker
+
+```bash
+# Pull and start services with the latest images
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop all services
+docker-compose down
+```
+
+### PlantUML Code Generator ("vibecoder")
+
+The project includes an automated code generator that converts PlantUML class diagrams into TypeScript interfaces and Java DTOs:
+
+- **Diagram Codegen Workflow** (`.github/workflows/diagram-codegen.yml`):
+  - Triggers on changes to `diagrams/*.puml` files
+  - Generates TypeScript interfaces in `generated/ts/`
+  - Generates Java DTOs in `generated/java/`
+  - Automatically creates a pull request with generated code
+
+#### Using the Code Generator
+
+1. Create or modify PlantUML diagrams in the `diagrams/` directory
+2. Push changes to the `main` branch
+3. The workflow automatically generates code and creates a PR
+4. Review and merge the generated code
+
+#### Manual Code Generation
+
+```bash
+# Run the generator locally
+node tools/plantuml-to-code/index.js
+```
+
+#### Example PlantUML Diagram
+
+See `diagrams/event-management.puml` for an example:
+
+```plantuml
+@startuml
+class User {
+  +id: Long
+  +username: String
+  +email: String
+}
+@enduml
+```
+
+This generates:
+- `generated/ts/User.ts` - TypeScript interface
+- `generated/java/User.java` - Java DTO with getters/setters
+
+### Docker Images
+
+The project provides Dockerfiles for both backend and frontend:
+
+- **Backend**: Multi-stage Maven build with Java 17 runtime
+- **Frontend**: Multi-stage Node.js build with Next.js
+
+Images are automatically built and pushed to GHCR during deployment.
 
 ## License
 

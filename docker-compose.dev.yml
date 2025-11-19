@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./Project/backend
+      dockerfile: Dockerfile
+    container_name: aiu-backend-dev
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:tripsdb
+      - SPRING_H2_CONSOLE_ENABLED=true
+    volumes:
+      - ./Project/backend/src:/app/src
+    restart: unless-stopped
+    networks:
+      - aiu-network-dev
+
+  frontend:
+    build:
+      context: ./Project/frontend
+      dockerfile: Dockerfile
+      target: deps
+    container_name: aiu-frontend-dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8080
+      - NODE_ENV=development
+    volumes:
+      - ./Project/frontend:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - aiu-network-dev
+
+networks:
+  aiu-network-dev:
+    driver: bridge

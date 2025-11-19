@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  backend:
+    image: ${BACKEND_IMAGE:-ghcr.io/aiu-softwave/aiu-backend:latest}
+    container_name: aiu-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:h2:file:/data/tripsdb
+    volumes:
+      - backend-data:/data
+    restart: unless-stopped
+    networks:
+      - aiu-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    image: ${FRONTEND_IMAGE:-ghcr.io/aiu-softwave/aiu-frontend:latest}
+    container_name: aiu-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8080
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - aiu-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  backend-data:
+    driver: local
+
+networks:
+  aiu-network:
+    driver: bridge
