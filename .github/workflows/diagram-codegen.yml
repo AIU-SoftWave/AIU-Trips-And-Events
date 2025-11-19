@@ -2,7 +2,7 @@ name: PlantUML Diagram Code Generator
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
       - 'diagrams/*.puml'
   workflow_dispatch:
@@ -10,46 +10,43 @@ on:
 jobs:
   generate-code:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        
-    - name: Generate code from PlantUML diagrams
-      run: |
-        # Ensure the tool directory exists
-        mkdir -p tools/plantuml-to-code
-        
-        # Run the code generator
-        node tools/plantuml-to-code/index.js
-        
-    - name: Create Pull Request with generated code
-      uses: peter-evans/create-pull-request@v6
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: 'chore: auto-generate code from PlantUML diagrams'
-        title: 'Auto-generated code from PlantUML diagrams'
-        body: |
-          ## Automated Code Generation
-          
-          This PR contains code automatically generated from PlantUML class diagrams.
-          
-          ### Generated Files:
-          - TypeScript interfaces in `generated/ts/`
-          - Java DTOs in `generated/java/`
-          
-          ### Source Diagrams:
-          - Modified diagrams in `diagrams/*.puml`
-          
-          Please review the generated code before merging.
-        branch: auto/diagram-codegen-${{ github.run_number }}
-        branch-suffix: short-commit-hash
-        delete-branch: true
-        labels: |
-          automated
-          code-generation
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Generate code from PlantUML diagrams
+        run: |
+          mkdir -p tools/plantuml-to-code
+          node tools/plantuml-to-code/index.js
+
+      - name: Create Pull Request with generated code
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: auto-generate code from PlantUML diagrams'
+          title: 'Auto-generated code from PlantUML diagrams'
+          body: |
+            ## Automated Code Generation
+
+            This PR contains code automatically generated from PlantUML class diagrams.
+
+            ### Generated Files:
+            - TypeScript interfaces in `generated/ts/`
+            - Java DTOs in `generated/java/`
+
+            ### Source Diagrams:
+            - Modified diagrams in `diagrams/*.puml`
+
+            Please review the generated code before merging.
+          branch: auto/diagram-codegen-${{ github.run_number }}
+          branch-suffix: short-commit-hash
+          delete-branch: true
+          labels: |
+            automated
+            code-generation
