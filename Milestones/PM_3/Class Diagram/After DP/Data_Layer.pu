@@ -1,4 +1,4 @@
-@startuml Data_Layer_Updated
+@startuml Data_Layer
 
 !define ENTITY_COLOR #E3F2FD
 !define ENUM_COLOR #F3E5F5
@@ -24,25 +24,42 @@ package "Entities (Domain Models)" {
         -DateTime createdAt
     }
     
-    class Event <<entity>> {
-        -String eventId
+    abstract class Activity <<entity>> {
+        -String activityId
         -String name
         -String description
-        -DateTime eventDate
+        -DateTime activityDate
         -String location
         -Integer capacity
         -Integer availableSeats
         -Decimal price
-        -EventCategory category
-        -EventStatus status
+        -ActivityCategory category
+        -ActivityStatus status
         -String organizerId
+        -ActivityType type
         -DateTime createdAt
+    }
+    
+    class Event <<entity>> {
+        -List<String> speakers
+        -String topic
+        -String venue
+        -String agenda
+    }
+    
+    class Trip <<entity>> {
+        -String destination
+        -Integer durationDays
+        -String transportMode
+        -String startLocation
+        -String endLocation
+        -String itinerary
     }
     
     class Booking <<entity>> {
         -String bookingId
         -String studentId
-        -String eventId
+        -String activityId
         -DateTime bookingDate
         -BookingStatus status
         -DateTime createdAt
@@ -69,22 +86,29 @@ package "Entities (Domain Models)" {
         -String reportId
         -ReportType type
         -String filePath
+        -String description
+        -String generatedBy
         -DateTime generatedDate
+        -ExportFormat format
     }
     
     class Feedback <<entity>> {
         -String feedbackId
         -String studentId
-        -String eventId
+        -String activityId
         -Integer rating
         -String comment
         -DateTime submittedDate
     }
     
+    ' Inheritance Relationships
+    Activity <|-- Event
+    Activity <|-- Trip
+    
     ' Professional Relationships
     
-    ' Association: User organizes Events (1 to many)
-    User "1" -- "0..*" Event : organizes >
+    ' Association: User organizes Activities (1 to many)
+    User "1" -- "0..*" Activity : organizes >
     
     ' Association: User creates Bookings (1 to many)
     User "1" -- "0..*" Booking : creates >
@@ -92,14 +116,20 @@ package "Entities (Domain Models)" {
     ' Association: User submits Feedback (1 to many)
     User "1" -- "0..*" Feedback : submits >
     
-    ' Association: Event has Bookings (1 to many)
-    Event "1" -- "0..*" Booking : has >
+    ' Association: Activity has Bookings (1 to many)
+    Activity "1" -- "0..*" Booking : has >
     
-    ' Association: Event receives Feedback (1 to many)
-    Event "1" -- "0..*" Feedback : receives >
+    ' Association: Activity receives Feedback (1 to many)
+    Activity "1" -- "0..*" Feedback : receives >
+    
+    ' Association: User generates Reports (1 to many)
+    User "1" -- "0..*" Report : generates >
     
     ' Composition: Booking owns Ticket (strong ownership)
     Booking "1" *-- "0..1" Ticket : owns >
+    
+    ' Association: User receives Notifications (1 to many)
+    User "1" -- "0..*" Notification : receives >
 }
 
 ' ==================== ENUMERATIONS ====================
@@ -111,14 +141,21 @@ package "Enumerations" {
         ADMIN
     }
     
-    enum EventCategory <<enum>> {
+    enum ActivityType <<enum>> {
+        EVENT
+        TRIP
+    }
+    
+    enum ActivityCategory <<enum>> {
         FIELD_TRIP
         SEMINAR
         CONFERENCE
         CONCERT
+        CULTURAL_VISIT
+        ADVENTURE_TRIP
     }
     
-    enum EventStatus <<enum>> {
+    enum ActivityStatus <<enum>> {
         UPCOMING
         COMPLETED
         CANCELLED
@@ -145,65 +182,20 @@ package "Enumerations" {
     enum ExportFormat <<enum>> {
         PDF
         CSV
+        EXCEL
+        JSON
     }
     
-    ' Composition: Entities own their enums (strong ownership)
-    User *-- UserRole : composition
-    Event *-- EventCategory : composition
-    Event *-- EventStatus : composition
-    Booking *-- BookingStatus : composition
-    Notification *-- NotificationType : composition
-    Report *-- ReportType : composition
+    ' Association: Entities use enums (types/states)
+    User ..> UserRole : uses
+    Activity ..> ActivityCategory : uses
+    Activity ..> ActivityStatus : uses
+    Activity ..> ActivityType : uses
+    Booking ..> BookingStatus : uses
+    Notification ..> NotificationType : uses
+    Report ..> ReportType : uses
+    Report ..> ExportFormat : uses
 }
 
-' ==================== NOTES ====================
-
-note as RelationshipNote
-*Professional Relationships:*
-
-*Composition (--)**
-- Strong ownership
-- Part cannot exist without whole
-- Examples:
-  • Booking *-- Ticket
-  • Entity *-- Enum
-
-*Association (--)*
-- Structural relationship
-- Objects collaborate
-- Examples:
-  • User -- Event (organizes)
-  • Event -- Booking (has)
-  • User -- Feedback (submits)
-
-*Multiplicity:*
-- "1" : Exactly one
-- "0..*" : Zero or many
-- "0..1" : Zero or one
-end note
-
-note top of User
-  *Core Entity*
-  Represents all system users
-  Can be: Student, Organizer, or Admin
-end note
-
-note right of Event
-  *Core Entity*
-  Represents trips/events
-  Organized by Users
-end note
-
-note bottom of Booking
-  *Association Entity*
-  Links Students to Events
-  Owns Ticket (Composition)
-end note
-
-note bottom of Ticket
-  *Dependent Entity*
-  Cannot exist without Booking
-  Composition relationship
-end note
 
 @enduml

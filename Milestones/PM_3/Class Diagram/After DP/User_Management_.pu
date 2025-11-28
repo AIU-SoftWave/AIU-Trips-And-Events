@@ -1,4 +1,4 @@
-@startuml User_Management_Updated
+@startuml User_Management
 
 !define INTERFACE_COLOR #E8F5E9
 !define SERVICE_COLOR #F3E5F5
@@ -24,7 +24,7 @@ package "User Management Component" {
     
     ' Service Implementation (Realization)
     class UserManagementService <<service>> {
-        -IUserRepository userRepository
+        -RepositoryFactory userRepositoryFactory
         -IAuthService authService
         -INotificationSystem notificationService
         +register(userData: UserDTO): Response
@@ -34,11 +34,10 @@ package "User Management Component" {
         +manageUserRole(userId: String, role: UserRole): Response
     }
     
-    ' Repository Interface
-    interface IUserRepository <<interface>> {
-        +save(user: User): User
-        +findByEmail(email: String): User
-        +update(user: User): User
+    ' Abstract Factory from Repository Layer
+    abstract class RepositoryFactory <<factory>> {
+        +createRepository(): IBaseRepository
+        #configureRepository(): void
     }
     
     ' Supporting Service Interfaces
@@ -53,24 +52,11 @@ package "User Management Component" {
         +sendBulkNotification(userIds: List<String>, message: String): Response
     }
     
-    ' Entity
-    class User <<entity>> {
-        -String userId
-        -String email
-        -String firstName
-        -String lastName
-        -String phoneNumber
-        -String passwordHash
-        -UserRole role
-        -Boolean isVerified
-    }
-    
     ' Relationships (Professional)
     IAuthenticationUserManagement <|.. UserManagementService : realizes
-    UserManagementService o-- IUserRepository : aggregation
+    UserManagementService o-- RepositoryFactory : aggregation
     UserManagementService o-- IAuthService : aggregation
     UserManagementService o-- INotificationSystem : aggregation
-    IUserRepository ..> User : manages
-}
+    }
 
 @enduml

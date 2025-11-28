@@ -1,0 +1,298 @@
+@startuml Repository_Layer
+
+' -------------------- Colors --------------------
+!define INTERFACE_COLOR #E8F5E9
+!define PROXY_COLOR #FFE0B2
+!define REPOSITORY_COLOR #E3F2FD
+!define ENTITY_COLOR #E3F2FD
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<proxy>> PROXY_COLOR
+    BackgroundColor<<repository>> REPOSITORY_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+}
+
+title University Trips & Events Management System - Repository Layer
+
+' -------------------- Layout --------------------
+top to bottom direction
+
+' -------------------- Repository Layer --------------------
+package "Repository Layer (Data Access)" {
+
+    ' Base Repository Interface (Following DRY principle)
+    interface IBaseRepository<T> <<interface>> {
+        +save(entity: T): T
+        +findById(id: String): T
+        +update(entity: T): T
+        +delete(id: String): Boolean
+    }
+
+    interface IUserRepository <<interface>> {
+        +save(user: User): User
+        +findByEmail(email: String): User
+        +update(user: User): User
+        +delete(userId: String): Boolean
+        +findAll(): List<User>
+        +findByRole(role: UserRole): List<User>
+    }
+
+    interface IActivityRepository <<interface>> {
+        +save(activity: Activity): Activity
+        +findById(activityId: String): Activity
+        +findAll(): List<Activity>
+        +update(activity: Activity): Activity
+        +delete(activityId: String): Boolean
+        +findByStatus(status: ActivityStatus): List<Activity>
+        +findByDateRange(startDate: Date, endDate: Date): List<Activity>
+        +findByType(type: ActivityType): List<Activity>
+    }
+
+    interface IBookingRepository <<interface>> {
+        +save(booking: Booking): Booking
+        +findById(bookingId: String): Booking
+        +findByStudent(studentId: String): List<Booking>
+        +findByActivity(activityId: String): List<Booking>
+        +update(booking: Booking): Booking
+        +delete(bookingId: String): Boolean
+        +findByStatus(status: BookingStatus): List<Booking>
+    }
+
+    interface INotificationRepository <<interface>> {
+        +save(notification: Notification): Notification
+        +findByRecipient(userId: String): List<Notification>
+        +update(notification: Notification): Notification
+        +delete(notificationId: String): Boolean
+        +findUnread(userId: String): List<Notification>
+        +markAsRead(notificationId: String): Boolean
+    }
+
+    interface IReportRepository <<interface>> {
+        +save(report: Report): Report
+        +findById(reportId: String): Report
+        +update(report: Report): Report
+        +delete(reportId: String): Boolean
+        +findByType(reportType: ReportType): List<Report>
+        +findByDateRange(startDate: Date, endDate: Date): List<Report>
+    }
+
+    interface IFeedbackRepository <<interface>> {
+        +save(feedback: Feedback): Feedback
+        +findByActivity(activityId: String): List<Feedback>
+        +findById(feedbackId: String): Feedback
+        +update(feedback: Feedback): Feedback
+        +delete(feedbackId: String): Boolean
+        +findByRating(minRating: int, maxRating: int): List<Feedback>
+    }
+
+    ' Abstract Base Repository for common functionality
+    abstract class BaseRepository <<repository>> {
+        #dataSource: DataSource
+        #logger: Logger
+        #validateEntity(entity: Object): void
+        #logOperation(operation: String, entityId: String): void
+        #handleException(ex: Exception): void
+    }
+
+    class UserRepositoryImpl <<repository>> {
+        -connectionPool: ConnectionPool
+        -userMapper: UserMapper
+        +save(user: User): User
+        +findByEmail(email: String): User
+        +update(user: User): User
+        +delete(userId: String): Boolean
+        +findAll(): List<User>
+        +findByRole(role: UserRole): List<User>
+        -validateUser(user: User): void
+        -mapResultSetToUser(rs: ResultSet): User
+    }
+
+    class UserRepositoryProxy <<proxy>> {
+        -realRepository: UserRepositoryImpl
+        -cacheManager: CacheManager
+        -securityValidator: SecurityValidator
+        +save(user: User): User
+        +findByEmail(email: String): User
+        +update(user: User): User
+        +delete(userId: String): Boolean
+        +findAll(): List<User>
+        +findByRole(role: UserRole): List<User>
+        -validateAccess(operation: String): void
+        -getCachedResult(key: String): Object
+        -cacheResult(key: String, result: Object): void
+    }
+
+    class ActivityRepositoryImpl <<repository>> {
+        -connectionPool: ConnectionPool
+        -activityMapper: ActivityMapper
+        +save(activity: Activity): Activity
+        +findById(activityId: String): Activity
+        +findAll(): List<Activity>
+        +update(activity: Activity): Activity
+        +delete(activityId: String): Boolean
+        +findByStatus(status: ActivityStatus): List<Activity>
+        +findByDateRange(startDate: Date, endDate: Date): List<Activity>
+        +findByType(type: ActivityType): List<Activity>
+        -validateActivity(activity: Activity): void
+        -mapResultSetToActivity(rs: ResultSet): Activity
+    }
+
+    class ActivityRepositoryProxy <<proxy>> {
+        -realRepository: ActivityRepositoryImpl
+        -cacheManager: CacheManager
+        -auditLogger: AuditLogger
+        +save(activity: Activity): Activity
+        +findById(activityId: String): Activity
+        +findAll(): List<Activity>
+        +update(activity: Activity): Activity
+        +delete(activityId: String): Boolean
+        +findByStatus(status: ActivityStatus): List<Activity>
+        +findByDateRange(startDate: Date, endDate: Date): List<Activity>
+        +findByType(type: ActivityType): List<Activity>
+        -logAuditTrail(operation: String, eventId: String): void
+    }
+
+    class BookingRepositoryImpl <<repository>> {
+        +save(booking: Booking): Booking
+        +findById(bookingId: String): Booking
+        +findByStudent(studentId: String): List<Booking>
+        +findByActivity(activityId: String): List<Booking>
+        +update(booking: Booking): Booking
+        +delete(bookingId: String): Boolean
+        +findByStatus(status: BookingStatus): List<Booking>
+    }
+
+    class BookingRepositoryProxy <<proxy>> {
+        -realRepository: BookingRepositoryImpl
+        -cacheManager: CacheManager
+        -auditLogger: AuditLogger
+        +save(booking: Booking): Booking
+        +findById(bookingId: String): Booking
+        +findByStudent(studentId: String): List<Booking>
+        +findByEvent(eventId: String): List<Booking>
+        +update(booking: Booking): Booking
+        +delete(bookingId: String): Boolean
+        +findByStatus(status: BookingStatus): List<Booking>
+        -validateAccess(operation: String): void
+        -getCachedResult(key: String): Object
+        -cacheResult(key: String, result: Object): void
+    }
+
+    class NotificationRepositoryImpl <<repository>> {
+        +save(notification: Notification): Notification
+        +findByRecipient(userId: String): List<Notification>
+        +update(notification: Notification): Notification
+        +delete(notificationId: String): Boolean
+        +findUnread(userId: String): List<Notification>
+        +markAsRead(notificationId: String): Boolean
+    }
+
+    class NotificationRepositoryProxy <<proxy>> {
+        -realRepository: NotificationRepositoryImpl
+        -cacheManager: CacheManager
+        -auditLogger: AuditLogger
+        +save(notification: Notification): Notification
+        +findByRecipient(userId: String): List<Notification>
+        +update(notification: Notification): Notification
+        +delete(notificationId: String): Boolean
+        +findUnread(userId: String): List<Notification>
+        +markAsRead(notificationId: String): Boolean
+        -validateAccess(operation: String): void
+        -getCachedResult(key: String): Object
+        -cacheResult(key: String, result: Object): void
+    }
+
+    class ReportRepositoryImpl <<repository>> {
+        +save(report: Report): Report
+        +findById(reportId: String): Report
+        +update(report: Report): Report
+        +delete(reportId: String): Boolean
+        +findByType(reportType: ReportType): List<Report>
+        +findByDateRange(startDate: Date, endDate: Date): List<Report>
+    }
+
+    class ReportRepositoryProxy <<proxy>> {
+        -realRepository: ReportRepositoryImpl
+        -cacheManager: CacheManager
+        -auditLogger: AuditLogger
+        +save(report: Report): Report
+        +findById(reportId: String): Report
+        +update(report: Report): Report
+        +delete(reportId: String): Boolean
+        +findByType(reportType: ReportType): List<Report>
+        +findByDateRange(startDate: Date, endDate: Date): List<Report>
+        -validateAccess(operation: String): void
+        -getCachedResult(key: String): Object
+        -cacheResult(key: String, result: Object): void
+    }
+
+    class FeedbackRepositoryImpl <<repository>> {
+        +save(feedback: Feedback): Feedback
+        +findByEvent(eventId: String): List<Feedback>
+        +findById(feedbackId: String): Feedback
+        +update(feedback: Feedback): Feedback
+        +delete(feedbackId: String): Boolean
+        +findByRating(minRating: int, maxRating: int): List<Feedback>
+    }
+
+    class FeedbackRepositoryProxy <<proxy>> {
+        -realRepository: FeedbackRepositoryImpl
+        -cacheManager: CacheManager
+        -auditLogger: AuditLogger
+        +save(feedback: Feedback): Feedback
+        +findByEvent(eventId: String): List<Feedback>
+        +findById(feedbackId: String): Feedback
+        +update(feedback: Feedback): Feedback
+        +delete(feedbackId: String): Boolean
+        +findByRating(minRating: int, maxRating: int): List<Feedback>
+        -validateAccess(operation: String): void
+        -getCachedResult(key: String): Object
+        -cacheResult(key: String, result: Object): void
+    }
+
+    ' Enhanced Relations
+    IBaseRepository <|-- IUserRepository
+    IBaseRepository <|-- IActivityRepository
+    IBaseRepository <|-- IBookingRepository
+    IBaseRepository <|-- INotificationRepository
+    IBaseRepository <|-- IReportRepository
+    IBaseRepository <|-- IFeedbackRepository
+
+    BaseRepository <|-- UserRepositoryImpl
+    BaseRepository <|-- ActivityRepositoryImpl
+    BaseRepository <|-- BookingRepositoryImpl
+    BaseRepository <|-- NotificationRepositoryImpl
+    BaseRepository <|-- ReportRepositoryImpl
+    BaseRepository <|-- FeedbackRepositoryImpl
+
+    IUserRepository <|.. UserRepositoryImpl
+    IUserRepository <|.. UserRepositoryProxy
+    UserRepositoryProxy o-- UserRepositoryImpl
+
+    IActivityRepository <|.. ActivityRepositoryImpl
+    IActivityRepository <|.. ActivityRepositoryProxy
+    ActivityRepositoryProxy o-- ActivityRepositoryImpl
+
+    IBookingRepository <|.. BookingRepositoryImpl
+    IBookingRepository <|.. BookingRepositoryProxy
+    BookingRepositoryProxy o-- BookingRepositoryImpl
+
+    INotificationRepository <|.. NotificationRepositoryImpl
+    INotificationRepository <|.. NotificationRepositoryProxy
+    NotificationRepositoryProxy o-- NotificationRepositoryImpl
+
+    IReportRepository <|.. ReportRepositoryImpl
+    IReportRepository <|.. ReportRepositoryProxy
+    ReportRepositoryProxy o-- ReportRepositoryImpl
+
+    IFeedbackRepository <|.. FeedbackRepositoryImpl
+    IFeedbackRepository <|.. FeedbackRepositoryProxy
+    FeedbackRepositoryProxy o-- FeedbackRepositoryImpl
+}
+
+
+
+
+@enduml

@@ -1,4 +1,4 @@
-@startuml Controller_Updated
+@startuml Controller_Layer
 
 !define CONTROLLER_COLOR #FCE4EC
 !define INTERFACE_COLOR #E8F5E9
@@ -29,7 +29,7 @@ package "Controller Layer" {
     
     class ApplicationFacade <<facade>> {
         -IAuthenticationUserManagement authService
-        -IEventTripManagement eventService
+        -IActivityManagement activityService
         -IBookingTicketingSystem bookingService
         -INotificationSystem notificationService
         -IReportsAnalytics reportService
@@ -100,12 +100,12 @@ package "Controller Layer" {
         +manageUserRole(userId: String, role: UserRole): Response
     }
     
-    interface IEventTripManagement <<interface>> {
-        +createEvent(eventData: EventDTO): EventDTO
-        +updateEvent(eventId: String, eventData: EventDTO): EventDTO
-        +deleteEvent(eventId: String): Response
-        +getAllEvents(): List<EventDTO>
-        +manageCapacity(eventId: String): Integer
+    interface IActivityManagement <<interface>> {
+        +createActivity(activityData: ActivityDTO): ActivityDTO
+        +updateActivity(activityId: String, activityData: ActivityDTO): ActivityDTO
+        +deleteActivity(activityId: String): Response
+        +getAllActivities(): List<ActivityDTO>
+        +manageCapacity(activityId: String): Integer
     }
     
     interface IBookingTicketingSystem <<interface>> {
@@ -132,7 +132,7 @@ package "Controller Layer" {
     IApplicationFacade <|.. ApplicationFacade : implements
     
     ApplicationFacade o-- IAuthenticationUserManagement : uses
-    ApplicationFacade o-- IEventTripManagement : uses
+    ApplicationFacade o-- IActivityManagement : uses
     ApplicationFacade o-- IBookingTicketingSystem : uses
     ApplicationFacade o-- INotificationSystem : uses
     ApplicationFacade o-- IReportsAnalytics : uses

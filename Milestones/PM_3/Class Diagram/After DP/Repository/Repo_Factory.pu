@@ -1,0 +1,92 @@
+@startuml Repo_Factory
+
+' -------------------- Colors --------------------
+!define INTERFACE_COLOR #E8F5E9
+!define PROXY_COLOR #FFE0B2
+!define REPOSITORY_COLOR #E3F2FD
+!define FACTORY_COLOR #FFF3E0
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<proxy>> PROXY_COLOR
+    BackgroundColor<<repository>> REPOSITORY_COLOR
+    BackgroundColor<<factory>> FACTORY_COLOR
+    BackgroundColor<<configuration>> FACTORY_COLOR
+}
+
+title University Trips & Events Management System - Repository Factory Layer
+
+' -------------------- Layout --------------------
+top to bottom direction
+
+' -------------------- Factory Package --------------------
+package "Factory Package" {
+    
+    abstract class RepositoryFactory <<factory>> {
+        +createRepository(): IBaseRepository
+        #configureRepository(): void
+    }
+
+    class UserRepositoryFactory <<factory>> {
+        +createRepository(): UserRepositoryProxy
+    }
+
+    class ActivityRepositoryFactory <<factory>> {
+        +createRepository(): ActivityRepositoryProxy
+    }
+
+    class BookingRepositoryFactory <<factory>> {
+        +createRepository(): BookingRepositoryProxy
+    }
+
+    class NotificationRepositoryFactory <<factory>> {
+        +createRepository(): NotificationRepositoryProxy
+    }
+
+    class ReportRepositoryFactory <<factory>> {
+        +createRepository(): ReportRepositoryProxy
+    }
+
+    class FeedbackRepositoryFactory <<factory>> {
+        +createRepository(): FeedbackRepositoryProxy
+    }
+
+    class RepositoryConfiguration <<configuration>> {
+        -databaseUrl: String
+        -username: String
+        -password: String
+        -connectionPoolSize: int
+        -maxConnectionLifetime: int
+        -connectionTimeout: int
+        -idleTimeout: int
+        -maxRetryAttempts: int
+        -retryDelayMillis: int
+        -cacheSettings: CacheSettings
+        -enableCircuitBreaker: Boolean
+        +getDataSource(): DataSource
+        +getCacheManager(): CacheManager
+        +getConnectionPool(): ConnectionPool
+        +validateConfiguration(): Boolean
+    }
+
+    ' Factory Relations
+    RepositoryFactory <|-- UserRepositoryFactory
+    RepositoryFactory <|-- ActivityRepositoryFactory
+    RepositoryFactory <|-- BookingRepositoryFactory
+    RepositoryFactory <|-- NotificationRepositoryFactory
+    RepositoryFactory <|-- ReportRepositoryFactory
+    RepositoryFactory <|-- FeedbackRepositoryFactory
+
+    RepositoryFactory o-- RepositoryConfiguration
+
+    ' Product Creation Relations (Concrete Proxies Only)
+    UserRepositoryFactory ..> UserRepositoryProxy : creates
+    ActivityRepositoryFactory ..> ActivityRepositoryProxy : creates
+    BookingRepositoryFactory ..> BookingRepositoryProxy : creates
+    NotificationRepositoryFactory ..> NotificationRepositoryProxy : creates
+    ReportRepositoryFactory ..> ReportRepositoryProxy : creates
+    FeedbackRepositoryFactory ..> FeedbackRepositoryProxy : creates
+}
+
+@enduml

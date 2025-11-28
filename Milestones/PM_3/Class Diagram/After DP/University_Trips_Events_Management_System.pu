@@ -35,12 +35,12 @@ package "Context Level (Level 0)" {
     }
 
     ' F2: Event & Trip Management
-    interface IEventTripManagement <<interface>> {
-        +createEvent(eventData: EventDTO): EventDTO
-        +updateEvent(eventId: String, eventData: EventDTO): EventDTO
-        +deleteEvent(eventId: String): Response
-        +getAllEvents(): List<EventDTO>
-        +manageCapacity(eventId: String): Integer
+    interface IActivityManagement <<interface>> {
+        +createActivity(activityData: ActivityDTO): ActivityDTO
+        +updateActivity(activityId: String, activityData: ActivityDTO): ActivityDTO
+        +deleteActivity(activityId: String): Response
+        +getAllActivities(): List<ActivityDTO>
+        +manageCapacity(activityId: String): Integer
     }
 
     ' F3: Booking & Ticketing
@@ -69,55 +69,11 @@ package "Context Level (Level 0)" {
 
     ' System provides interfaces
     UniversityTripsAndEventsManagementSystem ..> IAuthenticationUserManagement : provides
-    UniversityTripsAndEventsManagementSystem ..> IEventTripManagement : provides
+    UniversityTripsAndEventsManagementSystem ..> IActivityManagement : provides
     UniversityTripsAndEventsManagementSystem ..> IBookingTicketingSystem : provides
     UniversityTripsAndEventsManagementSystem ..> INotificationSystem : provides
     UniversityTripsAndEventsManagementSystem ..> IReportsAnalytics : provides
 }
 
-note top of UniversityTripsAndEventsManagementSystem
-  *Main System*
-  Entry point providing all functional interfaces
-end note
-
-note right of IAuthenticationUserManagement
-  *F1: User Management*
-  - Register users
-  - Login/Logout
-  - Email verification
-  - Password reset
-  - Role management
-end note
-
-note right of IEventTripManagement
-  *F2: Events & Trips*
-  - Create/Edit/Delete events
-  - View all events
-  - Manage capacity
-end note
-
-note right of IBookingTicketingSystem
-  *F3: Bookings & Tickets*
-  - Browse events
-  - Book seats
-  - Process payments
-  - Generate QR tickets
-  - Validate tickets
-end note
-
-note right of INotificationSystem
-  *F4: Notifications*
-  - Send notifications
-  - Event updates
-  - Bulk messaging
-end note
-
-note right of IReportsAnalytics
-  *F5: Reports & Analytics*
-  - Generate reports
-  - Export (PDF/CSV)
-  - System statistics
-  - Collect feedback
-end note
 
 @enduml

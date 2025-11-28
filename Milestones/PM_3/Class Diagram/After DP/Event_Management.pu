@@ -1,4 +1,4 @@
-@startuml
+@startuml Activity_Layer
 ' ==================== Color Definitions ====================
 !define INTERFACE_COLOR #E8F5E9
 !define ABSTRACT_COLOR #FFF3E0
@@ -54,42 +54,11 @@ package "Activity Management Component" {
         TRIP
     }
 
-    ' ==================== Entities ====================
-    abstract class Activity <<abstract>> {
-        -String activityId
-        -String name
-        -String description
-        -DateTime date
-        -Address location
-        -Integer capacity
-        -Decimal price
-        +clone(): Activity
+    ' Abstract Factory from Repository Layer
+    abstract class RepositoryFactory <<factory>> {
+        +createRepository(): IBaseRepository
+        #configureRepository(): void
     }
-
-    class Event <<entity>> {
-        -List<String> speakers
-        -String topic
-        -String venue
-    }
-
-    class Trip <<entity>> {
-        -String destination
-        -Integer durationDays
-        -String transportMode
-        -Address startLocation
-        -Address endLocation
-    }
-
-    class Address <<entity>> {
-        -String city
-        -String country
-        -String details
-    }
-
-    Activity <|-- Event
-    Activity <|-- Trip
-    Activity *-- Address : composition
-    Activity ..|> IPrototype : implements
 
     ' ==================== Abstract Factory ====================
     interface IActivityFactory <<interface>> {
@@ -119,38 +88,39 @@ package "Activity Management Component" {
         +reset()
         +setBasicInfo(data: ActivityDTO)
         +setDetails()
-        +getResult(): Activity
+        +getResult(): ActivityDTO
     }
 
     class EventBuilder <<builder>> {
-        -Event event
+        -RepositoryFactory repositoryFactory
         +reset()
         +setBasicInfo(data: ActivityDTO)
         +setDetails()
-        +getResult(): Event
+        +getResult(): ActivityDTO
     }
 
     class TripBuilder <<builder>> {
-        -Trip trip
+        -RepositoryFactory repositoryFactory
         +reset()
         +setBasicInfo(data: ActivityDTO)
         +setDetails()
-        +getResult(): Trip
+        +getResult(): ActivityDTO
     }
 
     IActivityBuilder <|.. EventBuilder
     IActivityBuilder <|.. TripBuilder
 
     ' ==================== Relationships ====================
-    EventBuilder --> Event : "builds"
-    TripBuilder --> Trip : "builds"
-
     EventFactory o-- IActivityBuilder : "uses builder"
     TripFactory o-- IActivityBuilder : "uses builder"
 
     ActivityManagementService o-- IActivityFactory : "uses factory"
     ActivityManagementService o-- INotificationSystem : "uses service"
     IActivityManagement <|.. ActivityManagementService : implements
+
+    ' Repository Factory Relations
+    EventBuilder o-- RepositoryFactory : aggregation
+    TripBuilder o-- RepositoryFactory : aggregation
 }
 
 

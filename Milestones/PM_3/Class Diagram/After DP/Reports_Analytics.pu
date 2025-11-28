@@ -1,4 +1,4 @@
-@startuml Reports_Analytics_Updated_With_Builder_V2
+@startuml Reports_Analytics_layer
 
 !define INTERFACE_COLOR #E8F5E9
 !define SERVICE_COLOR #F3E5F5
@@ -27,63 +27,18 @@ package "Reports & Analytics Component" {
     }
 
     class ReportService <<service>> {
-        -IReportRepository reportRepository
-        -IEventRepository eventRepository
-        -IBookingRepository bookingRepository
-        -IFeedbackRepository feedbackRepository
+        -RepositoryFactory repositoryFactory
         +generateReport(reportType: ReportType, filters: ReportFilterDTO, format: ExportFormat): ReportDTO
         +exportReport(reportId: String, format: ExportFormat): FileDTO
         +getStatistics(): SystemStatisticsDTO
         +collectFeedback(feedbackData: FeedbackDTO): Response
     }
 
-    interface IReportRepository <<interface>> {
-        +save(report: Report): Report
-        +findById(reportId: String): Report
+    ' Abstract Factory from Repository Layer
+    abstract class RepositoryFactory <<factory>> {
+        +createRepository(): IBaseRepository
+        #configureRepository(): void
     }
-
-    interface IFeedbackRepository <<interface>> {
-        +save(feedback: Feedback): Feedback
-        +findByEvent(eventId: String): List<Feedback>
-    }
-
-    interface IEventRepository <<interface>> {
-        +findAll(): List<Event>
-        +findById(eventId: String): Event
-    }
-
-    interface IBookingRepository <<interface>> {
-        +findAll(): List<Booking>
-        +findByEvent(eventId: String): List<Booking>
-    }
-
-    class Report <<entity>> {
-        -String reportId
-        -ReportType type
-        -String filePath
-        -DateTime generatedDate
-    }
-
-    class Feedback <<entity>> {
-        -String feedbackId
-        -String studentId
-        -String eventId
-        -Integer rating
-        -String comment
-        -DateTime submittedDate
-    }
-
-    enum ReportType <<enum>> {
-        PARTICIPANTS
-        REVENUE
-        FEEDBACK
-    }
-
-    enum ExportFormat <<enum>> {
-        PDF
-        CSV
-    }
-
     ' ==================== REPORT BUILDER PATTERN (UPDATED) ====================
     package "Report Builder Pattern" {
         skinparam class {
@@ -91,88 +46,51 @@ package "Reports & Analytics Component" {
             BackgroundColor<<Builder>> BUILDER_COLOR
         }
 
-        ' === Abstract Builder Interface ===
-        interface IReportBuilder <<interface>> {
-            +reset()
-            +buildHeader()
-            +buildBody(data: List)
-            +buildFooter(stats: SystemStatisticsDTO)
-            +getProduct(): IReportProduct
+        ' === Abstract Builder ===
+        abstract class ReportBuilder <<Builder>> {
+            #reportRepositoryFactory: RepositoryFactory
+            #activityRepositoryFactory: RepositoryFactory
+            #bookingRepositoryFactory: RepositoryFactory
+            #feedbackRepositoryFactory: RepositoryFactory
+            +{abstract} reset(): void
+            +{abstract} buildHeader(): void
+            +{abstract} buildBody(data: List): void
+            +{abstract} buildFooter(stats: SystemStatisticsDTO): void
+            +{abstract} getProduct(): ReportDTO
         }
 
-        ' === Product Interface ===
-        interface IReportProduct <<interface>> {
-            +export(): FileDTO
-        }
-
-        ' === PDF Product ===
-        class PdfReport <<Product>> {
-            -String pdfHeader
-            -String pdfBody
-            -String pdfFooter
-            +setHeader(h: String)
-            +setBody(b: String)
-            +setFooter(f: String)
-            +export(): FileDTO
-        }
-
-        ' === CSV Product ===
-        class CsvReport <<Product>> {
-            -String csvHeader
-            -String csvBody
-            -String csvFooter
-            +setHeader(h: String)
-            +setBody(b: String)
-            +setFooter(f: String)
-            +export(): FileDTO
-        }
 
         ' === Concrete Builders ===
         class PdfReportBuilder <<Builder>> {
-            -product: PdfReport
-            +reset()
-            +buildHeader()
-            +buildBody(data: List)
-            +buildFooter(stats: SystemStatisticsDTO)
-            +getProduct(): PdfReport
+            -report: ReportDTO
+            +reset(): void
+            +buildHeader(): void
+            +buildBody(data: List): void
+            +buildFooter(stats: SystemStatisticsDTO): void
+            +getProduct(): ReportDTO
         }
 
         class CsvReportBuilder <<Builder>> {
-            -product: CsvReport
-            +reset()
-            +buildHeader()
-            +buildBody(data: List)
-            +buildFooter(stats: SystemStatisticsDTO)
-            +getProduct(): CsvReport
+            -report: ReportDTO
+            +reset(): void
+            +buildHeader(): void
+            +buildBody(data: List): void
+            +buildFooter(stats: SystemStatisticsDTO): void
+            +getProduct(): ReportDTO
         }
 
         ' --- Relationships ---
-        IReportBuilder <|.. PdfReportBuilder
-        IReportBuilder <|.. CsvReportBuilder
-        IReportProduct <|.. PdfReport
-        IReportProduct <|.. CsvReport
-
-        PdfReportBuilder ..> PdfReport : "creates"
-        CsvReportBuilder ..> CsvReport : "creates"
+        ReportBuilder <|-- PdfReportBuilder
+        ReportBuilder <|-- CsvReportBuilder
+        
+        ' Repository Factory Relations
+        ReportBuilder o-- RepositoryFactory : aggregation
     }
 
     ' --- External Relationships ---
     IReportsAnalytics <|.. ReportService : realizes
-    ReportService o-- IReportRepository
-    ReportService o-- IEventRepository
-    ReportService o-- IBookingRepository
-    ReportService o-- IFeedbackRepository
-    IReportRepository ..> Report
-    IFeedbackRepository ..> Feedback
-    Report *-- ReportType
-    ReportService o-- IReportBuilder : "uses (Director)"
+    ReportService o-- RepositoryFactory : aggregation
+    ReportService o-- ReportBuilder : "uses (Director)"
 }
-
-note right of ReportService
-  Acts as Director:
-  - Selects builder type (PDF or CSV)
-  - Invokes build steps
-  - Returns product as FileDTO
-end note
 
 @enduml

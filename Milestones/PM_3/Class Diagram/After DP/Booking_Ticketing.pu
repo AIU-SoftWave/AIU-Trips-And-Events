@@ -1,4 +1,4 @@
-@startuml Booking_Ticketing_Updated
+@startuml Booking_Ticketing_Layer
 
 !define INTERFACE_COLOR #E8F5E9
 !define SERVICE_COLOR #F3E5F5
@@ -30,14 +30,20 @@ package "Booking & Ticketing Component" {
     
     ' Service Implementation (Realization)
     class BookingService <<service>> {
-        -IBookingRepository bookingRepository
+        -RepositoryFactory bookingRepositoryFactory
+        -RepositoryFactory eventRepositoryFactory
         -ITicketService ticketService
-        -IEventRepository eventRepository
         -BookingHandler validationChain
         +browseEvents(filters: EventFilterDTO): List<EventDTO>
         +bookEvent(studentId: String, eventId: String): BookingDTO
         +generateTicket(bookingId: String): TicketDTO
         +validateTicket(qrCode: String): Boolean
+    }
+    
+    ' Abstract Factory from Repository Layer
+    abstract class RepositoryFactory <<factory>> {
+        +createRepository(): IBaseRepository
+        #configureRepository(): void
     }
     
     ' ==================== CHAIN OF RESPONSIBILITY ====================
@@ -67,19 +73,6 @@ package "Booking & Ticketing Component" {
     }
     
     BookingService o-- BookingHandler : uses
-    
-    ' Repository Interfaces
-    interface IBookingRepository <<interface>> {
-        +save(booking: Booking): Booking
-        +findById(bookingId: String): Booking
-        +findByStudent(studentId: String): List<Booking>
-        +findByEvent(eventId: String): List<Booking>
-    }
-    
-    interface IEventRepository <<interface>> {
-        +findAll(): List<Event>
-        +findById(eventId: String): Event
-    }
     
     ' Supporting Service Interface
     interface ITicketService <<interface>> {
@@ -127,38 +120,14 @@ package "Booking & Ticketing Component" {
         TicketServiceDecorator o-- ITicketService : wraps
     }
     
-    ' Entities
-    class Booking <<entity>> {
-        -String bookingId
-        -String studentId
-        -String eventId
-        -DateTime bookingDate
-        -BookingStatus status
-    }
-    
-    class Ticket <<entity>> {
-        -String ticketId
-        -String bookingId
-        -String qrCode
-        -Boolean isUsed
-        -DateTime issueDate
-    }
-    
-    ' Enum
-    enum BookingStatus <<enum>> {
-        PENDING
-        CONFIRMED
-        CANCELLED
-    }
     
     ' Relationships (Professional)
     IBookingTicketingSystem <|.. BookingService : realizes
-    BookingService o-- IBookingRepository : aggregation
+    BookingService o-- RepositoryFactory : aggregation
     BookingService o-- ITicketService : aggregation
-    BookingService o-- IEventRepository : aggregation
-    IBookingRepository ..> Booking : manages
-    Booking "1" *-- "0..1" Ticket : composition (owns)
-    Booking *-- BookingStatus : composition
+    
+    ' Note about factory usage
+    note right of BookingService : "Uses specific factories internally:\nBookingRepositoryFactory and\nEventRepositoryFactory"
 }
 
 @enduml

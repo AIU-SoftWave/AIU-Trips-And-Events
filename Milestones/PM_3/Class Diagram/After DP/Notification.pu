@@ -1,4 +1,4 @@
-@startuml Notification_Updated
+@startuml Notification_layer
 
 !define INTERFACE_COLOR #E8F5E9
 !define SERVICE_COLOR #F3E5F5
@@ -29,12 +29,23 @@ package "Notification Component" {
     
     ' Service Implementation (Realization)
     class NotificationService <<service>> {
-        -INotificationRepository notificationRepository
+        -RepositoryFactory notificationRepositoryFactory
+        -RepositoryFactory bookingRepositoryFactory
         -NotificationChannel channel
-        -IBookingRepository bookingRepository
         +sendNotification(userId: String, message: String, type: NotificationType): Response
         +notifyEventUpdate(eventId: String, message: String): Response
         +sendBulkNotification(userIds: List<String>, message: String): Response
+    }
+    
+    ' Abstract Factory from Repository Layer
+    abstract class RepositoryFactory <<factory>> {
+        +createRepository(): IBaseRepository
+        #configureRepository(): void
+    }
+    
+    ' Email Service Interface
+    interface IEmailService <<interface>> {
+        +sendEmail(to: String, subject: String, body: String): Response
     }
     
     ' ==================== BRIDGE PATTERN ====================
@@ -46,7 +57,7 @@ package "Notification Component" {
         }
         
         class EmailChannel <<bridge>> {
-            -IEmailService emailService
+            -emailService: IEmailService
             +send(recipient: String, content: String): Response
         }
         
@@ -102,34 +113,49 @@ package "Notification Component" {
     NotificationService ..> NotificationMessage : uses
     NotificationService ..> NotificationChannel : uses
     
-    ' Repository Interfaces
-    interface INotificationRepository <<interface>> {
-        +save(notification: Notification): Notification
-        +findByRecipient(userId: String): List<Notification>
-    }
-    
-    interface IBookingRepository <<interface>> {
-        +findByEvent(eventId: String): List<Booking>
-    }
-    
-    ' Supporting Service Interface
-    interface IEmailService <<interface>> {
-        +sendEmail(to: String, subject: String, body: String): Response
-    }
-    
     ' ==================== ADAPTER PATTERN ====================
     package "Email Service Adapters" {
         
+        ' External Service Types (Third-party DTOs)
+        class MimeMessage <<external>> {
+            +setFrom(address: String): void
+            +setRecipient(type: String, address: String): void
+            +setSubject(subject: String): void
+            +setText(text: String): void
+        }
+        
+        class SendGridRequest <<external>> {
+            +setFrom(email: String): void
+            +addTo(email: String): void
+            +setSubject(subject: String): void
+            +addContent(type: String, value: String): void
+        }
+        
+        class SendGridResponse <<external>> {
+            +getStatusCode(): int
+            +getBody(): String
+        }
+        
+        class SendEmailRequest <<external>> {
+            +withSource(source: String): SendEmailRequest
+            +withDestination(destination: Destination): SendEmailRequest
+            +withMessage(message: Message): SendEmailRequest
+        }
+        
+        class SendEmailResult <<external>> {
+            +getMessageId(): String
+        }
+        
         ' External Services (Third-party)
-        class JavaMailSender {
+        class JavaMailSender <<external>> {
             +send(message: MimeMessage): void
         }
         
-        class SendGridClient {
+        class SendGridClient <<external>> {
             +sendEmail(request: SendGridRequest): SendGridResponse
         }
         
-        class AmazonSESClient {
+        class AmazonSESClient <<external>> {
             +sendEmail(request: SendEmailRequest): SendEmailResult
         }
         
@@ -157,32 +183,20 @@ package "Notification Component" {
         SmtpEmailAdapter o-- JavaMailSender : uses
         SendGridAdapter o-- SendGridClient : uses
         AwsSesAdapter o-- AmazonSESClient : uses
+        
+        JavaMailSender ..> MimeMessage : uses
+        SendGridClient ..> SendGridRequest : uses
+        SendGridClient ..> SendGridResponse : returns
+        AmazonSESClient ..> SendEmailRequest : uses
+        AmazonSESClient ..> SendEmailResult : returns
     }
-    
-    ' Entity
-    class Notification <<entity>> {
-        -String notificationId
-        -String recipientId
-        -String message
-        -NotificationType type
-        -Boolean isRead
-        -DateTime sentDate
-    }
-    
-    ' Enum
-    enum NotificationType <<enum>> {
-        NEW_EVENT
-        EVENT_UPDATE
-        REMINDER
-    }
-    
-    ' Relationships (Professional)
+    ' Updated Relationships
     INotificationSystem <|.. NotificationService : realizes
-    NotificationService o-- INotificationRepository : aggregation
+    NotificationService o-- RepositoryFactory : aggregation
     NotificationService o-- NotificationChannel : aggregation
-    NotificationService o-- IBookingRepository : aggregation
-    INotificationRepository ..> Notification : manages
-    Notification *-- NotificationType : composition
+    
+    ' Note about factory usage
+    note right of NotificationService : "Uses abstract factory to create\nNotificationRepositoryProxy and\nBookingRepositoryProxy as needed"
 }
 
 @enduml
