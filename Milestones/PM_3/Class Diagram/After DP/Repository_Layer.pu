@@ -151,7 +151,7 @@ package "Repository Layer (Data Access)" {
         +findByStatus(status: ActivityStatus): List<Activity>
         +findByDateRange(startDate: Date, endDate: Date): List<Activity>
         +findByType(type: ActivityType): List<Activity>
-        -logAuditTrail(operation: String, eventId: String): void
+        -logAuditTrail(operation: String, activityId: String): void
     }
 
     class BookingRepositoryImpl <<repository>> {
@@ -171,7 +171,7 @@ package "Repository Layer (Data Access)" {
         +save(booking: Booking): Booking
         +findById(bookingId: String): Booking
         +findByStudent(studentId: String): List<Booking>
-        +findByEvent(eventId: String): List<Booking>
+        +findByActivity(activityId: String): List<Booking>
         +update(booking: Booking): Booking
         +delete(bookingId: String): Boolean
         +findByStatus(status: BookingStatus): List<Booking>
@@ -242,7 +242,7 @@ package "Repository Layer (Data Access)" {
         -cacheManager: CacheManager
         -auditLogger: AuditLogger
         +save(feedback: Feedback): Feedback
-        +findByEvent(eventId: String): List<Feedback>
+        +findByActivity(activityId: String): List<Feedback>
         +findById(feedbackId: String): Feedback
         +update(feedback: Feedback): Feedback
         +delete(feedbackId: String): Boolean
@@ -252,7 +252,7 @@ package "Repository Layer (Data Access)" {
         -cacheResult(key: String, result: Object): void
     }
 
-    ' Enhanced Relations
+    ' Repository Relations Only
     IBaseRepository <|-- IUserRepository
     IBaseRepository <|-- IActivityRepository
     IBaseRepository <|-- IBookingRepository
