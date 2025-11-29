@@ -48,6 +48,8 @@ package "Repository Layer (Data Access)" {
         +findByStatus(status: ActivityStatus): List<Activity>
         +findByDateRange(startDate: Date, endDate: Date): List<Activity>
         +findByType(type: ActivityType): List<Activity>
+        +saveMemento(activityId: String, memento: ActivityMemento): void
+        +getLastMemento(activityId: String): ActivityMemento
     }
 
     interface IBookingRepository <<interface>> {
@@ -58,6 +60,8 @@ package "Repository Layer (Data Access)" {
         +update(booking: Booking): Booking
         +delete(bookingId: String): Boolean
         +findByStatus(status: BookingStatus): List<Booking>
+        +saveMemento(bookingId: String, memento: BookingMemento): void
+        +getLastMemento(bookingId: String): BookingMemento
     }
 
     interface INotificationRepository <<interface>> {
@@ -135,6 +139,8 @@ package "Repository Layer (Data Access)" {
         +findByStatus(status: ActivityStatus): List<Activity>
         +findByDateRange(startDate: Date, endDate: Date): List<Activity>
         +findByType(type: ActivityType): List<Activity>
+        +saveMemento(activityId: String, memento: ActivityMemento): void
+        +getLastMemento(activityId: String): ActivityMemento
         -validateActivity(activity: Activity): void
         -mapResultSetToActivity(rs: ResultSet): Activity
     }
@@ -151,6 +157,8 @@ package "Repository Layer (Data Access)" {
         +findByStatus(status: ActivityStatus): List<Activity>
         +findByDateRange(startDate: Date, endDate: Date): List<Activity>
         +findByType(type: ActivityType): List<Activity>
+        +saveMemento(activityId: String, memento: ActivityMemento): void
+        +getLastMemento(activityId: String): ActivityMemento
         -logAuditTrail(operation: String, activityId: String): void
     }
 
@@ -162,6 +170,8 @@ package "Repository Layer (Data Access)" {
         +update(booking: Booking): Booking
         +delete(bookingId: String): Boolean
         +findByStatus(status: BookingStatus): List<Booking>
+        +saveMemento(bookingId: String, memento: BookingMemento): void
+        +getLastMemento(bookingId: String): BookingMemento
     }
 
     class BookingRepositoryProxy <<proxy>> {
@@ -175,6 +185,8 @@ package "Repository Layer (Data Access)" {
         +update(booking: Booking): Booking
         +delete(bookingId: String): Boolean
         +findByStatus(status: BookingStatus): List<Booking>
+        +saveMemento(bookingId: String, memento: BookingMemento): void
+        +getLastMemento(bookingId: String): BookingMemento
         -validateAccess(operation: String): void
         -getCachedResult(key: String): Object
         -cacheResult(key: String, result: Object): void

@@ -110,12 +110,31 @@ package "Activity Management Component" {
     IActivityBuilder <|.. EventBuilder
     IActivityBuilder <|.. TripBuilder
 
+    package "Activity Memento Pattern" {
+        class ActivityHistoryCaretaker {
+            -RepositoryFactory repositoryFactory
+            +save(activity: Activity): void
+            +getLastMemento(activityId: String): ActivityMemento
+        }
+
+        note right of ActivityHistoryCaretaker
+            "Obtains mementos from Data Layer (activityFactory)"
+            "and persists snapshots via RepositoryFactory"
+        end note
+
+        ActivityHistoryCaretaker o-- RepositoryFactory : "uses repo factory"
+    }
+
     ' ==================== Relationships ====================
     EventFactory o-- IActivityBuilder : "uses builder"
     TripFactory o-- IActivityBuilder : "uses builder"
 
     ActivityManagementService o-- IActivityFactory : "uses factory"
     ActivityManagementService o-- INotificationSystem : "uses service"
+    ActivityManagementService o-- ActivityHistoryCaretaker : "uses caretaker"
+    note on link
+        "Service calls save(activity) before update to snapshot state"
+    end note
     IActivityManagement <|.. ActivityManagementService : implements
 
     ' Repository Factory Relations

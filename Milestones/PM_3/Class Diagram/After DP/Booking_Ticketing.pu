@@ -120,11 +120,27 @@ package "Booking & Ticketing Component" {
         TicketServiceDecorator o-- ITicketService : wraps
     }
     
+    package "Booking Memento Pattern" {
+        class BookingHistoryCaretaker {
+            -RepositoryFactory repositoryFactory
+            +save(booking: Booking): void
+            +getLastMemento(bookingId: String): BookingMemento
+        }
+
+        note right of BookingHistoryCaretaker
+            "Obtains mementos from Data Layer (bookingFactory)"
+            "and persists snapshots via RepositoryFactory"
+        end note
+    }
     
     ' Relationships (Professional)
     IBookingTicketingSystem <|.. BookingService : realizes
     BookingService o-- RepositoryFactory : aggregation
     BookingService o-- ITicketService : aggregation
+    BookingService o-- BookingHistoryCaretaker : "uses caretaker"
+    note on link
+        "Service calls save(booking) before status change to snapshot state"
+    end note
     
     ' Note about factory usage
     note right of BookingService : "Uses specific factories internally:\nBookingRepositoryFactory and\nEventRepositoryFactory"
