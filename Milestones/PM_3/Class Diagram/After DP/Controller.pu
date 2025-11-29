@@ -1,64 +1,101 @@
 @startuml Controller_Layer
 
-!define CONTROLLER_COLOR #FCE4EC
-!define INTERFACE_COLOR #E8F5E9
-!define FACADE_COLOR #FFF9C4
-!define HANDLER_COLOR #E1BEE7
+ !define CONTROLLER_COLOR #FCE4EC
+ !define INTERFACE_COLOR #E8F5E9
+ !define FACADE_COLOR #FFF9C4
+ !define HANDLER_COLOR #E1BEE7
+ !define COMMAND_COLOR #E1F5FE
 
-skinparam classAttributeIconSize 0
-skinparam class {
-    BackgroundColor<<controller>> CONTROLLER_COLOR
-    BackgroundColor<<interface>> INTERFACE_COLOR
-    BackgroundColor<<facade>> FACADE_COLOR
-    BackgroundColor<<handler>> HANDLER_COLOR
-}
+ skinparam classAttributeIconSize 0
+ skinparam class {
+     BackgroundColor<<controller>> CONTROLLER_COLOR
+     BackgroundColor<<interface>> INTERFACE_COLOR
+     BackgroundColor<<handler>> HANDLER_COLOR
+     BackgroundColor<<command>> COMMAND_COLOR
+ }
 
 package "Controller Layer" {
     
-    ' ==================== FACADE PATTERN ====================
-    interface IApplicationFacade <<interface>> {
-        +register(userData: UserDTO): Response
-        +login(email: String, password: String): AuthToken
-        +createEvent(eventData: EventDTO): EventDTO
-        +updateEvent(eventId: String, eventData: EventDTO): EventDTO
-        +deleteEvent(eventId: String): Response
-        +bookEvent(studentId: String, eventId: String): BookingDTO
-        +sendNotification(userId: String, message: String, type: NotificationType): Response
-        +generateReport(reportType: ReportType, filters: ReportFilterDTO): ReportDTO
-    }
-    
-    class ApplicationFacade <<facade>> {
-        -IAuthenticationUserManagement authService
-        -IActivityManagement activityService
-        -IBookingTicketingSystem bookingService
-        -INotificationSystem notificationService
-        -IReportsAnalytics reportService
-        +register(userData: UserDTO): Response
-        +login(email: String, password: String): AuthToken
-        +createEvent(eventData: EventDTO): EventDTO
-        +updateEvent(eventId: String, eventData: EventDTO): EventDTO
-        +deleteEvent(eventId: String): Response
-        +bookEvent(studentId: String, eventId: String): BookingDTO
-        +sendNotification(userId: String, message: String, type: NotificationType): Response
-        +generateReport(reportType: ReportType, filters: ReportFilterDTO): ReportDTO
-    }
-    
-    ' Main Controller
-    class SystemController <<controller>> {
-        -IApplicationFacade applicationFacade
-        -RequestHandler handlerChain
-        +handleRequest(request: HttpRequest): HttpResponse
-        +register(request: HttpRequest): HttpResponse
-        +login(request: HttpRequest): HttpResponse
-        +createEvent(request: HttpRequest): HttpResponse
-        +updateEvent(request: HttpRequest): HttpResponse
-        +deleteEvent(request: HttpRequest): HttpResponse
-        +bookEvent(request: HttpRequest): HttpResponse
-        +sendNotification(request: HttpRequest): HttpResponse
-        +generateReport(request: HttpRequest): HttpResponse
-    }
-    
-    ' ==================== CHAIN OF RESPONSIBILITY ====================
+     ' Main Controller
+     class SystemController <<controller>> {
+         -ControllerCommandInvoker commandInvoker
+         -RequestHandler handlerChain
+         +handleRequest(request: HttpRequest): HttpResponse
+     }
+     
+     package "Controller Command Pattern" {
+         
+         interface IControllerCommand <<interface>> {
+             +execute(request: HttpRequest): HttpResponse
+         }
+         
+         class ControllerCommandInvoker {
+             -Map<String, IControllerCommand> commandMap
+             +register(commandName: String, command: IControllerCommand): void
+             +invoke(commandName: String, request: HttpRequest): HttpResponse
+         }
+         
+         class RegisterCommand <<command>> {
+             -IAuthenticationUserManagement authService
+             +execute(request: HttpRequest): HttpResponse
+         }
+         
+         class LoginCommand <<command>> {
+             -IAuthenticationUserManagement authService
+             +execute(request: HttpRequest): HttpResponse
+         }
+         
+         class CreateEventCommand <<command>> {
+             -IActivityManagement activityService
+             +execute(request: HttpRequest): HttpResponse
+         }
+         
+         class UpdateEventCommand <<command>> {
+             -IActivityManagement activityService
+             +execute(request: HttpRequest): HttpResponse
+         }
+         
+         class DeleteEventCommand <<command>> {
+             -IActivityManagement activityService
+             +execute(request: HttpRequest): HttpResponse
+         }
+         
+         class BookEventCommand <<command>> {
+             -IBookingTicketingSystem bookingService
+             +execute(request: HttpRequest): HttpResponse
+         }
+         
+         class SendNotificationCommand <<command>> {
+             -INotificationSystem notificationService
+             +execute(request: HttpRequest): HttpResponse
+         }
+         
+         class GenerateReportCommand <<command>> {
+             -IReportsAnalytics reportService
+             +execute(request: HttpRequest): HttpResponse
+         }
+         
+         IControllerCommand <|.. RegisterCommand
+         IControllerCommand <|.. LoginCommand
+         IControllerCommand <|.. CreateEventCommand
+         IControllerCommand <|.. UpdateEventCommand
+         IControllerCommand <|.. DeleteEventCommand
+         IControllerCommand <|.. BookEventCommand
+         IControllerCommand <|.. SendNotificationCommand
+         IControllerCommand <|.. GenerateReportCommand
+         
+         ControllerCommandInvoker o-- IControllerCommand : uses
+         RegisterCommand --> IAuthenticationUserManagement : uses
+         LoginCommand --> IAuthenticationUserManagement : uses
+         CreateEventCommand --> IActivityManagement : uses
+         UpdateEventCommand --> IActivityManagement : uses
+         DeleteEventCommand --> IActivityManagement : uses
+         BookEventCommand --> IBookingTicketingSystem : uses
+         SendNotificationCommand --> INotificationSystem : uses
+         GenerateReportCommand --> IReportsAnalytics : uses
+     }
+     
+     ' ==================== CHAIN OF RESPONSIBILITY ====================
     package "Request Handler Chain" {
         
         abstract class RequestHandler <<handler>> {
@@ -89,8 +126,9 @@ package "Controller Layer" {
         RequestHandler <|-- RateLimitHandler
     }
     
-    SystemController o-- RequestHandler : uses
-    
+     SystemController o-- RequestHandler : uses
+     SystemController o-- ControllerCommandInvoker : uses
+     
     ' Service Interfaces (from Context Level)
     interface IAuthenticationUserManagement <<interface>> {
         +register(userData: UserDTO): Response
@@ -127,17 +165,6 @@ package "Controller Layer" {
         +getStatistics(): SystemStatisticsDTO
         +collectFeedback(feedbackData: FeedbackDTO): Response
     }
-    
-    ' Facade Pattern Relationships
-    IApplicationFacade <|.. ApplicationFacade : implements
-    
-    ApplicationFacade o-- IAuthenticationUserManagement : uses
-    ApplicationFacade o-- IActivityManagement : uses
-    ApplicationFacade o-- IBookingTicketingSystem : uses
-    ApplicationFacade o-- INotificationSystem : uses
-    ApplicationFacade o-- IReportsAnalytics : uses
-    
-    SystemController o-- IApplicationFacade : uses
 }
 
 @enduml
