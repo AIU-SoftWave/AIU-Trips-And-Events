@@ -35,6 +35,12 @@ package "Controller Layer" {
              +invoke(commandName: String, request: HttpRequest): HttpResponse
          }
          
+         note right of ControllerCommandInvoker
+            "Handles use cases like user registration by"
+            "mapping route 'register' to RegisterCommand and"
+            "invoking it after the RequestHandler chain."
+        end note
+        
          class RegisterCommand <<command>> {
              -IAuthenticationUserManagement authService
              +execute(request: HttpRequest): HttpResponse
