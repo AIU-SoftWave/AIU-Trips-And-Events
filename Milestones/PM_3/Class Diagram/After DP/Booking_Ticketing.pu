@@ -34,6 +34,7 @@ package "Booking & Ticketing Component" {
         -RepositoryFactory eventRepositoryFactory
         -ITicketService ticketService
         -BookingHandler validationChain
+        -PricingStrategy pricingStrategy
         +browseEvents(filters: EventFilterDTO): List<EventDTO>
         +bookEvent(studentId: String, eventId: String): BookingDTO
         +generateTicket(bookingId: String): TicketDTO
@@ -120,6 +121,33 @@ package "Booking & Ticketing Component" {
         TicketServiceDecorator o-- ITicketService : wraps
     }
     
+    package "Pricing Strategy Pattern" {
+        interface PricingStrategy <<interface>> {
+            +calculatePrice(basePrice: Decimal, bookingDate: DateTime, quantity: int): Decimal
+        }
+
+        class StandardPricingStrategy {
+            +calculatePrice(basePrice: Decimal, bookingDate: DateTime, quantity: int): Decimal
+        }
+
+        class EarlyBirdPricingStrategy {
+            +earlyBirdDeadline: DateTime
+            +discountPercent: Decimal
+            +calculatePrice(basePrice: Decimal, bookingDate: DateTime, quantity: int): Decimal
+        }
+
+        class BulkGroupDiscountStrategy {
+            +threshold: int
+            +discountPercent: Decimal
+            +calculatePrice(basePrice: Decimal, bookingDate: DateTime, quantity: int): Decimal
+        }
+
+        PricingStrategy <|.. StandardPricingStrategy
+        PricingStrategy <|.. EarlyBirdPricingStrategy
+        PricingStrategy <|.. BulkGroupDiscountStrategy
+
+    }
+    
     package "Booking Memento Pattern" {
         class BookingHistoryCaretaker {
             -RepositoryFactory repositoryFactory
@@ -127,23 +155,19 @@ package "Booking & Ticketing Component" {
             +getLastMemento(bookingId: String): BookingMemento
         }
 
-        note right of BookingHistoryCaretaker
-            "Obtains mementos from Data Layer (bookingFactory)"
-            "and persists snapshots via RepositoryFactory"
-        end note
     }
     
     ' Relationships (Professional)
     IBookingTicketingSystem <|.. BookingService : realizes
     BookingService o-- RepositoryFactory : aggregation
     BookingService o-- ITicketService : aggregation
+    BookingService o-- PricingStrategy : "uses strategy"
     BookingService o-- BookingHistoryCaretaker : "uses caretaker"
     note on link
         "Service calls save(booking) before status change to snapshot state"
     end note
     
     ' Note about factory usage
-    note right of BookingService : "Uses specific factories internally:\nBookingRepositoryFactory and\nEventRepositoryFactory"
 }
 
 @enduml
