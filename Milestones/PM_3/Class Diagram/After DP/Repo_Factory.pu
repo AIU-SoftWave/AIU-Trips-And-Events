@@ -1,92 +1,67 @@
-@startuml Repo_Factory
+@startuml Model_Factory
 
 ' -------------------- Colors --------------------
 !define INTERFACE_COLOR #E8F5E9
 !define PROXY_COLOR #FFE0B2
-!define REPOSITORY_COLOR #E3F2FD
-!define FACTORY_COLOR #FFF3E0
+!define MODEL_COLOR #E3F2FD
+!define ENTITY_COLOR #E3F2FD
+!define FACTORY_COLOR #D1C4E9
 
 skinparam classAttributeIconSize 0
 skinparam class {
     BackgroundColor<<interface>> INTERFACE_COLOR
     BackgroundColor<<proxy>> PROXY_COLOR
-    BackgroundColor<<repository>> REPOSITORY_COLOR
+    BackgroundColor<<model>> MODEL_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
     BackgroundColor<<factory>> FACTORY_COLOR
-    BackgroundColor<<configuration>> FACTORY_COLOR
 }
 
-title University Trips & Events Management System - Repository Factory Layer
+title University Trips & Events Management System - Repository Layer with Factory
 
-' -------------------- Layout --------------------
 top to bottom direction
 
-' -------------------- Factory Package --------------------
-package "Factory Package" {
+package "Repository Layer (Data Access)" {
     
-    abstract class RepositoryFactory <<factory>> {
-        +createRepository(): IBaseRepository
-        #configureRepository(): void
+    ' Interfaces
+    interface IUserModel <<interface>>
+    interface IActivityModel <<interface>>
+    interface IBookingModel <<interface>>
+    interface INotificationModel <<interface>>
+    interface IReportModel <<interface>>
+    interface IFeedbackModel <<interface>>
+
+    ' Concrete Models
+    class UserModel <<model>>
+    class ActivityModel <<model>>
+    class BookingModel <<model>>
+    class NotificationModel <<model>>
+    class ReportModel <<model>>
+    class FeedbackModel <<model>>
+
+    ' Factory
+    class ModelFactory <<factory>> {
+        +getUserModel(): IUserModel
+        +getActivityModel(): IActivityModel
+        +getBookingModel(): IBookingModel
+        +getNotificationModel(): INotificationModel
+        +getReportModel(): IReportModel
+        +getFeedbackModel(): IFeedbackModel
     }
 
-    class UserRepositoryFactory <<factory>> {
-        +createRepository(): UserRepositoryProxy
-    }
+    ' Relations
+    IUserModel <|.. UserModel
+    IActivityModel <|.. ActivityModel
+    IBookingModel <|.. BookingModel
+    INotificationModel <|.. NotificationModel
+    IReportModel <|.. ReportModel
+    IFeedbackModel <|.. FeedbackModel
 
-    class ActivityRepositoryFactory <<factory>> {
-        +createRepository(): ActivityRepositoryProxy
-    }
-
-    class BookingRepositoryFactory <<factory>> {
-        +createRepository(): BookingRepositoryProxy
-    }
-
-    class NotificationRepositoryFactory <<factory>> {
-        +createRepository(): NotificationRepositoryProxy
-    }
-
-    class ReportRepositoryFactory <<factory>> {
-        +createRepository(): ReportRepositoryProxy
-    }
-
-    class FeedbackRepositoryFactory <<factory>> {
-        +createRepository(): FeedbackRepositoryProxy
-    }
-
-    class RepositoryConfiguration <<configuration>> {
-        -databaseUrl: String
-        -username: String
-        -password: String
-        -connectionPoolSize: int
-        -maxConnectionLifetime: int
-        -connectionTimeout: int
-        -idleTimeout: int
-        -maxRetryAttempts: int
-        -retryDelayMillis: int
-        -cacheSettings: CacheSettings
-        -enableCircuitBreaker: Boolean
-        +getDataSource(): DataSource
-        +getCacheManager(): CacheManager
-        +getConnectionPool(): ConnectionPool
-        +validateConfiguration(): Boolean
-    }
-
-    ' Factory Relations
-    RepositoryFactory <|-- UserRepositoryFactory
-    RepositoryFactory <|-- ActivityRepositoryFactory
-    RepositoryFactory <|-- BookingRepositoryFactory
-    RepositoryFactory <|-- NotificationRepositoryFactory
-    RepositoryFactory <|-- ReportRepositoryFactory
-    RepositoryFactory <|-- FeedbackRepositoryFactory
-
-    RepositoryFactory o-- RepositoryConfiguration
-
-    ' Product Creation Relations (Concrete Proxies Only)
-    UserRepositoryFactory ..> UserRepositoryProxy : creates
-    ActivityRepositoryFactory ..> ActivityRepositoryProxy : creates
-    BookingRepositoryFactory ..> BookingRepositoryProxy : creates
-    NotificationRepositoryFactory ..> NotificationRepositoryProxy : creates
-    ReportRepositoryFactory ..> ReportRepositoryProxy : creates
-    FeedbackRepositoryFactory ..> FeedbackRepositoryProxy : creates
+    ModelFactory --> IUserModel : returns
+    ModelFactory --> IActivityModel : returns
+    ModelFactory --> IBookingModel : returns
+    ModelFactory --> INotificationModel : returns
+    ModelFactory --> IReportModel : returns
+    ModelFactory --> IFeedbackModel : returns
 }
 
 @enduml
