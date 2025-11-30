@@ -10,7 +10,7 @@ skinparam classAttributeIconSize 0
 skinparam class {
     BackgroundColor<<interface>> INTERFACE_COLOR
     BackgroundColor<<proxy>> PROXY_COLOR
-    BackgroundColor<<repository>> REPOSITORY_COLOR
+    BackgroundColor<<model>> REPOSITORY_COLOR
     BackgroundColor<<entity>> ENTITY_COLOR
 }
 
@@ -23,14 +23,14 @@ top to bottom direction
 package "Repository Layer (Data Access)" {
 
     ' Base Repository Interface (Following DRY principle)
-    interface IBaseRepository<T> <<interface>> {
+    interface IEntityModel<T> <<interface>> {
         +save(entity: T): T
         +findById(id: String): T
         +update(entity: T): T
         +delete(id: String): Boolean
     }
 
-    interface IUserRepository <<interface>> {
+    interface IUserModel <<interface>> {
         +save(user: User): User
         +findByEmail(email: String): User
         +update(user: User): User
@@ -39,7 +39,7 @@ package "Repository Layer (Data Access)" {
         +findByRole(role: UserRole): List<User>
     }
 
-    interface IActivityRepository <<interface>> {
+    interface IActivityModel <<interface>> {
         +save(activity: Activity): Activity
         +findById(activityId: String): Activity
         +findAll(): List<Activity>
@@ -48,9 +48,11 @@ package "Repository Layer (Data Access)" {
         +findByStatus(status: ActivityStatus): List<Activity>
         +findByDateRange(startDate: Date, endDate: Date): List<Activity>
         +findByType(type: ActivityType): List<Activity>
+        +saveMemento(activityId: String, memento: ActivityMemento): void
+        +getLastMemento(activityId: String): ActivityMemento
     }
 
-    interface IBookingRepository <<interface>> {
+    interface IBookingModel <<interface>> {
         +save(booking: Booking): Booking
         +findById(bookingId: String): Booking
         +findByStudent(studentId: String): List<Booking>
@@ -58,9 +60,11 @@ package "Repository Layer (Data Access)" {
         +update(booking: Booking): Booking
         +delete(bookingId: String): Boolean
         +findByStatus(status: BookingStatus): List<Booking>
+        +saveMemento(bookingId: String, memento: BookingMemento): void
+        +getLastMemento(bookingId: String): BookingMemento
     }
 
-    interface INotificationRepository <<interface>> {
+    interface INotificationModel <<interface>> {
         +save(notification: Notification): Notification
         +findByRecipient(userId: String): List<Notification>
         +update(notification: Notification): Notification
@@ -69,7 +73,7 @@ package "Repository Layer (Data Access)" {
         +markAsRead(notificationId: String): Boolean
     }
 
-    interface IReportRepository <<interface>> {
+    interface IReportModel <<interface>> {
         +save(report: Report): Report
         +findById(reportId: String): Report
         +update(report: Report): Report
@@ -78,27 +82,43 @@ package "Repository Layer (Data Access)" {
         +findByDateRange(startDate: Date, endDate: Date): List<Report>
     }
 
-    interface IFeedbackRepository <<interface>> {
+    interface IFeedbackModel <<interface>> {
         +save(feedback: Feedback): Feedback
-        +findByActivity(activityId: String): List<Feedback>
+        +findByEvent(eventId: String): List<Feedback>
         +findById(feedbackId: String): Feedback
         +update(feedback: Feedback): Feedback
         +delete(feedbackId: String): Boolean
         +findByRating(minRating: int, maxRating: int): List<Feedback>
     }
 
-    ' Abstract Base Repository for common functionality
-    abstract class BaseRepository <<repository>> {
-        #dataSource: DataSource
-        #logger: Logger
-        #validateEntity(entity: Object): void
-        #logOperation(operation: String, entityId: String): void
-        #handleException(ex: Exception): void
+    package "Jakarta Persistence (JPA)" {
+        interface EntityManager <<interface>> {
+            +persist(entity: Object): void
+            +find(entityClass: Class<T>, primaryKey: Object): T
+            +merge(entity: Object): T
+            +remove(entity: Object): void
+            +createQuery(q: String): Query
+        }
     }
 
-    class UserRepositoryImpl <<repository>> {
+    package "Domain Entities (JPA)" {
+        class User <<entity>>
+        class Activity <<entity>>
+        class Booking <<entity>>
+        class Notification <<entity>>
+        class Report <<entity>>
+        class Feedback <<entity>>
+        note right: All domain classes are annotated with @Entity and JPA mappings
+    }
+
+    
+
+    
+
+    class UserModel <<model>> {
         -connectionPool: ConnectionPool
         -userMapper: UserMapper
+        -entityManager: EntityManager
         +save(user: User): User
         +findByEmail(email: String): User
         +update(user: User): User
@@ -109,24 +129,10 @@ package "Repository Layer (Data Access)" {
         -mapResultSetToUser(rs: ResultSet): User
     }
 
-    class UserRepositoryProxy <<proxy>> {
-        -realRepository: UserRepositoryImpl
-        -cacheManager: CacheManager
-        -securityValidator: SecurityValidator
-        +save(user: User): User
-        +findByEmail(email: String): User
-        +update(user: User): User
-        +delete(userId: String): Boolean
-        +findAll(): List<User>
-        +findByRole(role: UserRole): List<User>
-        -validateAccess(operation: String): void
-        -getCachedResult(key: String): Object
-        -cacheResult(key: String, result: Object): void
-    }
-
-    class ActivityRepositoryImpl <<repository>> {
+    class ActivityModel <<model>> {
         -connectionPool: ConnectionPool
         -activityMapper: ActivityMapper
+        -entityManager: EntityManager
         +save(activity: Activity): Activity
         +findById(activityId: String): Activity
         +findAll(): List<Activity>
@@ -135,26 +141,14 @@ package "Repository Layer (Data Access)" {
         +findByStatus(status: ActivityStatus): List<Activity>
         +findByDateRange(startDate: Date, endDate: Date): List<Activity>
         +findByType(type: ActivityType): List<Activity>
+        +saveMemento(activityId: String, memento: ActivityMemento): void
+        +getLastMemento(activityId: String): ActivityMemento
         -validateActivity(activity: Activity): void
         -mapResultSetToActivity(rs: ResultSet): Activity
     }
 
-    class ActivityRepositoryProxy <<proxy>> {
-        -realRepository: ActivityRepositoryImpl
-        -cacheManager: CacheManager
-        -auditLogger: AuditLogger
-        +save(activity: Activity): Activity
-        +findById(activityId: String): Activity
-        +findAll(): List<Activity>
-        +update(activity: Activity): Activity
-        +delete(activityId: String): Boolean
-        +findByStatus(status: ActivityStatus): List<Activity>
-        +findByDateRange(startDate: Date, endDate: Date): List<Activity>
-        +findByType(type: ActivityType): List<Activity>
-        -logAuditTrail(operation: String, activityId: String): void
-    }
-
-    class BookingRepositoryImpl <<repository>> {
+    class BookingModel <<model>> {
+        -entityManager: EntityManager
         +save(booking: Booking): Booking
         +findById(bookingId: String): Booking
         +findByStudent(studentId: String): List<Booking>
@@ -162,25 +156,12 @@ package "Repository Layer (Data Access)" {
         +update(booking: Booking): Booking
         +delete(bookingId: String): Boolean
         +findByStatus(status: BookingStatus): List<Booking>
+        +saveMemento(bookingId: String, memento: BookingMemento): void
+        +getLastMemento(bookingId: String): BookingMemento
     }
 
-    class BookingRepositoryProxy <<proxy>> {
-        -realRepository: BookingRepositoryImpl
-        -cacheManager: CacheManager
-        -auditLogger: AuditLogger
-        +save(booking: Booking): Booking
-        +findById(bookingId: String): Booking
-        +findByStudent(studentId: String): List<Booking>
-        +findByActivity(activityId: String): List<Booking>
-        +update(booking: Booking): Booking
-        +delete(bookingId: String): Boolean
-        +findByStatus(status: BookingStatus): List<Booking>
-        -validateAccess(operation: String): void
-        -getCachedResult(key: String): Object
-        -cacheResult(key: String, result: Object): void
-    }
-
-    class NotificationRepositoryImpl <<repository>> {
+    class NotificationModel <<model>> {
+        -entityManager: EntityManager
         +save(notification: Notification): Notification
         +findByRecipient(userId: String): List<Notification>
         +update(notification: Notification): Notification
@@ -189,22 +170,8 @@ package "Repository Layer (Data Access)" {
         +markAsRead(notificationId: String): Boolean
     }
 
-    class NotificationRepositoryProxy <<proxy>> {
-        -realRepository: NotificationRepositoryImpl
-        -cacheManager: CacheManager
-        -auditLogger: AuditLogger
-        +save(notification: Notification): Notification
-        +findByRecipient(userId: String): List<Notification>
-        +update(notification: Notification): Notification
-        +delete(notificationId: String): Boolean
-        +findUnread(userId: String): List<Notification>
-        +markAsRead(notificationId: String): Boolean
-        -validateAccess(operation: String): void
-        -getCachedResult(key: String): Object
-        -cacheResult(key: String, result: Object): void
-    }
-
-    class ReportRepositoryImpl <<repository>> {
+    class ReportModel <<model>> {
+        -entityManager: EntityManager
         +save(report: Report): Report
         +findById(reportId: String): Report
         +update(report: Report): Report
@@ -213,22 +180,8 @@ package "Repository Layer (Data Access)" {
         +findByDateRange(startDate: Date, endDate: Date): List<Report>
     }
 
-    class ReportRepositoryProxy <<proxy>> {
-        -realRepository: ReportRepositoryImpl
-        -cacheManager: CacheManager
-        -auditLogger: AuditLogger
-        +save(report: Report): Report
-        +findById(reportId: String): Report
-        +update(report: Report): Report
-        +delete(reportId: String): Boolean
-        +findByType(reportType: ReportType): List<Report>
-        +findByDateRange(startDate: Date, endDate: Date): List<Report>
-        -validateAccess(operation: String): void
-        -getCachedResult(key: String): Object
-        -cacheResult(key: String, result: Object): void
-    }
-
-    class FeedbackRepositoryImpl <<repository>> {
+    class FeedbackModel <<model>> {
+        -entityManager: EntityManager
         +save(feedback: Feedback): Feedback
         +findByEvent(eventId: String): List<Feedback>
         +findById(feedbackId: String): Feedback
@@ -237,59 +190,36 @@ package "Repository Layer (Data Access)" {
         +findByRating(minRating: int, maxRating: int): List<Feedback>
     }
 
-    class FeedbackRepositoryProxy <<proxy>> {
-        -realRepository: FeedbackRepositoryImpl
-        -cacheManager: CacheManager
-        -auditLogger: AuditLogger
-        +save(feedback: Feedback): Feedback
-        +findByActivity(activityId: String): List<Feedback>
-        +findById(feedbackId: String): Feedback
-        +update(feedback: Feedback): Feedback
-        +delete(feedbackId: String): Boolean
-        +findByRating(minRating: int, maxRating: int): List<Feedback>
-        -validateAccess(operation: String): void
-        -getCachedResult(key: String): Object
-        -cacheResult(key: String, result: Object): void
-    }
-
     ' Repository Relations Only
-    IBaseRepository <|-- IUserRepository
-    IBaseRepository <|-- IActivityRepository
-    IBaseRepository <|-- IBookingRepository
-    IBaseRepository <|-- INotificationRepository
-    IBaseRepository <|-- IReportRepository
-    IBaseRepository <|-- IFeedbackRepository
+    IEntityModel <|-- IUserModel
+    IEntityModel <|-- IActivityModel
+    IEntityModel <|-- IBookingModel
+    IEntityModel <|-- INotificationModel
+    IEntityModel <|-- IReportModel
+    IEntityModel <|-- IFeedbackModel
 
-    BaseRepository <|-- UserRepositoryImpl
-    BaseRepository <|-- ActivityRepositoryImpl
-    BaseRepository <|-- BookingRepositoryImpl
-    BaseRepository <|-- NotificationRepositoryImpl
-    BaseRepository <|-- ReportRepositoryImpl
-    BaseRepository <|-- FeedbackRepositoryImpl
+    IUserModel <|.. UserModel
+    IActivityModel <|.. ActivityModel
+    IBookingModel <|.. BookingModel
+    INotificationModel <|.. NotificationModel
+    IReportModel <|.. ReportModel
+    IFeedbackModel <|.. FeedbackModel
 
-    IUserRepository <|.. UserRepositoryImpl
-    IUserRepository <|.. UserRepositoryProxy
-    UserRepositoryProxy o-- UserRepositoryImpl
+    ' JPA usage relations
+    UserModel --> EntityManager : uses
+    ActivityModel --> EntityManager : uses
+    BookingModel --> EntityManager : uses
+    NotificationModel --> EntityManager : uses
+    ReportModel --> EntityManager : uses
+    FeedbackModel --> EntityManager : uses
 
-    IActivityRepository <|.. ActivityRepositoryImpl
-    IActivityRepository <|.. ActivityRepositoryProxy
-    ActivityRepositoryProxy o-- ActivityRepositoryImpl
-
-    IBookingRepository <|.. BookingRepositoryImpl
-    IBookingRepository <|.. BookingRepositoryProxy
-    BookingRepositoryProxy o-- BookingRepositoryImpl
-
-    INotificationRepository <|.. NotificationRepositoryImpl
-    INotificationRepository <|.. NotificationRepositoryProxy
-    NotificationRepositoryProxy o-- NotificationRepositoryImpl
-
-    IReportRepository <|.. ReportRepositoryImpl
-    IReportRepository <|.. ReportRepositoryProxy
-    ReportRepositoryProxy o-- ReportRepositoryImpl
-
-    IFeedbackRepository <|.. FeedbackRepositoryImpl
-    IFeedbackRepository <|.. FeedbackRepositoryProxy
-    FeedbackRepositoryProxy o-- FeedbackRepositoryImpl
+    ' Models manage entities
+    UserModel --> User : manages
+    ActivityModel --> Activity : manages
+    BookingModel --> Booking : manages
+    NotificationModel --> Notification : manages
+    ReportModel --> Report : manages
+    FeedbackModel --> Feedback : manages
 }
 
 

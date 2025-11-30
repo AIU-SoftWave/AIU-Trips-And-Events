@@ -132,6 +132,39 @@ package "Entities (Domain Models)" {
     User "1" -- "0..*" Notification : receives >
 }
 
+package "Memento Snapshots" {
+    
+    class ActivityMemento <<entity>> {
+        -String activityId
+        -String name
+        -String description
+        -DateTime activityDate
+        -String location
+        -Integer capacity
+        -Integer availableSeats
+    }
+
+    class BookingMemento <<entity>> {
+        -String bookingId
+        -String studentId
+        -String activityId
+        -BookingStatus status
+    }
+
+    class ActivityMementoFactory <<entity>> {
+        +createFromActivity(activity: Activity): ActivityMemento
+    }
+
+    class BookingMementoFactory <<entity>> {
+        +createFromBooking(booking: Booking): BookingMemento
+    }
+
+    ActivityMementoFactory ..> Activity : creates
+    ActivityMementoFactory ..> ActivityMemento : returns
+    BookingMementoFactory ..> Booking : creates
+    BookingMementoFactory ..> BookingMemento : returns
+}
+
 ' ==================== ENUMERATIONS ====================
 package "Enumerations" {
     

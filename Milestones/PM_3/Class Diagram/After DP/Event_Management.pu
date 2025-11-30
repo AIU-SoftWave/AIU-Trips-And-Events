@@ -110,12 +110,76 @@ package "Activity Management Component" {
     IActivityBuilder <|.. EventBuilder
     IActivityBuilder <|.. TripBuilder
 
+    package "Activity Memento Pattern" {
+        class ActivityHistoryCaretaker {
+            -RepositoryFactory repositoryFactory
+            +save(activity: Activity): void
+            +getLastMemento(activityId: String): ActivityMemento
+        }
+
+        note right of ActivityHistoryCaretaker
+            "Obtains mementos from Data Layer (activityFactory)"
+            "and persists snapshots via RepositoryFactory"
+        end note
+
+        ActivityHistoryCaretaker o-- RepositoryFactory : "uses repo factory"
+    }
+
+    package "Activity State Pattern" {
+        interface ActivityState <<interface>> {
+            +publish(activity: Activity): Activity
+            +complete(activity: Activity): Activity
+            +cancel(activity: Activity): Activity
+        }
+
+        class ActivityLifecycle {
+            -ActivityState state
+            +setState(state: ActivityState): void
+            +publish(activity: Activity): Activity
+            +complete(activity: Activity): Activity
+            +cancel(activity: Activity): Activity
+        }
+
+        class UpcomingState {
+            +publish(activity: Activity): Activity
+            +complete(activity: Activity): Activity
+            +cancel(activity: Activity): Activity
+        }
+
+        class CompletedState {
+            +publish(activity: Activity): Activity
+            +complete(activity: Activity): Activity
+            +cancel(activity: Activity): Activity
+        }
+
+        class CancelledState {
+            +publish(activity: Activity): Activity
+            +complete(activity: Activity): Activity
+            +cancel(activity: Activity): Activity
+        }
+
+        ActivityState <|.. UpcomingState
+        ActivityState <|.. CompletedState
+        ActivityState <|.. CancelledState
+        ActivityLifecycle o-- ActivityState : "has current"
+
+        note right of ActivityLifecycle
+            "Encapsulates valid transitions and delegates"
+            "lifecycle operations to current ActivityState"
+        end note
+    }
+
     ' ==================== Relationships ====================
     EventFactory o-- IActivityBuilder : "uses builder"
     TripFactory o-- IActivityBuilder : "uses builder"
 
     ActivityManagementService o-- IActivityFactory : "uses factory"
     ActivityManagementService o-- INotificationSystem : "uses service"
+    ActivityManagementService o-- ActivityHistoryCaretaker : "uses caretaker"
+    ActivityManagementService o-- ActivityLifecycle : "uses state context"
+    note on link
+        "Service calls save(activity) before update to snapshot state"
+    end note
     IActivityManagement <|.. ActivityManagementService : implements
 
     ' Repository Factory Relations
