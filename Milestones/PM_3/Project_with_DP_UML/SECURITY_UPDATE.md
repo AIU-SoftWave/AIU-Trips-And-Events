@@ -14,9 +14,17 @@
 
 ## Changes Made
 
-### Frontend Package Update
-- **File**: `Milestones/PM_3/Project_with_DP_UML/frontend/package.json`
-- **Change**: Updated Next.js from `15.5.4` → `15.5.7`
+### Frontend Package Updates (All Locations)
+1. **File**: `Project/frontend/package.json`
+   - **Change**: Updated Next.js from `15.5.4` → `15.5.7`
+
+2. **File**: `Milestones/PM_3/Project_with_DP_UML/frontend/package.json`
+   - **Change**: Updated Next.js from `15.5.4` → `15.5.7`
+
+3. **File**: `Milestones/PM_3/Project_without_DP_UML/frontend/package.json`
+   - **Change**: Updated Next.js from `15.5.4` → `15.5.7`
+
+**Total**: All 3 frontend directories updated to patched version
 
 ## Vulnerability Details
 
@@ -31,16 +39,25 @@ The Next.js vulnerability affects multiple version ranges:
 
 ## Action Required
 
-After pulling this update, run:
+After pulling this update, run in **each** frontend directory:
 
 ```bash
+# For main project
+cd Project/frontend
+npm install
+
+# For Project_with_DP_UML
 cd Milestones/PM_3/Project_with_DP_UML/frontend
+npm install
+
+# For Project_without_DP_UML
+cd Milestones/PM_3/Project_without_DP_UML/frontend
 npm install
 ```
 
 Or if using the Docker setup:
 ```bash
-cd Milestones/PM_3/Project_with_DP_UML
+# For any project directory
 docker-compose down
 docker-compose build --no-cache
 docker-compose up -d
@@ -48,13 +65,22 @@ docker-compose up -d
 
 ## Verification
 
-To verify the update:
+To verify the update in each location:
 ```bash
+# Check main project
+cd Project/frontend
+npm list next
+
+# Check Project_with_DP_UML
 cd Milestones/PM_3/Project_with_DP_UML/frontend
+npm list next
+
+# Check Project_without_DP_UML
+cd Milestones/PM_3/Project_without_DP_UML/frontend
 npm list next
 ```
 
-Expected output: `next@15.5.7`
+Expected output for all: `next@15.5.7`
 
 ## Additional Security Notes
 
