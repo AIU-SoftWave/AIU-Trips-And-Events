@@ -128,7 +128,9 @@ public class Event implements IPrototype<Event> {
     
     /**
      * Prototype Pattern - Clone method for creating a copy of this Event
-     * @return A new Event object with the same properties (except ID)
+     * Note: This creates a shallow clone suitable for templates.
+     * ID and timestamps are intentionally excluded as they should be regenerated.
+     * @return A new Event object with the same properties (except ID, timestamps, and status)
      */
     @Override
     public Event clone() {
@@ -143,6 +145,8 @@ public class Event implements IPrototype<Event> {
         cloned.setCapacity(this.capacity);
         cloned.setImageUrl(this.imageUrl);
         cloned.setCreatedBy(this.createdBy);
+        // Note: availableSeats, status, createdAt, and id are intentionally not cloned
+        // They should be initialized via @PrePersist when the clone is saved
         return cloned;
     }
 }

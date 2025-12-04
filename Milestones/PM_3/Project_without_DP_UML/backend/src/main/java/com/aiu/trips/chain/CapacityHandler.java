@@ -15,7 +15,12 @@ public class CapacityHandler extends BookingHandler {
         // Check event capacity
         System.out.println("CapacityHandler: Checking event capacity");
         
-        if (booking.getEvent().getAvailableSeats() <= 0) {
+        if (booking == null || booking.getEvent() == null) {
+            return false;
+        }
+        
+        Integer availableSeats = booking.getEvent().getAvailableSeats();
+        if (availableSeats == null || availableSeats <= 0) {
             return false;
         }
         

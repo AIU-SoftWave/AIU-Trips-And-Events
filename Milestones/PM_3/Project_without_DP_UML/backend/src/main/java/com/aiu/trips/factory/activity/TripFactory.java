@@ -23,15 +23,10 @@ public class TripFactory implements IActivityFactory {
             throw new IllegalArgumentException("Prototype cannot be null");
         }
         
-        Event cloned = new Event();
-        cloned.setTitle(prototype.getTitle());
-        cloned.setDescription(prototype.getDescription());
+        // Use Event's built-in clone method to avoid duplication
+        Event cloned = prototype.clone();
+        // Ensure type is set to TRIP for TripFactory
         cloned.setType(EventType.TRIP);
-        cloned.setLocation(prototype.getLocation());
-        cloned.setPrice(prototype.getPrice());
-        cloned.setCapacity(prototype.getCapacity());
-        cloned.setImageUrl(prototype.getImageUrl());
-        
         return cloned;
     }
 }

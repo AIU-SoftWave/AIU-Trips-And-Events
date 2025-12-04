@@ -18,6 +18,9 @@ public class AuditLogDecorator extends TicketServiceDecorator {
     
     public AuditLogDecorator(ITicketService ticketService) {
         super(ticketService);
+        if (ticketService == null) {
+            throw new IllegalArgumentException("TicketService cannot be null");
+        }
     }
     
     @Override

@@ -23,15 +23,7 @@ public class EventFactory implements IActivityFactory {
             throw new IllegalArgumentException("Prototype cannot be null");
         }
         
-        Event cloned = new Event();
-        cloned.setTitle(prototype.getTitle());
-        cloned.setDescription(prototype.getDescription());
-        cloned.setType(EventType.EVENT);
-        cloned.setLocation(prototype.getLocation());
-        cloned.setPrice(prototype.getPrice());
-        cloned.setCapacity(prototype.getCapacity());
-        cloned.setImageUrl(prototype.getImageUrl());
-        
-        return cloned;
+        // Use Event's built-in clone method to avoid duplication
+        return prototype.clone();
     }
 }

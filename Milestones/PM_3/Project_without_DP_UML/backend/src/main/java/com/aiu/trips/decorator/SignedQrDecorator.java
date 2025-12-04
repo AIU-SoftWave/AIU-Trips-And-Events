@@ -12,6 +12,9 @@ public class SignedQrDecorator extends TicketServiceDecorator {
     
     public SignedQrDecorator(ITicketService ticketService) {
         super(ticketService);
+        if (ticketService == null) {
+            throw new IllegalArgumentException("TicketService cannot be null");
+        }
     }
     
     @Override
