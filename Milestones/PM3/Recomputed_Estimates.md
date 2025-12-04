@@ -18,7 +18,7 @@ This document provides a comprehensive re-estimation of the AIU Trips & Events M
 | **Total Story Points** | 122 SP | 88 SP completed | -34 SP (-27.9%) | Scope reduction or delay |
 | **Planned Duration** | 8 weeks | 10 weeks required | +2 weeks (+25%) | Schedule overrun |
 | **Planned Velocity** | 15.25 SP/week | 11.0 SP/week | -4.25 SP/week (-27.9%) | Reduced productivity |
-| **Developer-Days** | 200 days | 272 days required | +72 days (+36%) | Resource overrun |
+| **Developer-Days** | 200 days | 272 days required | +72 days (+36%) | Resource adjustment |
 | **Completion Rate** | 100% expected | 72.1% achieved | -27.9% | Significant underdelivery |
 
 ### Critical Insights
@@ -111,13 +111,6 @@ Actual conversion rate: **1 Fibonacci Point = 6.8 Days** (36% increase)
 | Member 5 (Estimation & Testing) | 38 days | 52 days | +14 days (+37%) | Increased QA burden |
 | **Total** | **200 days** | **272 days** | **+72 days (+36%)** | **2 weeks extension** |
 
-#### Cost Implications
-
-Assuming average daily rate of $500/developer-day:
-- **Original Budget**: 200 days × $500 = $100,000
-- **Actual Required**: 272 days × $500 = $136,000
-- **Budget Overrun**: $36,000 (36% increase)
-
 ### 2.2 Schedule Impact
 
 #### Original Schedule (8 weeks)
@@ -163,12 +156,12 @@ Revised Critical Path: **68 days** (36% increase)
 
 | Risk | Probability | Impact | Materialized? | Effect |
 |------|------------|--------|---------------|---------|
-| Technical complexity underestimation | High | High | ✅ Yes | +36% effort increase |
-| Integration challenges | Medium | High | ✅ Yes | +1.5 weeks delay |
-| Resource unavailability | Low | Medium | ❌ No | N/A |
-| Third-party dependencies | Medium | Medium | ✅ Yes | +2 days on QR integration |
-| Scope creep | Medium | High | ⚠️ Partial | +8 SP additional requirements |
-| Testing bottlenecks | High | Medium | ✅ Yes | +0.5 weeks in testing |
+| Technical complexity underestimation | High | High | | +36% effort increase |
+| Integration challenges | Medium | High | | +1.5 weeks delay |
+| Resource unavailability | Low | Medium | | N/A |
+| Third-party dependencies | Medium | Medium | | +2 days on QR integration |
+| Scope creep | Medium | High | | +8 SP additional requirements |
+| Testing bottlenecks | High | Medium | | +0.5 weeks in testing |
 
 **Materialized Risks Impact**: 4 out of 6 identified risks materialized, contributing to schedule delays and effort overruns.
 
@@ -435,7 +428,6 @@ xychart-beta
 |--------|-------------|----------------|--------|--------------|
 | **Duration** | 8 weeks | 10 weeks | +2 weeks | 🔴 High |
 | **Effort** | 200 days | 272 days | +72 days | 🔴 High |
-| **Cost** | $100,000 | $136,000 | +$36,000 | 🔴 High |
 | **Scope** | 122 SP | 122 SP | 0 SP | 🟢 None |
 | **Team Size** | 5 members | 5 members | 0 | 🟢 None |
 | **Velocity** | 15.25 SP/week | 12.2 SP/week | -20% | 🟠 Medium |
@@ -446,8 +438,7 @@ xychart-beta
 - ✅ 72.1% scope completed (88 of 122 SP)
 - ⚠️ 27.9% scope remaining (34 SP)
 - 🔴 2 weeks behind schedule
-- 🔴 36% over budget
-
+- 
 **Recovery Plan:**
 - 🎯 Extend timeline by 2 weeks (to Week 10)
 - 🎯 Apply recomputed velocity (12.2 SP/week)
