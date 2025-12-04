@@ -1,40 +1,33 @@
 package com.aiu.trips.memento;
 
-import com.aiu.trips.model.Event;
+import com.aiu.trips.model.Activity;
 import org.springframework.stereotype.Component;
 
 /**
  * Memento Pattern - Factory for creating Activity mementos
+ * Based on After DP Data_Layer diagram
  */
 @Component
 public class ActivityMementoFactory {
     
-    public ActivityMemento createMemento(Event event) {
-        return new ActivityMemento(
-            event.getId(),
-            event.getTitle(),
-            event.getDescription(),
-            event.getType(),
-            event.getStartDate(),
-            event.getEndDate(),
-            event.getLocation(),
-            event.getPrice(),
-            event.getCapacity(),
-            event.getAvailableSeats(),
-            event.getStatus()
+    public com.aiu.trips.model.ActivityMemento createFromActivity(Activity activity) {
+        return new com.aiu.trips.model.ActivityMemento(
+            activity.getActivityId(),
+            activity.getName(),
+            activity.getDescription(),
+            activity.getActivityDate(),
+            activity.getLocation(),
+            activity.getCapacity(),
+            activity.getAvailableSeats()
         );
     }
     
-    public void restoreFromMemento(Event event, ActivityMemento memento) {
-        event.setTitle(memento.getTitle());
-        event.setDescription(memento.getDescription());
-        event.setType(memento.getType());
-        event.setStartDate(memento.getStartDate());
-        event.setEndDate(memento.getEndDate());
-        event.setLocation(memento.getLocation());
-        event.setPrice(memento.getPrice());
-        event.setCapacity(memento.getCapacity());
-        event.setAvailableSeats(memento.getAvailableSeats());
-        event.setStatus(memento.getStatus());
+    public void restoreFromMemento(Activity activity, com.aiu.trips.model.ActivityMemento memento) {
+        activity.setName(memento.getName());
+        activity.setDescription(memento.getDescription());
+        activity.setActivityDate(memento.getActivityDate());
+        activity.setLocation(memento.getLocation());
+        activity.setCapacity(memento.getCapacity());
+        activity.setAvailableSeats(memento.getAvailableSeats());
     }
 }
