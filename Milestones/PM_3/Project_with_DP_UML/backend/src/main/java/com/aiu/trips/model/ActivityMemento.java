@@ -17,7 +17,7 @@ public class ActivityMemento {
     private Long id;
 
     @Column(name = "activity_id", nullable = false)
-    private String activityId;
+    private Long activityId;
 
     @Column(nullable = false)
     private String name;
@@ -50,7 +50,7 @@ public class ActivityMemento {
     // Constructors
     public ActivityMemento() {}
 
-    public ActivityMemento(String activityId, String name, String description, LocalDateTime activityDate,
+    public ActivityMemento(Long activityId, String name, String description, LocalDateTime activityDate,
                           String location, Integer capacity, Integer availableSeats) {
         this.activityId = activityId;
         this.name = name;
@@ -70,11 +70,11 @@ public class ActivityMemento {
         this.id = id;
     }
 
-    public String getActivityId() {
+    public Long getActivityId() {
         return activityId;
     }
 
-    public void setActivityId(String activityId) {
+    public void setActivityId(Long activityId) {
         this.activityId = activityId;
     }
 

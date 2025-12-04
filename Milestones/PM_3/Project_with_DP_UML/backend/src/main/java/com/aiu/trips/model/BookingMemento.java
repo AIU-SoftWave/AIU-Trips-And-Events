@@ -17,13 +17,13 @@ public class BookingMemento {
     private Long id;
 
     @Column(name = "booking_id", nullable = false)
-    private String bookingId;
+    private Long bookingId;
 
     @Column(name = "student_id", nullable = false)
-    private String studentId;
+    private Long studentId;
 
     @Column(name = "activity_id", nullable = false)
-    private String activityId;
+    private Long activityId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -42,7 +42,7 @@ public class BookingMemento {
     // Constructors
     public BookingMemento() {}
 
-    public BookingMemento(String bookingId, String studentId, String activityId, BookingStatus status) {
+    public BookingMemento(Long bookingId, Long studentId, Long activityId, BookingStatus status) {
         this.bookingId = bookingId;
         this.studentId = studentId;
         this.activityId = activityId;
@@ -58,27 +58,27 @@ public class BookingMemento {
         this.id = id;
     }
 
-    public String getBookingId() {
+    public Long getBookingId() {
         return bookingId;
     }
 
-    public void setBookingId(String bookingId) {
+    public void setBookingId(Long bookingId) {
         this.bookingId = bookingId;
     }
 
-    public String getStudentId() {
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 
-    public String getActivityId() {
+    public Long getActivityId() {
         return activityId;
     }
 
-    public void setActivityId(String activityId) {
+    public void setActivityId(Long activityId) {
         this.activityId = activityId;
     }
 

@@ -20,7 +20,7 @@ public abstract class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "activity_id")
-    private String activityId;
+    private Long activityId;
 
     @Column(nullable = false)
     private String name;
@@ -77,7 +77,7 @@ public abstract class Activity {
     // Constructors
     public Activity() {}
 
-    public Activity(String activityId, String name, String description, LocalDateTime activityDate,
+    public Activity(Long activityId, String name, String description, LocalDateTime activityDate,
                    String location, Integer capacity, Integer availableSeats, BigDecimal price,
                    ActivityCategory category, ActivityStatus status, String organizerId, ActivityType type) {
         this.activityId = activityId;
@@ -96,11 +96,11 @@ public abstract class Activity {
     }
 
     // Getters and Setters
-    public String getActivityId() {
+    public Long getActivityId() {
         return activityId;
     }
 
-    public void setActivityId(String activityId) {
+    public void setActivityId(Long activityId) {
         this.activityId = activityId;
     }
 

@@ -12,10 +12,10 @@ public class BookingMementoFactory {
     
     public com.aiu.trips.model.BookingMemento createFromBooking(Booking booking) {
         return new com.aiu.trips.model.BookingMemento(
-            booking.getId() != null ? booking.getId().toString() : null,
-            booking.getUser() != null ? booking.getUser().getId().toString() : null,
+            booking.getId(),
+            booking.getUser() != null ? booking.getUser().getId() : null,
             // Note: Booking needs to be updated to reference Activity instead of Event
-            booking.getEvent() != null ? booking.getEvent().getId().toString() : null,
+            booking.getEvent() != null ? booking.getEvent().getActivityId() : null,
             booking.getStatus()
         );
     }

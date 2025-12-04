@@ -14,10 +14,10 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ticket_id")
-    private String ticketId;
+    private Long ticketId;
 
     @Column(name = "booking_id", nullable = false)
-    private String bookingId;
+    private Long bookingId;
 
     @Column(name = "qr_code", unique = true, nullable = false)
     private String qrCode;
@@ -41,7 +41,7 @@ public class Ticket {
     // Constructors
     public Ticket() {}
 
-    public Ticket(String ticketId, String bookingId, String qrCode, Boolean isUsed, LocalDateTime issueDate) {
+    public Ticket(Long ticketId, Long bookingId, String qrCode, Boolean isUsed, LocalDateTime issueDate) {
         this.ticketId = ticketId;
         this.bookingId = bookingId;
         this.qrCode = qrCode;
@@ -50,19 +50,19 @@ public class Ticket {
     }
 
     // Getters and Setters
-    public String getTicketId() {
+    public Long getTicketId() {
         return ticketId;
     }
 
-    public void setTicketId(String ticketId) {
+    public void setTicketId(Long ticketId) {
         this.ticketId = ticketId;
     }
 
-    public String getBookingId() {
+    public Long getBookingId() {
         return bookingId;
     }
 
-    public void setBookingId(String bookingId) {
+    public void setBookingId(Long bookingId) {
         this.bookingId = bookingId;
     }
 
