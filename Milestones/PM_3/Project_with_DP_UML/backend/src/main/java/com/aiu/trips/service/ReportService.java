@@ -1,7 +1,7 @@
 package com.aiu.trips.service;
 
+import com.aiu.trips.model.Activity;
 import com.aiu.trips.model.Booking;
-import com.aiu.trips.model.Event;
 import com.aiu.trips.repository.BookingRepository;
 import com.aiu.trips.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +21,14 @@ public class ReportService {
     private BookingRepository bookingRepository;
 
     public Map<String, Object> getEventReport(Long eventId) {
-        Event event = eventRepository.findById(eventId)
+        Activity event = eventRepository.findById(eventId)
             .orElseThrow(() -> new RuntimeException("Event not found"));
 
         List<Booking> bookings = bookingRepository.findByEvent_Id(eventId);
 
         Map<String, Object> report = new HashMap<>();
-        report.put("eventId", event.getId());
-        report.put("eventTitle", event.getTitle());
+        report.put("eventId", event.getActivityId());
+        report.put("eventTitle", event.getName());
         report.put("totalCapacity", event.getCapacity());
         report.put("availableSeats", event.getAvailableSeats());
         report.put("bookedSeats", event.getCapacity() - event.getAvailableSeats());
@@ -45,7 +45,7 @@ public class ReportService {
     }
 
     public Map<String, Object> getOverallReport() {
-        List<Event> events = eventRepository.findAll();
+        List<Activity> events = eventRepository.findAll();
         List<Booking> bookings = bookingRepository.findAll();
 
         Map<String, Object> report = new HashMap<>();
@@ -56,10 +56,10 @@ public class ReportService {
             .mapToDouble(Booking::getAmountPaid)
             .sum());
         report.put("activeEvents", events.stream()
-            .filter(e -> "ACTIVE".equals(e.getStatus()))
+            .filter(e -> "UPCOMING".equals(e.getStatus().name()))
             .count());
         report.put("completedEvents", events.stream()
-            .filter(e -> "COMPLETED".equals(e.getStatus()))
+            .filter(e -> "COMPLETED".equals(e.getStatus().name()))
             .count());
 
         return report;

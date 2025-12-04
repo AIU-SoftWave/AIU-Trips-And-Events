@@ -1,6 +1,7 @@
 package com.aiu.trips.controller;
 
-import com.aiu.trips.enums.EventType;
+import com.aiu.trips.enums.ActivityType;
+import com.aiu.trips.model.Activity;
 import com.aiu.trips.model.Event;
 import com.aiu.trips.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,32 +19,32 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping
-    public ResponseEntity<List<Event>> getAllEvents() {
+    public ResponseEntity<List<Activity>> getAllEvents() {
         return ResponseEntity.ok(eventService.getAllEvents());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Event> getEventById(@PathVariable Long id) {
+    public ResponseEntity<Activity> getEventById(@PathVariable Long id) {
         return ResponseEntity.ok(eventService.getEventById(id));
     }
 
     @GetMapping("/type/{type}")
-    public ResponseEntity<List<Event>> getEventsByType(@PathVariable EventType type) {
+    public ResponseEntity<List<Activity>> getEventsByType(@PathVariable ActivityType type) {
         return ResponseEntity.ok(eventService.getEventsByType(type));
     }
 
     @GetMapping("/upcoming")
-    public ResponseEntity<List<Event>> getUpcomingEvents() {
+    public ResponseEntity<List<Activity>> getUpcomingEvents() {
         return ResponseEntity.ok(eventService.getUpcomingEvents());
     }
 
     @PostMapping
-    public ResponseEntity<Event> createEvent(@RequestBody Event event, Authentication authentication) {
+    public ResponseEntity<Activity> createEvent(@RequestBody Event event, Authentication authentication) {
         return ResponseEntity.ok(eventService.createEvent(event, authentication.getName()));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event event) {
+    public ResponseEntity<Activity> updateEvent(@PathVariable Long id, @RequestBody Event event) {
         return ResponseEntity.ok(eventService.updateEvent(id, event));
     }
 
@@ -54,7 +55,7 @@ public class EventController {
     }
 
     @GetMapping("/my-events")
-    public ResponseEntity<List<Event>> getMyEvents(Authentication authentication) {
+    public ResponseEntity<List<Activity>> getMyEvents(Authentication authentication) {
         return ResponseEntity.ok(eventService.getEventsByUser(authentication.getName()));
     }
 }

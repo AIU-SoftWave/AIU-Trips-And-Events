@@ -27,81 +27,86 @@ public class EventService {
     @Autowired
     private NotificationService notificationService;
 
-    public Event createEvent(Event event, String userEmail) {
+    public Activity createEvent(Event event, String userEmail) {
         User user = userRepository.findByEmail(userEmail)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.USER_NOT_FOUND + userEmail));
         
         event.setCreatedBy(user);
-        Event savedEvent = eventRepository.save(event);
+        Activity savedEvent = eventRepository.save(event);
         
         // Notify all users about new event
         notificationService.notifyAllUsers(
-            "New " + event.getType().name().toLowerCase() + " available: " + event.getTitle(),
+            "New event available: " + event.getName(),
             "INFO"
         );
         
         return savedEvent;
     }
 
-    public Event updateEvent(Long id, Event eventDetails) {
-        Event event = eventRepository.findById(id)
+    public Activity updateEvent(Long id, Event eventDetails) {
+        Activity activity = eventRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + id));
         
-        event.setTitle(eventDetails.getTitle());
-        event.setDescription(eventDetails.getDescription());
-        event.setType(eventDetails.getType());
-        event.setStartDate(eventDetails.getStartDate());
-        event.setEndDate(eventDetails.getEndDate());
-        event.setLocation(eventDetails.getLocation());
-        event.setPrice(eventDetails.getPrice());
-        event.setCapacity(eventDetails.getCapacity());
-        event.setImageUrl(eventDetails.getImageUrl());
+        if (activity instanceof Event) {
+            Event event = (Event) activity;
+            event.setName(eventDetails.getName());
+            event.setDescription(eventDetails.getDescription());
+            event.setActivityDate(eventDetails.getActivityDate());
+            event.setLocation(eventDetails.getLocation());
+            event.setPrice(eventDetails.getPrice());
+            event.setCapacity(eventDetails.getCapacity());
+            event.setCategory(eventDetails.getCategory());
+            event.setTopic(eventDetails.getTopic());
+            event.setVenue(eventDetails.getVenue());
+            
+            Activity updatedEvent = eventRepository.save(event);
+            
+            // Notify users about update
+            notificationService.notifyEventParticipants(
+                id,
+                "Event updated: " + event.getName(),
+                "INFO"
+            );
+            
+            return updatedEvent;
+        }
         
-        Event updatedEvent = eventRepository.save(event);
-        
-        // Notify users about update
-        notificationService.notifyEventParticipants(
-            id,
-            "Event updated: " + event.getTitle(),
-            "INFO"
-        );
-        
-        return updatedEvent;
+        return activity;
     }
 
     public void deleteEvent(Long id) {
-        Event event = eventRepository.findById(id)
+        Activity activity = eventRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + id));
         
-        event.setStatus(ActivityStatus.CANCELLED);
-        eventRepository.save(event);
+        activity.setStatus(ActivityStatus.CANCELLED);
+        eventRepository.save(activity);
         
         // Notify participants about cancellation
         notificationService.notifyEventParticipants(
             id,
-            "Event cancelled: " + event.getTitle(),
+            "Event cancelled: " + activity.getName(),
             "WARNING"
         );
     }
 
-    public List<Event> getAllEvents() {
+    public List<Activity> getAllEvents() {
         return eventRepository.findAll();
     }
 
-    public Event getEventById(Long id) {
+    public Activity getEventById(Long id) {
         return eventRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + id));
     }
 
-    public List<Event> getEventsByType(EventType type) {
+    public List<Activity> getEventsByType(ActivityType type) {
         return eventRepository.findByType(type);
     }
 
-    public List<Event> getUpcomingEvents() {
-        return eventRepository.findByStartDateAfter(LocalDateTime.now());
+    public List<Activity> getUpcomingEvents() {
+        return eventRepository.findByActivityDateAfter(LocalDateTime.now());
     }
 
-    public List<Event> getEventsByUser(String userEmail) {
+    public List<Activity> getEventsByUser(String userEmail) {
         User user = userRepository.findByEmail(userEmail)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.USER_NOT_FOUND + userEmail));
         return eventRepository.findByCreatedBy_Id(user.getId());

@@ -1,12 +1,12 @@
 package com.aiu.trips.service;
 
 import com.aiu.trips.constants.AppConstants;
+import com.aiu.trips.enums.ActivityStatus;
 import com.aiu.trips.enums.BookingStatus;
-import com.aiu.trips.enums.EventStatus;
 import com.aiu.trips.exception.BookingException;
 import com.aiu.trips.exception.ResourceNotFoundException;
+import com.aiu.trips.model.Activity;
 import com.aiu.trips.model.Booking;
-import com.aiu.trips.model.Event;
 import com.aiu.trips.model.User;
 import com.aiu.trips.repository.BookingRepository;
 import com.aiu.trips.repository.EventRepository;
@@ -42,7 +42,7 @@ public class BookingService {
         User user = userRepository.findByEmail(userEmail)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.USER_NOT_FOUND + userEmail));
         
-        Event event = eventRepository.findById(eventId)
+        Activity event = eventRepository.findById(eventId)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + eventId));
 
         if (event.getAvailableSeats() <= 0) {
@@ -66,7 +66,7 @@ public class BookingService {
 
         // Generate QR code
         try {
-            String qrData = "BOOKING:" + booking.getBookingCode() + "|EVENT:" + event.getId();
+            String qrData = "BOOKING:" + booking.getBookingCode() + "|EVENT:" + event.getActivityId();
             String qrCode = qrCodeGenerator.generateQRCodeBase64(qrData);
             booking.setQrCodePath(qrCode);
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class BookingService {
         // Send notification
         notificationService.notifyUser(
             user.getId(),
-            "Booking confirmed for: " + event.getTitle(),
+            "Booking confirmed for: " + event.getName(),
             "SUCCESS"
         );
 
@@ -100,14 +100,14 @@ public class BookingService {
         bookingRepository.save(booking);
 
         // Update available seats
-        Event event = booking.getEvent();
+        Activity event = booking.getEvent();
         event.setAvailableSeats(event.getAvailableSeats() + 1);
         eventRepository.save(event);
 
         // Send notification
         notificationService.notifyUser(
             user.getId(),
-            "Booking cancelled for: " + event.getTitle(),
+            "Booking cancelled for: " + event.getName(),
             "INFO"
         );
     }
@@ -143,8 +143,8 @@ public class BookingService {
         }
 
         // Check if event is active
-        Event event = booking.getEvent();
-        if (!EventStatus.ACTIVE.equals(event.getStatus())) {
+        Activity event = booking.getEvent();
+        if (!ActivityStatus.UPCOMING.equals(event.getStatus())) {
             throw new BookingException("Event is not active");
         }
 
@@ -158,7 +158,7 @@ public class BookingService {
         // Send notification to user
         notificationService.notifyUser(
             booking.getUser().getId(),
-            "Your ticket for " + event.getTitle() + " has been validated. Enjoy the event!",
+            "Your ticket for " + event.getName() + " has been validated. Enjoy the event!",
             "SUCCESS"
         );
 

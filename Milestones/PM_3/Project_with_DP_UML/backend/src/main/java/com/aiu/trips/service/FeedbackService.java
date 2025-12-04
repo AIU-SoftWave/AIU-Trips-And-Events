@@ -4,8 +4,8 @@ import com.aiu.trips.constants.AppConstants;
 import com.aiu.trips.enums.BookingStatus;
 import com.aiu.trips.exception.ResourceNotFoundException;
 import com.aiu.trips.exception.ValidationException;
+import com.aiu.trips.model.Activity;
 import com.aiu.trips.model.Booking;
-import com.aiu.trips.model.Event;
 import com.aiu.trips.model.Feedback;
 import com.aiu.trips.model.User;
 import com.aiu.trips.repository.BookingRepository;
@@ -36,7 +36,7 @@ public class FeedbackService {
         User user = userRepository.findByEmail(userEmail)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.USER_NOT_FOUND + userEmail));
         
-        Event event = eventRepository.findById(eventId)
+        Activity event = eventRepository.findById(eventId)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + eventId));
 
         // Check if user has attended the event
