@@ -17,14 +17,18 @@
 ### Frontend Package Updates (All Locations)
 1. **File**: `Project/frontend/package.json`
    - **Change**: Updated Next.js from `15.5.4` → `15.5.7`
+   - **Lock files removed**: package-lock.json, pnpm-lock.yaml (will regenerate with new version)
 
 2. **File**: `Milestones/PM_3/Project_with_DP_UML/frontend/package.json`
    - **Change**: Updated Next.js from `15.5.4` → `15.5.7`
+   - **Lock files removed**: package-lock.json, pnpm-lock.yaml (will regenerate with new version)
 
 3. **File**: `Milestones/PM_3/Project_without_DP_UML/frontend/package.json`
    - **Change**: Updated Next.js from `15.5.4` → `15.5.7`
+   - **Lock files removed**: package-lock.json, pnpm-lock.yaml (will regenerate with new version)
 
 **Total**: All 3 frontend directories updated to patched version
+**Note**: Lock files were removed to ensure clean update to 15.5.7
 
 ## Vulnerability Details
 
@@ -39,21 +43,23 @@ The Next.js vulnerability affects multiple version ranges:
 
 ## Action Required
 
-After pulling this update, run in **each** frontend directory:
+After pulling this update, run in **each** frontend directory to regenerate lock files:
 
 ```bash
 # For main project
 cd Project/frontend
-npm install
+npm install  # This will create new package-lock.json with Next.js 15.5.7
 
 # For Project_with_DP_UML
 cd Milestones/PM_3/Project_with_DP_UML/frontend
-npm install
+npm install  # This will create new package-lock.json with Next.js 15.5.7
 
 # For Project_without_DP_UML
 cd Milestones/PM_3/Project_without_DP_UML/frontend
-npm install
+npm install  # This will create new package-lock.json with Next.js 15.5.7
 ```
+
+**Important**: Old lock files (package-lock.json, pnpm-lock.yaml) have been removed to ensure clean installation of the patched version.
 
 Or if using the Docker setup:
 ```bash
