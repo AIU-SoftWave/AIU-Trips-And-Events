@@ -57,19 +57,15 @@ package "Notification Component" {
             +send(recipient: String, content: String): Response
         }
         
-        class SmsChannel <<bridge>> {
-            -String apiKey
-            +send(recipient: String, content: String): Response
-        }
-        
-        class PushChannel <<bridge>> {
-            -String fcmKey
-            +send(recipient: String, content: String): Response
-        }
-        
         NotificationChannel <|.. EmailChannel : implements
-        NotificationChannel <|.. SmsChannel : implements
-        NotificationChannel <|.. PushChannel : implements
+        
+        ' In-app demo notification channel (stores in DB via IModelFactory)
+        class InAppChannel <<bridge>> {
+            -IModelFactory modelFactory
+            +send(recipient: String, content: String): Response
+        }
+
+        NotificationChannel <|.. InAppChannel : implements
         
         EmailChannel --> IEmailService : uses
         
@@ -120,39 +116,9 @@ package "Notification Component" {
             +setText(text: String): void
         }
         
-        class SendGridRequest <<external>> {
-            +setFrom(email: String): void
-            +addTo(email: String): void
-            +setSubject(subject: String): void
-            +addContent(type: String, value: String): void
-        }
-        
-        class SendGridResponse <<external>> {
-            +getStatusCode(): int
-            +getBody(): String
-        }
-        
-        class SendEmailRequest <<external>> {
-            +withSource(source: String): SendEmailRequest
-            +withDestination(destination: Destination): SendEmailRequest
-            +withMessage(message: Message): SendEmailRequest
-        }
-        
-        class SendEmailResult <<external>> {
-            +getMessageId(): String
-        }
-        
         ' External Services (Third-party)
         class JavaMailSender <<external>> {
             +send(message: MimeMessage): void
-        }
-        
-        class SendGridClient <<external>> {
-            +sendEmail(request: SendGridRequest): SendGridResponse
-        }
-        
-        class AmazonSESClient <<external>> {
-            +sendEmail(request: SendEmailRequest): SendEmailResult
         }
         
         ' Adapters
@@ -161,30 +127,10 @@ package "Notification Component" {
             +sendEmail(to: String, subject: String, body: String): Response
         }
         
-        class SendGridAdapter <<adapter>> {
-            -SendGridClient client
-            +sendEmail(to: String, subject: String, body: String): Response
-        }
-        
-        class AwsSesAdapter <<adapter>> {
-            -AmazonSESClient sesClient
-            +sendEmail(to: String, subject: String, body: String): Response
-        }
-        
         ' Adapter Pattern Relationships
         IEmailService <|.. SmtpEmailAdapter : implements
-        IEmailService <|.. SendGridAdapter : implements
-        IEmailService <|.. AwsSesAdapter : implements
-        
         SmtpEmailAdapter --> JavaMailSender : uses
-        SendGridAdapter --> SendGridClient : uses
-        AwsSesAdapter --> AmazonSESClient : uses
-        
         JavaMailSender ..> MimeMessage : uses
-        SendGridClient ..> SendGridRequest : uses
-        SendGridClient ..> SendGridResponse : returns
-        AmazonSESClient ..> SendEmailRequest : uses
-        AmazonSESClient ..> SendEmailResult : returns
     }
     ' Updated Relationships
     INotificationSystem <|.. NotificationService : realizes

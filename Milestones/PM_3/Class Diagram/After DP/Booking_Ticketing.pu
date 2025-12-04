@@ -61,6 +61,8 @@ package "Booking & Ticketing Component" {
         }
         
         class PaymentHandler <<handler>> {
+            -PaymentMethod method
+            +PaymentHandler(method: PaymentMethod)
             +handle(booking: BookingDTO): void
         }
         
@@ -142,6 +144,11 @@ package "Booking & Ticketing Component" {
         PricingStrategy <|.. EarlyBirdPricingStrategy
         PricingStrategy <|.. BulkGroupDiscountStrategy
 
+    }
+    
+    enum PaymentMethod <<enum>> {
+        CASH
+        QR_ON_SCAN
     }
     
     package "Booking Memento Pattern" {
