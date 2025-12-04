@@ -20,7 +20,7 @@ public class BookingMementoFactory {
         BookingMemento memento = new BookingMemento();
         memento.setBookingId(booking.getId());
         memento.setStudentId(booking.getUser() != null ? booking.getUser().getId().toString() : null);
-        memento.setActivityId(booking.getEvent() != null ? booking.getEvent().getId() : null);
+        memento.setActivityId(booking.getEvent() != null ? booking.getEvent().getActivityId() : null);
         memento.setStatus(booking.getStatus());
         
         return memento;

@@ -1,17 +1,17 @@
 package com.aiu.trips.repository;
 
-import com.aiu.trips.enums.EventStatus;
-import com.aiu.trips.enums.EventType;
-import com.aiu.trips.model.Event;
+import com.aiu.trips.enums.ActivityStatus;
+import com.aiu.trips.enums.ActivityType;
+import com.aiu.trips.model.Activity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface EventRepository extends JpaRepository<Event, Long> {
-    List<Event> findByType(EventType type);
-    List<Event> findByStatus(EventStatus status);
-    List<Event> findByStartDateAfter(LocalDateTime date);
-    List<Event> findByCreatedBy_Id(Long userId);
+public interface EventRepository extends JpaRepository<Activity, Long> {
+    List<Activity> findByType(ActivityType type);
+    List<Activity> findByStatus(ActivityStatus status);
+    List<Activity> findByActivityDateAfter(LocalDateTime date);
+    List<Activity> findByCreatedBy_Id(Long userId);
 }

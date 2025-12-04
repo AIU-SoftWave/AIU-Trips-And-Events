@@ -10,7 +10,7 @@ public class Feedback {
     
     public Feedback() {}
     
-    public Feedback(Long id, User user, Event event, Integer rating, String comment, LocalDateTime createdAt) {
+    public Feedback(Long id, User user, Activity event, Integer rating, String comment, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.event = event;
@@ -29,7 +29,7 @@ public class Feedback {
     
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
-    private Event event;
+    private Activity event;
     
     @Column(nullable = false)
     private Integer rating; // 1-5 stars
@@ -52,8 +52,8 @@ public class Feedback {
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
     
-    public Event getEvent() { return event; }
-    public void setEvent(Event event) { this.event = event; }
+    public Activity getEvent() { return event; }
+    public void setEvent(Activity event) { this.event = event; }
     
     public Integer getRating() { return rating; }
     public void setRating(Integer rating) { this.rating = rating; }

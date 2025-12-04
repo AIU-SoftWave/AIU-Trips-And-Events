@@ -1,9 +1,10 @@
 package com.aiu.trips.service;
 
 import com.aiu.trips.constants.AppConstants;
-import com.aiu.trips.enums.EventStatus;
-import com.aiu.trips.enums.EventType;
+import com.aiu.trips.enums.ActivityStatus;
+import com.aiu.trips.enums.ActivityType;
 import com.aiu.trips.exception.ResourceNotFoundException;
+import com.aiu.trips.model.Activity;
 import com.aiu.trips.model.Event;
 import com.aiu.trips.model.User;
 import com.aiu.trips.repository.EventRepository;
@@ -72,7 +73,7 @@ public class EventService {
         Event event = eventRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + id));
         
-        event.setStatus(EventStatus.CANCELLED);
+        event.setStatus(ActivityStatus.CANCELLED);
         eventRepository.save(event);
         
         // Notify participants about cancellation
