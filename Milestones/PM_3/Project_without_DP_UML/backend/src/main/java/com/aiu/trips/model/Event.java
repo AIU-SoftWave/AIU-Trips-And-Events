@@ -2,13 +2,14 @@ package com.aiu.trips.model;
 
 import com.aiu.trips.enums.EventStatus;
 import com.aiu.trips.enums.EventType;
+import com.aiu.trips.prototype.IPrototype;
 import jakarta.persistence.*;
 // Lombok temporarily removed due to Java 25 compatibility
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "events")
-public class Event {
+public class Event implements IPrototype<Event> {
     
     public Event() {}
     
@@ -124,4 +125,24 @@ public class Event {
     
     public EventStatus getStatus() { return status; }
     public void setStatus(EventStatus status) { this.status = status; }
+    
+    /**
+     * Prototype Pattern - Clone method for creating a copy of this Event
+     * @return A new Event object with the same properties (except ID)
+     */
+    @Override
+    public Event clone() {
+        Event cloned = new Event();
+        cloned.setTitle(this.title);
+        cloned.setDescription(this.description);
+        cloned.setType(this.type);
+        cloned.setStartDate(this.startDate);
+        cloned.setEndDate(this.endDate);
+        cloned.setLocation(this.location);
+        cloned.setPrice(this.price);
+        cloned.setCapacity(this.capacity);
+        cloned.setImageUrl(this.imageUrl);
+        cloned.setCreatedBy(this.createdBy);
+        return cloned;
+    }
 }
