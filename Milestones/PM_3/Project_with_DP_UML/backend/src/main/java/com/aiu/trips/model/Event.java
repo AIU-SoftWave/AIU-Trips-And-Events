@@ -1,127 +1,146 @@
 package com.aiu.trips.model;
 
-import com.aiu.trips.enums.EventStatus;
-import com.aiu.trips.enums.EventType;
 import jakarta.persistence.*;
-// Lombok temporarily removed due to Java 25 compatibility
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Event entity - represents events like conferences, seminars, workshops
+ * Extends Activity with event-specific fields
+ */
 @Entity
-@Table(name = "events")
-public class Event {
+@DiscriminatorValue("EVENT")
+public class Event extends Activity {
     
-    public Event() {}
+    @ElementCollection
+    @CollectionTable(name = "event_speakers", joinColumns = @JoinColumn(name = "event_id"))
+    @Column(name = "speaker")
+    private List<String> speakers = new ArrayList<>();
     
-    public Event(Long id, String title, String description, EventType type, LocalDateTime startDate, LocalDateTime endDate, String location, Double price, Integer capacity, Integer availableSeats, String imageUrl, User createdBy, LocalDateTime createdAt, EventStatus status) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.type = type;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.location = location;
-        this.price = price;
-        this.capacity = capacity;
-        this.availableSeats = availableSeats;
-        this.imageUrl = imageUrl;
-        this.createdBy = createdBy;
-        this.createdAt = createdAt;
-        this.status = status;
-    }
+    @Column(length = 500)
+    private String topic;
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(length = 500)
+    private String venue;
     
-    @Column(nullable = false)
-    private String title;
+    @Column(length = 2000)
+    private String agenda;
     
-    @Column(length = 1000)
-    private String description;
-    
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private EventType type; // EVENT, TRIP
-    
-    @Column(nullable = false)
-    private LocalDateTime startDate;
-    
-    @Column
-    private LocalDateTime endDate;
-    
-    @Column(nullable = false)
-    private String location;
-    
-    @Column(nullable = false)
-    private Double price;
-    
-    @Column(nullable = false)
-    private Integer capacity;
-    
-    @Column(nullable = false)
-    private Integer availableSeats;
-    
-    @Column
+    // For backward compatibility with old Event fields
+    @Transient
     private String imageUrl;
     
-    @ManyToOne
-    @JoinColumn(name = "created_by")
-    private User createdBy;
+    @Transient
+    private LocalDateTime endDate;
     
-    @Column
-    private LocalDateTime createdAt;
+    public Event() {
+        super();
+    }
     
-    @Column
-    @Enumerated(EnumType.STRING)
-    private EventStatus status; // ACTIVE, CANCELLED, COMPLETED
-    
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        availableSeats = capacity;
-        status = EventStatus.ACTIVE;
+    // Clone method for Prototype pattern
+    @Override
+    public Activity clone() {
+        Event cloned = new Event();
+        cloned.setName(this.getName());
+        cloned.setDescription(this.getDescription());
+        cloned.setActivityDate(this.getActivityDate());
+        cloned.setLocation(this.getLocation());
+        cloned.setCapacity(this.getCapacity());
+        cloned.setPrice(this.getPrice());
+        cloned.setCategory(this.getCategory());
+        cloned.setStatus(this.getStatus());
+        cloned.setOrganizerId(this.getOrganizerId());
+        cloned.setSpeakers(new ArrayList<>(this.speakers));
+        cloned.setTopic(this.topic);
+        cloned.setVenue(this.venue);
+        cloned.setAgenda(this.agenda);
+        return cloned;
     }
     
     // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public List<String> getSpeakers() {
+        return speakers;
+    }
     
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public void setSpeakers(List<String> speakers) {
+        this.speakers = speakers;
+    }
     
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public String getTopic() {
+        return topic;
+    }
     
-    public EventType getType() { return type; }
-    public void setType(EventType type) { this.type = type; }
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
     
-    public LocalDateTime getStartDate() { return startDate; }
-    public void setStartDate(LocalDateTime startDate) { this.startDate = startDate; }
+    public String getVenue() {
+        return venue;
+    }
     
-    public LocalDateTime getEndDate() { return endDate; }
-    public void setEndDate(LocalDateTime endDate) { this.endDate = endDate; }
+    public void setVenue(String venue) {
+        this.venue = venue;
+    }
     
-    public String getLocation() { return location; }
-    public void setLocation(String location) { this.location = location; }
+    public String getAgenda() {
+        return agenda;
+    }
     
-    public Double getPrice() { return price; }
-    public void setPrice(Double price) { this.price = price; }
+    public void setAgenda(String agenda) {
+        this.agenda = agenda;
+    }
     
-    public Integer getCapacity() { return capacity; }
-    public void setCapacity(Integer capacity) { this.capacity = capacity; }
+    // Backward compatibility methods
+    public Long getId() {
+        return getActivityId();
+    }
     
-    public Integer getAvailableSeats() { return availableSeats; }
-    public void setAvailableSeats(Integer availableSeats) { this.availableSeats = availableSeats; }
+    public void setId(Long id) {
+        setActivityId(id);
+    }
     
-    public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public String getTitle() {
+        return getName();
+    }
     
-    public User getCreatedBy() { return createdBy; }
-    public void setCreatedBy(User createdBy) { this.createdBy = createdBy; }
+    public void setTitle(String title) {
+        setName(title);
+    }
     
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDateTime getStartDate() {
+        return getActivityDate();
+    }
     
-    public EventStatus getStatus() { return status; }
-    public void setStatus(EventStatus status) { this.status = status; }
+    public void setStartDate(LocalDateTime startDate) {
+        setActivityDate(startDate);
+    }
+    
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+    
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+    
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+    
+    // Price compatibility
+    public void setPrice(Double price) {
+        if (price != null) {
+            setPrice(BigDecimal.valueOf(price));
+        }
+    }
+    
+    public Double getPriceAsDouble() {
+        return getPrice() != null ? getPrice().doubleValue() : null;
+    }
 }
