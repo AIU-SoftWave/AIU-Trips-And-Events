@@ -22,13 +22,37 @@ top to bottom direction
 
 package "Repository Layer (Data Access)" {
     
-    ' Interfaces
+    ' Base Repository Interface (aligned with Repository_Layer)
+    interface IBaseModel<T> <<interface>>
+
+    ' (Removed provider; factory registers model instances directly)
+
+    ' Open-Closed, Generic Factory API
+    interface IModelFactory <<interface>> {
+        +register<T>(key: String, model: IBaseModel<T>): void
+        +get<T>(key: String): IBaseModel<T>
+        +getByType<T>(type: Class<T>): IBaseModel<T>
+        +contains(key: String): Boolean
+        +keys(): List<String>
+    }
+
+    ' Repository Model Interfaces (names only)
     interface IUserModel <<interface>>
     interface IActivityModel <<interface>>
     interface IBookingModel <<interface>>
     interface INotificationModel <<interface>>
     interface IReportModel <<interface>>
     interface IFeedbackModel <<interface>>
+
+    ' Concrete Factory with a registry
+    class ModelFactory <<factory>> {
+        -registry: Map<String, IBaseModel<Object>>
+        +register<T>(key: String, model: IBaseModel<T>): void
+        +get<T>(key: String): IBaseModel<T>
+        +getByType<T>(type: Class<T>): IBaseModel<T>
+        +contains(key: String): Boolean
+        +keys(): List<String>
+    }
 
     ' Concrete Models
     class UserModel <<model>>
@@ -38,30 +62,21 @@ package "Repository Layer (Data Access)" {
     class ReportModel <<model>>
     class FeedbackModel <<model>>
 
-    ' Factory
-    class ModelFactory <<factory>> {
-        +getUserModel(): IUserModel
-        +getActivityModel(): IActivityModel
-        +getBookingModel(): IBookingModel
-        +getNotificationModel(): INotificationModel
-        +getReportModel(): IReportModel
-        +getFeedbackModel(): IFeedbackModel
-    }
-
-    ' Relations
+    ' Relations (decoupled from concrete models)
+    IModelFactory <|.. ModelFactory
+    ModelFactory --> IBaseModel : holds
+    IBaseModel <|-- IUserModel
+    IBaseModel <|-- IActivityModel
+    IBaseModel <|-- IBookingModel
+    IBaseModel <|-- INotificationModel
+    IBaseModel <|-- IReportModel
+    IBaseModel <|-- IFeedbackModel
     IUserModel <|.. UserModel
     IActivityModel <|.. ActivityModel
     IBookingModel <|.. BookingModel
     INotificationModel <|.. NotificationModel
     IReportModel <|.. ReportModel
     IFeedbackModel <|.. FeedbackModel
-
-    ModelFactory --> IUserModel : returns
-    ModelFactory --> IActivityModel : returns
-    ModelFactory --> IBookingModel : returns
-    ModelFactory --> INotificationModel : returns
-    ModelFactory --> IReportModel : returns
-    ModelFactory --> IFeedbackModel : returns
 }
 
 @enduml

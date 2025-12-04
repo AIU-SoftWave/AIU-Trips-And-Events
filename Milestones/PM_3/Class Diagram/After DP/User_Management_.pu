@@ -22,9 +22,12 @@ package "User Management Component" {
         +manageUserRole(userId: String, role: UserRole): Response
     }
     
+    ' Reference to shared Model Factory (no body)
+    interface IModelFactory <<interface>>
+    
     ' Service Implementation (Realization)
     class UserManagementService <<service>> {
-        -RepositoryFactory userRepositoryFactory
+        -IModelFactory modelFactory
         -IAuthService authService
         -INotificationSystem notificationService
         +register(userData: UserDTO): Response
@@ -32,12 +35,6 @@ package "User Management Component" {
         +verifyEmail(token: String): Response
         +resetPassword(email: String): Response
         +manageUserRole(userId: String, role: UserRole): Response
-    }
-    
-    ' Abstract Factory from Repository Layer
-    abstract class RepositoryFactory <<factory>> {
-        +createRepository(): IBaseRepository
-        #configureRepository(): void
     }
     
     ' Supporting Service Interfaces
@@ -54,9 +51,9 @@ package "User Management Component" {
     
     ' Relationships (Professional)
     IAuthenticationUserManagement <|.. UserManagementService : realizes
-    UserManagementService o-- RepositoryFactory : aggregation
-    UserManagementService o-- IAuthService : aggregation
-    UserManagementService o-- INotificationSystem : aggregation
+    UserManagementService --> IModelFactory : uses
+    UserManagementService --> IAuthService : uses
+    UserManagementService --> INotificationSystem : uses
     }
 
 @enduml

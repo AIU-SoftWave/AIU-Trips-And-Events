@@ -14,6 +14,7 @@ skinparam class {
     BackgroundColor<<enum>> ENUM_COLOR
     BackgroundColor<<Builder>> BUILDER_COLOR
     BackgroundColor<<Product>> BUILDER_COLOR
+    BackgroundColor<<Director>> BUILDER_COLOR
 }
 
 package "Reports & Analytics Component" {
@@ -26,32 +27,28 @@ package "Reports & Analytics Component" {
         +collectFeedback(feedbackData: FeedbackDTO): Response
     }
 
+    interface IModelFactory <<interface>>
+
     class ReportService <<service>> {
-        -RepositoryFactory repositoryFactory
+        -IModelFactory modelFactory
+        -IReportDirector reportDirector
         +generateReport(reportType: ReportType, filters: ReportFilterDTO, format: ExportFormat): ReportDTO
         +exportReport(reportId: String, format: ExportFormat): FileDTO
         +getStatistics(): SystemStatisticsDTO
         +collectFeedback(feedbackData: FeedbackDTO): Response
     }
 
-    ' Abstract Factory from Repository Layer
-    abstract class RepositoryFactory <<factory>> {
-        +createRepository(): IBaseRepository
-        #configureRepository(): void
-    }
     ' ==================== REPORT BUILDER PATTERN (UPDATED) ====================
     package "Report Builder Pattern" {
         skinparam class {
             BackgroundColor<<Product>> BUILDER_COLOR
             BackgroundColor<<Builder>> BUILDER_COLOR
+            BackgroundColor<<Director>> BUILDER_COLOR
         }
 
         ' === Abstract Builder ===
         abstract class ReportBuilder <<Builder>> {
-            #reportRepositoryFactory: RepositoryFactory
-            #activityRepositoryFactory: RepositoryFactory
-            #bookingRepositoryFactory: RepositoryFactory
-            #feedbackRepositoryFactory: RepositoryFactory
+            #modelFactory: IModelFactory
             +{abstract} reset(): void
             +{abstract} buildHeader(): void
             +{abstract} buildBody(data: List): void
@@ -79,18 +76,33 @@ package "Reports & Analytics Component" {
             +getProduct(): ReportDTO
         }
 
+        ' === Director Layer ===
+        interface IReportDirector <<Director>> {
+            +makeParticipantsReport(filters: ReportFilterDTO): ReportDTO
+            +makeRevenueReport(filters: ReportFilterDTO): ReportDTO
+            +makeFeedbackSummary(filters: ReportFilterDTO): ReportDTO
+        }
+        class ReportDirector <<Director>> {
+            -IModelFactory modelFactory
+            +makeParticipantsReport(filters: ReportFilterDTO): ReportDTO
+            +makeRevenueReport(filters: ReportFilterDTO): ReportDTO
+            +makeFeedbackSummary(filters: ReportFilterDTO): ReportDTO
+        }
+
         ' --- Relationships ---
         ReportBuilder <|-- PdfReportBuilder
         ReportBuilder <|-- CsvReportBuilder
         
-        ' Repository Factory Relations
-        ReportBuilder o-- RepositoryFactory : aggregation
+        ' Model Factory Relations
+        ReportBuilder --> IModelFactory : uses
+        IReportDirector <|.. ReportDirector
+        ReportDirector --> ReportBuilder : directs
     }
 
     ' --- External Relationships ---
     IReportsAnalytics <|.. ReportService : realizes
-    ReportService o-- RepositoryFactory : aggregation
-    ReportService o-- ReportBuilder : "uses (Director)"
+    ReportService --> IModelFactory : uses
+    ReportService --> IReportDirector : uses
 }
 
 @enduml

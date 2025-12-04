@@ -28,10 +28,12 @@ package "Booking & Ticketing Component" {
         +validateTicket(qrCode: String): Boolean
     }
     
+    ' Reference to shared Model Factory (no body)
+    interface IModelFactory <<interface>>
+    
     ' Service Implementation (Realization)
     class BookingService <<service>> {
-        -RepositoryFactory bookingRepositoryFactory
-        -RepositoryFactory eventRepositoryFactory
+        -IModelFactory modelFactory
         -ITicketService ticketService
         -BookingHandler validationChain
         -PricingStrategy pricingStrategy
@@ -39,12 +41,6 @@ package "Booking & Ticketing Component" {
         +bookEvent(studentId: String, eventId: String): BookingDTO
         +generateTicket(bookingId: String): TicketDTO
         +validateTicket(qrCode: String): Boolean
-    }
-    
-    ' Abstract Factory from Repository Layer
-    abstract class RepositoryFactory <<factory>> {
-        +createRepository(): IBaseRepository
-        #configureRepository(): void
     }
     
     ' ==================== CHAIN OF RESPONSIBILITY ====================
@@ -73,7 +69,7 @@ package "Booking & Ticketing Component" {
         BookingHandler <|-- PaymentHandler
     }
     
-    BookingService o-- BookingHandler : uses
+    BookingService --> BookingHandler : uses
     
     ' Supporting Service Interface
     interface ITicketService <<interface>> {
@@ -86,7 +82,7 @@ package "Booking & Ticketing Component" {
         
         ' Base Implementation
         class BaseTicketService <<base>> {
-            -IBookingRepository bookingRepository
+            -IModelFactory modelFactory
             +generateTicket(bookingId: String): TicketDTO
             +validateQRCode(qrCode: String): Boolean
         }
@@ -150,7 +146,7 @@ package "Booking & Ticketing Component" {
     
     package "Booking Memento Pattern" {
         class BookingHistoryCaretaker {
-            -RepositoryFactory repositoryFactory
+            -IModelFactory modelFactory
             +save(booking: Booking): void
             +getLastMemento(bookingId: String): BookingMemento
         }
@@ -159,10 +155,10 @@ package "Booking & Ticketing Component" {
     
     ' Relationships (Professional)
     IBookingTicketingSystem <|.. BookingService : realizes
-    BookingService o-- RepositoryFactory : aggregation
-    BookingService o-- ITicketService : aggregation
-    BookingService o-- PricingStrategy : "uses strategy"
-    BookingService o-- BookingHistoryCaretaker : "uses caretaker"
+    BookingService --> IModelFactory : uses
+    BookingService --> ITicketService : uses
+    BookingService --> PricingStrategy : "uses strategy"
+    BookingService --> BookingHistoryCaretaker : "uses caretaker"
     note on link
         "Service calls save(booking) before status change to snapshot state"
     end note
