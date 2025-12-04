@@ -27,20 +27,16 @@ package "Notification Component" {
         +sendBulkNotification(userIds: List<String>, message: String): Response
     }
     
+    ' Reference to shared Model Factory (no body)
+    interface IModelFactory <<interface>>
+    
     ' Service Implementation (Realization)
     class NotificationService <<service>> {
-        -RepositoryFactory notificationRepositoryFactory
-        -RepositoryFactory bookingRepositoryFactory
+        -IModelFactory modelFactory
         -NotificationChannel channel
         +sendNotification(userId: String, message: String, type: NotificationType): Response
         +notifyEventUpdate(eventId: String, message: String): Response
         +sendBulkNotification(userIds: List<String>, message: String): Response
-    }
-    
-    ' Abstract Factory from Repository Layer
-    abstract class RepositoryFactory <<factory>> {
-        +createRepository(): IBaseRepository
-        #configureRepository(): void
     }
     
     ' Email Service Interface
@@ -75,7 +71,7 @@ package "Notification Component" {
         NotificationChannel <|.. SmsChannel : implements
         NotificationChannel <|.. PushChannel : implements
         
-        EmailChannel o-- IEmailService : uses
+        EmailChannel --> IEmailService : uses
         
         ' Abstraction Side (Messages)
         abstract class NotificationMessage <<abstraction>> {
@@ -107,7 +103,7 @@ package "Notification Component" {
         NotificationMessage <|-- EventUpdateMessage : extends
         NotificationMessage <|-- ReminderMessage : extends
         
-        NotificationMessage o-- NotificationChannel : uses
+        NotificationMessage --> NotificationChannel : uses
     }
     
     NotificationService ..> NotificationMessage : uses
@@ -180,9 +176,9 @@ package "Notification Component" {
         IEmailService <|.. SendGridAdapter : implements
         IEmailService <|.. AwsSesAdapter : implements
         
-        SmtpEmailAdapter o-- JavaMailSender : uses
-        SendGridAdapter o-- SendGridClient : uses
-        AwsSesAdapter o-- AmazonSESClient : uses
+        SmtpEmailAdapter --> JavaMailSender : uses
+        SendGridAdapter --> SendGridClient : uses
+        AwsSesAdapter --> AmazonSESClient : uses
         
         JavaMailSender ..> MimeMessage : uses
         SendGridClient ..> SendGridRequest : uses
@@ -192,11 +188,11 @@ package "Notification Component" {
     }
     ' Updated Relationships
     INotificationSystem <|.. NotificationService : realizes
-    NotificationService o-- RepositoryFactory : aggregation
-    NotificationService o-- NotificationChannel : aggregation
+    NotificationService --> IModelFactory : uses
+    NotificationService --> NotificationChannel : uses
     
     ' Note about factory usage
-    note right of NotificationService : "Uses abstract factory to create\nNotificationRepositoryProxy and\nBookingRepositoryProxy as needed"
+    note right of NotificationService : "Uses IModelFactory to obtain\nnotification and booking models as needed"
 }
 
 @enduml

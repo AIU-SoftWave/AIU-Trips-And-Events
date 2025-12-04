@@ -23,9 +23,14 @@ top to bottom direction
 package "Repository Layer (Data Access)" {
 
     ' Base Repository Interface (Following DRY principle)
-    interface IEntityModel<T> <<interface>> {
-        +save(entity: T): T
+    interface IBaseModel<T> <<interface>>
+
+    interface IReadModel<T> <<interface>> {
         +findById(id: String): T
+    }
+
+    interface IWriteModel<T> <<interface>> {
+        +save(entity: T): T
         +update(entity: T): T
         +delete(id: String): Boolean
     }
@@ -48,8 +53,6 @@ package "Repository Layer (Data Access)" {
         +findByStatus(status: ActivityStatus): List<Activity>
         +findByDateRange(startDate: Date, endDate: Date): List<Activity>
         +findByType(type: ActivityType): List<Activity>
-        +saveMemento(activityId: String, memento: ActivityMemento): void
-        +getLastMemento(activityId: String): ActivityMemento
     }
 
     interface IBookingModel <<interface>> {
@@ -60,8 +63,6 @@ package "Repository Layer (Data Access)" {
         +update(booking: Booking): Booking
         +delete(bookingId: String): Boolean
         +findByStatus(status: BookingStatus): List<Booking>
-        +saveMemento(bookingId: String, memento: BookingMemento): void
-        +getLastMemento(bookingId: String): BookingMemento
     }
 
     interface INotificationModel <<interface>> {
@@ -99,6 +100,17 @@ package "Repository Layer (Data Access)" {
             +remove(entity: Object): void
             +createQuery(q: String): Query
         }
+    }
+
+    ' Memento Stores (segregated interfaces)
+    interface IActivityMementoStore <<interface>> {
+        +saveMemento(activityId: String, memento: ActivityMemento): void
+        +getLastMemento(activityId: String): ActivityMemento
+    }
+
+    interface IBookingMementoStore <<interface>> {
+        +saveMemento(bookingId: String, memento: BookingMemento): void
+        +getLastMemento(bookingId: String): BookingMemento
     }
 
     package "Domain Entities (JPA)" {
@@ -191,12 +203,14 @@ package "Repository Layer (Data Access)" {
     }
 
     ' Repository Relations Only
-    IEntityModel <|-- IUserModel
-    IEntityModel <|-- IActivityModel
-    IEntityModel <|-- IBookingModel
-    IEntityModel <|-- INotificationModel
-    IEntityModel <|-- IReportModel
-    IEntityModel <|-- IFeedbackModel
+    IReadModel <|-- IBaseModel
+    IWriteModel <|-- IBaseModel
+    IBaseModel <|-- IUserModel
+    IBaseModel <|-- IActivityModel
+    IBaseModel <|-- IBookingModel
+    IBaseModel <|-- INotificationModel
+    IBaseModel <|-- IReportModel
+    IBaseModel <|-- IFeedbackModel
 
     IUserModel <|.. UserModel
     IActivityModel <|.. ActivityModel
@@ -204,6 +218,9 @@ package "Repository Layer (Data Access)" {
     INotificationModel <|.. NotificationModel
     IReportModel <|.. ReportModel
     IFeedbackModel <|.. FeedbackModel
+
+    IActivityMementoStore <|.. ActivityModel
+    IBookingMementoStore <|.. BookingModel
 
     ' JPA usage relations
     UserModel --> EntityManager : uses

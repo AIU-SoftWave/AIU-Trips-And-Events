@@ -90,7 +90,7 @@ package "Controller Layer" {
          IControllerCommand <|.. SendNotificationCommand
          IControllerCommand <|.. GenerateReportCommand
          
-         ControllerCommandInvoker o-- IControllerCommand : uses
+         ControllerCommandInvoker --> IControllerCommand : uses
          RegisterCommand --> IAuthenticationUserManagement : uses
          LoginCommand --> IAuthenticationUserManagement : uses
          CreateEventCommand --> IActivityManagement : uses
@@ -130,10 +130,13 @@ package "Controller Layer" {
         RequestHandler <|-- AuthorizationHandler
         RequestHandler <|-- ValidationHandler
         RequestHandler <|-- RateLimitHandler
+
+        ' Abstract handler wraps itself (chain link)
+        RequestHandler o-- RequestHandler : wraps
     }
     
-     SystemController o-- RequestHandler : uses
-     SystemController o-- ControllerCommandInvoker : uses
+     SystemController --> RequestHandler : uses
+     SystemController --> ControllerCommandInvoker : uses
      
     ' Service Interfaces (from Context Level)
     interface IAuthenticationUserManagement <<interface>> {
