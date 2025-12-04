@@ -37,7 +37,7 @@ services:
       JWT_SECRET: yourSecretKeyForJWTTokenGenerationPleaseChangeInProduction
       JWT_EXPIRATION: 86400000
     ports:
-      - "8081:8080"
+      - "8080:8080"
     depends_on:
       postgres:
         condition: service_healthy
@@ -52,9 +52,9 @@ services:
       dockerfile: Dockerfile
     container_name: aiu-trips-frontend-main
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:8081
+      NEXT_PUBLIC_API_URL: http://localhost:8080
     ports:
-      - "3001:3000"
+      - "3000:3000"
     depends_on:
       - backend
     networks:
