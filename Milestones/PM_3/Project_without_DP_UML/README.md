@@ -1,10 +1,44 @@
-# Design Patterns Implementation Summary
+# AIU Trips and Events Management System
 
 ## Project Overview
 
-This directory contains the implementation of 12 design patterns for the AIU Trips and Events Management System, based on the PlantUML class diagrams in `Milestones/PM_3/Class Diagram/Before DP/`.
+This directory contains the full-stack implementation of the AIU Trips and Events Management System with 12 design patterns, based on the PlantUML class diagrams in `Milestones/PM_3/Class Diagram/Before DP/`.
 
-## Implementation Location
+## 🚀 Quick Start with Docker
+
+The easiest way to run the entire application:
+
+```bash
+# Start all services (frontend, backend, database)
+./start.sh
+
+# Or manually with docker-compose
+docker-compose up -d
+```
+
+**Access the application:**
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8080
+- Database: localhost:5432
+
+**Sample Credentials:**
+- Admin: `admin@aiu.edu` / `admin123`
+- Student: `john.doe@aiu.edu` / `password123`
+- Organizer: `organizer@aiu.edu` / `password123`
+
+📖 **See [DOCKER_SETUP.md](DOCKER_SETUP.md) for complete Docker documentation**
+
+## Architecture
+
+### Stack
+- **Frontend:** Next.js 15, React 19, TypeScript, Tailwind CSS
+- **Backend:** Spring Boot 3.2, Java 17, JPA/Hibernate
+- **Database:** PostgreSQL 16 (Docker) / H2 (Development)
+- **Containerization:** Docker & Docker Compose
+
+## Design Patterns Implementation
+
+### Implementation Location
 
 All design patterns have been implemented in:
 ```
