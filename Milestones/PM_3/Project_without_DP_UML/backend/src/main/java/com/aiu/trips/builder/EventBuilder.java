@@ -39,6 +39,7 @@ public class EventBuilder implements IActivityBuilder {
     
     @Override
     public IActivityBuilder setType(EventType type) {
+        // Type is always EVENT for EventBuilder - parameter ignored for interface compatibility
         this.event.setType(EventType.EVENT);
         return this;
     }

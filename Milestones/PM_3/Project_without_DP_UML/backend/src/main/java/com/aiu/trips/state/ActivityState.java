@@ -1,7 +1,5 @@
 package com.aiu.trips.state;
 
-import com.aiu.trips.model.Event;
-
 /**
  * State Pattern - Interface for Activity states
  * Defines behavior for different lifecycle states of activities

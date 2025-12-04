@@ -39,6 +39,7 @@ public class TripBuilder implements IActivityBuilder {
     
     @Override
     public IActivityBuilder setType(EventType type) {
+        // Type is always TRIP for TripBuilder - parameter ignored for interface compatibility
         this.trip.setType(EventType.TRIP);
         return this;
     }
