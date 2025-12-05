@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Component
 @Order(2)
-@Profile({"dev", "docker"})
+@Profile({"dev", "docker", "!test"})
 public class DatabaseSeeder implements CommandLineRunner {
 
     @Autowired

@@ -5,6 +5,7 @@ import com.aiu.trips.model.User;
 import com.aiu.trips.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Order(1)
+@Profile("!test")
 public class DataInitializer implements CommandLineRunner {
 
     @Autowired

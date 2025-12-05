@@ -11,6 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class UserManagementServiceImpl implements IAuthenticationUserManagement {
 
@@ -39,15 +42,23 @@ public class UserManagementServiceImpl implements IAuthenticationUserManagement 
     }
 
     @Override
-    public String login(String email, String password) {
+    public Map<String, Object> login(String email, String password) {
         User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
         
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+            throw new IllegalArgumentException("Invalid credentials");
         }
         
-        return jwtUtil.generateToken(email, user.getRole().name());
+        String token = jwtUtil.generateToken(email, user.getRole().name());
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("email", user.getEmail());
+        response.put("role", user.getRole().name());
+        response.put("userId", user.getId());
+        
+        return response;
     }
 
     @Override

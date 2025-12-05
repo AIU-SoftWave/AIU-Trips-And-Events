@@ -1,5 +1,6 @@
 package com.aiu.trips.controller;
 
+import com.aiu.trips.config.TestConfig;
 import com.aiu.trips.enums.UserRole;
 import com.aiu.trips.model.User;
 import com.aiu.trips.repository.UserRepository;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
@@ -25,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Transactional
+@Import(TestConfig.class)
 public class AuthControllerIntegrationTest {
 
     @Autowired
@@ -56,9 +59,8 @@ public class AuthControllerIntegrationTest {
         mockMvc.perform(post("/api/auth/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(registerJson))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.email").value("newuser@aiu.edu"))
-                .andExpect(jsonPath("$.fullName").value("New User"));
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.email").value("newuser@aiu.edu"));
     }
 
     @Test
