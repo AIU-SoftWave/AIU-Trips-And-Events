@@ -6,6 +6,7 @@ import com.aiu.trips.enums.BookingStatus;
 import com.aiu.trips.model.Booking;
 import com.aiu.trips.model.Event;
 import com.aiu.trips.repository.*;
+import com.aiu.trips.service.BookingService;
 import com.aiu.trips.service.interfaces.IBookingTicketingSystem;
 import com.aiu.trips.strategy.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class BookingTicketingSystemImpl implements IBookingTicketingSystem {
     @Autowired
     @Qualifier("defaultPricingStrategy")
     private PricingStrategy pricingStrategy;
+
+    @Autowired
+    private BookingService bookingService;
 
     @Override
     public List<ActivityDTO> browseEvents(EventFilterDTO filters) {
@@ -75,6 +79,13 @@ public class BookingTicketingSystemImpl implements IBookingTicketingSystem {
     }
 
     @Override
+    @Transactional
+    public BookingDTO bookEventByEmail(Long eventId, String userEmail) {
+        Booking booking = bookingService.createBooking(eventId, userEmail);
+        return convertToBookingDTO(booking);
+    }
+
+    @Override
     public TicketDTO generateTicket(Long bookingId) {
         // Use Decorator Pattern for ticket service
         return ticketService.generateTicket(bookingId);
@@ -106,5 +117,10 @@ public class BookingTicketingSystemImpl implements IBookingTicketingSystem {
         dto.setStatus(booking.getStatus());
         dto.setBookingDate(booking.getBookingDate());
         return dto;
+    }
+
+    @Override
+    public List<Booking> getUserBookings(String userEmail) {
+        return bookingService.getUserBookings(userEmail);
     }
 }

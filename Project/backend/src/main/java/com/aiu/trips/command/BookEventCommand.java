@@ -15,9 +15,9 @@ public class BookEventCommand implements IControllerCommand {
     @Override
     public ResponseEntity<?> execute(Map<String, Object> requestData) {
         try {
-            Long studentId = Long.valueOf(requestData.get("studentId").toString());
             Long eventId = Long.valueOf(requestData.get("eventId").toString());
-            BookingDTO result = bookingService.bookEvent(studentId, eventId);
+            String userEmail = (String) requestData.get("userEmail");
+            BookingDTO result = bookingService.bookEventByEmail(eventId, userEmail);
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

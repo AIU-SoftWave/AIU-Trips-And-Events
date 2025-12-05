@@ -9,6 +9,7 @@ import com.aiu.trips.enums.ActivityStatus;
 import com.aiu.trips.enums.ActivityType;
 import com.aiu.trips.model.Event;
 import com.aiu.trips.repository.EventRepository;
+import com.aiu.trips.service.EventService;
 import com.aiu.trips.service.interfaces.IActivityManagement;
 import com.aiu.trips.state.ActivityLifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,19 +40,22 @@ public class ActivityManagementServiceImpl implements IActivityManagement {
     @Autowired
     private ActivityLifecycle activityLifecycle;
 
+    @Autowired
+    private EventService eventService;
+
     @Override
     @Transactional
     public ActivityDTO createActivity(ActivityDTO data, ActivityType type) {
         // Use Builder Pattern via Director
         IActivityBuilder builder = (type == ActivityType.EVENT) ? eventBuilder : tripBuilder;
         activityDirector.setBuilder(builder);
-        
+
         ActivityDTO builtActivity = activityDirector.constructFrom(data);
-        
+
         // Convert DTO to Entity and save
         Event entity = convertToEntity(builtActivity);
         entity = eventRepository.save(entity);
-        
+
         return convertToDTO(entity);
     }
 
@@ -59,8 +63,8 @@ public class ActivityManagementServiceImpl implements IActivityManagement {
     @Transactional
     public ActivityDTO updateActivity(Long id, ActivityDTO data) {
         Event entity = eventRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Activity not found: " + id));
-        
+                .orElseThrow(() -> new RuntimeException("Activity not found: " + id));
+
         updateEntityFromDTO(entity, data);
         entity = eventRepository.save(entity);
         return convertToDTO(entity);
@@ -70,8 +74,8 @@ public class ActivityManagementServiceImpl implements IActivityManagement {
     @Transactional
     public void deleteActivity(Long id) {
         Event entity = eventRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Activity not found: " + id));
-        
+                .orElseThrow(() -> new RuntimeException("Activity not found: " + id));
+
         entity.setStatus(com.aiu.trips.enums.EventStatus.CANCELLED);
         eventRepository.save(entity);
     }
@@ -79,14 +83,14 @@ public class ActivityManagementServiceImpl implements IActivityManagement {
     @Override
     public List<ActivityDTO> getAllActivities() {
         return eventRepository.findAll().stream()
-            .map(this::convertToDTO)
-            .collect(Collectors.toList());
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Integer manageCapacity(Long activityId) {
         Event entity = eventRepository.findById(activityId)
-            .orElseThrow(() -> new RuntimeException("Activity not found: " + activityId));
+                .orElseThrow(() -> new RuntimeException("Activity not found: " + activityId));
         return entity.getAvailableSeats();
     }
 
@@ -97,6 +101,7 @@ public class ActivityManagementServiceImpl implements IActivityManagement {
         event.setStartDate(dto.getActivityDate());
         event.setLocation(dto.getLocation());
         event.setCapacity(dto.getCapacity());
+        event.setAvailableSeats(dto.getCapacity()); // Initialize available seats to capacity
         event.setPrice(dto.getPrice() != null ? dto.getPrice().doubleValue() : 0.0);
         event.setType(com.aiu.trips.enums.EventType.valueOf(dto.getType().name()));
         event.setStatus(com.aiu.trips.enums.EventStatus.ACTIVE);
@@ -124,5 +129,10 @@ public class ActivityManagementServiceImpl implements IActivityManagement {
         dto.setPrice(java.math.BigDecimal.valueOf(entity.getPrice()));
         dto.setType(ActivityType.valueOf(entity.getType().name()));
         return dto;
+    }
+
+    @Override
+    public List<Event> getUpcomingEvents() {
+        return eventService.getUpcomingEvents();
     }
 }

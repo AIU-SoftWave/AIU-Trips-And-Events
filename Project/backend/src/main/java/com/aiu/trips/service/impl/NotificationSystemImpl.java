@@ -2,8 +2,10 @@ package com.aiu.trips.service.impl;
 
 import com.aiu.trips.bridge.*;
 import com.aiu.trips.enums.NotificationType;
+import com.aiu.trips.model.Notification;
 import com.aiu.trips.model.User;
 import com.aiu.trips.repository.UserRepository;
+import com.aiu.trips.service.NotificationService;
 import com.aiu.trips.service.interfaces.INotificationSystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,18 +18,21 @@ public class NotificationSystemImpl implements INotificationSystem {
 
     @Autowired
     private UserRepository userRepository;
-    
+
     @Autowired
     private EmailChannel emailChannel;
-    
+
     @Autowired
     private InAppChannel inAppChannel;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     public void sendNotification(Long userId, String message, NotificationType type) {
         User user = userRepository.findById(userId)
-            .orElseThrow(() -> new RuntimeException("User not found"));
-        
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
         // Use Bridge Pattern
         NotificationChannel channel = (type == NotificationType.NEW_EVENT) ? emailChannel : inAppChannel;
         NotificationMessage notificationMessage = createMessage(channel, type, message);
@@ -51,6 +56,21 @@ public class NotificationSystemImpl implements INotificationSystem {
                 inAppChannel.send(user.getEmail(), message);
             }
         });
+    }
+
+    @Override
+    public List<Notification> getUserNotifications(String userEmail) {
+        return notificationService.getUserNotifications(userEmail);
+    }
+
+    @Override
+    public List<Notification> getUnreadNotifications(String userEmail) {
+        return notificationService.getUnreadNotifications(userEmail);
+    }
+
+    @Override
+    public void markAsRead(Long notificationId) {
+        notificationService.markAsRead(notificationId);
     }
 
     private NotificationMessage createMessage(NotificationChannel channel, NotificationType type, String message) {

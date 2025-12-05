@@ -43,14 +43,34 @@ public class BookingController {
         }
     }
 
+    @GetMapping("/my-bookings")
+    public ResponseEntity<?> getMyBookings(HttpServletRequest request) {
+        try {
+            handlerChain.handle(request);
+            // Extract user email from authentication
+            String userEmail = request.getUserPrincipal() != null ? request.getUserPrincipal().getName() : null;
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("userEmail", userEmail);
+
+            IControllerCommand command = new GetUserBookingsCommand(bookingService);
+            commandInvoker.pushToQueue(command);
+            return commandInvoker.executeNext(data);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @PostMapping("/event/{eventId}")
     public ResponseEntity<?> createBooking(@PathVariable Long eventId, HttpServletRequest request) {
         try {
             handlerChain.handle(request);
+            // Extract user email from authentication
+            String userEmail = request.getUserPrincipal() != null ? request.getUserPrincipal().getName() : "guest";
+
             Map<String, Object> data = new HashMap<>();
             data.put("eventId", eventId);
-            // Get user ID from authentication (simplified - would need actual user lookup)
-            data.put("studentId", 1L);
+            data.put("userEmail", userEmail);
 
             IControllerCommand command = new BookEventCommand(bookingService);
             commandInvoker.pushToQueue(command);

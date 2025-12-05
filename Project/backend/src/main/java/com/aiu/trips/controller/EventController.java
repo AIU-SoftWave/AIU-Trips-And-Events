@@ -43,6 +43,18 @@ public class EventController {
         }
     }
 
+    @GetMapping("/upcoming")
+    public ResponseEntity<?> getUpcomingEvents(HttpServletRequest request) {
+        try {
+            handlerChain.handle(request);
+            IControllerCommand command = new GetUpcomingEventsCommand(activityService);
+            commandInvoker.pushToQueue(command);
+            return commandInvoker.executeNext(new HashMap<>());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getEventById(@PathVariable Long id, HttpServletRequest request) {
         try {

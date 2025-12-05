@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -28,6 +29,42 @@ public class NotificationController {
     @Autowired
     @Qualifier("requestHandlerChain")
     private RequestHandler handlerChain;
+
+    @GetMapping
+    public ResponseEntity<?> getNotifications(HttpServletRequest request) {
+        try {
+            handlerChain.handle(request);
+            // Extract user email from authentication
+            String userEmail = request.getUserPrincipal() != null ? request.getUserPrincipal().getName() : null;
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("userEmail", userEmail);
+
+            IControllerCommand command = new GetNotificationsCommand(notificationService);
+            commandInvoker.pushToQueue(command);
+            return commandInvoker.executeNext(data);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/unread")
+    public ResponseEntity<?> getUnreadNotifications(HttpServletRequest request) {
+        try {
+            handlerChain.handle(request);
+            // Extract user email from authentication
+            String userEmail = request.getUserPrincipal() != null ? request.getUserPrincipal().getName() : null;
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("userEmail", userEmail);
+
+            IControllerCommand command = new GetUnreadNotificationsCommand(notificationService);
+            commandInvoker.pushToQueue(command);
+            return commandInvoker.executeNext(data);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     @PostMapping("/send")
     public ResponseEntity<?> sendNotification(@RequestBody Map<String, Object> requestData,
