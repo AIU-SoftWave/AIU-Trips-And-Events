@@ -39,12 +39,11 @@ public class FeedbackService {
         Event event = eventRepository.findById(eventId)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + eventId));
 
-        // Check if user has attended the event
-        Booking booking = bookingRepository.findByUser_IdAndEvent_Id(user.getId(), eventId)
-            .stream()
-            .filter(b -> BookingStatus.ATTENDED.equals(b.getStatus()))
-            .findFirst()
-            .orElseThrow(() -> new ValidationException(AppConstants.MUST_ATTEND_TO_FEEDBACK));
+        // Check if user has booked the event (removed attendance requirement)
+        boolean hasBooked = bookingRepository.existsByUser_IdAndEvent_Id(user.getId(), eventId);
+        if (!hasBooked) {
+            throw new ValidationException("Must book the event before submitting feedback");
+        }
 
         // Check if feedback already exists
         if (feedbackRepository.existsByUser_IdAndEvent_Id(user.getId(), eventId)) {

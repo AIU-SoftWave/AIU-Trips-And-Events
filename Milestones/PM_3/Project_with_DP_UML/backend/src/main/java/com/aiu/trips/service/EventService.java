@@ -1,8 +1,10 @@
 package com.aiu.trips.service;
 
 import com.aiu.trips.constants.AppConstants;
+import com.aiu.trips.enums.ActivityStatus;
 import com.aiu.trips.enums.EventStatus;
 import com.aiu.trips.enums.EventType;
+import com.aiu.trips.enums.NotificationType;
 import com.aiu.trips.exception.ResourceNotFoundException;
 import com.aiu.trips.model.Event;
 import com.aiu.trips.model.User;
@@ -36,7 +38,7 @@ public class EventService {
         // Notify all users about new event
         notificationService.notifyAllUsers(
             "New " + event.getType().name().toLowerCase() + " available: " + event.getTitle(),
-            "INFO"
+            NotificationType.NEW_EVENT
         );
         
         return savedEvent;
@@ -62,7 +64,7 @@ public class EventService {
         notificationService.notifyEventParticipants(
             id,
             "Event updated: " + event.getTitle(),
-            "INFO"
+            NotificationType.EVENT_UPDATE
         );
         
         return updatedEvent;
@@ -72,14 +74,14 @@ public class EventService {
         Event event = eventRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.EVENT_NOT_FOUND + id));
         
-        event.setStatus(EventStatus.CANCELLED);
+        event.setStatus(ActivityStatus.CANCELLED);
         eventRepository.save(event);
         
         // Notify participants about cancellation
         notificationService.notifyEventParticipants(
             id,
             "Event cancelled: " + event.getTitle(),
-            "WARNING"
+            NotificationType.EVENT_UPDATE
         );
     }
 

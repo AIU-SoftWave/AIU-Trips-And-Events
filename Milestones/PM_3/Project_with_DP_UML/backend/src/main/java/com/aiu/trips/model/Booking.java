@@ -104,4 +104,10 @@ public class Booking {
     
     public String getValidatedBy() { return validatedBy; }
     public void setValidatedBy(String validatedBy) { this.validatedBy = validatedBy; }
+    
+    // Backward compatibility methods
+    public Event getEvent() { 
+        return (activity instanceof Event) ? (Event) activity : null; 
+    }
+    public void setEvent(Event event) { this.activity = event; }
 }

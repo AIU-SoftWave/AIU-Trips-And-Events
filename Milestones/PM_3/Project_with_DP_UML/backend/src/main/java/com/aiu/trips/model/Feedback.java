@@ -63,4 +63,10 @@ public class Feedback {
     
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    
+    // Backward compatibility methods
+    public Event getEvent() { 
+        return (activity instanceof Event) ? (Event) activity : null; 
+    }
+    public void setEvent(Event event) { this.activity = event; }
 }
