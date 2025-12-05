@@ -7,6 +7,7 @@ public class ReportFilterDTO {
     private String startDate;
     private String endDate;
     private Long activityId;
+    private Long eventId;
     private String category;
 
     public ReportFilterDTO() {}
@@ -20,6 +21,9 @@ public class ReportFilterDTO {
 
     public Long getActivityId() { return activityId; }
     public void setActivityId(Long activityId) { this.activityId = activityId; }
+
+    public Long getEventId() { return eventId; }
+    public void setEventId(Long eventId) { this.eventId = eventId; }
 
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }

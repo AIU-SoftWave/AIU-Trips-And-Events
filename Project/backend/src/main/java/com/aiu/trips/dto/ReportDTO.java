@@ -3,16 +3,21 @@ package com.aiu.trips.dto;
 import com.aiu.trips.enums.ExportFormat;
 import com.aiu.trips.enums.ReportType;
 
+import java.time.LocalDateTime;
+import java.util.Map;
+
 /**
  * ReportDTO for transferring report data
  */
 public class ReportDTO {
     private Long reportId;
-    private ReportType type;
+    private ReportType reportType;
     private String filePath;
     private String description;
     private ExportFormat format;
     private byte[] data;
+    private Map<String, Object> reportData;
+    private LocalDateTime generatedAt;
 
     public ReportDTO() {}
 
@@ -20,8 +25,8 @@ public class ReportDTO {
     public Long getReportId() { return reportId; }
     public void setReportId(Long reportId) { this.reportId = reportId; }
 
-    public ReportType getType() { return type; }
-    public void setType(ReportType type) { this.type = type; }
+    public ReportType getReportType() { return reportType; }
+    public void setReportType(ReportType reportType) { this.reportType = reportType; }
 
     public String getFilePath() { return filePath; }
     public void setFilePath(String filePath) { this.filePath = filePath; }
@@ -34,4 +39,10 @@ public class ReportDTO {
 
     public byte[] getData() { return data; }
     public void setData(byte[] data) { this.data = data; }
+
+    public Map<String, Object> getReportData() { return reportData; }
+    public void setData(Map<String, Object> reportData) { this.reportData = reportData; }
+
+    public LocalDateTime getGeneratedAt() { return generatedAt; }
+    public void setGeneratedAt(LocalDateTime generatedAt) { this.generatedAt = generatedAt; }
 }

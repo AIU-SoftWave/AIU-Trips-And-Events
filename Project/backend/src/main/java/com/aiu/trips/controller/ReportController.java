@@ -2,10 +2,14 @@ package com.aiu.trips.controller;
 
 import com.aiu.trips.chain.RequestHandler;
 import com.aiu.trips.command.*;
+import com.aiu.trips.enums.ExportFormat;
+import com.aiu.trips.service.ReportService;
 import com.aiu.trips.service.interfaces.IReportsAnalytics;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +29,9 @@ public class ReportController {
 
     @Autowired
     private IReportsAnalytics reportService;
+
+    @Autowired
+    private ReportService reportServiceImpl;
 
     @Autowired
     @Qualifier("requestHandlerChain")
@@ -49,6 +56,85 @@ public class ReportController {
             return ResponseEntity.ok(reportService.getOverallReport());
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Error generating overall report: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/export/overall")
+    public ResponseEntity<byte[]> exportOverallReport(
+            @RequestParam(defaultValue = "PDF") String format,
+            HttpServletRequest request) {
+        try {
+            handlerChain.handle(request);
+            
+            ExportFormat exportFormat = ExportFormat.valueOf(format.toUpperCase());
+            Map<String, Object> reportData = reportServiceImpl.getOverallReport();
+            byte[] exportedData = reportServiceImpl.exportReportData(
+                    reportData, exportFormat, "AIU Trips & Events - Overall Report");
+
+            HttpHeaders headers = new HttpHeaders();
+            String filename = "overall_report_" + System.currentTimeMillis();
+            
+            switch (exportFormat) {
+                case PDF:
+                    headers.setContentType(MediaType.APPLICATION_PDF);
+                    headers.setContentDispositionFormData("attachment", filename + ".pdf");
+                    break;
+                case CSV:
+                    headers.setContentType(MediaType.parseMediaType("text/csv"));
+                    headers.setContentDispositionFormData("attachment", filename + ".csv");
+                    break;
+                case JSON:
+                    headers.setContentType(MediaType.APPLICATION_JSON);
+                    headers.setContentDispositionFormData("attachment", filename + ".json");
+                    break;
+            }
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(exportedData);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .body(("Error exporting report: " + e.getMessage()).getBytes());
+        }
+    }
+
+    @GetMapping("/export/event/{eventId}")
+    public ResponseEntity<byte[]> exportEventReport(
+            @PathVariable Long eventId,
+            @RequestParam(defaultValue = "PDF") String format,
+            HttpServletRequest request) {
+        try {
+            handlerChain.handle(request);
+            
+            ExportFormat exportFormat = ExportFormat.valueOf(format.toUpperCase());
+            Map<String, Object> reportData = reportServiceImpl.getEventReport(eventId);
+            String reportTitle = "Event Report - " + reportData.get("eventTitle");
+            byte[] exportedData = reportServiceImpl.exportReportData(reportData, exportFormat, reportTitle);
+
+            HttpHeaders headers = new HttpHeaders();
+            String filename = "event_" + eventId + "_report_" + System.currentTimeMillis();
+            
+            switch (exportFormat) {
+                case PDF:
+                    headers.setContentType(MediaType.APPLICATION_PDF);
+                    headers.setContentDispositionFormData("attachment", filename + ".pdf");
+                    break;
+                case CSV:
+                    headers.setContentType(MediaType.parseMediaType("text/csv"));
+                    headers.setContentDispositionFormData("attachment", filename + ".csv");
+                    break;
+                case JSON:
+                    headers.setContentType(MediaType.APPLICATION_JSON);
+                    headers.setContentDispositionFormData("attachment", filename + ".json");
+                    break;
+            }
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(exportedData);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .body(("Error exporting event report: " + e.getMessage()).getBytes());
         }
     }
 }
