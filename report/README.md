@@ -27,10 +27,9 @@ This comprehensive report documents the completion of Milestone 3 (PM3) for the 
 
 ## Report Structure
 
-This report is organized into five main sections, each addressing specific deliverable requirements:
+This report is organized into five main sections, each covering a key aspect of the project:
 
 ### 📋 [Section 1: Design Patterns and Functional Requirements](01_design_patterns.md)
-**Deliverable Weight:** 10 marks
 
 Comprehensive documentation of all 11 adopted design patterns and their mapping to functional requirements.
 
@@ -48,7 +47,6 @@ Comprehensive documentation of all 11 adopted design patterns and their mapping 
 ---
 
 ### 🏗️ [Section 2: Class Diagrams Before and After](02_class_diagrams.md)
-**Deliverable Weight:** 20 marks
 
 Visual and detailed comparison of system architecture before and after design pattern implementation.
 
@@ -68,7 +66,6 @@ Visual and detailed comparison of system architecture before and after design pa
 ---
 
 ### 📊 [Section 3: Recomputed Estimates and Charts](03_recomputed_estimates.md)
-**Deliverable Weight:** 10 marks
 
 Detailed analysis of project estimation accuracy and schedule adjustments.
 
@@ -89,7 +86,6 @@ Detailed analysis of project estimation accuracy and schedule adjustments.
 ---
 
 ### 📈 [Section 4: Finalized Project Report](04_project_report.md)
-**Deliverable Weight:** 30 marks
 
 Comprehensive project management report with detailed metrics and analysis.
 
@@ -112,7 +108,6 @@ Comprehensive project management report with detailed metrics and analysis.
 ---
 
 ### 🤖 [Section 5: Vibe Coding Analysis](05_vibe_coding_analysis.md)
-**Deliverable Weight:** 30 marks
 
 Analysis of AI-assisted code generation across two scenarios with comprehensive metrics.
 
@@ -143,16 +138,16 @@ Analysis of AI-assisted code generation across two scenarios with comprehensive 
 
 ## Quick Navigation
 
-### By Deliverable Requirement
+### By Section
 
-| Requirement | Document | Marks | Status |
-|-------------|----------|-------|--------|
-| Design Patterns List | [Section 1](01_design_patterns.md) | 10 | ✅ Complete |
-| Class Diagrams Before/After | [Section 2](02_class_diagrams.md) | 20 | ✅ Complete |
-| Recomputed Estimates & Charts | [Section 3](03_recomputed_estimates.md) | 10 | ✅ Complete |
-| Finalized Project Report | [Section 4](04_project_report.md) | 30 | ✅ Complete |
-| Vibe Coding Analysis | [Section 5](05_vibe_coding_analysis.md) | 30 | ✅ Complete |
-| **Total** | | **100** | **✅ Complete** |
+| Section | Document | Status |
+|-------------|----------|--------|
+| Design Patterns List | [Section 1](01_design_patterns.md) | ✅ Complete |
+| Class Diagrams Before/After | [Section 2](02_class_diagrams.md) | ✅ Complete |
+| Recomputed Estimates & Charts | [Section 3](03_recomputed_estimates.md) | ✅ Complete |
+| Finalized Project Report | [Section 4](04_project_report.md) | ✅ Complete |
+| Vibe Coding Analysis | [Section 5](05_vibe_coding_analysis.md) | ✅ Complete |
+| **Total** | **5 Sections** | **✅ Complete** |
 
 ### By Topic
 
