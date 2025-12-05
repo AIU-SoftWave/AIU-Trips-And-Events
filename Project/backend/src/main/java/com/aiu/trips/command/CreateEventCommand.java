@@ -40,7 +40,25 @@ public class CreateEventCommand implements IControllerCommand {
                     : Integer.parseInt(capacityObj.toString());
             dto.setCapacity(capacity);
         }
+        // Map startDate (frontend sends 'startDate' as ISO string)
+        Object startDateObj = data.get("startDate");
+        if (startDateObj != null) {
+            dto.setActivityDate(parseDateTime(startDateObj.toString()));
+        }
         return dto;
+    }
+
+    private java.time.LocalDateTime parseDateTime(String dateString) {
+        try {
+            // Handle ISO format: "2025-12-12T18:41"
+            if (dateString.contains("T")) {
+                return java.time.LocalDateTime.parse(dateString);
+            }
+            // Fallback for other formats
+            return java.time.LocalDateTime.now();
+        } catch (Exception ignored) {
+            return java.time.LocalDateTime.now();
+        }
     }
 
     private java.math.BigDecimal convertToLong(Object value) {
