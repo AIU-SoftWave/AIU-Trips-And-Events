@@ -1,8 +1,10 @@
 package com.aiu.trips.service;
 
 import com.aiu.trips.constants.AppConstants;
+import com.aiu.trips.enums.ActivityStatus;
 import com.aiu.trips.enums.BookingStatus;
 import com.aiu.trips.enums.EventStatus;
+import com.aiu.trips.enums.NotificationType;
 import com.aiu.trips.exception.BookingException;
 import com.aiu.trips.exception.ResourceNotFoundException;
 import com.aiu.trips.model.Booking;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -62,7 +65,7 @@ public class BookingService {
         booking.setUser(user);
         booking.setEvent(event);
         booking.setBookingCode(UUID.randomUUID().toString());
-        booking.setAmountPaid(event.getPrice());
+        booking.setAmountPaid(event.getPrice().doubleValue());
 
         // Generate QR code
         try {
@@ -79,7 +82,7 @@ public class BookingService {
         notificationService.notifyUser(
             user.getId(),
             "Booking confirmed for: " + event.getTitle(),
-            "SUCCESS"
+            NotificationType.NEW_EVENT
         );
 
         return savedBooking;
@@ -108,7 +111,7 @@ public class BookingService {
         notificationService.notifyUser(
             user.getId(),
             "Booking cancelled for: " + event.getTitle(),
-            "INFO"
+            NotificationType.EVENT_UPDATE
         );
     }
 
@@ -132,8 +135,8 @@ public class BookingService {
         Booking booking = bookingRepository.findByBookingCode(bookingCode)
             .orElseThrow(() -> new ResourceNotFoundException(AppConstants.BOOKING_NOT_FOUND + bookingCode));
 
-        // Check if already validated
-        if (BookingStatus.ATTENDED.equals(booking.getStatus())) {
+        // Check if already validated (use validatedAt instead of status)
+        if (booking.getValidatedAt() != null) {
             throw new BookingException(AppConstants.BOOKING_ALREADY_VALIDATED);
         }
 
@@ -144,12 +147,11 @@ public class BookingService {
 
         // Check if event is active
         Event event = booking.getEvent();
-        if (!EventStatus.ACTIVE.equals(event.getStatus())) {
+        if (!ActivityStatus.UPCOMING.equals(event.getStatus())) {
             throw new BookingException("Event is not active");
         }
 
         // Validate the ticket
-        booking.setStatus(BookingStatus.ATTENDED);
         booking.setValidatedAt(java.time.LocalDateTime.now());
         booking.setValidatedBy(validatedByEmail);
 
@@ -159,7 +161,7 @@ public class BookingService {
         notificationService.notifyUser(
             booking.getUser().getId(),
             "Your ticket for " + event.getTitle() + " has been validated. Enjoy the event!",
-            "SUCCESS"
+            NotificationType.EVENT_UPDATE
         );
 
         return validatedBooking;

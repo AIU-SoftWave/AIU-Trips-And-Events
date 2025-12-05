@@ -1,5 +1,6 @@
 package com.aiu.trips.service;
 
+import com.aiu.trips.enums.NotificationType;
 import com.aiu.trips.model.Booking;
 import com.aiu.trips.model.Notification;
 import com.aiu.trips.model.User;
@@ -23,7 +24,7 @@ public class NotificationService {
     @Autowired
     private BookingRepository bookingRepository;
 
-    public void notifyUser(Long userId, String message, String type) {
+    public void notifyUser(Long userId, String message, NotificationType type) {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -34,7 +35,7 @@ public class NotificationService {
         notificationRepository.save(notification);
     }
 
-    public void notifyAllUsers(String message, String type) {
+    public void notifyAllUsers(String message, NotificationType type) {
         List<User> users = userRepository.findAll();
         users.forEach(user -> {
             Notification notification = new Notification();
@@ -45,7 +46,7 @@ public class NotificationService {
         });
     }
 
-    public void notifyEventParticipants(Long eventId, String message, String type) {
+    public void notifyEventParticipants(Long eventId, String message, NotificationType type) {
         List<Booking> bookings = bookingRepository.findByEvent_Id(eventId);
         bookings.forEach(booking -> {
             Notification notification = new Notification();

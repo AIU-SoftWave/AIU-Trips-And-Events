@@ -1,5 +1,6 @@
 package com.aiu.trips.model;
 
+import com.aiu.trips.enums.NotificationType;
 import jakarta.persistence.*;
 // Lombok temporarily removed due to Java 25 compatibility
 import java.time.LocalDateTime;
@@ -10,7 +11,7 @@ public class Notification {
     
     public Notification() {}
     
-    public Notification(Long id, User user, String message, String type, Boolean isRead, LocalDateTime createdAt) {
+    public Notification(Long id, User user, String message, NotificationType type, Boolean isRead, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.message = message;
@@ -31,7 +32,8 @@ public class Notification {
     private String message;
     
     @Column(nullable = false)
-    private String type; // INFO, WARNING, SUCCESS
+    @Enumerated(EnumType.STRING)
+    private NotificationType type;
     
     @Column
     private Boolean isRead;
@@ -55,8 +57,8 @@ public class Notification {
     public String getMessage() { return message; }
     public void setMessage(String message) { this.message = message; }
     
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public NotificationType getType() { return type; }
+    public void setType(NotificationType type) { this.type = type; }
     
     public Boolean getIsRead() { return isRead; }
     public void setIsRead(Boolean isRead) { this.isRead = isRead; }

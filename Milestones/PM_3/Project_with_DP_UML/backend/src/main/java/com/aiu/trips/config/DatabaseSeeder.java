@@ -1,9 +1,6 @@
 package com.aiu.trips.config;
 
-import com.aiu.trips.enums.BookingStatus;
-import com.aiu.trips.enums.EventStatus;
-import com.aiu.trips.enums.EventType;
-import com.aiu.trips.enums.UserRole;
+import com.aiu.trips.enums.*;
 import com.aiu.trips.model.*;
 import com.aiu.trips.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +10,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -30,7 +29,13 @@ public class DatabaseSeeder implements CommandLineRunner {
     private UserRepository userRepository;
 
     @Autowired
+    private ActivityRepository activityRepository;
+    
+    @Autowired
     private EventRepository eventRepository;
+    
+    @Autowired
+    private TripRepository tripRepository;
 
     @Autowired
     private BookingRepository bookingRepository;
@@ -56,14 +61,14 @@ public class DatabaseSeeder implements CommandLineRunner {
         // Create users
         List<User> users = createUsers();
         
-        // Create events
-        List<Event> events = createEvents(users);
+        // Create events and trips
+        List<Activity> activities = createActivities(users);
         
         // Create bookings
-        createBookings(users, events);
+        createBookings(users, activities);
         
         // Create feedback
-        createFeedback(users, events);
+        createFeedback(users, activities);
         
         // Create notifications
         createNotifications(users);
@@ -125,163 +130,179 @@ public class DatabaseSeeder implements CommandLineRunner {
         return users;
     }
 
-    private List<Event> createEvents(List<User> users) {
-        List<Event> events = new ArrayList<>();
+    private List<Activity> createActivities(List<User> users) {
+        List<Activity> activities = new ArrayList<>();
         User organizer = users.get(4); // The organizer user
 
-        // Event 1 - Tech Conference
+        // Event 1 - AI Conference
         Event event1 = new Event();
-        event1.setTitle("AI and Machine Learning Conference 2025");
+        event1.setName("AI and Machine Learning Conference 2025");
         event1.setDescription("Join us for an exciting conference exploring the latest in AI and ML technologies. Network with industry experts and learn about cutting-edge research.");
-        event1.setType(EventType.EVENT);
-        event1.setStartDate(LocalDateTime.now().plusDays(30));
-        event1.setEndDate(LocalDateTime.now().plusDays(30).plusHours(8));
+        event1.setActivityDate(LocalDateTime.now().plusDays(30));
         event1.setLocation("Main Auditorium, AIU Campus");
-        event1.setPrice(50.0);
+        event1.setPrice(new BigDecimal("50.00"));
         event1.setCapacity(200);
         event1.setAvailableSeats(200);
-        event1.setImageUrl("/images/ai-conference.jpg");
-        event1.setCreatedBy(organizer);
-        event1.setStatus(EventStatus.ACTIVE);
-        events.add(eventRepository.save(event1));
+        event1.setCategory(ActivityCategory.CONFERENCE);
+        event1.setStatus(ActivityStatus.UPCOMING);
+        event1.setOrganizer(organizer);
+        event1.setTopic("Artificial Intelligence and Machine Learning");
+        event1.setVenue("Main Auditorium");
+        event1.setSpeakers(Arrays.asList("Dr. John Smith", "Prof. Emily Chen", "Dr. Robert Johnson"));
+        event1.setAgenda("9:00 AM - Registration\n10:00 AM - Keynote Speech\n12:00 PM - Lunch Break\n2:00 PM - Panel Discussion\n5:00 PM - Closing Remarks");
+        activities.add(eventRepository.save(event1));
 
-        // Event 2 - Mountain Trip
+        // Trip 1 - Mountain Hiking
+        Trip trip1 = new Trip();
+        trip1.setName("Mountain Hiking Adventure");
+        trip1.setDescription("Experience the beauty of nature with a guided hiking trip to the nearby mountains. Suitable for all fitness levels.");
+        trip1.setActivityDate(LocalDateTime.now().plusDays(15));
+        trip1.setLocation("Blue Ridge Mountains");
+        trip1.setPrice(new BigDecimal("150.00"));
+        trip1.setCapacity(50);
+        trip1.setAvailableSeats(50);
+        trip1.setCategory(ActivityCategory.ADVENTURE_TRIP);
+        trip1.setStatus(ActivityStatus.UPCOMING);
+        trip1.setOrganizer(organizer);
+        trip1.setDestination("Blue Ridge Mountains");
+        trip1.setDurationDays(3);
+        trip1.setTransportMode("Bus");
+        trip1.setStartLocation("AIU Campus");
+        trip1.setEndLocation("Blue Ridge Mountains");
+        trip1.setItinerary("Day 1: Travel and setup\nDay 2: Mountain hiking\nDay 3: Return journey");
+        activities.add(tripRepository.save(trip1));
+
+        // Event 2 - Career Fair
         Event event2 = new Event();
-        event2.setTitle("Mountain Hiking Adventure");
-        event2.setDescription("Experience the beauty of nature with a guided hiking trip to the nearby mountains. Suitable for all fitness levels.");
-        event2.setType(EventType.TRIP);
-        event2.setStartDate(LocalDateTime.now().plusDays(15));
-        event2.setEndDate(LocalDateTime.now().plusDays(17));
-        event2.setLocation("Blue Ridge Mountains");
-        event2.setPrice(150.0);
-        event2.setCapacity(50);
-        event2.setAvailableSeats(50);
-        event2.setImageUrl("/images/mountain-trip.jpg");
-        event2.setCreatedBy(organizer);
-        event2.setStatus(EventStatus.ACTIVE);
-        events.add(eventRepository.save(event2));
+        event2.setName("Annual Career Fair 2025");
+        event2.setDescription("Meet with top employers and explore career opportunities. Bring your resume and be ready to network!");
+        event2.setActivityDate(LocalDateTime.now().plusDays(45));
+        event2.setLocation("Student Center, Hall A");
+        event2.setPrice(new BigDecimal("0.00"));
+        event2.setCapacity(300);
+        event2.setAvailableSeats(300);
+        event2.setCategory(ActivityCategory.SEMINAR);
+        event2.setStatus(ActivityStatus.UPCOMING);
+        event2.setOrganizer(organizer);
+        event2.setTopic("Career Development and Job Opportunities");
+        event2.setVenue("Student Center, Hall A");
+        event2.setSpeakers(Arrays.asList("HR Manager - Tech Corp", "Recruiter - Finance Inc"));
+        event2.setAgenda("10:00 AM - Opening\n11:00 AM - Company Booths Open\n3:00 PM - Interview Sessions\n6:00 PM - Closing");
+        activities.add(eventRepository.save(event2));
 
-        // Event 3 - Career Fair
+        // Trip 2 - Beach Getaway
+        Trip trip2 = new Trip();
+        trip2.setName("Summer Beach Getaway");
+        trip2.setDescription("Relax and unwind at the beautiful coastal beaches. Includes accommodation, meals, and beach activities.");
+        trip2.setActivityDate(LocalDateTime.now().plusDays(60));
+        trip2.setLocation("Sunny Beach Resort");
+        trip2.setPrice(new BigDecimal("250.00"));
+        trip2.setCapacity(40);
+        trip2.setAvailableSeats(40);
+        trip2.setCategory(ActivityCategory.FIELD_TRIP);
+        trip2.setStatus(ActivityStatus.UPCOMING);
+        trip2.setOrganizer(organizer);
+        trip2.setDestination("Sunny Beach Resort");
+        trip2.setDurationDays(4);
+        trip2.setTransportMode("Bus");
+        trip2.setStartLocation("AIU Campus");
+        trip2.setEndLocation("Sunny Beach Resort");
+        trip2.setItinerary("Day 1: Travel to resort\nDay 2-3: Beach activities\nDay 4: Return journey");
+        activities.add(tripRepository.save(trip2));
+
+        // Event 3 - Web Development Workshop
         Event event3 = new Event();
-        event3.setTitle("Annual Career Fair 2025");
-        event3.setDescription("Meet with top employers and explore career opportunities. Bring your resume and be ready to network!");
-        event3.setType(EventType.EVENT);
-        event3.setStartDate(LocalDateTime.now().plusDays(45));
-        event3.setEndDate(LocalDateTime.now().plusDays(45).plusHours(6));
-        event3.setLocation("Student Center, Hall A");
-        event3.setPrice(0.0);
-        event3.setCapacity(300);
-        event3.setAvailableSeats(300);
-        event3.setImageUrl("/images/career-fair.jpg");
-        event3.setCreatedBy(organizer);
-        event3.setStatus(EventStatus.ACTIVE);
-        events.add(eventRepository.save(event3));
+        event3.setName("Web Development Workshop");
+        event3.setDescription("Learn modern web development with React, Node.js, and TypeScript. Hands-on coding sessions included.");
+        event3.setActivityDate(LocalDateTime.now().plusDays(20));
+        event3.setLocation("Computer Lab 301");
+        event3.setPrice(new BigDecimal("75.00"));
+        event3.setCapacity(30);
+        event3.setAvailableSeats(30);
+        event3.setCategory(ActivityCategory.SEMINAR);
+        event3.setStatus(ActivityStatus.UPCOMING);
+        event3.setOrganizer(organizer);
+        event3.setTopic("Modern Web Development");
+        event3.setVenue("Computer Lab 301");
+        event3.setSpeakers(Arrays.asList("Senior Developer - WebTech"));
+        event3.setAgenda("1:00 PM - Introduction\n2:00 PM - React Basics\n3:00 PM - Node.js Overview\n4:00 PM - Hands-on Project");
+        activities.add(eventRepository.save(event3));
 
-        // Event 4 - Beach Trip
+        // Event 4 - Cultural Festival
         Event event4 = new Event();
-        event4.setTitle("Summer Beach Getaway");
-        event4.setDescription("Relax and unwind at the beautiful coastal beaches. Includes accommodation, meals, and beach activities.");
-        event4.setType(EventType.TRIP);
-        event4.setStartDate(LocalDateTime.now().plusDays(60));
-        event4.setEndDate(LocalDateTime.now().plusDays(63));
-        event4.setLocation("Sunny Beach Resort");
-        event4.setPrice(250.0);
-        event4.setCapacity(40);
-        event4.setAvailableSeats(40);
-        event4.setImageUrl("/images/beach-trip.jpg");
-        event4.setCreatedBy(organizer);
-        event4.setStatus(EventStatus.ACTIVE);
-        events.add(eventRepository.save(event4));
+        event4.setName("International Cultural Festival");
+        event4.setDescription("Celebrate diversity with food, music, and performances from around the world. Free admission!");
+        event4.setActivityDate(LocalDateTime.now().plusDays(10));
+        event4.setLocation("Campus Green");
+        event4.setPrice(new BigDecimal("0.00"));
+        event4.setCapacity(500);
+        event4.setAvailableSeats(500);
+        event4.setCategory(ActivityCategory.CULTURAL_VISIT);
+        event4.setStatus(ActivityStatus.UPCOMING);
+        event4.setOrganizer(organizer);
+        event4.setTopic("Cultural Diversity and Heritage");
+        event4.setVenue("Campus Green");
+        event4.setSpeakers(Arrays.asList("Cultural Ambassador", "International Students Association"));
+        event4.setAgenda("12:00 PM - Opening Ceremony\n1:00 PM - Food Stalls\n3:00 PM - Cultural Performances\n8:00 PM - Closing");
+        activities.add(eventRepository.save(event4));
 
-        // Event 5 - Workshop
-        Event event5 = new Event();
-        event5.setTitle("Web Development Workshop");
-        event5.setDescription("Learn modern web development with React, Node.js, and TypeScript. Hands-on coding sessions included.");
-        event5.setType(EventType.EVENT);
-        event5.setStartDate(LocalDateTime.now().plusDays(20));
-        event5.setEndDate(LocalDateTime.now().plusDays(20).plusHours(4));
-        event5.setLocation("Computer Lab 301");
-        event5.setPrice(75.0);
-        event5.setCapacity(30);
-        event5.setAvailableSeats(30);
-        event5.setImageUrl("/images/web-workshop.jpg");
-        event5.setCreatedBy(organizer);
-        event5.setStatus(EventStatus.ACTIVE);
-        events.add(eventRepository.save(event5));
-
-        // Event 6 - Cultural Festival
-        Event event6 = new Event();
-        event6.setTitle("International Cultural Festival");
-        event6.setDescription("Celebrate diversity with food, music, and performances from around the world. Free admission!");
-        event6.setType(EventType.EVENT);
-        event6.setStartDate(LocalDateTime.now().plusDays(10));
-        event6.setEndDate(LocalDateTime.now().plusDays(10).plusHours(8));
-        event6.setLocation("Campus Green");
-        event6.setPrice(0.0);
-        event6.setCapacity(500);
-        event6.setAvailableSeats(500);
-        event6.setImageUrl("/images/cultural-festival.jpg");
-        event6.setCreatedBy(organizer);
-        event6.setStatus(EventStatus.ACTIVE);
-        events.add(eventRepository.save(event6));
-
-        System.out.println("Created " + events.size() + " events");
-        return events;
+        System.out.println("Created " + activities.size() + " activities (events and trips)");
+        return activities;
     }
 
-    private void createBookings(List<User> users, List<Event> events) {
+    private void createBookings(List<User> users, List<Activity> activities) {
         List<Booking> bookings = new ArrayList<>();
 
         // Student 1 bookings
         Booking booking1 = new Booking();
         booking1.setUser(users.get(0));
-        booking1.setEvent(events.get(0));
+        booking1.setActivity(activities.get(0));
         booking1.setBookingCode("BK-" + System.currentTimeMillis() + "-1");
         booking1.setStatus(BookingStatus.CONFIRMED);
-        booking1.setAmountPaid(events.get(0).getPrice());
+        booking1.setAmountPaid(activities.get(0).getPrice().doubleValue());
         bookings.add(bookingRepository.save(booking1));
 
         // Update available seats
-        Event event = events.get(0);
-        event.setAvailableSeats(event.getAvailableSeats() - 1);
-        eventRepository.save(event);
+        Activity activity = activities.get(0);
+        activity.setAvailableSeats(activity.getAvailableSeats() - 1);
+        activityRepository.save(activity);
 
         // Student 2 bookings
         Booking booking2 = new Booking();
         booking2.setUser(users.get(1));
-        booking2.setEvent(events.get(1));
+        booking2.setActivity(activities.get(1));
         booking2.setBookingCode("BK-" + System.currentTimeMillis() + "-2");
         booking2.setStatus(BookingStatus.CONFIRMED);
-        booking2.setAmountPaid(events.get(1).getPrice());
+        booking2.setAmountPaid(activities.get(1).getPrice().doubleValue());
         bookings.add(bookingRepository.save(booking2));
 
-        event = events.get(1);
-        event.setAvailableSeats(event.getAvailableSeats() - 1);
-        eventRepository.save(event);
+        activity = activities.get(1);
+        activity.setAvailableSeats(activity.getAvailableSeats() - 1);
+        activityRepository.save(activity);
 
         // Student 3 bookings
         Booking booking3 = new Booking();
         booking3.setUser(users.get(2));
-        booking3.setEvent(events.get(2));
+        booking3.setActivity(activities.get(2));
         booking3.setBookingCode("BK-" + System.currentTimeMillis() + "-3");
         booking3.setStatus(BookingStatus.CONFIRMED);
-        booking3.setAmountPaid(events.get(2).getPrice());
+        booking3.setAmountPaid(activities.get(2).getPrice().doubleValue());
         bookings.add(bookingRepository.save(booking3));
 
-        event = events.get(2);
-        event.setAvailableSeats(event.getAvailableSeats() - 1);
-        eventRepository.save(event);
+        activity = activities.get(2);
+        activity.setAvailableSeats(activity.getAvailableSeats() - 1);
+        activityRepository.save(activity);
 
         System.out.println("Created " + bookings.size() + " bookings");
     }
 
-    private void createFeedback(List<User> users, List<Event> events) {
+    private void createFeedback(List<User> users, List<Activity> activities) {
         List<Feedback> feedbackList = new ArrayList<>();
 
         // Feedback 1
         Feedback feedback1 = new Feedback();
         feedback1.setUser(users.get(0));
-        feedback1.setEvent(events.get(0));
+        feedback1.setActivity(activities.get(0));
         feedback1.setRating(5);
         feedback1.setComment("Excellent conference! Learned a lot about AI and ML. The speakers were very knowledgeable.");
         feedbackList.add(feedbackRepository.save(feedback1));
@@ -289,7 +310,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         // Feedback 2
         Feedback feedback2 = new Feedback();
         feedback2.setUser(users.get(1));
-        feedback2.setEvent(events.get(1));
+        feedback2.setActivity(activities.get(1));
         feedback2.setRating(4);
         feedback2.setComment("Great hiking experience. The views were breathtaking. Would recommend to everyone!");
         feedbackList.add(feedbackRepository.save(feedback2));
@@ -297,7 +318,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         // Feedback 3
         Feedback feedback3 = new Feedback();
         feedback3.setUser(users.get(2));
-        feedback3.setEvent(events.get(2));
+        feedback3.setActivity(activities.get(2));
         feedback3.setRating(5);
         feedback3.setComment("Amazing career fair! Met with several companies and got two job interviews.");
         feedbackList.add(feedbackRepository.save(feedback3));
@@ -313,7 +334,7 @@ public class DatabaseSeeder implements CommandLineRunner {
             Notification notification = new Notification();
             notification.setUser(users.get(i));
             notification.setMessage("Welcome to AIU Trips and Events! Explore upcoming events and trips.");
-            notification.setType("INFO");
+            notification.setType(NotificationType.NEW_EVENT);
             notification.setIsRead(false);
             notifications.add(notificationRepository.save(notification));
         }
@@ -322,7 +343,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         Notification reminder = new Notification();
         reminder.setUser(users.get(0));
         reminder.setMessage("Reminder: AI and Machine Learning Conference starts in 30 days!");
-        reminder.setType("INFO");
+        reminder.setType(NotificationType.REMINDER);
         reminder.setIsRead(false);
         notifications.add(notificationRepository.save(reminder));
 

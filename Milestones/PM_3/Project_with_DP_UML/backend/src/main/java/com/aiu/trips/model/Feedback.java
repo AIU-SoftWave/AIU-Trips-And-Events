@@ -10,10 +10,10 @@ public class Feedback {
     
     public Feedback() {}
     
-    public Feedback(Long id, User user, Event event, Integer rating, String comment, LocalDateTime createdAt) {
+    public Feedback(Long id, User user, Activity activity, Integer rating, String comment, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
-        this.event = event;
+        this.activity = activity;
         this.rating = rating;
         this.comment = comment;
         this.createdAt = createdAt;
@@ -28,8 +28,8 @@ public class Feedback {
     private User user;
     
     @ManyToOne
-    @JoinColumn(name = "event_id", nullable = false)
-    private Event event;
+    @JoinColumn(name = "activity_id", nullable = false)
+    private Activity activity;
     
     @Column(nullable = false)
     private Integer rating; // 1-5 stars
@@ -52,8 +52,8 @@ public class Feedback {
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
     
-    public Event getEvent() { return event; }
-    public void setEvent(Event event) { this.event = event; }
+    public Activity getActivity() { return activity; }
+    public void setActivity(Activity activity) { this.activity = activity; }
     
     public Integer getRating() { return rating; }
     public void setRating(Integer rating) { this.rating = rating; }
@@ -63,4 +63,10 @@ public class Feedback {
     
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    
+    // Backward compatibility methods
+    public Event getEvent() { 
+        return (activity instanceof Event) ? (Event) activity : null; 
+    }
+    public void setEvent(Event event) { this.activity = event; }
 }
