@@ -1,9 +1,16 @@
 package com.aiu.trips.service;
 
+import com.aiu.trips.dto.FeedbackDTO;
+import com.aiu.trips.dto.ReportDTO;
+import com.aiu.trips.dto.ReportFilterDTO;
+import com.aiu.trips.dto.SystemStatisticsDTO;
+import com.aiu.trips.enums.ExportFormat;
+import com.aiu.trips.enums.ReportType;
 import com.aiu.trips.model.Booking;
 import com.aiu.trips.model.Event;
 import com.aiu.trips.repository.BookingRepository;
 import com.aiu.trips.repository.EventRepository;
+import com.aiu.trips.service.interfaces.IReportsAnalytics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ReportService {
+public class ReportService implements IReportsAnalytics {
 
     @Autowired
     private EventRepository eventRepository;
@@ -63,5 +70,28 @@ public class ReportService {
             .count());
 
         return report;
+    }
+
+    @Override
+    public ReportDTO generateReport(ReportType reportType, ReportFilterDTO filters, ExportFormat format) {
+        // Placeholder implementation
+        return new ReportDTO();
+    }
+
+    @Override
+    public byte[] exportReport(Long reportId, ExportFormat format) {
+        // Placeholder implementation
+        return new byte[0];
+    }
+
+    @Override
+    public SystemStatisticsDTO getStatistics() {
+        // Placeholder implementation
+        return new SystemStatisticsDTO();
+    }
+
+    @Override
+    public void collectFeedback(FeedbackDTO feedbackData) {
+        // Placeholder implementation
     }
 }

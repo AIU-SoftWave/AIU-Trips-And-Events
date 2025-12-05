@@ -3,13 +3,11 @@ package com.aiu.trips.decorator;
 import com.aiu.trips.dto.TicketDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 /**
  * AuditLogDecorator as per Booking_Ticketing.pu diagram
  * Decorator Pattern - Adds audit logging to ticket operations
  */
-@Component
 public class AuditLogDecorator extends TicketServiceDecorator {
 
     private static final Logger logger = LoggerFactory.getLogger(AuditLogDecorator.class);

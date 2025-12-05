@@ -5,6 +5,7 @@ import com.aiu.trips.command.*;
 import com.aiu.trips.service.interfaces.IActivityManagement;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class EventController {
     private IActivityManagement activityService;
 
     @Autowired
+    @Qualifier("requestHandlerChain")
     private RequestHandler handlerChain;
 
     @GetMapping

@@ -1,7 +1,6 @@
 package com.aiu.trips.decorator;
 
 import com.aiu.trips.dto.TicketDTO;
-import org.springframework.stereotype.Component;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
@@ -10,7 +9,6 @@ import java.util.Base64;
  * SignedQrDecorator as per Booking_Ticketing.pu diagram
  * Decorator Pattern - Adds digital signature to QR codes
  */
-@Component
 public class SignedQrDecorator extends TicketServiceDecorator {
 
     private final String secretKey;

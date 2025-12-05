@@ -9,6 +9,7 @@ import com.aiu.trips.repository.*;
 import com.aiu.trips.service.interfaces.IBookingTicketingSystem;
 import com.aiu.trips.strategy.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,7 @@ public class BookingTicketingSystemImpl implements IBookingTicketingSystem {
     private ITicketService ticketService;
     
     @Autowired
+    @Qualifier("defaultPricingStrategy")
     private PricingStrategy pricingStrategy;
 
     @Override

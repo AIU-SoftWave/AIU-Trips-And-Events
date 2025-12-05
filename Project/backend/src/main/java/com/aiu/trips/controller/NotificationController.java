@@ -5,6 +5,7 @@ import com.aiu.trips.command.*;
 import com.aiu.trips.service.interfaces.INotificationSystem;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ public class NotificationController {
     private INotificationSystem notificationService;
 
     @Autowired
+    @Qualifier("requestHandlerChain")
     private RequestHandler handlerChain;
 
     @PostMapping("/send")
