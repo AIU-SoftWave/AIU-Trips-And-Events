@@ -12,7 +12,12 @@ import com.aiu.trips.enums.ReportType;
  */
 public interface IReportsAnalytics {
     ReportDTO generateReport(ReportType reportType, ReportFilterDTO filters, ExportFormat format);
+
     byte[] exportReport(Long reportId, ExportFormat format);
+
     SystemStatisticsDTO getStatistics();
+
     void collectFeedback(FeedbackDTO feedbackData);
+
+    java.util.Map<String, Object> getOverallReport();
 }

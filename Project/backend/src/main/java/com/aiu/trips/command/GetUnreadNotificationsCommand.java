@@ -1,5 +1,6 @@
-package main.java.com.aiu.trips.command;
+package com.aiu.trips.command;
 
+import com.aiu.trips.command.IControllerCommand;
 import com.aiu.trips.service.interfaces.INotificationSystem;
 import org.springframework.http.ResponseEntity;
 import java.util.Map;

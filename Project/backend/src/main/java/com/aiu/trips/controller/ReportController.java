@@ -17,7 +17,7 @@ import java.util.Map;
  * operations
  */
 @RestController
-@RequestMapping("/api/reports")
+@RequestMapping("/api/admin/reports")
 public class ReportController {
 
     @Autowired
@@ -39,6 +39,16 @@ public class ReportController {
             return commandInvoker.executeNext(requestData);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/overall")
+    public ResponseEntity<?> getOverallReport(HttpServletRequest request) {
+        try {
+            handlerChain.handle(request);
+            return ResponseEntity.ok(reportService.getOverallReport());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Error generating overall report: " + e.getMessage());
         }
     }
 }

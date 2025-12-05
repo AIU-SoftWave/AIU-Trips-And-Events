@@ -28,9 +28,32 @@ public class CreateEventCommand implements IControllerCommand {
 
     private ActivityDTO mapToActivityDTO(Map<String, Object> data) {
         ActivityDTO dto = new ActivityDTO();
-        dto.setName((String) data.get("name"));
+        // Map title as name (frontend sends 'title', backend expects 'name')
+        dto.setName((String) data.getOrDefault("title", data.get("name")));
         dto.setDescription((String) data.get("description"));
         dto.setLocation((String) data.get("location"));
+        dto.setPrice(convertToLong(data.get("price")));
+        // Set capacity for available seats initialization
+        Object capacityObj = data.get("capacity");
+        if (capacityObj != null) {
+            int capacity = (capacityObj instanceof Integer integer) ? integer
+                    : Integer.parseInt(capacityObj.toString());
+            dto.setCapacity(capacity);
+        }
         return dto;
+    }
+
+    private java.math.BigDecimal convertToLong(Object value) {
+        if (value == null)
+            return java.math.BigDecimal.ZERO;
+        if (value instanceof java.math.BigDecimal bd)
+            return bd;
+        if (value instanceof Long l)
+            return java.math.BigDecimal.valueOf(l);
+        if (value instanceof Integer i)
+            return java.math.BigDecimal.valueOf(i.longValue());
+        if (value instanceof Double d)
+            return java.math.BigDecimal.valueOf(d);
+        return new java.math.BigDecimal(value.toString());
     }
 }
