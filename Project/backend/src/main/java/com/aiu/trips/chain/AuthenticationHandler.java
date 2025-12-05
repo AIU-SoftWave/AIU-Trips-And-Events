@@ -31,7 +31,12 @@ public class AuthenticationHandler extends RequestHandler {
         }
 
         String token = authHeader.substring(7);
-        if (!jwtUtil.validateToken(token)) {
+        try {
+            String email = jwtUtil.extractEmail(token);
+            if (!jwtUtil.validateToken(token, email)) {
+                throw new SecurityException("Invalid or expired token");
+            }
+        } catch (Exception e) {
             throw new SecurityException("Invalid or expired token");
         }
 
