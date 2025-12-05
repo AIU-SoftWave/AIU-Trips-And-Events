@@ -13,7 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * ReportController - Uses Command Pattern and Chain of Responsibility for all operations
+ * ReportController - Uses Command Pattern and Chain of Responsibility for all
+ * operations
  */
 @RestController
 @RequestMapping("/api/reports")

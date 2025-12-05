@@ -14,7 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * EventController - Uses Command Pattern and Chain of Responsibility for all operations
+ * EventController - Uses Command Pattern and Chain of Responsibility for all
+ * operations
  */
 @RestController
 @RequestMapping("/api/events")
@@ -66,7 +67,8 @@ public class EventController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateEvent(@PathVariable Long id, @RequestBody Map<String, Object> eventData, HttpServletRequest request) {
+    public ResponseEntity<?> updateEvent(@PathVariable Long id, @RequestBody Map<String, Object> eventData,
+            HttpServletRequest request) {
         try {
             handlerChain.handle(request);
             eventData.put("id", id);

@@ -42,7 +42,7 @@ public class SystemController {
         try {
             // Use Chain of Responsibility
             handlerChain.handle(request);
-            
+
             // Use Command Pattern
             IControllerCommand command = new RegisterCommand(authService);
             commandInvoker.pushToQueue(command);

@@ -29,7 +29,7 @@ public class ReportService implements IReportsAnalytics {
 
     public Map<String, Object> getEventReport(Long eventId) {
         Event event = eventRepository.findById(eventId)
-            .orElseThrow(() -> new RuntimeException("Event not found"));
+                .orElseThrow(() -> new RuntimeException("Event not found"));
 
         List<Booking> bookings = bookingRepository.findByEvent_Id(eventId);
 
@@ -41,12 +41,12 @@ public class ReportService implements IReportsAnalytics {
         report.put("bookedSeats", event.getCapacity() - event.getAvailableSeats());
         report.put("totalParticipants", bookings.size());
         report.put("totalIncome", bookings.stream()
-            .filter(b -> "CONFIRMED".equals(b.getStatus()))
-            .mapToDouble(Booking::getAmountPaid)
-            .sum());
+                .filter(b -> "CONFIRMED".equals(b.getStatus()))
+                .mapToDouble(Booking::getAmountPaid)
+                .sum());
         report.put("cancelledBookings", bookings.stream()
-            .filter(b -> "CANCELLED".equals(b.getStatus()))
-            .count());
+                .filter(b -> "CANCELLED".equals(b.getStatus()))
+                .count());
 
         return report;
     }
@@ -59,15 +59,15 @@ public class ReportService implements IReportsAnalytics {
         report.put("totalEvents", events.size());
         report.put("totalBookings", bookings.size());
         report.put("totalIncome", bookings.stream()
-            .filter(b -> "CONFIRMED".equals(b.getStatus()))
-            .mapToDouble(Booking::getAmountPaid)
-            .sum());
+                .filter(b -> "CONFIRMED".equals(b.getStatus()))
+                .mapToDouble(Booking::getAmountPaid)
+                .sum());
         report.put("activeEvents", events.stream()
-            .filter(e -> "ACTIVE".equals(e.getStatus()))
-            .count());
+                .filter(e -> "ACTIVE".equals(e.getStatus()))
+                .count());
         report.put("completedEvents", events.stream()
-            .filter(e -> "COMPLETED".equals(e.getStatus()))
-            .count());
+                .filter(e -> "COMPLETED".equals(e.getStatus()))
+                .count());
 
         return report;
     }

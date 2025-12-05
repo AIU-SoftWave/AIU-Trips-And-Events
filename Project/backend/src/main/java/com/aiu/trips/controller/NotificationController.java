@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * NotificationController - Uses Command Pattern and Chain of Responsibility for all operations
+ * NotificationController - Uses Command Pattern and Chain of Responsibility for
+ * all operations
  */
 @RestController
 @RequestMapping("/api/notifications")
@@ -29,7 +30,8 @@ public class NotificationController {
     private RequestHandler handlerChain;
 
     @PostMapping("/send")
-    public ResponseEntity<?> sendNotification(@RequestBody Map<String, Object> requestData, HttpServletRequest request) {
+    public ResponseEntity<?> sendNotification(@RequestBody Map<String, Object> requestData,
+            HttpServletRequest request) {
         try {
             handlerChain.handle(request);
             IControllerCommand command = new SendNotificationCommand(notificationService);

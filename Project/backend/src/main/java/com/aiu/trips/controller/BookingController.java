@@ -14,7 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * BookingController - Uses Command Pattern and Chain of Responsibility for all operations
+ * BookingController - Uses Command Pattern and Chain of Responsibility for all
+ * operations
  */
 @RestController
 @RequestMapping("/api/bookings")
@@ -50,7 +51,7 @@ public class BookingController {
             data.put("eventId", eventId);
             // Get user ID from authentication (simplified - would need actual user lookup)
             data.put("studentId", 1L);
-            
+
             IControllerCommand command = new BookEventCommand(bookingService);
             commandInvoker.pushToQueue(command);
             return commandInvoker.executeNext(data);

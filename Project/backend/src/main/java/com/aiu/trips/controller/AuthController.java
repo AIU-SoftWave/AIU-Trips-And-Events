@@ -33,7 +33,7 @@ public class AuthController {
         try {
             // Use Chain of Responsibility
             handlerChain.handle(request);
-            
+
             // Use Command Pattern
             IControllerCommand command = new RegisterCommand(authService);
             commandInvoker.pushToQueue(command);
@@ -47,7 +47,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody Map<String, Object> requestData, HttpServletRequest request) {
         try {
             handlerChain.handle(request);
-            
+
             IControllerCommand command = new LoginCommand(authService);
             commandInvoker.pushToQueue(command);
             return commandInvoker.executeNext(requestData);
