@@ -12,10 +12,10 @@ public class Booking {
     
     public Booking() {}
     
-    public Booking(Long id, User user, Event event, String bookingCode, BookingStatus status, LocalDateTime bookingDate, String qrCodePath, Double amountPaid, PaymentMethod paymentMethod, LocalDateTime validatedAt, String validatedBy) {
+    public Booking(Long id, User user, Activity activity, String bookingCode, BookingStatus status, LocalDateTime bookingDate, String qrCodePath, Double amountPaid, PaymentMethod paymentMethod, LocalDateTime validatedAt, String validatedBy) {
         this.id = id;
         this.user = user;
-        this.event = event;
+        this.activity = activity;
         this.bookingCode = bookingCode;
         this.status = status;
         this.bookingDate = bookingDate;
@@ -35,8 +35,8 @@ public class Booking {
     private User user;
     
     @ManyToOne
-    @JoinColumn(name = "event_id", nullable = false)
-    private Event event;
+    @JoinColumn(name = "activity_id", nullable = false)
+    private Activity activity;
     
     @Column(unique = true, nullable = false)
     private String bookingCode;
@@ -78,8 +78,8 @@ public class Booking {
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
     
-    public Event getEvent() { return event; }
-    public void setEvent(Event event) { this.event = event; }
+    public Activity getActivity() { return activity; }
+    public void setActivity(Activity activity) { this.activity = activity; }
     
     public String getBookingCode() { return bookingCode; }
     public void setBookingCode(String bookingCode) { this.bookingCode = bookingCode; }

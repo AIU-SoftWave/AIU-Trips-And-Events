@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
-    List<Feedback> findByEvent_Id(Long eventId);
+    List<Feedback> findByActivity_ActivityId(Long activityId);
     List<Feedback> findByUser_Id(Long userId);
-    boolean existsByUser_IdAndEvent_Id(Long userId, Long eventId);
+    boolean existsByUser_IdAndActivity_ActivityId(Long userId, Long activityId);
 }
