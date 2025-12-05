@@ -5,6 +5,7 @@ Complete documentation for the design patterns implementation in the AIU Trips &
 ## 📚 Documentation Index
 
 ### Quick Start
+- **[Controller Architecture](CONTROLLER_ARCHITECTURE.md)** - **NEW** - Complete controller organization, no duplication
 - **[PlantUML to Code Mapping](PLANTUML_TO_CODE_MAPPING.md)** - **START HERE** - Complete mapping from PlantUML diagrams to code implementation
 - **[Pattern Usage Guide](PATTERN_USAGE_GUIDE.md)** - Practical examples and curl commands for testing
 
