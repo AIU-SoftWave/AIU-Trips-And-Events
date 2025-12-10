@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Component
 @Order(2)
-@Profile({"dev", "docker"})
+@Profile({"dev", "docker", "!test"})
 public class DatabaseSeeder implements CommandLineRunner {
 
     @Autowired
@@ -139,10 +139,10 @@ public class DatabaseSeeder implements CommandLineRunner {
         event1.setLocation("Main Auditorium, AIU Campus");
         event1.setPrice(50.0);
         event1.setCapacity(200);
-        event1.setAvailableSeats(200);
+        // availableSeats will be set by @PrePersist
         event1.setImageUrl("/images/ai-conference.jpg");
         event1.setCreatedBy(organizer);
-        event1.setStatus(EventStatus.ACTIVE);
+        // status will be set by @PrePersist
         events.add(eventRepository.save(event1));
 
         // Event 2 - Mountain Trip
@@ -155,10 +155,10 @@ public class DatabaseSeeder implements CommandLineRunner {
         event2.setLocation("Blue Ridge Mountains");
         event2.setPrice(150.0);
         event2.setCapacity(50);
-        event2.setAvailableSeats(50);
+        // availableSeats will be set by @PrePersist
         event2.setImageUrl("/images/mountain-trip.jpg");
         event2.setCreatedBy(organizer);
-        event2.setStatus(EventStatus.ACTIVE);
+        // status will be set by @PrePersist
         events.add(eventRepository.save(event2));
 
         // Event 3 - Career Fair
@@ -171,10 +171,10 @@ public class DatabaseSeeder implements CommandLineRunner {
         event3.setLocation("Student Center, Hall A");
         event3.setPrice(0.0);
         event3.setCapacity(300);
-        event3.setAvailableSeats(300);
+        // availableSeats will be set by @PrePersist
         event3.setImageUrl("/images/career-fair.jpg");
         event3.setCreatedBy(organizer);
-        event3.setStatus(EventStatus.ACTIVE);
+        // status will be set by @PrePersist
         events.add(eventRepository.save(event3));
 
         // Event 4 - Beach Trip
@@ -187,10 +187,10 @@ public class DatabaseSeeder implements CommandLineRunner {
         event4.setLocation("Sunny Beach Resort");
         event4.setPrice(250.0);
         event4.setCapacity(40);
-        event4.setAvailableSeats(40);
+        // availableSeats will be set by @PrePersist
         event4.setImageUrl("/images/beach-trip.jpg");
         event4.setCreatedBy(organizer);
-        event4.setStatus(EventStatus.ACTIVE);
+        // status will be set by @PrePersist
         events.add(eventRepository.save(event4));
 
         // Event 5 - Workshop
@@ -203,10 +203,10 @@ public class DatabaseSeeder implements CommandLineRunner {
         event5.setLocation("Computer Lab 301");
         event5.setPrice(75.0);
         event5.setCapacity(30);
-        event5.setAvailableSeats(30);
+        // availableSeats will be set by @PrePersist
         event5.setImageUrl("/images/web-workshop.jpg");
         event5.setCreatedBy(organizer);
-        event5.setStatus(EventStatus.ACTIVE);
+        // status will be set by @PrePersist
         events.add(eventRepository.save(event5));
 
         // Event 6 - Cultural Festival
@@ -219,10 +219,10 @@ public class DatabaseSeeder implements CommandLineRunner {
         event6.setLocation("Campus Green");
         event6.setPrice(0.0);
         event6.setCapacity(500);
-        event6.setAvailableSeats(500);
+        // availableSeats will be set by @PrePersist
         event6.setImageUrl("/images/cultural-festival.jpg");
         event6.setCreatedBy(organizer);
-        event6.setStatus(EventStatus.ACTIVE);
+        // status will be set by @PrePersist
         events.add(eventRepository.save(event6));
 
         System.out.println("Created " + events.size() + " events");

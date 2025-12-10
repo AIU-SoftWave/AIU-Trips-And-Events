@@ -30,15 +30,16 @@ package "Controller Layer" {
          }
          
          class ControllerCommandInvoker {
-             -Map<String, IControllerCommand> commandMap
-             +register(commandName: String, command: IControllerCommand): void
-             +invoke(commandName: String, request: HttpRequest): HttpResponse
+             -Queue<IControllerCommand> commandQueue
+             +pushToQueue(command: IControllerCommand): void
+             +executeNext(): HttpResponse
+             +hasNext(): boolean
          }
          
          note right of ControllerCommandInvoker
-            "Handles use cases like user registration by"
-            "mapping route 'register' to RegisterCommand and"
-            "invoking it after the RequestHandler chain."
+            "Manages a queue of commands to execute sequentially."
+            "Commands are pushed to the queue and executed"
+            "one by one using executeNext()."
         end note
         
          class RegisterCommand <<command>> {
