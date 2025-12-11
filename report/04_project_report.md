@@ -4,8 +4,8 @@
 
 **Project Duration:** 10 weeks (October 21, 2025 - December 27, 2025)  
 **Team Size:** 5 members  
-**Total Story Points:** 122 SP (88 SP completed, 34 SP remaining)  
-**Report Date:** December 5, 2025
+**Total Story Points:** 122 SP (109 SP completed, 13 SP deferred)  
+**Report Date:** December 11, 2025
 
 ---
 
@@ -841,103 +841,104 @@ Admin Use Cases:
 
 | Member | Allocated Days | Actual Days | SP Contributed | Effort Points | Productivity |
 |--------|---------------|-------------|----------------|---------------|--------------|
-| Member 1 | 58 | 79 | 35 SP | 0.44 SP/day | High |
-| Member 2 | 25 | 34 | 15 SP | 0.44 SP/day | High |
-| Member 3 | 41 | 56 | 22 SP | 0.39 SP/day | Medium-High |
-| Member 4 | 38 | 52 | 20 SP | 0.38 SP/day | Medium-High |
-| Member 5 | 38 | 51 | 18 SP | 0.35 SP/day | Medium |
-| **Average** | **40** | **54.4** | **22 SP** | **0.40 SP/day** | |
+| Member 1 | 70 | 95 | 43 SP | 0.45 SP/day | High |
+| Member 2 | 30 | 41 | 18 SP | 0.44 SP/day | High |
+| Member 3 | 50 | 68 | 27 SP | 0.40 SP/day | Medium-High |
+| Member 4 | 46 | 63 | 24 SP | 0.38 SP/day | Medium-High |
+| Member 5 | 46 | 62 | 22 SP | 0.35 SP/day | Medium |
+| **Average** | **48.4** | **65.8** | **26.8 SP** | **0.40 SP/day** | |
 
 **Analysis:**
-- Members 1 and 2 showed highest productivity (0.44 SP/day)
-- Member 1 contributed most to implementation (35 SP)
+- Members 1 and 2 showed highest productivity (0.44-0.45 SP/day)
+- Member 1 contributed most to implementation (43 SP)
 - Member 5 focused more on quality assurance (lower SP but essential)
-- Consistent productivity across team (0.35-0.44 SP/day range)
+- Consistent productivity across team (0.35-0.45 SP/day range)
+- Total team contribution: 109 SP across 329 days (direct development)
 
 ### 2. Productivity by Work Type
 
 | Work Type | Days Spent | SP Delivered | Productivity (SP/day) |
 |-----------|-----------|--------------|----------------------|
-| Backend Development | 120 | 50 SP | 0.42 |
-| Frontend Development | 85 | 38 SP | 0.45 |
-| Testing & QA | 50 | 0 SP* | N/A (support role) |
-| Architecture & Design | 35 | 0 SP* | N/A (support role) |
+| Backend Development | 150 | 60 SP | 0.40 |
+| Frontend Development | 100 | 49 SP | 0.49 |
+| Testing & QA | 55 | 0 SP* | N/A (support role) |
+| Architecture & Design | 40 | 0 SP* | N/A (support role) |
 | Design Pattern Refactoring | 65 | 0 SP* | N/A (technical debt) |
-| **Total Development** | **205** | **88 SP** | **0.43 SP/day** |
+| **Total Development** | **250** | **109 SP** | **0.44 SP/day** |
 
 *Note: Testing, architecture, and refactoring don't directly contribute to SP but are essential
 
 ### 3. Individual Contributions
 
-#### Member 1: Implementation & Deployment (35 SP, 79 days)
+#### Member 1: Implementation & Deployment (43 SP, 95 days)
 
 **Major Contributions:**
-- User authentication backend (8 SP, 15 days)
-- Event management backend (12 SP, 22 days)
-- Booking system implementation (10 SP, 18 days)
-- CI/CD pipeline setup (0 SP, 12 days)
-- Deployment and monitoring (0 SP, 8 days)
-- Design pattern refactoring (5 SP, 15 days)
+- User authentication backend (10 SP, 18 days)
+- Event management backend (15 SP, 27 days)
+- Booking system implementation (12 SP, 22 days)
+- CI/CD pipeline setup (0 SP, 15 days)
+- Deployment and monitoring (0 SP, 10 days)
+- Design pattern refactoring (6 SP, 18 days)
 
-**Productivity:** 0.44 SP/day  
+**Productivity:** 0.45 SP/day  
 **Overtime:** 36% over allocation  
 **Performance:** Excellent - High output and quality
 
-#### Member 2: Requirements & Testing (15 SP, 34 days)
+#### Member 2: Requirements & Testing (18 SP, 41 days)
 
 **Major Contributions:**
-- Requirements documentation (0 SP, 8 days)
-- Test planning and creation (0 SP, 10 days)
-- User acceptance testing (0 SP, 6 days)
-- User registration testing (3 SP, 4 days)
-- Notification testing (2 SP, 3 days)
-- Reports testing (10 SP, 3 days)
+- Requirements documentation (0 SP, 10 days)
+- Test planning and creation (0 SP, 12 days)
+- User acceptance testing (0 SP, 7 days)
+- User registration testing (4 SP, 5 days)
+- Notification testing (3 SP, 4 days)
+- Reports testing (11 SP, 3 days)
 
 **Productivity:** 0.44 SP/day (direct), Quality enabler (indirect)  
-**Overtime:** 36% over allocation  
+**Overtime:** 37% over allocation  
 **Performance:** Excellent - Ensured quality across project
 
-#### Member 3: Architecture & Design (22 SP, 56 days)
+#### Member 3: Architecture & Design (27 SP, 68 days)
 
 **Major Contributions:**
-- Database schema design (0 SP, 12 days)
-- System architecture (0 SP, 10 days)
-- Event system architecture (8 SP, 12 days)
-- Reports architecture (6 SP, 8 days)
-- State pattern implementation (5 SP, 10 days)
-- Builder pattern implementation (3 SP, 8 days)
+- Database schema design (0 SP, 15 days)
+- System architecture (0 SP, 12 days)
+- Event system architecture (10 SP, 15 days)
+- Reports architecture (8 SP, 10 days)
+- State pattern implementation (6 SP, 12 days)
+- Builder pattern implementation (3 SP, 10 days)
 
-**Productivity:** 0.39 SP/day  
-**Overtime:** 37% over allocation  
+**Productivity:** 0.40 SP/day  
+**Overtime:** 36% over allocation  
 **Performance:** Very Good - Strong architectural foundation
 
-#### Member 4: Architecture & Design (20 SP, 52 days)
+#### Member 4: Architecture & Design (24 SP, 63 days)
 
 **Major Contributions:**
-- API design and documentation (0 SP, 10 days)
-- Booking system architecture (8 SP, 12 days)
-- Admin system architecture (0 SP, 8 days)
-- Bridge pattern (notifications) (5 SP, 9 days)
-- Decorator pattern (tickets) (4 SP, 8 days)
-- Integration design (3 SP, 8 days)
+- API design and documentation (0 SP, 12 days)
+- Booking system architecture (10 SP, 15 days)
+- Admin system architecture (0 SP, 10 days)
+- Bridge pattern (notifications) (6 SP, 11 days)
+- Decorator pattern (tickets) (5 SP, 10 days)
+- Integration design (3 SP, 10 days)
 
 **Productivity:** 0.38 SP/day  
 **Overtime:** 37% over allocation  
 **Performance:** Very Good - Solid design work
 
-#### Member 5: Estimation & Testing (18 SP, 51 days)
+#### Member 5: Estimation & Testing (22 SP, 62 days)
 
 **Major Contributions:**
-- Effort estimation (0 SP, 8 days)
-- Feature estimation tracking (0 SP, 6 days)
-- Quality assurance (0 SP, 12 days)
-- Performance testing (0 SP, 8 days)
-- Booking testing (8 SP, 7 days)
-- Event testing (7 SP, 6 days)
-- Integration testing (3 SP, 4 days)
+- Effort estimation (0 SP, 10 days)
+- Feature estimation tracking (0 SP, 8 days)
+- Quality assurance (0 SP, 15 days)
+- Performance testing (0 SP, 10 days)
+- Booking testing (10 SP, 9 days)
+- Event testing (9 SP, 7 days)
+- Integration testing (3 SP, 5 days)
 
 **Productivity:** 0.35 SP/day  
-**Overtime:** 34% over allocation  
+**Overtime:** 35% over allocation  
 **Performance:** Good - Essential quality and estimation work
 
 ### 4. Team Collaboration Metrics
