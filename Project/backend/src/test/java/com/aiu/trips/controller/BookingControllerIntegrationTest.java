@@ -10,6 +10,7 @@ import com.aiu.trips.model.User;
 import com.aiu.trips.repository.BookingRepository;
 import com.aiu.trips.repository.EventRepository;
 import com.aiu.trips.repository.UserRepository;
+import com.aiu.trips.security.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +58,12 @@ public class BookingControllerIntegrationTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     private User testStudent;
     private Event testEvent;
+    private String studentToken;
 
     @BeforeEach
     void setUp() {
@@ -74,6 +79,9 @@ public class BookingControllerIntegrationTest {
         testStudent.setPhoneNumber("555-0300");
         testStudent.setRole(UserRole.STUDENT);
         testStudent = userRepository.save(testStudent);
+
+        // Generate JWT token for the student
+        studentToken = jwtUtil.generateToken(testStudent.getEmail(), testStudent.getRole().name());
 
         // Create test event
         testEvent = createTestEvent("Tech Conference");
@@ -118,16 +126,9 @@ public class BookingControllerIntegrationTest {
     void testCreateBooking_UpdatesAvailableSeats() throws Exception {
         int initialSeats = testEvent.getAvailableSeats();
 
-        String bookingJson = String.format("""
-            {
-                "eventId": %d,
-                "userId": %d
-            }
-            """, testEvent.getId(), testStudent.getId());
-
-        mockMvc.perform(post("/api/bookings")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(bookingJson))
+        mockMvc.perform(post("/api/bookings/event/" + testEvent.getId())
+                .header("Authorization", "Bearer " + studentToken)
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         // Verify seats decreased
@@ -148,16 +149,9 @@ public class BookingControllerIntegrationTest {
         bookingRepository.save(booking);
 
         // Try to create duplicate
-        String bookingJson = String.format("""
-            {
-                "eventId": %d,
-                "userId": %d
-            }
-            """, testEvent.getId(), testStudent.getId());
-
-        mockMvc.perform(post("/api/bookings")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(bookingJson))
+        mockMvc.perform(post("/api/bookings/event/" + testEvent.getId())
+                .header("Authorization", "Bearer " + studentToken)
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
@@ -167,32 +161,18 @@ public class BookingControllerIntegrationTest {
         testEvent.setEndDate(LocalDateTime.now().minusDays(1));
         eventRepository.save(testEvent);
 
-        String bookingJson = String.format("""
-            {
-                "eventId": %d,
-                "userId": %d
-            }
-            """, testEvent.getId(), testStudent.getId());
-
-        mockMvc.perform(post("/api/bookings")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(bookingJson))
+        mockMvc.perform(post("/api/bookings/event/" + testEvent.getId())
+                .header("Authorization", "Bearer " + studentToken)
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
 
     // TC_034 & TC_035: Generate unique QR codes and digital tickets
     @Test
     void testBooking_GeneratesQRCode() throws Exception {
-        String bookingJson = String.format("""
-            {
-                "eventId": %d,
-                "userId": %d
-            }
-            """, testEvent.getId(), testStudent.getId());
-
-        mockMvc.perform(post("/api/bookings")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(bookingJson))
+        mockMvc.perform(post("/api/bookings/event/" + testEvent.getId())
+                .header("Authorization", "Bearer " + studentToken)
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.bookingCode").exists())
                 .andExpect(jsonPath("$.status").value("CONFIRMED"));
@@ -210,7 +190,8 @@ public class BookingControllerIntegrationTest {
         bookingRepository.save(booking1);
         bookingRepository.save(booking2);
 
-        mockMvc.perform(get("/api/bookings/user/" + testStudent.getId()))
+        mockMvc.perform(get("/api/bookings/user/" + testStudent.getId())
+                .header("Authorization", "Bearer " + studentToken))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
     }
@@ -221,7 +202,8 @@ public class BookingControllerIntegrationTest {
         Booking booking = createBooking(testEvent, testStudent);
         booking = bookingRepository.save(booking);
 
-        mockMvc.perform(get("/api/bookings/validate/" + booking.getBookingCode()))
+        mockMvc.perform(get("/api/bookings/validate/" + booking.getBookingCode())
+                .header("Authorization", "Bearer " + studentToken))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("CONFIRMED"))
                 .andExpect(jsonPath("$.event.title").value("Tech Conference"));
@@ -233,7 +215,8 @@ public class BookingControllerIntegrationTest {
         Booking booking = createBooking(testEvent, testStudent);
         booking = bookingRepository.save(booking);
 
-        mockMvc.perform(delete("/api/bookings/" + booking.getId()))
+        mockMvc.perform(delete("/api/bookings/" + booking.getId())
+                .header("Authorization", "Bearer " + studentToken))
                 .andExpect(status().isOk());
 
         // Verify seats restored
@@ -248,7 +231,8 @@ public class BookingControllerIntegrationTest {
         Booking booking1 = createBooking(testEvent, testStudent);
         bookingRepository.save(booking1);
 
-        mockMvc.perform(get("/api/bookings/event/" + testEvent.getId()))
+        mockMvc.perform(get("/api/bookings/event/" + testEvent.getId())
+                .header("Authorization", "Bearer " + studentToken))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].event.id").value(testEvent.getId()));
