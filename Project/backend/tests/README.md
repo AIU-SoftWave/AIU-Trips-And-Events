@@ -13,7 +13,7 @@ Comprehensive markdown documentation with detailed test cases, execution guideli
 ### 2. Manual_Test_Cases.csv
 Spreadsheet-compatible CSV file for easy tracking and reporting.
 - **Format:** CSV (Excel/Google Sheets compatible)
-- **Columns:** Test Case ID, Use Case, Description, Priority, Status, Tester, Date Tested, Result, Notes
+- **Columns:** TC_ID, Feature, Title, Description, Preconditions, Test Steps, Test Data, Expected Result, Postconditions, Actual Result, Status, Author, Execution Cycle, Priority
 - **Best For:** Test execution tracking, progress reports, team collaboration
 
 ## Test Categories

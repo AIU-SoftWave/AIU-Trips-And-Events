@@ -24,7 +24,7 @@ This manual testing suite provides comprehensive test coverage for all functiona
 2. **[Manual_Test_Cases.csv](./Manual_Test_Cases.csv)** ⭐ Tracking Sheet
    - Excel/Google Sheets compatible
    - Real-time progress tracking
-   - Columns: ID, Use Case, Description, Priority, Status, Tester, Date, Result, Notes
+   - Columns: TC_ID, Feature, Title, Description, Preconditions, Test Steps, Test Data, Expected Result, Postconditions, Actual Result, Status, Author, Execution Cycle, Priority
    - **Use this for**: Daily test tracking and reporting
 
 3. **[QUICK_REFERENCE.md](./QUICK_REFERENCE.md)** ⭐ Quick Start

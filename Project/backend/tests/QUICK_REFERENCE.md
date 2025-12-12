@@ -16,6 +16,38 @@ Quick reference for executing manual tests on the AIU Trips & Events Management 
 
 ---
 
+## 📋 CSV File Structure
+
+The `Manual_Test_Cases.csv` file follows a comprehensive test case format with the following columns:
+
+| Column | Description | Example |
+|--------|-------------|---------|
+| **TC_ID** | Unique test case identifier | TC_001, TC_002 |
+| **Feature** | Feature or module being tested | User Authentication - Login |
+| **Title** | Short test case title | Validate login with valid credentials |
+| **Description** | Detailed description of what to test | Verify that the system allows users to log in with valid credentials |
+| **Preconditions** | Required setup before test execution | User account exists in the system |
+| **Test Steps** | Step-by-step instructions | 1. Navigate to login page<br>2. Enter credentials<br>3. Click login |
+| **Test Data** | Data needed for the test | Email: test@aiu.edu, Password: Test@123 |
+| **Expected Result** | What should happen | User successfully logs in and sees dashboard |
+| **Postconditions** | System state after test | User session is active |
+| **Actual Result** | What actually happened (filled during execution) | _(Empty until test execution)_ |
+| **Status** | Current test status | Not Run, Passed, Failed, Blocked |
+| **Author** | Who created the test case | QA Team |
+| **Execution Cycle** | Test cycle number | Cycle 1, Cycle 2 |
+| **Priority** | Test importance level | High, Medium, Low |
+
+### How to Use the CSV
+
+1. **Open in Excel/Google Sheets** for best experience
+2. **Filter by Feature** to focus on specific modules
+3. **Sort by Priority** to execute critical tests first
+4. **Update Status** column as you complete each test
+5. **Fill Actual Result** column with observations
+6. **Track progress** by counting Passed/Failed/Not Run
+
+---
+
 ## 🚀 Quick Start (3 Steps)
 
 ### 1. Setup (5 minutes)
