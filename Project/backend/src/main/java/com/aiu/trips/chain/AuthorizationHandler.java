@@ -38,7 +38,7 @@ public class AuthorizationHandler extends RequestHandler {
                     throw new SecurityException("Insufficient permissions for this operation");
                 }
             }
-            
+
             // Only POST/PUT/DELETE on events require admin/organizer role
             if (requestURI.contains("/api/events") && !"GET".equals(method)) {
                 if (!"ADMIN".equals(role) && !"ORGANIZER".equals(role)) {
