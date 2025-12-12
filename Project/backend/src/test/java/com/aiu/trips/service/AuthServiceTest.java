@@ -180,7 +180,6 @@ class AuthServiceTest {
     void testPasswordReset_UpdatesPassword() {
         // Arrange
         String newPassword = "NewPassword@123";
-        when(userRepository.findByEmail(testUser.getEmail())).thenReturn(Optional.of(testUser));
         when(passwordEncoder.encode(newPassword)).thenReturn("newEncodedPassword");
         when(userRepository.save(any(User.class))).thenReturn(testUser);
 
