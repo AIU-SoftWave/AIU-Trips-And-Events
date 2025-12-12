@@ -1,0 +1,2182 @@
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+# Sheet: Test_Cases,,,,,,,,,,,,,,,,,,
+TC_ID,Feature,Title,Description,Preconditions,Test Steps,Test Data,Expected Result,Postconditions,Actual Result,Status,Author,Execution Cycle,Priority,,,,,
+TC_001,My Info – Personal Details,Test Incorrect Tab Name Display,"Verify that the ""Personal Info"" tab is displayed correctly",User is logged in,"1. Open the Personal Information section
+2. Check the tab name displayed",NA,"The tab name should be ""My Info"" ",Personal info tab is displayed correctly,"The tab name is displayed as ""PIM"" instead of ""My Info""",Failed,Muhammed Moghazy,Cycle 1,Medium,,,,,
+TC_002,My Info – Personal Details,Name Change After Refresh,Verify that the name is not changed to a random value after refreshing,User is logged in,"1. Open the Personal Information section
+2. Refresh the page
+3. Check if the name has changed",Name :Muhammed Moghazy,The name should remain as entered and not change to a random value,Personal info tab is displayed correctly,"Name changes to a random value like ""FirstNameTest LastNameTest""",Failed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_003,My Info – Personal Details,Invalid Characters in Name,Verify that the system does not accept numbers or special characters in the Employee Full Name field,User is logged in,"1. Open the Employee Full Name field
+2. Enter a name with numbers or special characters like ""$""
+3. Click Save",John$Doe123,The system should not accept special characters or numbers in the name field,Employee Full Name is saved correctly,"The system accepts numbers and special characters like ""$""",Failed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_004,My Info – Personal Details,Missing First and Last Name,Verify that the system does not accept empty or invalid first and last names,User is logged in,"1. Open the Employee Full Name field
+2. Leave the First and Last Name fields empty
+3. Try to save the form",Name :Muhammed Moghazy,The system should not allow submission if first or last name is missing,Employee name is validated correctly,The system does not allow submission with empty first or last name,Passed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_005,My Info – Personal Details,Change Profile Picture,Verify that the user can successfully change their profile picture,User is logged in and profile picture upload option is available,"1. Click on the profile picture
+2. Choose a new image from the device
+3. Click Save",Valid image file (e.g. profile.jpg),The profile picture should update successfully without errors,New profile picture is displayed correctly,The profile picture changes successfully,Passed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_006,My Info – Personal Details,Employee ID Length Limit,Verify that the Employee ID field accepts up to 10 characters only,User is logged in and Employee ID field is editable,"Employee ID field is editable
+1. Open Employee ID field
+2. Enter an ID with 10 characters
+3. Try to enter an ID with more than 10 characters  4. Click Save ","“EMP1234567” (10 chars)
+“EMP12345678” (11 chars)",The field should accept only up to 10 characters and reject longer input,Data validation works correctly,The field accepts only 10 characters,Passed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_007,My Info – Personal Details,Other ID Length Limit,Verify that the Other ID field accepts up to 30 characters only,User is logged in and Other ID field is editable,"1. Open Other ID field
+2. Enter an ID with 30 characters
+3. Try to enter an ID with more than 30 characters","“OTH123456789012345678901234567” (30 chars)
+“OTH12345678901234567890123456789” (34 chars)",The field should accept only up to 30 characters and reject longer input,Data validation works correctly,The field accepts only 30 characters,Passed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_008,My Info – Personal Details,Test Driver’s License Number Length Limit,Verify that the Driver’s License Number field accepts up to 30 characters and works correctly,User is logged in and Driver’s License Number field is editable,"1. Open the Driver’s License Number field
+2. Enter a license number with up to 30 characters
+3. Click Save",“DL123456789012345678901234567890” (30 chars),The field should accept up to 30 characters and save successfully,Data saved successfully,The system accepts and saves up to 30 characters correctly,Passed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_009,My Info – Personal Details,License Expiry Date Validation,Verify that the License Expiry Date field does not accept past dates,User is logged in and License Expiry Date field is visible,"1. Open License Expiry Date field
+2. Select a past date (e.g. 2023-05-10)
+3. Click Save",5/10/2023,The system should not accept a past date and should show a validation message,License date validation works properly,The system accepts past dates without error,Failed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_010,My Info – Personal Details,Nationality Field Validation,Verify that the system does not allow the user to leave Nationality as default “Select”,User is logged in and Nationality dropdown is visible,"1. Open Nationality dropdown
+2. Leave it as default “Select”
+3. Click Save",Default value: “Select”,The system should show a validation error and require a valid nationality,Nationality field validation works correctly,The system allows saving with default “Select” nationality,Failed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_011,My Info – Personal Details,Verify that “Marital Status” field requires user selection (not default “Select”),Check if the “Marital Status” dropdown allows saving the default value “Select” without choosing a valid option.,User is logged in and opened the My Info → Personal Details page.,"1. Go to My Info → Personal Details.
+2. Leave “Marital Status” as “Select”.
+3. Fill other required fields.
+4. Click “Save”.",Default value: “Select”,System should not allow saving until a valid Marital Status is selected.,Data should not be saved if “Select” is not changed.,System allows saving even when “Select” is not changed.,Failed,Muhammed Moghazy,Cycle 1,Medium,,,,,
+TC_012,My Info – Personal Details,Verify that “Date of Birth” does not accept a future date,Check if the “Date of Birth” field allows entering a date that is later than the current date.,User is logged in and opened the My Info → Personal Details page.,"1. Go to My Info → Personal Details.
+2. In “Date of Birth”, enter a future date (e.g., 2030-05-10).
+3. Fill all other required fields correctly.
+4. Click “Save”.",Date of Birth = 2030-05-10,System should show a validation error and not allow future dates.,Data should not be saved if date is in the future.,System allows saving with a future date.,Failed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_013,My Info – Personal Details,Verify that “Gender” field works correctly,Check that the “Gender” radio buttons allow selecting only one valid option (Male or Female) and save it successfully.,User is logged in and opened the My Info → Personal Details page.,"1. Go to My Info → Personal Details.
+2. Select “Male” from the Gender options.
+3. Click “Save”.
+4. Reopen the page to confirm the selection.
+5. Repeat the same for “Female”.",Gender = Male / Female,System should allow selecting only one gender option and save it correctly.,Saved Gender value should remain selected after refresh.,Gender selection works correctly and is saved properly.,Passed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_014,My Info – Personal Details – Custom Fields,Verify that “Blood Type” field requires a valid selection,Check if the “Blood Type” dropdown accepts the default value “Select” without forcing the user to choose a valid blood type.,User is logged in and opened the My Info → Custom Fields section.,"1. Go to My Info → Custom Fields.
+2. Leave “Blood Type” as “Select”.
+3. Fill or confirm other fields if required.
+4. Click “Save”.",Blood Type = “Select”,System should show an error and not allow saving until a valid blood type is selected.,Data should not be saved with default “Select” value.,System allows saving even when “Blood Type” is “Select”.,Failed,Muhammed Moghazy,Cycle 1,Medium,,,,,
+TC_015,My Info – Attachments,Verify that “Add Attachment” uploads files successfully,Check if the “Add Attachment” feature allows users to upload files correctly in the My Info section.,User is logged in and opened the My Info → Attachments section.,"1. Go to My Info → Attachments.
+2. Click “Add”.
+3. Choose a valid file (e.g., PDF, JPG, DOCX).
+4. Click “Upload” or “Save”.",File: TestFile.pdf,File should upload successfully and appear in the attachments list.,Uploaded file should be visible in the list and downloadable.,File uploads and appears correctly in the attachments list.,Passed,Muhammed Moghazy,Cycle 1,Medium,,,,,
+TC_016,My Info –  Contact Details – Address,Verify that “Street 1” field is required before saving,Check if the “Street 1” field is mandatory when filling in contact details.,User is logged in and opened the My Info → Contact Details page.,"1. Go to My Info → Contact Details.
+2. Leave “Street 1” empty.
+3. Fill other required fields.
+4. Click “Save”.",Street 1 = (blank),System should show a validation message and not allow saving until “Street 1” is filled.,Record should not be saved without “Street 1”.,System allows saving even if “Street 1” is empty.,Failed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_017,My Info – Contact Details – Address,Verify that “Street 2” field is optional,Check that the “Street 2” field works correctly and that the system allows saving even if it’s empty.,User is logged in and opened the My Info → Contact Details page.,"1. Go to My Info → Contact Details.
+2. Leave “Street 2” empty.
+3. Fill other fields including “Street 1”.
+4. Click “Save”.",Street 2 = (blank),System should save successfully even if “Street 2” is empty.,Record saved successfully without “Street 2”.,System allows saving and works as expected.,Passed,Muhammed Moghazy,Cycle 1,Medium,,,,,
+TC_018,My Info –  Contact Details – Address,Verify that “City” field is required,Check if the “City” field is mandatory when saving contact details.,User is logged in and opened the My Info → Contact Details page.,"1. Go to My Info → Contact Details.
+2. Leave “City” field empty.
+3. Fill other required fields.
+4. Click “Save”.",City = (blank),System should display an error message and not allow saving until the “City” field is filled.,Data should not be saved without “City”.,System allows saving even when “City” is empty.,Failed,Muhammed Moghazy,Cycle 1,Medium,,,,,
+TC_019,My Info – Contact Details – Address,Verify that “State/Province” field is optional,Check that the “State/Province” field can be left empty and the contact details form still saves successfully.,User is logged in and opened the My Info → Contact Details page.,"1. Go to My Info → Contact Details.
+2. Leave “State/Province” empty.
+3. Fill other required fields.
+4. Click “Save”.",State/Province = (blank),System should allow saving even if “State/Province” is empty.,Record should save successfully.,System allows saving and works correctly.,Passed,Muhammed Moghazy,Cycle 1,Low,,,,,
+TC_020,My Info – Contact Details – Address,Verify that “Zip/Postal Code” field is optional,Check that the “Zip/Postal Code” field can be left empty and the contact details form still saves successfully.,User is logged in and opened the My Info → Contact Details page.,"1. Go to My Info → Contact Details.
+2. Leave “Zip/Postal Code” empty.
+3. Fill other required fields.
+4. Click “Save”.",Zip/Postal Code = (blank),System should allow saving even if “Zip/Postal Code” is empty.,Record should save successfully.,System allows saving and works correctly.,Passed,Muhammed Moghazy,Cycle 1,Low,,,,,
+TC_021,My Info – Contact Details – Address,Verify that “Country” field accepts the default value,Ensure that the system allows saving the contact details form even if the user keeps the default country value without selecting a new one.,User is logged in and opened the My Info → Contact Details page.,"1. Go to My Info → Contact Details.
+2. Leave the “Country” field as its default value.
+3. Fill other required fields.
+4. Click “Save”.",Country = Default value,System should allow saving even if the country field is not changed.,Record should save successfully with the default country.,System accepts the default country and saves successfully.,Failed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_022,My Info – Contact Details – Address – Telephone,Verify that “Home Telephone” field allows saving the form when left empty,This test case verifies whether the “Home Telephone” field in the Contact Details section is mandatory or optional. The goal is to check if the form can be successfully saved when the field is left blank.,User is logged into OrangeHRM and has access to the “My Info → Contact Details” page.,"1. Navigate to “My Info → Contact Details”.
+2. Leave “Home Telephone” field empty.
+3. Fill in any required fields if necessary.
+4. Click the “Save” button.",Home Telephone = Empty,"If the field is optional, the form should save successfully. If it’s required, a validation message should appear preventing submission.",Contact Details are saved successfully (if field is optional).,The form saves successfully even when “Home Telephone” is empty.,Passed,Muhammed Moghazy,Cycle 1,Medium,,,,,
+TC_023,My Info – Contact Details – Address – Telephone,Verify that “Mobile” field allows saving the form when left empty,This test case verifies whether the “Mobile” field in the Contact Details section is mandatory or optional by checking if the form can be saved when the field is left blank.,User is logged into OrangeHRM and on the “My Info → Contact Details” page.,"1. Navigate to “My Info → Contact Details”.
+2. Leave the “Mobile” field empty.
+3. Fill all required fields if any.
+4. Click on the “Save” button.",Mobile = Empty,"If the field is optional, the form should save successfully. If it’s required, the system should display a validation message.",Contact details are saved successfully if the field is optional.,The form saves successfully even when “Mobile” is left empty.,Failed,Muhammed Moghazy,Cycle 1,Medium,,,,,
+TC_024,My Info – Contact Details – Address – Telephone,Verify Telephone Fields,"Check if Home, Mobile, Work numbers work",Contact Details page open,1. Enter Home number 2. Enter Mobile number 3. Enter Work number (optional),Home: 0123456789 Mobile: 01012345678 Work: leave empty,"Home and Mobile must be accepted, Work is optional and can be left empty",Page ready for use,N/A,Passed,Muhammed Moghazy,Cycle 1,low,,,,,
+TC_025,My Info – Contact Details – Address – Email,Check if the “Work Email” field accepts a valid email address,User is on the Contact Details form page,"Check if the “Work Email” field accepts a valid email address
+Preconditions: User is on the Contact Details form page","Open the Contact Details form
+
+Scroll to the Work Email field
+
+Enter a valid email (e.g., test@example.com
+)
+
+Click Save or Submit",Work Email = test@example.com,The form should accept the email and save it without error,Work Email saved successfully,As expected,Passed,Muhammed Moghazy,Cycle 1,low,,,,,
+TC_026,My Info – Contact Details – Address – Email,Verify Other Email field is not required,Check that the “Other Email” field is optional and the form can be saved without filling it,User is on the Contact Details form page,"Open the Contact Details form
+
+Leave the “Other Email” field empty
+
+Fill the other required fields
+
+Click Save or Submit",Other Email = (leave empty),The form should be saved successfully without requiring the “Other Email” field,Form saved successfully,As expected,Passed,Muhammed Moghazy,Cycle 1,low,,,,,
+TC_027,My Info – Emergency Contacts,Verify “Assigned Emergency Contacts” field requirement,"Check if the “Assigned Emergency Contacts” field is required. The field should be mandatory, but it is currently not required.
+",User is on the Contact Details form page,"Open the Contact Details form
+
+Leave the “Assigned Emergency Contacts” field empty
+
+Fill in all other required fields
+
+Click Save or Submit",Assigned Emergency Contacts = (leave empty),The system should show a validation message and not allow saving without filling “Assigned Emergency Contacts”,Form should not be saved until the field is filled,Form saved successfully even when the field is empty,Failed,Muhammed Moghazy,Cycle 1,Medium,,,,,
+TC_028,My Info – Emergency Contacts,Verify Attachments field is not required,Check that the “Attachments” field is optional and the form can be saved without uploading any files,User is on the Contact Details form page,"Open the Contact Details form
+
+Leave the “Attachments” field empty
+
+Fill in all required fields
+
+Click Save or Submit",Attachments = (none),The form should be saved successfully without requiring any attachments,Form saved successfully,As expected,Passed,Muhammed Moghazy,Cycle 1,Medium,,,,,
+TC_029,My Info - Dependents,Verify that numbers can be added in the dependent name field,"Check if the system allows entering numbers (e.g., 1) in the dependent’s name while adding a new dependent",User is logged in and on the “My Info > Dependents” page,"1. Go to “My Info” → “Dependents”
+2. Click “Add Dependent”
+3. Enter a name containing a number (e.g., “Ali1”)
+4. Select Relationship = “child”
+5. Click “Save”","Name = “Ali1”
+Relationship = “child”",System should not allow numbers in the dependent name field and should display a validation error,Dependent is not added,Numbers are accepted and dependent is added successfully,Failed,Muhammed Moghazy,Cycle 1,Medium,,,,,
+TC_030,My Info - Dependents,Verify required field validation for “Name” and “Relationship”,To verify that the “Name” and “Relationship” fields are mandatory when adding a dependent,User is logged in and on the “My Info > Dependents” page,"1. Go to “My Info” → “Dependents”
+2. Click “Add Dependent”
+3. Leave the “Name” field empty and try to save
+4. Enter a name but leave “Relationship” unselected and try to save",Name = (blank) / Relationship = (blank),The system should display “Required” message for both empty fields and should not allow saving,Dependent not added,Validation works correctly; required messages displayed,Passed,Muhammed Moghazy,Cycle 1,Medium,,,,,
+TC_031,My Info - Dependents,Verify “Date of Birth” field validation,Check if the “Date of Birth” field is required when adding a new dependent,User is logged in and on the “My Info > Dependents” page,"1. Go to “My Info” → “Dependents”
+2. Click “Add Dependent”
+3. Fill in Name and Relationship only
+4. Leave “Date of Birth” empty
+5. Click “Save”","Name = “Omar”
+Relationship = “child”
+Date of Birth = (blank)",The system should display “Required” message for Date of Birth and prevent saving,Dependent not added,Dependent is added successfully without Date of Birth,Failed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_032,My Info - Immigration,Verify that “Assigned Immigration Records” is optional,To verify that the “Assigned Immigration Records” field is not required when adding or updating immigration details,User is logged in and on the “My Info > Immigration” page,"1. Go to “My Info” → “Immigration”
+2. Click “Add”
+3. Leave “Assigned Immigration Records” empty
+4. Fill other mandatory fields (if any)
+5. Click “Save”",Assigned Immigration Records = (blank),System should allow saving without filling “Assigned Immigration Records”,Immigration record added successfully,Immigration record added successfully without filling “Assigned Immigration Records”,Passed,Muhammed Moghazy,Cycle 1,Low,,,,,
+TC_033,My Info - Job ,Verify that job details are correct and updatable,To check if the Job Details section displays the correct user data and updates properly,User is logged in and on the “My Info > Job Details” page,"1. Go to “My Info” → “Job Details”
+2. Verify displayed employee information
+3. Try to edit or refresh to see if data updates correctly",Employee data (current logged-in user),System should display correct employee information and allow updates if permitted,Job Details updated or displayed correctly,Displays another employee’s information and data not updatable,Failed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_034,My Info - Salary ,Verify that HR أٌcan add assigned salary components,To check if the user can add new salary components in the Assigned Salary Components section,User is logged in and on the “My Info > Salary” page,"1. Go to “My Info” → “Salary”
+2. Scroll to “Assigned Salary Components” section
+3. Try to click “Add” or any available option to add new component",NA,System should allow the user to click “Add” and fill in salary component details,Salary component added successfully,“Add” option not available; user cannot add any salary component,Failed,Muhammed Moghazy,Cycle 1,High,,,,,
+TC_035,My Info - Qualifications,Verify that future dates are not accepted in “Add Work Experience”,To check that the system does not allow selecting future dates in “From” and “To” fields when adding work experience,User is logged in and on the “My Info > Qualifications” page,"1. Go to “My Info” → “Qualifications”
+2. Click “Add Work Experience”
+3. Enter Company and Job Title
+4. Set “From” and/or “To” date in the future
+5. Click “Save”","Company = “Tech Corp”
+Job Title = “Tester”
+From = 2027-01-01
+To = 2028-05-01",System should display a validation error: “Dates cannot be in the future”,Work experience not added,System accepts future dates and saves the record,Passed,Muhammed Hany,Cycle 1,High,,,,,
+TC_036,My Info - Qualifications,Verify required field validation in “Add Education”,To check that all mandatory fields in “Add Education” (not only Level) must be filled before saving,User is logged in and on the “My Info > Qualifications” page,"1. Go to “My Info” → “Qualifications”
+2. Click “Add Education”
+3. Select Level only
+4. Leave all other fields empty
+5. Click “Save”","Level = “Bachelor’s Degree”
+Other fields = blank","System should display “Required” messages for all mandatory fields (Institute, Major, Year, Start Date, End Date, GPA)",Record not added,System allows saving with only Level filled; no validation for other required fields,Failed,Muhammed Hany,Cycle 1,High,,,,,
+TC_037,My Info - Qualifications,Verify that “Institute” field validates minimum character length,To check if the Institute field accepts too few characters,User is on “Add Education” form,"1. Go to Add Education
+2. Enter “g” in Institute field
+3. Fill other required fields validly
+4. Click Save",Institute = “g”,"System should display validation error (e.g., “Minimum 2 characters required”)","Record is saved successfully with an invalid short Institute name (e.g., “g”), indicating that input validation is missing.",System accepts “g” without error,Failed,Muhammed Hany,Cycle 1,High,,,,,
+TC_038,My Info - Qualifications,Verify that “Major/Specialization” field validates minimum character length,To check if Major field accepts too few characters,User is on “Add Education” form,"1. Enter “g” in Major/Specialization field
+2. Fill other required fields validly
+3. Click Save",Major = “g”,System should show a validation message for too few characters,"Record is saved successfully even though Major/Specialization field contains an invalid short input, showing that the field lacks minimum length validation.",System accepts “g” without error,Failed,Muhammed Hany,Cycle 1,High,,,,,
+TC_039,My Info - Qualifications,Verify that “Year” field does not accept future years,To confirm that Year cannot be greater than current year,User is on “Add Education” form,"1. Enter “2077” in Year field
+2. Fill other fields validly
+3. Click Save",Year = “2077”,"System should display validation error (e.g., “Year cannot be in the future”)","Education record is added with a future year (e.g., 2077), leading to inconsistent or incorrect education timeline data.",System accepts year 2077,Failed,Muhammed Hany,Cycle 1,High,,,,,
+TC_040,My Info - Qualifications,Verify GPA/Score validation for maximum value,To ensure GPA cannot exceed 4.0,User is on “Add Education” form,"1. Enter “9” in GPA field
+2. Fill other fields validly
+3. Click Save",GPA = “9”,System should reject GPA > 4 and show validation message,"Education record is added with an unrealistic GPA (e.g., 9), which can cause data integrity issues in reports or calculations.",System accepts 9 without validation,Failed,Muhammed Hany,Cycle 1,High,,,,,
+TC_041,My Info – Skills,Verify field validation in “Add Skill” section,To verify that required and optional fields behave correctly in the Add Skill form,User is logged in and on the “My Info → Add Skill” page,"1. Go to “My Info → Qualifications → Add Skill”
+2. Select a valid value for Skill (e.g., Communication)
+3. Leave “Years of Experience” empty
+4. Leave “Comments” empty
+5. Click Save","Skill = “Communication”
+Years of Experience = (blank)
+Comments = (blank)","The system should require the “Comments” field before saving, and allow “Years of Experience” to remain empty.","System allows saving without filling “Comments” (if that happens → Fail), otherwise works as expected.","Record is saved (if system allows empty Comments), causing incomplete skill data in the database.",Failed,Muhammed Hany,Cycle 1,High,,,,,
+TC_042,My Info – Language,Verify that Add Language form functions correctly,To verify that all fields in the Add Language section work properly and required fields are validated,User is logged in and on the “My Info → Add Language” page,"1. Go to My Info → Add Language
+2. Select “Arabic” from the Language dropdown
+3. Select valid options for Fluency and Competency
+4. Click Save","Language = Arabic
+Fluency = Good
+Competency = Good",System should successfully save the language record with the selected details.,New language record (Arabic) is added successfully to the user’s profile.,Record saved successfully; all validations and dropdowns working correctly.,Passed,Muhammed Hany,Cycle 1,low,,,,,
+TC_043,My Info – License,Verify that Add License form validates all required fields,"To ensure that License Number, Issued Date, and Expiry Date fields are mandatory when saving a new License",User is logged in and on “My Info → Licenses” page,"1. Go to “My Info → Qualifications → Licenses”
+2. Click “Add License”
+3. Select a valid License Type (e.g., “Driving License”)
+4. Leave License Number, Issued Date, and Expiry Date empty
+5. Click “Save”","License Type = Driving License
+License Number = (blank)
+Issued Date = (blank)
+Expiry Date = (blank)",System should show validation errors for empty fields and not allow saving.,"Record is added with incomplete data (License Type only), causing data inconsistency.",System saves successfully with only License Type filled.,Failed,Muhammed Hany,Cycle 1,High,,,,,
+TC_044,My Info – Membership,Verify that Add Membership requires all mandatory fields before saving,To verify that the system should not allow saving a membership record with only “Membership” field filled,User is logged in and on “My Info →  Memberships”,"1. Go to Add Membership form
+2. Select a Membership from the dropdown (e.g., “Gym Membership”)
+3. Leave “Subscription Paid By”, “Subscription Amount”, “Currency”, “Commence Date”, and “Renewal Date” empty
+4. Click Save","Membership = “Gym Membership”
+Other fields = (blank)",System should show validation errors for required fields and prevent saving.,"Incomplete membership record saved, leading to inconsistent or invalid data.",System allows saving with only Membership field filled.,Failed,Muhammed Hany,Cycle 1,High,,,,,
+TC_045,Add Vacancy,add vacancy with valid data,Validate successful vacancy creation,User logged in as Admin,1. Go to Recruitment →  Vacancies 2. Click Add 3. Fill all fields 4. Click Save,"Job Title =  “Software Engineer”, Vacancy Name = “Java Engineer”, 
+Manager = “Test User One”,   Positions = 2  Description: for developing, testing",Vacancy created successfully and visible in list,"Vacancy added and ""successfully saved"" message appears","Vacancy  added and "" successfully saved"" message appears ",Passed,Reem,Cycle 1,High,,,,,
+TC_046,Edit Vacancy,verify that a saved vacancy can be successfully edited (Valid Edit),Validate that an existing saved vacancy can be successfully edited and updated,User is logged in as Admin,"1. Go to Recruitment →  Vacancies 2. Click Add 3. Fill other fields 4. Click Save 
+5. Change some data for the vacancy  6. click save","Job Title =  “Software Engineer”, Vacancy Name = “Java Engineer”, 
+Manager = “Test User One”,   Positions = 2  Description: for developing, testing
+Job Title =  “Software Engineer”, Vacancy Name = “Python Engineer”, 
+Manager = “Test User One”,   Positions = 5  Description: for developing, testing","System displays “Successfully Saved” after each vacancy is added, 
+and the edit page is opened with save or cancel choices",Edit page updated with new data,"Vacancy  added and "" successfully saved"" message appears, then the edit page appeared with the data to edit",Passed,Reem,Cycle 1,High,,,,,
+TC_047,Add Vacancy,Verify adding a vacancy without a description,"Validate that the system allows saving a vacancy when the Description field is left empty, as it is not a required field.",User is logged in as Admin,"1. Go to Recruitment →  Vacancies 2. Click Add 3. Leave Description empty
+ 4. Fill other fields 5. Click Save","Job Title =  “Software Engineer”, Vacancy Name = “Java Engineer”, 
+Manager = “Test User One”,   Positions = 2  Description: null",Vacancy created successfully and visible in list,"Vacancy added and ""successfully saved""","Vacancy  added and "" successfully saved"" message appears ",Passed,Reem,Cycle 1,Medium,,,,,
+TC_048,Add Vacancy,Validate empty Job Title,Verify system behavior when Job Title is left empty,User is logged in as Admin,"1. Go to Recruitment →  Vacancies 2. Click Add 3. Leave Job Title empty
+ 4. Fill other fields . Click Save","Job Title = null , Vacancy Name = “Java Engineer ”, 
+Manager = “Test User One”,   Positions = 2  Description: for developing, testing",System shows validation message: “Required”,Error message displayed,System displays “ Required” for job title field ,Passed,Reem,Cycle 1,High,,,,,
+TC_049,Add Vacancy,Invalid Job Title entry ,Check system behavior if user types invalid characters,User is logged in as Admin,1. Go to Recruitment →  Vacancies 2. Click Add 3. Fill all fields 4. Click Save,"Job Title = “5*Y&6”, Vacancy Name = “Java Engineer”, 
+Manager = “Test User One”,   Positions = 2  Description: for developing, testing",System rejects or ignores invalid input and Vacancy is not created,Forces valid title only,The system forces the user title from valid Titles only,Passed,Reem,Cycle 1,Medium,,,,,
+TC_050,Add Vacancy,Validate empty Vacancy Name,Verify system behavior whenVacancy Name is left empty,User is logged in as Admin,"1. Go to Recruitment →  Vacancies 2. Click Add 3. Leave LeaveVacancy Name empty 
+4. Fill other fields . Click Save","Job Title =  “Software Engineer” , Vacancy Name = null, 
+Manager = “Test User One”,   Positions = 2  Description: for developing, testing",System shows validation message: “Required”,Error displayed,System displays “ Required” for vacancy name field ,Passed,Reem,Cycle 1,High,,,,,
+TC_051,Add Vacancy,Invalid  Vacancy Name entry with numbers,Check system behavior if user types invalid characters,User is logged in as Admin,1. Go to Recruitment →  Vacancies 2. Click Add 3. Fill all fields 4. Click Save,"Job Title = “ Software Engineer”, Vacancy Name = “123""
+Manager = “Test User One”,   Positions = 2  Description: for developing, testing",System rejects or ignores invalid input and Vacancy not created,Vacancy incorrectly saved,"Vacancy  added and "" successfully saved"" message appears ",Failed,Reem,Cycle 1,Medium,,,,,
+TC_052,Add Vacancy,Invalid  Vacancy Name entry with wrong name,Check system behavior if user types invalid characters,User is logged in as Admin,1. Go to Recruitment →  Vacancies 2. Click Add 3. Fill all fields 4. Click Save,"Job Title = “ Software Engineer”, Vacancy Name = “happy""
+Manager = “Test User One”,   Positions = 2  Description: for developing, testing",System rejects or ignores invalid input and Vacancy not created,Vacancy incorrectly saved,"Vacancy  added and "" successfully saved"" message appears ",Failed,Reem,Cycle 1,Medium,,,,,
+TC_053,Add Vacancy,Invalid  Vacancy Name entry with symbols,Check system behavior if user types invalid characters,User is logged in as Admin,1. Go to Recruitment →  Vacancies 2. Click Add 3. Fill all fields 4. Click Save,"Job Title = “ Software Engineer”, Vacancy Name = “*&^%$""
+Manager = “Test User One”,   Positions = 2  Description: for developing, testing",System rejects or ignores invalid input and Vacancy not created,Vacancy incorrectly saved,"Vacancy  added and "" successfully saved"" message appears ",Failed,Reem,Cycle 1,Medium,,,,,
+TC_054,Add Vacancy,Validate empty Hiring Manager,Verify system behavior when Hiring Manager is left empty,User is logged in as Admin,"1. Go to Recruitment →  Vacancies 2. Click Add 3. Leave Hiring Manager empty
+ 4. Fill other fields . Click Save","Job Title = ""Software Engineer"" , Vacancy Name = “Java Engineer ”, 
+Manager = “null”,   Positions = 2  Description: for developing, testing",System shows validation message: “Required”,Error displayed,System displays “ Required” for Hiring Manager field ,Passed,Reem,Cycle 1,High,,,,,
+TC_055,Add Vacancy,Invalid Hiring Manager entry with numbers,Check system behavior if user types invalid characters,User is logged in as Admin,1. Go to Recruitment →  Vacancies 2. Click Add 3. Fill all fields 4. Click Save,"Job Title = “Software Engineer”, Vacancy Name = “Java Engineer”, 
+Manager = “151”,   Positions = 2  Description: for developing, testing",System rejects or ignores invalid input and Vacancy is not created,Validation error displayed,System displays “ invaled” for Hiring Manager field ,Passed,Reem,Cycle 1,Medium,,,,,
+TC_056,Add Vacancy,Invalid Hiring Manager entry with wrong name,Check system behavior if user types invalid admin name,User is logged in as Admin,1. Go to Recruitment →  Vacancies 2. Click Add 3. Fill all fields 4. Click Save,"Job Title = “Software Engineer”, Vacancy Name = “Java Engineer”, 
+Manager = “Reem”,   Positions = 2  Description: for developing, testing",System rejects unregistered manager name,Error displayed,System displays “ invaled” for Hiring Manager field ,Passed,Reem,Cycle 1,Medium,,,,,
+TC_057,Add Vacancy,Invalid Hiring Manager entry with wrong symbols,Check system behavior if user types invalid admin name,User is logged in as Admin,1. Go to Recruitment →  Vacancies 2. Click Add 3. Fill all fields 4. Click Save,"Job Title = “Software Engineer”, Vacancy Name = “Java Engineer”, 
+Manager = “^$%#”,   Positions = 2  Description: for developing, testing",System rejects unregistered manager name,Error displayed,System displays “ invaled” for Hiring Manager field ,Passed,Reem,Cycle 1,Medium,,,,,
+TC_058,Add Vacancy,Validate empty Number of Positions,Verify system behavior when Number of Positions is left empty,User is logged in as Admin,"1. Go to Recruitment →  Vacancies 2. Click Add 3. Leave Job Title empty
+ 4. Fill other fields . Click Save","Job Title = Software Engineer , Vacancy Name = “Java Engineer ”, 
+Manager = “Test User One”,   Positions = null  Description: for developing, testing","Vacancy created successfully and visible in list as Number of 
+Positions is not requiered ",Vacancy saved,"Vacancy  added and "" successfully saved"" message appears ",Passed,Reem,Cycle 1,Medium,,,,,
+TC_059,Add Vacancy,Invalid Number of Positions entry ,Check system behavior if user types invalid characters,User is logged in as Admin,1. Go to Recruitment →  Vacancies 2. Click Add 3. Fill all fields 4. Click Save,"Job Title = “Software Engineer”, Vacancy Name = “Java Engineer”, 
+Manager = “Test User One”,   Positions = ab  Description: for developing, testing",System rejects or ignores invalid input and Vacancy is not created,Validation shown,System displays “ Should be a numeric value” for Number of Positions field ,Passed,Reem,Cycle 1,Medium,,,,,
+TC_060,Add Vacancy,Invalid Number of Positions entry more than 99,Check system behavior if user types invalid characters,User is logged in as Admin,1. Go to Recruitment →  Vacancies 2. Click Add 3. Fill all fields 4. Click Save,"Job Title = “Software Engineer”, Vacancy Name = “Java Engineer”, 
+Manager = “Test User One”,   Positions = 100  Description: for developing, testing",System rejects or ignores invalid input and Vacancy is not created,Validation shown,System displays “ Should be a number between 1-99” for Number of Positions field ,Passed,Reem,Cycle 1,Medium,,,,,
+TC_061,Add Vacancy,Invalid Number of Positions entry less than 1,Check system behavior if user types invalid characters,User is logged in as Admin,1. Go to Recruitment →  Vacancies 2. Click Add 3. Fill all fields 4. Click Save,"Job Title = “Software Engineer”, Vacancy Name = “Java Engineer”, 
+Manager = “Test User One”,   Positions = -5  Description: for developing, testing",System rejects or ignores invalid input and Vacancy is not created,Validation shown,System displays “ Should be a number between 1-99” for Number of Positions field ,Passed,Reem,Cycle 1,Medium,,,,,
+TC_062,Add Vacancy,Duplicate Vacancy Name,Verify system prevents duplicate vacancy name,User is logged in as Admin,1. Go to Recruitment →  Vacancies 2. Click Add 3. Fill all fields 4. Click Save,"Job Title =  “Software Engineer”, Vacancy Name = “Java Engineer ”(already uesed before ),  Manager = “Test User One”,   Positions = 2
+  Description: for developing, testing",No duplicate vacancy is created.,Validation “Already exists”,System displays “Already exists” for the Vacancy Name field ,Passed,Reem,Cycle 1,High,,,,,
+TC_063,Delete Vacancy,delete an existing vacancy,"Ensure that the system allows the admin to delete a vacancy
+ and confirms successful deletion.",User is logged in as Admin,"1. Go to Recruitment → Vacancies 2. locate the desired vacancy
+ 3. Select its checkbox 4. click Delete 
+5.and confirm deletion in the popup.",Vacancy Name: Software Engineer,"Vacancy deleted successfully; confirmation message displayed; vacancy 
+no longer visible in the list.",Deleted message shown,"Vacancy  deleted and "" successfully deleted"" message appears ",Passed,Reem,Cycle 1,High,,,,,
+TC_064,Search,Verify search by Job Title,Ensure the system correctly filters vacancies by selected Job Title.,User is logged in as Admin,"1. go to Recruitment → Vacancies.
+2. Select Job Title = 'Software Engineer'.
+3. Click Search.",Job Title: Software Engineer,System displays all vacancies matching 'Software Engineer'.,Correct search results shown,Vacancies filtered correctly.,Passed,Reem,Cycle 1,Medium,,,,,
+TC_065,Search,Verify search by Vacancy,Ensure the system correctly filters results by Vacancy name.,User is logged in as Admin,"1. go to Recruitment → Vacancies.
+2. Select Vacancy = 'Java Engineer'.
+3. Click Search.",Vacancy: Java Engineer,System displays vacancies for 'Java Engineer'.,Correct search results shown,Vacancies filtered correctly.,Passed,Reem,Cycle 1,Medium,,,,,
+TC_066,Search,Verify search by Hiring Manager,Ensure the system filters vacancies by selected Hiring Manager.,User is logged in as Admin,"1. go to Recruitment → Vacancies.
+2. Select Hiring Manager = 'Test User One'.
+3. Click Search.",Hiring Manager: Test User One,System displays all vacancies managed by 'Test User One'.,Correct search results shown,Vacancies filtered correctly.,Passed,Reem,Cycle 1,Medium,,,,,
+TC_067,Search,Verify search by Status,Ensure the system filters results based on Status field.,User is logged in as Admin,"1. go to Recruitment → Vacancies.
+2. Select Status = 'Active'.
+3. Click Search.",Status: Active,System displays all active vacancies.,Correct search results shown,Vacancies filtered correctly.,Passed,Reem,Cycle 1,Medium,,,,,
+TC_068,Search,Verify Reset button clears filters,Ensure Reset clears all search fields and reloads full vacancy list.,User is logged in as Admin,"1. Select Job Title, Vacancy, Hiring Manager, or Status.
+2. Click Reset.",Job Title: Software Engineer; Vacancy: Java Engineer,All filters cleared; full vacancy list displayed.,Data reloaded,Fields cleared successfully and all data reloaded.,Passed,Reem,Cycle 1,Medium,,,,,
+TC_069,Search,Verify system behavior when no search results are found,"Validate that the system displays a 'No Records Found' message 
+when filters return no results.",User is logged in as Admin,"1. Enter filters that do not match any vacancy.
+2. Click Search.",Job Title: Customer Success Manager,System displays message 'No Records Found' and shows empty table.,Message shown,System displayed 'No Records Found'.,Passed,Reem,Cycle 1,Medium,,,,,
+TC_070,Sorting,Sort Vacancy Ascending,Verify sorting of Vacancy column in ascending order.,User is on Vacancies page.,choose Vacancy header on ascending.,Existing records in table.,Vacancies sorted in ascending order.,Sorted list shown,As expected.,Passed,Reem,Cycle 1,Low,,,,,
+TC_071,Sorting,Sort Vacancy Descending,Verify sorting of Vacancy column in descending order.,User is on Vacancies page.,choose Vacancy header  on descending.,Existing records in table.,Vacancies sorted in descending order.,Sorted list shown,As expected.,Passed,Reem,Cycle 1,Low,,,,,
+TC_072,Sorting,Sort Job Title Ascending,Verify sorting of Job Title column in ascending order.,User is on Vacancies page.,choose Job Title header on ascending.,Existing records in table.,Job Titles sorted in ascending order.,Sorted list shown,As expected.,Passed,Reem,Cycle 1,Low,,,,,
+TC_073,Sorting,Sort Job Title Descending,Verify sorting of Job Title column in descending order.,User is on Vacancies page.,choose Job Title header  on descending.,Existing records in table.,Job Titles sorted in descending order.,Sorted list shown,As expected.,Passed,Reem,Cycle 1,Low,,,,,
+TC_074,Sorting,Sort Hiring Manager Ascending,Verify sorting of Hiring Manager column in ascending order.,User is on Vacancies page.,choose Hiring Manager header on ascending.,Existing records in table.,Hiring Managers sorted in ascending order.,Sorted list shown,As expected.,Passed,Reem,Cycle 1,Low,,,,,
+TC_075,Sorting,Sort Hiring Manager Descending,Verify sorting of Hiring Manager column in descending order.,User is on Vacancies page.,choose Hiring Manager header  on descending.,Existing records in table.,Hiring Managers sorted in descending order.,Sorted list shown,As expected.,Passed,Reem,Cycle 1,Low,,,,,
+TC_076,Sorting,Sort Status Ascending,Verify sorting of Status column in ascending order.,User is on Vacancies page.,choose Status header on ascending.,Existing records in table.,Statuses sorted in ascending order.,Sorted list shown,As expected.,Passed,Reem,Cycle 1,Low,,,,,
+TC_077,Sorting,Sort Status Descending,Verify sorting of Status column in descending order.,User is on Vacancies page.,choose Status header on descending.,Existing records in table.,Statuses sorted in descending order.,Sorted list shown,As expected.,Passed,Reem,Cycle 1,Low,,,,,
+TC_078,Attachment,Add attachment under 1 MB,Verify that the system allows uploading an attachment smaller than 1 MB while editing a vacancy,Vacancy exists and user is on Edit Vacancy page,1. Click Add Attachment.2. Select a file less than 1 MB.3. Click Upload.,File: “Resume_Template.pdf” (500 KB),File uploaded successfully and appears under attachments list,File listed,File uploaded and listed successfully,Passed,Reem,Cycle 1,Low,,,,,
+TC_079,Attachment,Prevent attachment larger than 1 MB,Verify that the system restricts uploading files larger than 1 MB,Vacancy exists and user is on Edit Vacancy page,1. Click Add Attachment.2. Select a file larger than 1 MB.3. Click Upload.,File: “LargeDoc.pdf” (2 MB),System displays error message “Attachment Size Exceeded”,Error shown,"System displayed correct error message ""Attachment Size Exceeded""",Passed,Reem,Cycle 1,Low,,,,,
+TC_080,Comments,Add comment within 200 characters,Validate that user can enter a comment with ≤200 characters,User is editing an existing vacancy,"1. In Comment field, type a note under 200 characters.2. Click Save.",“Candidate preferred with 3 years of Java experience.”,Vacancy saved with comment successfully,Comment visible,Comment saved successfully,Passed,Reem,Cycle 1,Low,,,,,
+TC_081,Comments,Exceed comment character limit,Verify that system restricts entering comments exceeding 200 characters,User is editing an existing vacancy,1. Enter a long comment >200 characters.2. Click Save.,Comment length = 250 characters,System displays validation message “Should not exceed 200 characters”,Error shown,"Validation message displayed correctly ""Should not exceed 200 characters""",Passed,Reem,Cycle 1,Low,,,,,
+TC_082,Add Candidate,Add candidate with valid data,Verify candidate can be added successfully with all valid inputs,User logged in as Admin,1. Go to Recruitment → Candidates → Add.2. Fill all fields correctly.3. Upload resume.4. Click Save.,"Full Name: Reem A | Job Vacancy: Senior Support Specialist | Email: r@example.com
+ | Contact Number: 0123456789 | Resume: resume.pdf (500KB, .pdf format) | Keywords: support, technical, customer | Date of Application: 2025-05-11 | Notes: Candidate has 3 years of experience.",Candidate added successfully and “Successfully Saved” message appears.,Candidate saved,Candidate added successfully.,Passed,Reem,Cycle 1,High,,,,,
+TC_083,Duplicate Email Validation,Duplicate candidate email,Check if system prevents duplicate entries with same email.,One candidate already exists with same email.,1. Try adding another candidate with same email.,Email :  r@example.com,System should show “Duplicate Email” message.,Validation “Already exists”,System allows duplicate email.,Failed,Reem,Cycle 1,High,,,,,
+TC_084,Email Validation,Validate invalid email ,Verify that the system rejects invalid email .,User logged in as Admin,1. Go to Add Candidate 2. Enter invalid email (not available at all).3. Click Save.,Email :  R12@example.com(not a real email),Verify if the email is correct ,Error displayed,System accepts invalid email.,Failed,Reem,Cycle 1,Medium,,,,,
+TC_085,Email Format Validation,Validate invalid email format,Verify that the system rejects invalid email input.,User logged in as Admin,1. Go to Add Candidate.2. Enter invalid email (e.g. “reem@com”).3. Click Save.,Email: reem@com,Error message “Invalid Email Format” should appear.,Validation error displayed,"message displayed ""Expected format: admin@example.com""",Passed,Reem,Cycle 1,Medium,,,,,
+TC_086,Required Field Validation,Validate required fields,Verify that required fields must be filled before saving.,User logged in as Admin,"1. Leave required fields (First Name, Vacancy, Email) empty.2. Click Save.",N/A,Validation message “Required” appears under missing fields.,Validation shown,Validation messages displayed properly.,Passed,Reem,Cycle 1,High,,,,,
+TC_087,Contact Number Validation,Validate invalid contact number,Verify that the system rejects invalid contact numbers.,User logged in as Admin,1. Enter letters or symbols in contact field.2. Click Save.,Contact: “abc*&^%”,Error message “Invalid Contact Number”.,Validation shown,"messages displayed ""Allows numbers and only + - / ( )""",Passed,Reem,Cycle 1,Medium,,,,,
+TC_088,Name Validation (One Letter),Verify system behavior when candidate name has only one letter,Verify that the system rejects invalid names,User logged in as Admin,1. Navigate to Add Candidate page.2. Enter only one letter in each name field .3. Fill all other required fields correctly.4. Click Save.,First Name: R Middle Name: A Last Name: B,System should display a validation message such as “Name must be at least 2 characters long.”,Candidate saved,Candidate added successfully.,Failed,Reem,Cycle 1,Medium,,,,,
+TC_089,Name Length Limit,Validate name field length limit (≤ 30 characters),Verify that the system restricts candidate name fields from exceeding 30 characters.,User logged in as Admin,1. Navigate to Recruitment → Candidates → Add Candidate.2. Enter a name exceeding 30 characters in the First Name field.3. Fill in all required fields correctly.4. Click Save.,First Name: Reemrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr (35 chars),System should display validation message: “Name should not exceed 30 characters.” and prevent form submission.,Validation shown,"message displayed ""Should not exceed 30 characters""",Passed,Reem,Cycle 1,Medium,,,,,
+TC_090,Name Special Character Validation,Validate name field with special characters,"Verify that the system rejects candidate names 
+containing special characters.",User logged in as Admin,"1. Navigate to Recruitment → Candidates → Add Candidate.
+2. Enter a name containing special characters.
+3. Fill in all other mandatory fields.  4. Click Save.",First Name: Reem@!,"System should display validation message:
+ “Name cannot contain special characters.” and prevent submission.",Candidate saved,System accepted the input and saved candidate successfully.,Failed,Reem,Cycle 1,Medium,,,,,
+TC_091,Name Numeric Validation,Validate name field with numeric values,Verify that the system rejects candidate names containing numbers.,User logged in as Admin,"1. Navigate to Recruitment → Candidates → Add Candidate.
+2. Enter a name containing numbers.
+3. Fill in all other mandatory fields. 4. Click Save.",First Name: Reem123,"System should display validation message: 
+“Name cannot contain numbers.” and prevent submission.",Candidate saved,System accepted the input and saved candidate successfully.,Failed,Reem,Cycle 1,Medium,,,,,
+TC_092,Vacancy Selection Validation,Validate adding candidate without selecting a vacancy ,"Verify that the system prevents saving a candidate when no 
+vacancy is selected.",User logged in as Admin,"Navigate to Recruitment → Candidates → Add Candidate.
+ Leave the “Vacancy” field unselected
+Fill in all other required fields with valid data  Click Save.","First Name: Reem  Middle Name: A  Last Name: Ali  Vacancy: — (not selected)
+Email: r@example.com  Contact Number: 01111111111 ","System should display validation message: “Vacancy is required.” 
+and prevent candidate from being saved.",Vacancy saved, System allows saving candidate without selecting a vacancy,Failed,Reem,Cycle 1,High,,,,,
+TC_093,Contact Number Min Length, Validate contact number field with one character,"Verify that the system rejects contact numbers shorter than 
+the minimum valid length.",User logged in as Admin,"Navigate to Recruitment → Candidates → Add Candidate
+ Enter only one character in the “Contact Number” field
+. Fill in all other required fields  Click Save. ",Contact Number: 5,"System should display validation message:
+ “Enter a valid contact number.” and prevent form submission. ",Candidate saved,System accepted the input and saved the candidate successfully.,Failed,Reem,Cycle 1,Medium,,,,,
+TC_094,Contact Number Max Length,Validate contact number field length limit (≤ 25 characters),"Verify that the system accepts contact numbers up to 
+25 characters and rejects any longer input.",User logged in as Admin,"Navigate to Recruitment → Candidates → Add Candidate
+ Enter a valid contact number with ≤ 25 characters.
+. Fill in all other required fields  Click Save. ",Contact Number: 0123456789012345678901234 (25 chars),System accepts the input and saves candidate successfully.,Vacancy saved,Candidate saved successfully and message “Successfully Saved” appears.,Passed,Reem,Cycle 1,Medium,,,,,
+TC_095,Contact Number Exceed Limit,contact number exceeding 25 characters,Verify that the system rejects contact numbers longer than 25 characters.,User logged in as Admin,"Navigate to Recruitment → Candidates → Add Candidate
+ Enter a contact number with more than 25 characters.
+. Fill in all other required fields  Click Save. ",Test Data: Contact Number: 012345678901234567890123456 (26 chars),"System should display validation message: 
+“Contact number must not exceed 25 characters.”",Validation shown,"message displayed ""Should not exceed 25 characters""",Passed,Reem,Cycle 1,Medium,,,,,
+TC_096,Resume Upload (Valid File),Upload valid resume file,Ensure system accepts allowed file types under 1MB.,User logged in as Admin,1. Click Browse.2. Upload a valid resume under 1MB.,File: resume.pdf (800KB),File uploaded successfully.,File uploaded,File uploaded successfully.,Passed,Reem,Cycle 1,Medium,,,,,
+TC_097,Resume Upload (Invalid File Type),Upload invalid resume file type,Verify system rejects unsupported file formats.,User logged in as Admin,1. Click Browse.2. Upload an image file.,File: picture.jpg,System displays “Invalid file type” error.,Error displayed,"message displayed ""File type not allowed""",Passed,Reem,Cycle 1,Medium,,,,,
+TC_098,Resume Upload (Large File),Upload resume exceeding 1MB,Verify system rejects files larger than 1MB.,User logged in as Admin,1. Upload resume >1MB.2. Click Save.,File: big_resume.pdf (2.5MB),System shows error “File size exceeds 1MB”.,Error displayed,"message displayed ""Attachment Size Exceeded""",Passed,Reem,Cycle 1,Medium,,,,,
+TC_099,Notes Length Validation,Validate Notes length limit,Check system behavior if Notes exceed reasonable limit (250 chars).,"nsure that when “Consent to keep data” is checked, the candidate
+ is saved and a download icon appears with the candidate’s data.",1. Add candidate.2. Enter very long Notes text (>500 chars).3. Click Save.,Notes: 300 characters,System should restrict length or show message.,Validation shown,System shows error “Should not exceed 250 characters”.,Passed,Reem,Cycle 1,Medium,,,,,
+TC_100,Date of Application (Past/Current),Validate Date of Application accepts current or past date,"Verify that the system allows entering the current date or 
+any past date as the Date of Application.",User logged in as Admin,"Navigate to Recruitment → Candidates → Add Candidate
+Enter a Date of Application as today’s date or a previous date.
+. Fill in all other required fields  Click Save. ",Date of Application: 2025-05-11 (current or past date),"System should accept the entered date and save
+ the candidate successfully.",Candidate saved,System accepted the date and saved successfully.,Passed,Reem,Cycle 1,Low,,,,,
+TC_101,Date of Application (Future),Validate Date of Application rejects future date,"Verify that the system does not allow entering a 
+future date as the Date of Application.",User logged in as Admin,"Navigate to Recruitment → Candidates → Add Candidate
+Enter a Date of Application set in the future.
+. Fill in all other required fields  Click Save. ",Date of Application: 2026-12-30 (future date),"System should display validation message: 
+“Date of Application cannot be in the future.”",Error displayed,System shows error “Should be the current date or a previous date”.,Passed,Reem,Cycle 1,Medium,,,,,
+TC_102,Consent to Keep Data (Unchecked),Validate Consent to Keep Data,Ensure that unchecking consent still allows submission.,User logged in as Admin,1. Leave “Consent to keep data” unchecked.2. Click Save.,Consent: No,Candidate saved successfully.,Candidate saved,Candidate saved successfully.,Passed,Reem,Cycle 1,Low,,,,,
+TC_103,Cancel Button Functionality,Verify Cancel button,Check that Cancel button returns to Candidates list without saving.,User logged in as Admin,1. Fill some fields.2. Click Cancel.,N/A,"System redirects to Candidates page, no data saved.",Cancelled successfully,Works as expected.,Passed,Reem,Cycle 1,Low,,,,,
+TC_104,Consent to Keep Data (Checked),Consent to Keep Data (Checked),"nsure that when “Consent to keep data” is checked, the candidate
+ is saved and a download icon appears with the candidate’s data.",User logged in as Admin,1. Check the “Consent to keep data” checkbox. 2. Click Save.,Consent: Yes,"Candidate saved successfully, and a download icon appears beside 
+the candidate’s record for exporting data",Candidate saved,"Candidate saved successfully, and download icon appeared as expected.",Passed,Reem,Cycle 1,Low,,,,,
+TC_105,Email Field Length Limit,Validate email field length (≤ 50 characters),"Verify that the system accepts email addresses up to 
+50 characters and rejects longer inputs.",User logged in as Admin,"Navigate to Recruitment → Candidates → Add Candidate
+Enter an email address longer than 50 characters.
+. Fill in all other required fields  Click Save. ",xdcfgvbhjnkmlygbhnknjhgvfdsmknjhbgadmin@example.com (> 50 chars),"System should display a validation message: 
+“Should not exceed 50 characters.” Candidate should not be saved.",Validation shown,Works as expected.,Passed,Reem,Cycle 1,Medium,,,,,
+TC_106,Search by Job Title,Search candidates by Job Title,Verify that users can filter candidates by selecting a Job Title.,User logged in as Admin,1. Click Job Title dropdown.2. Select a Job Title.3. Click Search.,Job Title: Software Engineer,Only candidates with the selected Job Title are displayed.,Correct search results shown,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_107,Search by Vacancy,Search candidates by Vacancy,Ensure candidates can be filtered by a chosen Vacancy.,User logged in as Admin,1. Click Vacancy dropdown.2. Select a Vacancy.3. Click Search.,Vacancy: Frontend Developer,Only candidates who applied for the selected Vacancy appear.,Correct search results shown,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_108,Search by Hiring Manager,Search candidates by Hiring Manager,Validate that users can filter candidates under a specific Hiring Manager.,User logged in as Admin,1. Click Hiring Manager dropdown.2. Select a manager.3. Click Search.,Hiring Manager: John Doe,Only candidates managed by John Doe are shown.,Correct search results shown,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_109,Search by Status,Search candidates by Status,Verify filtering candidates by recruitment status works correctly.,User logged in as Admin,1. Click Status dropdown.2. Select a status.3. Click Search.,Status: Shortlisted,Candidates with the chosen status are displayed.,Correct search results shown,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_110,Search by Candidate Name,Search candidates by Candidate Name,Ensure search by candidate name displays the correct results.,User logged in as Admin,1. Type candidate name in the search box.2. Click Search.,Candidate Name: Reem A,Candidates matching the entered name appear.,Correct search results shown,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_111,Search by Keywords,Search candidates by Keywords,Validate keyword-based filtering of candidates.,User logged in as Admin,1. Enter keywords in the field.2. Click Search.,"Keywords: Java, Python",Candidates with matching skills or keywords are shown.,Correct search results shown,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_112,Search by Date Range,Search candidates by Date Range,Ensure filtering by date range returns only candidates who applied within that range.,User logged in as Admin,1. Enter start and end dates.2. Click Search.,From: 2025-05-01To: 2025-05-11,Only candidates who applied within the selected dates are displayed.,Correct search results shown,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_113,Search by Method of Application,Search candidates by Method of Application,Verify that candidates can be filtered by application method.,User logged in as Admin,1. Click Method of Application dropdown.2. Select an option.3. Click Search.,Method: Online,Candidates who applied via the selected method appear.,Correct search results shown,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_114,Reset Search Filters,Reset search filters,Ensure the Reset button clears all search fields.,User logged in as Admin,1. Fill multiple search fields.2. Click Reset.,Any filled values,All fields return to default (“--Select--” or empty).,Filters cleared,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_115,No Results Message,No results message,Verify system displays a message when no candidate matches the criteria.,User logged in as Admin,1. Enter unmatched search data.2. Click Search.,Candidate Name: ZZZZZ,System shows “No Records Found.”,Message displayed,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_116,Sort by Vacancy Ascending,Sort by Vacancy Ascending,Ensure candidates in the results table can be sorted by Vacancy (A → Z).,User logged in as Admin,1. Click Vacancy column header on ascending.,N/A,Candidates sorted by Vacancy in ascending order.,Sorted correctly,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_117,Sort by Vacancy Descending,Sort by Vacancy Descending,Verify candidates can be sorted by Vacancy (Z → A).,User logged in as Admin,1. Click Vacancy column header descending.,N/A,Candidates sorted by Vacancy in descending order.,Sorted correctly,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_118,Sort by Candidate Ascending,Sort by Candidate Ascending,Validate ascending alphabetical sorting for Candidate column.,User logged in as Admin,1. Click Candidate column header on ascending.,N/A,Candidate names sorted A → Z.,Sorted correctly,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_119,Sort by Candidate Descending,Sort by Candidate Descending,Validate descending alphabetical sorting for Candidate column.,User logged in as Admin,1. Click Candidate column header descending.,N/A,Candidate names sorted Z → A.,Sorted correctly,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_120,Sort by Hiring Manager Ascending,Sort by Hiring Manager Ascending,Ensure ascending alphabetical sort by Hiring Manager works.,User logged in as Admin,1. Click Hiring Manager column header on ascending.,N/A,Candidates sorted by Hiring Manager A → Z.,Sorted correctly,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_121,Sort by Hiring Manager Descending,Sort by Hiring Manager Descending,Ensure descending alphabetical sort by Hiring Manager works.,User logged in as Admin,1. Click Hiring Manager column header descending.,N/A,Candidates sorted by Hiring Manager Z → A.,Sorted correctly,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_122,Sort by Date Ascending,Sort by Date of Application Ascending,Verify sorting candidates by date from oldest to newest.,User logged in as Admin,1. Click Date of Application column header on ascending.,N/A,Candidates displayed from oldest to newest application date.,Sorted correctly,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_123,Sort by Date Descending,Sort by Date of Application Descending,Verify sorting candidates by date from newest to oldest.,User logged in as Admin,1. Click Date of Application column header descending.,N/A,Candidates displayed from newest to oldest application date.,Sorted correctly,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_124,Sort by Status Ascending,Sort by Status Ascending,Ensure Status column can be sorted alphabetically A → Z.,User logged in as Admin,1. Click Status column header on ascending.,N/A,Candidates sorted by Status A → Z.,Sorted correctly,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_125,Sort by Status Descending,Sort by Status Descending,Ensure Status column can be sorted alphabetically Z → A.,User logged in as Admin,1. Click Status column header descending.,N/A,Candidates sorted by Status Z → A.,Sorted correctly,As expected,Passed,Reem,Cycle 1,Low,,,,,
+TC_126,Mark as Rejected,Mark candidate as Rejected successfully,Ensure a candidate can be marked as Rejected and the change is recorded.,User logged in as Admin,1. Select a candidate.2. Click “Reject”.3. Confirm rejection.4. Check candidate data/status.,Candidate: Reem A,Candidate status is updated to “Rejected”. Candidate’s data is saved with rejected status.,Status updated,As expected,Passed,Reem,Cycle 1,High,,,,,
+TC_127,Filter by Rejected Candidates,Verify rejected candidate appears in results,Confirm that rejected candidates are visible when filtered by Rejected status.,User logged in as Admin,1. Filter candidates by Status: Rejected.2. Click Search.,Status: Rejected,The previously rejected candidate appears in the search results with correct details.,Correct results shown,As expected,Passed,Reem,Cycle 1,Medium,,,,,
+TC_128,Mark as Shortlisted,Mark candidate as Shortlist successfully,Verify that a candidate can be marked as Shortlisted and the change is saved.,User logged in as Admin,1. Select a candidate.2. Click “Shortlist”.3. Confirm action if prompted.,Candidate: Reem A,Candidate+G85:L85 status changes to “Shortlisted”. System displays message: “Saved”.,Error displayed,Candidate status remains unchanged. System displays error message: “Unexpected Error Occurred”.,Failed,Reem,Cycle 1,High,,,,,
+TC_129,Reject Candidate (No Vacancy),Mark candidate as Rejected with no Vacancy,Verify that a candidate without a Vacancy can be marked as Rejected successfully.,User logged in as Admin,1. Select a candidate with empty Vacancy.2. Click “Reject”.3. Confirm action if prompted.,Candidate: Reem A (Vacancy: None),Candidate status updates to “Rejected”. System displays confirmation message: “Saved”. Candidate data reflects the rejected status.,Buttons hidden,The Shortlist and Reject actions are not available for the candidate. Candidate status cannot be changed.,Failed,Reem,Cycle 1,High,,,,,
+TC_130,Edit Candidate,Edit candidate data successfully,Verify that a user can edit candidate details and save changes successfully.,User logged in as Admin,"1. Select a candidate to edit.2. Click “Edit” .3. Modify candidate details (e.g., Name, Vacancy, Keywords).4. Click “Save”.","Candidate: Reem A New Vacancy: Backend Developer Keywords: Java, Python",Candidate data is updated with the new values. System displays confirmation message: “Saved”.,Candidate updated,As expected,Passed,Reem,Cycle 1,High,,,,,
+TC_131,"PIM – Add Employee
+","Verify that the system validates name fields and does not accept numeric values
+","This test case aims to verify whether the OrangeHRM system allows users to enter numeric values in the First Name, Middle Name, or Last Name fields when adding a new employee. Proper validation should prevent the use of numbers in these fields to maintain data consistency and accuracy in employee records.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Open a web browser (e.g., Microsoft Edge).
+2. Navigate to the OrangeHRM demo website using the URL: https://opensource-demo.orangehrmlive.com/
+3. Log in using the demo Admin credentials: Username: Admin, Password: admin123
+4. After successful login, from the top menu, click on the PIM tab.
+5. Select Add Employee from the dropdown menu.
+6. In the First Name field, enter a numeric value.
+7. In the Middle Name field, enter a numeric value.
+8. In the Last Name field, enter a numeric value .
+9. Enter Employee ID.
+10. Click on the Save button.
+11. Observe the system behavior and note whether a validation message appears or the record is saved.","First Name = ""123"", Middle Name = ""456"", Last Name = ""789""",The system should display a validation message indicating that numeric characters are not allowed in name fields. The record should not be saved successfully. Example message: “Invalid input. Name fields must contain letters only.”,No employee record should be created. The user should remain on the Add Employee page.,he system allows numeric values to be entered and saves the record successfully without any validation message.,Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_132,"PIM – Add Employee
+",Verify that the system validates name fields and does not accept special characters,"This test case aims to verify whether the OrangeHRM system properly validates the First Name, Middle Name, and Last Name fields by rejecting special characters such as @, #, $, %, and &. The goal is to ensure that the system only accepts alphabetic characters to maintain accurate and standardized employee records.","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Open a web browser (e.g., Microsoft Edge).
+2. Navigate to the OrangeHRM demo website using the URL: https://opensource-demo.orangehrmlive.com/
+3. Log in using the demo Admin credentials: Username: Admin, Password: admin123
+4. After successful login, from the top menu, click on the PIM tab.
+5. Select Add Employee from the dropdown menu.
+6. In the First Name field, enter a special character.
+7. In the Middle Name field, enter a special character.
+8. In the Last Name field, enter a special character .
+9. Observe that the Employee ID field is auto-generated by default. Do not modify this field.
+10. Click on the Save button.
+11. Observe the system behavior and note whether a validation message appears or the record is saved.","First Name = “@Malak”, Middle Name = “#Ashraf”, Last Name = “$Rezk",The system should display an error message indicating that special characters are not allowed in name fields. The record should not be saved successfully. Example message: “Invalid input. Name fields must contain letters only.”,No employee record should be created. The user should remain on the Add Employee page,The system allows special characters in the name fields and saves the record successfully without showing any validation message.,Failed,Malak Ashraf,Cycle 1,High,,,,,
+ TC_133,"PIM – Add Employee
+",Verify system behavior when mandatory name fields are left empty or partially filled,This test case aims to verify how the OrangeHRM system handles validation for mandatory fields (First Name and Last Name) and ensures that non-mandatory fields (such as Middle Name) can be left empty without causing errors. The system should display proper validation messages for required fields and handle optional fields gracefully.,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Open a web browser (e.g., Google Chrome).
+2. Navigate to the OrangeHRM demo website using the URL: https://opensource-demo.orangehrmlive.com/
+3. Log in using the demo Admin credentials: Username: Admin, Password: admin123
+4. Go to the PIM module and click Add Employee.
+5. Leave all name fields (First Name, Middle Name, Last Name) empty.
+6. Observe that the Employee ID field is auto-generated by default. Do not modify this field.
+7. Click Save and observe the system’s response.
+8. Now, enter valid text in First Name and Last Name, but leave Middle Name empty.
+9. Click Save again and observe the result.","Case 1: First Name = """", Middle Name = """", Last Name = """"
+
+Case 2: First Name = ""Malak"", Middle Name = """", Last Name = ""Ashraf""","Case 1: The system should display “Required” messages below the First Name and Last Name fields.
+
+Case 2: The record should be saved successfully without any error, since Middle Name is optional.","No record should be created in Case 1.
+ A new record should be successfully created in Case 2.","Case 1: When all name fields are left empty, the system displays “Required” messages below the First and Last Name fields.
+
+Case 2: When valid First and Last Names are entered and the Middle Name is left empty, the record is saved successfully without any errors.",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_134,PIM – Add Employee,"Verify that Employee ID is automatically created by the system
+","Ensure that when the Add Employee page is opened, the Employee ID field is automatically populated with a unique value generated by the system. This verifies that OrangeHRM automatically assigns IDs to new employees without user input.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Open a web browser (e.g., Microsoft Edge).
+2. Navigate to the OrangeHRM demo site: https://opensource-demo.orangehrmlive.com/.
+3. Log in using Admin credentials (Username: Admin, Password: admin123).
+4. Go to the PIM module and click Add Employee.
+5. Observe the Employee ID field before entering any data.
+6. Take note of the pre-filled value in the Employee ID field.",N/A,"The Employee ID field should display a unique, automatically generated value each time the Add Employee page is opened. The field should not be empty or duplicated.","No employee record created, observation only.
+","The Employee ID was automatically generated by the system each time the Add Employee page was opened. The values were non-empty and unique, confirming correct behavior.
+",Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_135,PIM – Add Employee,"Verify that the system allows saving an employee record without an Employee ID
+","This test verifies whether the system validates the Employee ID field before saving. When the auto-generated Employee ID is manually deleted and left blank, the system should ideally prevent saving the record or generate a new ID automatically.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Open a browser and go to https://opensource-demo.orangehrmlive.com/.
+2. Log in using Admin credentials (Username: Admin, Password: admin123).
+3. Navigate to PIM → Add Employee.
+4. Note that an Employee ID is generated by default.
+5. Click inside the Employee ID field and delete the generated ID so that the field is blank.
+6. Enter valid data in the mandatory fields (First Name, Middle Name and Last Name).
+7. Click Save.
+8. Observe whether the system allows saving and check if any Employee ID is displayed after saving.","First Name: Malak
+Middle Name: Ashraf
+Last Name: Rezk
+Employee ID: (deleted manually, left blank)","The system should not allow saving an employee record without an Employee ID.
+It should either:
+
+Display a validation message like “Employee ID is required”, or
+
+Automatically generate a new Employee ID before saving.","A record should not be created without an Employee ID.
+","1. The system allowed saving the record even when the Employee ID was deleted.
+2. The new employee record was created without any Employee ID assigned, which indicates a validation issue.",Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_136,PIM – Add Employee,"Verify that the Employee ID does not accept duplicate values
+","This test case aims to verify that the system prevents saving a new employee record if the entered Employee ID already exists in the system.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Open a browser and go to https://opensource-demo.orangehrmlive.com/.
+2. Log in using Admin credentials (Username: Admin, Password: admin123).
+3. Navigate to PIM → Add Employee.
+4. In the Employee ID field, enter an existing ID that is already assigned to another employee (e.g., E123).
+5. Fill in all mandatory fields such as First Name and Last Name with valid data.
+6. Click the Save button.
+7. Observe the system’s response","First Name: Malak
+Middle Name: Ashraf
+Last Name: Rezk
+Employee ID: 0377","The system should not allow duplicate Employee IDs.
+
+An appropriate error message such as “Employee ID already exists” should appear.
+
+The new record should not be saved in the system.","No new record is created when a duplicate ID is entered.
+","The system displays an error message and prevents saving the record when a duplicate Employee ID is entered.
+",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_137,PIM - Add Employee,"Verify that the Employee ID field accepts letters, numbers, and special symbols
+","This test case aims to verify that the Employee ID field accepts different input formats including letters, numbers, and special symbols without showing validation or format errors, and that the record can be saved successfully.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Open a browser and go to https://opensource-demo.orangehrmlive.com/.
+2. Log in using Admin credentials (Username: Admin, Password: admin123).
+3. Navigate to PIM → Add Employee.
+4. In the Employee ID field, enter different types of data as shown below:
+5. Numbers only (e.g., 12345)
+6. Letters only (e.g., ABCDE)
+7. Combination of letters and numbers (e.g., A123B)
+8. Special symbols included (e.g., AB#12@!)
+9. Special symbols only (e.g., @#$%)
+","1. 12345 
+2. ABCDE 
+3. A123B
+4. AB#12@! 
+5. @#$%","The system should accept all valid inputs for the Employee ID field, including numbers, letters, and special symbols.
+
+No validation or error messages should appear.
+
+The record should be saved successfully in all cases.","Employee records are created successfully with different ID formats.
+","The system accepts all input formats (numbers, letters, and symbols) and saves the record without any issue.
+",Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_138,PIM - Qualifications,"Verify that the “University” field accepts numeric values.
+","his test verifies that the “University” input field allows numeric characters without triggering validation errors.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab.
+2. Click Add to open the qualification form.
+3. Enter numeric input (e.g., 123456) in the University field.
+4. Fill in all other required fields with valid data.
+5. Click Save",University = 123456,"he system should accept numeric input in the University field and save the qualification successfully without validation errors.
+","The qualification record is successfully saved and displayed under the employee profile
+","The system accepted numeric input in the “University” fiel
+d and saved the qualification successfully without displaying any validation errors. The record appeared correctly under the employee’s Qualifications section.",Failed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_139,PIM - Qualifications,"Verify that the “University” field does not accept special characters
+","This test ensures that the University field should only accept valid university names (letters, spaces, hyphens) and reject any special characters. Accepting symbols like @#$% is invalid and should trigger a validation error.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab.
+2. Click Add to open the qualification form.
+3. Enter special characters (e.g., @#$%) in the University field.
+4. Fill in all other required fields with valid data.
+5. Click Save.","University = @#$%
+","The system should not allow special characters in the University field and should display a clear validation error message such as:
+
+“Please enter a valid university name.”
+The qualification record should not be saved.
+","No invalid data is saved in the employee’s Qualifications section
+","The system accepted special characters (@#$%) in the University field and saved the qualification record successfully. This is not expected behavior.
+",Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_140,"PIM - Qualifications
+","Verify that the “University” field accepts letters (A-Z, a-z)
+","This test ensures that the University field correctly accepts only alphabetic characters and saves the qualification record without errors.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.
+","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab.
+2. Click Add to open the qualification form.
+3. Enter letters only in the University field.
+4. Fill in all other required fields with valid data.
+5. Click Save.","University = ""Alexandria University""","The system should accept alphabetic characters.
+
+The qualification record should be saved successfully.
+","Valid data is saved in the employee’s Qualifications section.
+","The system accepted letters (A-Z, a-z) and saved the qualification record successfully.
+
+",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_141,PIM - Qualifications,"Verify that the “Major” field accepts numeric values.
+","his test verifies that the “Major” input field allows numeric characters without triggering validation errors.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab.
+2. Click Add to open the qualification form.
+3. Enter numeric input (e.g., 123456) in the Major field.
+4. Fill in all other required fields with valid data.
+5. Click Save",Major = 123456,"he system should accept numeric input in the Major field and save the qualification successfully without validation errors.
+","The qualification record is successfully saved and displayed under the employee profile
+",The system accepted numeric input in the “Major” field and saved the qualification successfully without displaying any validation errors. The record appeared correctly under the employee’s Qualifications section.,Failed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_142,PIM - Qualifications,"Verify that the “Major” field does not accept special characters
+","This test ensures that the major field should only accept valid major names (letters, spaces, hyphens) and reject any special characters. Accepting symbols like @#$% is invalid and should trigger a validation error.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab.
+2. Click Add to open the qualification form.
+4. Enter special characters (e.g., @#$%) in the Major  field.
+5. Fill in all other required fields with valid data.
+6. Click Save.","Major = @#$%
+","The system should not allow special characters in the University field and should display a clear validation error message such as:
+
+“Please enter a valid major name.”
+The qualification record should not be saved.
+","No invalid data is saved in the employee’s Qualifications section
+","The system accepted special characters (@#$%) in the University field and saved the qualification record successfully. This is not expected behavior.
+",Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_143,"Feature: PIM - Qualifications
+","Verify that the “Major” field accepts letters (A-Z, a-z)
+","This test ensures that the Major field correctly accepts only alphabetic characters and saves the qualification record without errors.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.
+","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab.
+2. Click Add to open the qualification form.
+3. Enter letters only in the Major field (e.g., ""Cybersecurity"").
+4. Fill in all other required fields with valid data.
+5. Click Save.","Major = ""Cybersecurity""","The system should accept alphabetic characters.
+
+The qualification record should be saved successfully.
+","Valid data is saved in the employee’s Qualifications section.
+","The system accepted letters (A-Z, a-z) and saved the qualification record successfully.
+
+",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_144,"PIM - Qualifications
+",Verify that the “GPA” field accepts numeric values,"This test ensures that the GPA field accepts numeric input (0-9) without triggering validation errors.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.
+","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab.
+2. Click Add to open the qualification form.
+3. Enter numeric input in the GPA field (e.g., 3.75).
+4. Fill in all other required fields with valid data.
+5. Click Save.",GPA = 3.75,"The system should accept numeric input in the GPA field and save the qualification successfully.
+Postconditions: The qualification record is saved and displayed under the employee’s Qualifications section.
+","The qualification record with numeric GPA is successfully saved.
+
+The employee’s Qualifications section reflects the newly added record.
+
+No validation errors occurred during saving.
+","The system accepted numeric input (3.75) in the GPA field and successfully saved the qualification record.
+",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_145,"PIM - Qualifications
+","Verify that the “GPA” field does not accept alphabetic characters (letters)
+","This test ensures that the GPA field should not accept letters (A-Z, a-z) and should trigger a validation error.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.
+","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab.
+2. Click Add to open the qualification form.
+3. Enter letters in the GPA field (e.g., ABC).
+4. Fill in all other required fields with valid data.
+5. Click Save.
+","GPA = ABC
+","The system should not allow letters in the GPA field and should display a clear validation error message such as: “Please enter a valid numeric GPA.” The qualification record should not be saved.
+Postconditions: No invalid data is saved in the employee’s Qualifications section.
+","No invalid GPA record is saved in the employee’s Qualifications section.
+
+The system displays a validation error message.
+
+The employee’s Qualifications section remains unchanged.","The system accepted letters (ABC) in the GPA field and saved the qualification record.
+",Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_146,"PIM - Qualifications
+","Verify that the “GPA” field does not accept special characters (@#$%)
+","This test ensures that the GPA field should not accept special characters and should trigger a validation error
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab.
+2. Click Add to open the qualification form.
+3. Enter special characters in the GPA field (e.g., @#$%).
+4. Fill in all other required fields with valid data.
+5. Click Save.
+","GPA = @#$%
+","The system should not allow special characters in the GPA field and should display a clear validation error message such as: “Please enter a valid numeric GPA.” The qualification record should not be saved.
+Postconditions: No invalid data is saved in the employee’s Qualifications section.
+","No invalid GPA record is saved in the employee’s Qualifications section.
+
+The system displays a validation error message.
+
+The employee’s Qualifications section remains unchanged.","The system accepted special characters (@#$%) in the GPA field and saved the qualification record.
+",Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_147,PIM - Qualifications,"Verify that the University Start Year cannot be greater than End Year
+","This test ensures that the system validates university start and end years correctly. Start Year must be less than or equal to End Year. Entering invalid years should trigger a validation error.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab.
+2. Click Add to open the qualification form.
+3. Enter a Start Year greater than End Year (e.g., Start = 2015, End = 2013).
+4. Fill in all other required fields with valid data.
+5.Click Save.","Start Year = 2015, End Year = 2013
+","The system should display a validation error: “Start Year cannot be greater than End Year.” The qualification record should not be saved.
+","No invalid university record is saved in the employee’s Qualifications section.
+
+The validation error message is displayed clearly.
+
+Employee’s Qualifications remain unchanged.
+","The system displayed a validation error as expected.
+",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_148,"PIM - Qualifications
+","Verify that the Year field accepts only numeric input
+","This test ensures that Year field acceptS only numeric input. Entering letters or special characters should trigger a validation error.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.
+","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab.
+2, Click Add to open the qualification form.
+3. Enter letters or special characters in the Year field (e.g., “ABCD” or “@#$%”).
+4. Fill in all other required fields with valid data.
+5. Click Save.
+
+"," Year = “ABCD”, 
+Year = “@#$%”",The system should display a validation error: “Should be a number.” The qualification record should not be saved.,"
+No invalid data is saved in the employee’s Qualifications section.
+
+Validation error messages are displayed clearly.
+
+Employee’s Qualifications remain unchanged.","The system displayed a validation error as expected.
+",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_149,"PIM - Qualifications
+","Verify that the Year field does not exceed 4 characters
+","This test ensures that Year fields doesn't accept more than 4 digits. Entering more than 4 digits should trigger a validation error.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab.
+2. Click Add to open the qualification form.
+3. Enter more than 4 digits in the Year field (e.g., 12345).
+4. Fill in all other required fields with valid data.
+5. Click Save.
+
+", Year = 12345,"The system should display a validation error: “Should not exceed 4 characters.” The qualification record should not be saved.
+","No invalid Year data is saved in the employee’s Qualifications section.
+
+Validation error message is displayed clearly.
+
+Employee’s Qualifications remain unchanged.
+","The system displayed a validation error as expected.
+",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_150,PIM - Qualifications,"Verify that “Years of Experience” field accepts only numeric input
+",This test ensures that the Years of Experience field does not accept letters or special characters. Entering non-numeric input should trigger a validation error.,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab → Skills section.
+2. Click Add to open the skill form.
+3. Enter letters or special characters in the Years of Experience field (e.g., “ABCD”).
+4. Fill in all other required fields with valid data.
+5. Click Save.",Years of Experience = ABCD,The system should display a validation error: “Should be a number.” The skill record should not be saved.,"No invalid skill data is saved in the employee’s Qualifications section.
+
+Validation error message is displayed clearly.
+
+Employee’s Qualifications remain unchanged.",The system displayed a validation error as expected.,Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_151,PIM - Qualifications,"Verify that “Years of Experience” field does not accept values ≥100
+",This test ensures that the Years of Experience field does not accept unrealistic values. Entering 100 or more should trigger a validation error.,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab → Skills section.
+2. Click Add to open the skill form.
+3. Enter a value ≥100 in the Years of Experience field (e.g., 111).
+4. Fill in all other required fields with valid data.
+5, Click Save.",Years of Experience = 111 ,The system should display a validation error: “Should be less than 100.” The skill record should not be saved.,"No invalid skill data is saved in the employee’s Qualifications section.
+
+Validation error message is displayed clearly.
+
+Employee’s Qualifications remain unchanged.",The system displayed a validation error as expected.,Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_152,PIM - Qualifications,Verify that “Comments” field does not accept more than 100 characters,This test ensures that the Comments field has a maximum length of 100 characters. Entering more than 100 characters should trigger a validation error.,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to PIM → Employee List → Select an employee → Qualifications tab → Skills section.
+2. Click Add to open the skill form.
+4. Enter more than 100 characters in the Comments field.
+5. Fill in all other required fields with valid data.
+6. Click Save.","Comments = ""qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq""",The system should display a validation error: “Should not exceed 100 characters.” The skill record should not be saved.,"No invalid skill data is saved in the employee’s Qualifications section.
+
+Validation error message is displayed clearly.
+
+Employee’s Qualifications remain unchanged.",The system displayed a validation error as expected.,Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_153,PIM - Salary,Verify that “Salary Component” field accepts letters,Ensure that the Salary Component field accepts letters without validation errors,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. 
+","1. Navigate to PIM → Employee List → Select employee → Salary tab.
+2. Click Add to open Salary Component form.
+3. Enter BasicSalary in Salary Component.
+4. Fill all other required fields with valid data:
+5. Pay Grade = Grade 2
+6. Pay Frequency = Monthly
+7. Currency = Egyptian Pound
+8. Amount = 5000
+9. Click Save.",Salary Component = BasicSalary,"Record saved successfully, no validation errors displayed",Salary Component added to employee’s salary record,"System saved the record successfully; no validation errors appeared
+",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_154,PIM - Salary,Verify that “Salary Component” field accepts numbers,"his test ensures that the Salary Component field accepts numeric input without validation errors, even if not a natural component name.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to PIM → Employee List → Select employee → Salary tab .
+2. Enter 12345 in the Salary Component field.
+3. Fill all other required fields with valid data.
+4. Click Save.",Salary Component = 12345,"The system should reject the input as invalid.
+
+A validation warning or error should indicate that the input is not a valid salary component name.
+
+The record should not be saved.","Employee’s salary record remains unchanged.
+
+No invalid Salary Component is saved.",The system saved the record successfully; no validation errors appeared.,Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_155,PIM - Salary,Verify that “Salary Component” field does not accept special characters,"This test ensures that the Salary Component field should not accept input consisting only of special characters, as it is not a valid salary component name.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to PIM → Employee List → Select employee → Salary tab .
+2. Enter @#$%! in the Salary Component field.
+3. Fill all other required fields with valid data.
+4. Click Save.",Salary Component = @#$%!,"The system should reject the input as invalid.
+
+A validation warning or error should indicate that the input is not a valid salary component name.
+
+The record should not be saved
+","Employee’s salary record remains unchanged.
+
+No invalid Salary Component is saved.
+","The system saved the record successfully; no validation errors appeared.
+",Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_156,PIM - Salary,"Verify that “Salary Component” field cannot be empty (Required)
+","This test ensures that the Salary Component field is mandatory and cannot be left empty.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to PIM → Employee List → Select employee → Salary tab.
+2. Leave the Salary Component field empty.
+3. Fill all other required fields with valid data.
+4. Click Save.",Salary Component = empty,"The system should display a validation error: “Required”.
+
+The record should not be saved.","Employee’s salary record remains unchanged.
+
+Validation error message is displayed clearly.","The system displayed a validation error: “Required”.
+
+The record was not saved.",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_157,PIM - Salary,Verify that “Amount” field is required,"This test ensures that the Amount field cannot be left empty and is mandatory
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1.Navigate to PIM → Employee List → Select employee → Salary tab.
+2. Click Add to open the Add Salary Component form.
+3. Leave the Amount field empty.
+4. Fill all other required fields:
+5. Enter valid data
+6. Click Save.",Amount = `` (empty),"The system should display a validation error: “Required”.
+
+The record should not be saved.",Employee’s salary record remains unchanged.,"Validation error “Required” displayed.
+
+Record not saved.
+",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_158,PIM - Salary,Verify that “Amount” field does not accept letters,"Ensure that the Amount field accepts numeric input only; letters should trigger a validation error.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Salary tab.
+2. Click Add to open the form.
+3. Enter ABCD in the Amount field.
+4. Fill all other required fields with valid data.
+5. Click Save.
+",Amount = ABCD,"Validation error: “Should be a number”.
+
+Record not saved.",Employee’s salary record remains unchanged.,"Validation error “Should be a number” displayed.
+
+Record not saved.",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_159,PIM - Salary,"Verify that “Amount” field does not accept special characters
+","Ensure that the Amount field rejects symbols
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Salary tab.
+2. Click Add to open the form.
+3. Enter @#$$ in the Amount field.
+4. Fill all other required fields with valid data.
+5. Click Save.
+",Amount = @#$$,"Validation error: “Should be a number”.
+
+Record not saved.",Employee’s salary record remains unchanged.,"Validation error “Should be a number” displayed.
+
+Record not saved.",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_160,PIM - Salary,"Verify that “Amount” field does not accept numbers exceeding maximum limit
+","Ensure that the Amount field accepts numbers less than 1,000,000,000 only
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Salary tab.
+2. Click Add to open the form.
+3. Enter 11111111111111111111111 in the Amount field.
+4. Fill all other required fields with valid data.
+5. Click Save.",Amount = 11111111111111111111111,"Validation error: “Should be less than 1,000,000,000”.
+
+Record not saved.
+",Employee’s salary record remains unchanged.,"Validation error “Should be less than 1,000,000,000” displayed.
+
+Record not saved.",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_161,PIM - Salary,"Verify that “Amount” field does not accept negative numbers
+","Ensure that the Amount field accepts only positive numbers
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Salary tab .
+2. Click Add to open the form.
+3. Enter -1 in the Amount field.
+4. Fill all other required fields with valid data.
+5. Click Save.
+",Amount = -1,"Validation error: “Should be a number” or “Invalid value”.
+
+Record not saved.",Employee’s salary record remains unchanged.,"Validation error “Should be a number” displayed.
+
+Record not saved.",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_162,PIM – Contact Details,Verify Street 1 accepts letters and numbers,Ensure Street 1 field allows combination of letters and numbers,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Contact Details section.
+2. Enter 123MainStreet in Street 1 field.
+3. Fill all other required fields.
+4. Click Save.",123MainStreet,Record saved successfully without validation errors,"Employee’s Street 1 field updated with 123MainStreet.
+
+No other fields affected.",Record saved successfully,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_163,PIM – Contact Details,Verify Street 1 accepts letters only,Ensure Street 1 field allows letters only,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Contact Details section.
+2. Enter MainStreet in Street 1 field.
+3. Fill all other required fields.
+4. Click Save.",MainStreet,Record saved successfully without validation errors,"Employee’s Street 1 field updated MainStreet.
+
+No other fields affected.",Record saved successfully,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_164,PIM – Contact Details,Verify Street 1 accepts numbers only,Ensure Street 1 field allows numbers only,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Contact Details section.
+2. Enter 123456 in Street 1 field.
+3. Fill all other required fields.
+4. Click Save.",123456,Record saved successfully without validation errors,"Employee’s Street 1 field updated  123456.
+
+No other fields affected.",Record saved successfully,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_165,PIM – Contact Details,"Verify Street 1 accepts valid special characters (#, -, /)
+","Ensure Street 1 field allows common address symbols used in addresses
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Contact Details
+2. Enter Apt #5-B/2 in Street 1 field.
+3. Fill all other required fields.
+4. Click Save.",Apt #5-B/2,"Record saved successfully without validation errors
+","Employee’s Street 1 field updated Apt #5-B/2.
+
+No other fields affected.",Record saved successfully,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_166,PIM – Contact Details,"Title: Verify Street 1 rejects invalid special characters (@, *, %, !)
+","Ensure Street 1 field does not accept symbols that are not valid in addresses.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Contact Details
+2. Enter !!!@@## in Street 1 field.
+3. Fill all other required fields.
+4. Click Save.",!!!@@##,Validation error displayed; record not saved,"Employee’s Street 1 field should not be updated.
+
+No other fields affected.",Record saved successfully,Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_167,PIM – Contact Details,Verify Street 2 accepts letters and numbers,Ensure Street 2 field allows combination of letters and numbers,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Contact Details
+2. Enter 123MainStreet in Street 2 field.
+3. Fill all other required fields.
+5. Click Save.",123MainStreet,Record saved successfully without validation errors,"Employee’s Street 2 field updated with 123MainStreet.
+
+No other fields affected.",Record saved successfully,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_168,PIM – Contact Details,Verify Street 2 accepts letters only,Ensure Street 2 field allows letters only,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Contact Details
+2. Enter MainStreet in Street 2 field.
+3. Fill all other required fields.
+4. Click Save.",MainStreet,Record saved successfully without validation errors,"Employee’s Street 2 field updated MainStreet.
+
+No other fields affected.",Record saved successfully,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_169,PIM – Contact Details,Verify Street 2 accepts numbers only,Ensure Street 2 field allows numbers only,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Contact Details
+2. Enter 123456 in Street 2 field.
+3. Fill all other required fields.
+4. Click Save.",123456,Record saved successfully without validation errors,"Employee’s Street 2 field updated  123456.
+
+No other fields affected.",Record saved successfully,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_170,PIM – Contact Details,"Verify Street 2 accepts valid special characters (#, -, /)
+","Ensure Street 2 field allows common address symbols used in addresses
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Contact Details
+2. Enter Apt #5-B/2 in Street 2 field.
+3. Fill all other required fields.
+4. Click Save.",Apt #5-B/2,"Record saved successfully without validation errors
+","Employee’s Street 2 field updated Apt #5-B/2.
+
+No other fields affected.",Record saved successfully,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_171,PIM – Contact Details,"Title: Verify Street 2 rejects invalid special characters (@, *, %, !)
+","Ensure Street 2 field does not accept symbols that are not valid in addresses.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Contact Details
+2. Enter @@@###$$$!!! in Street 2 field.
+3. Fill all other required fields.
+4. Click Save.",!!!@@##,Validation error displayed; record not saved,"Employee’s Street 2 field should not be updated.
+
+No other fields affected.",Record saved successfully,Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_172,"PIM – Contact Details
+","Verify City accepts letters only
+",Ensure City field allows letters only ,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Contact Details
+2. Enter NewYork in City field.
+3. Fill all other required fields.
+4. Click Save.",Sidi Bishr,"ecord saved successfully without validation errors. 
+","Employee’s City field should not be updated.
+
+No other fields affected.","Record saved successfully
+",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_173,"PIM – Contact Details
+","Verify City rejects numbers only
+","Ensure City field does not allow numbers only
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Contact Details.
+2. Enter 12345 in City field.
+3. Fill all other required fields.
+4. Click Save.",12345,"Validation error displayed; record not saved
+","Employee’s City field should not be updated.
+
+No other fields affected.",Record saved successful,Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_174,PIM – Contact Details,"Verify City rejects special characters
+","Ensure City field does not allow special characters
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to PIM → Employee List → Select employee → Contact Details
+2. Enter @New#City! in City field.
+3. Fill all other required fields.
+4. Click Save", @New#City! ,Validation error displayed; record not saved,"Employee’s City field should not be updated.
+
+No other fields affected.",Record saved successful,Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_175,PIM – Contact Details,"Verify State/Province accepts valid alphabetic input
+","Ensure the State/Province field accepts valid names using letters only
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  
+","1. Navigate to PIM → Employee List → Select employee → Contact Details.
+2. Enter “Alexandria” in the State/Province field.
+3. Fill all other required fields.
+4. Click Save.", Alexandria ,"Record should be saved successfully.
+
+State/Province field should be updated with the new value.
+
+No other fields should be altered.","Employee’s State/Province field is updated successfully.
+No other fields affected.",Record saved successfully.,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_176,PIM – Contact Details,"Verify State/Province rejects invalid inputs (numbers, special characters, long text, mixed values)
+",Ensure the State/Province field validates user input and prevents invalid entries,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Navigate to PIM → Employee List → Select employee → Contact Details.
+2. Enter any of the following invalid values in the State/Province field:
+@Giza!
+12345
+Giza22
+Gizaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa (50+ characters)
+3. Fill all other required fields.
+4. Click Save."," Invalid values: @Giza!, 12345, Giza22, Gizaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa (50+ characters)
+ ","Validation error should appear.
+
+State/Province field should not be updated.
+
+Record should not be saved.
+
+No other fields should be affected.
+","Employee’s State/Province field should not be updated.
+No other fields affected.
+","System accepts all invalid inputs;
+Record saved successfully.
+",Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_177,PIM_ContactDetails,Verify Zip/Postal Code accepts valid numeric input,Ensure the Zip/Postal Code field accepts valid postal codes (numbers only),"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Navigate to PIM → Employee List → Select employee → Contact Details.
+2. Enter “12345” in the Zip/Postal Code field.
+3. Fill all other required fields.
+4. Click Save.",12345,"Validation passed; record saved successfully.
+
+Employee’s Zip/Postal Code field should be updated.
+
+No other fields affected.","Employee’s Zip/Postal Code field is updated successfully.
+No other fields affected.",Record saved successfully.,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_178,PIM_ContactDetails,Verify Zip/Postal Code rejects inputs exceeding maximum length (10 characters),Ensure the system prevents users from entering postal codes longer than 10 characters,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Navigate to PIM → Employee List → Select employee → Contact Details.
+2. Enter “12345678901234567” in the Zip/Postal Code field (17 characters).
+3. Fill other required fields.
+4. Click Save.",12345678901234567 (17 digits),"Validation error should be displayed: “Zip/Postal Code should not exceed 10 characters.”
+
+Employee’s Zip/Postal Code field should not be updated.
+
+No other fields affected.","Employee’s Zip/Postal Code field is not updated.
+No other fields affected.","System rejects the value (only validation that works).
+
+Record not saved due to exceeded length.",Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_179,PIM_ContactDetails,"Verify Zip/Postal Code rejects invalid inputs (letters, special characters, mixed values)",Ensure the Zip/Postal Code field validates user input and rejects non-numeric data,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Navigate to PIM → Employee List → Select employee → Contact Details.
+2. Enter invalid values in the Zip/Postal Code field:
+ABCDE
+12AB5
+@4456!
+1
+3. Fill all other required fields.
+4.Click Save.","Invalid values: ABCDE, 12AB5, @4456!, 1","Validation error should be displayed.
+
+Employee’s Zip/Postal Code field should not be updated.
+
+No other fields affected.","Employee’s Zip/Postal Code field should not be updated.
+No other fields affected.","System accepts all invalid inputs;
+Record saved successfully.",Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_180,PIM_ContactDetails,Verify Home Telephone accepts valid numeric input,"Ensure the Home Telephone field accepts numbers and allowed symbols (+ - / ( )).
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.
+","1. Navigate to PIM → Employee List → Select employee → Contact Details.
+2. Enter valid value +20-123456789 in Home Telephone field.
+3. Fill all other required fields.
+4. Click Save.",-123456769,"Record saved successfully.
+Employee’s Home Telephone field is updated.
+No other fields affected.","Employee’s Home Telephone field is updated successfully.
+No other fields affected.",Record saved successfully.,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_181,PIM_ContactDetails,"Verify Mobile accepts valid numeric input
+",his test case verifies that the Mobile field accepts valid phone numbers containing only numbers and allowed symbols (+ - / ( )) and saves them successfully.,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Navigate to PIM → Employee List → Select employee → Contact Details.
+2. Enter valid value 01012345678 in Mobile field.
+3. Fill all other required fields.
+4. Click Save.",1012345678,"Record saved successfully.
+Employee’s Mobile field updated.
+No other fields affected.","Employee’s Mobile field is updated successfully.
+No other fields affected.",Record saved successfully,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_182,PIM_ContactDetails,"Verify Work Telephone accepts valid numeric input
+
+","This test case verifies that the Work Telephone field accepts valid phone numbers containing only numbers and allowed symbols (+ - / ( )) and saves them successfully.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.
+","1. Navigate to PIM → Employee List → Select employee → Contact Details.
+2. Enter valid value 033567890 in Work Telephone field.
+3. Fill all other required fields.
+4. Click Save.",33567890,"Record saved successfully.
+Employee’s Work Telephone field updated.
+No other fields affected.
+","Employee’s Work Telephone field is updated successfully.
+No other fields affected.",Record saved successfully,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_183,PIM_ContactDetails,"Verify Email accepts valid email format
+","This test case verifies that the Email field accepts valid email addresses in correct format (admin@example.com) and saves them successfully.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.
+","1. Navigate to PIM → Employee List → Select employee → Contact Details.
+2. Enter valid value admin@example.com in Email field.
+3. Fill all other required fields.
+4. Click Save.","admin@example.com
+","Record saved successfully.
+Employee’s Email field updated.
+No other fields affected.
+","Employee’s Email field is updated successfully.
+No other fields affected.
+",Record saved successfully,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_184,PIM_ContactDetails,"Verify Work Email accepts valid email format
+","This test case verifies that the Work Email field accepts valid email addresses in correct format (user@company.com) and saves them successfully.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.","1. Navigate to PIM → Employee List → Select employee → Contact Details.
+2. Enter valid value user@company.com in Work Email field.
+3. Fill all other required fields.
+4. Click Save.","user@company.com
+","Record saved successfully.
+Employee’s Work Email field updated.
+No other fields affected.
+","Employee’s Work Email field is updated successfully.
+No other fields affected.
+","Record saved successfully
+",Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_185,Apply, the leave is applied succesfully when entering valid data and choosing 2 different dates of the from and to date,Verify that the leave is applied succesfully when entering valid data and choosing 2 different dates of the from and to date,"1- Login with this url https://www.orangehrm.com/
+2- Make sure to cancel every apply leave you made continusouly ","1- Select a leave type from the list
+2- Select a from date from the calender
+3- Select a to date from the calender
+4- Select partial days from the list
+5- Select duration from the list
+6- Write a comment(optional)
+7-Click on Apply ","1- Leave Type: CAN-FMLA
+2-From Date: 2025-05-11
+3-To Date: 2025-06-11
+4- Partial days: All days
+5- Duration: Half day morning 
+6- Comment: I am sick",The leave apply should be applied successfully,"mssg: ""Your leave is applied successfully""", The leave apply should be applied successfully ,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_186,Apply, the leave is applied succesfully when entering valid data and choosing the same date for the from and to date,Verify that the leave is applied succesfully when entering valid data and choosing the same date for the from and to date,"1- Login with this url https://www.orangehrm.com/
+2- Make sure to cancel every apply leave you made continusouly ","1- Select a leave type from the list
+2- Select a from date from the calender
+3- Select a to date from the calender
+4- Select partial days from the list
+5- Select duration from the list
+6- Write a comment(optional)
+7-Click on Apply ","1- Leave Type: CAN-FMLA
+2-From Date: 2025-05-11
+3-To Date: 2025-06-11
+4- Duration: Full Day
+5- Comment: I am sick",The leave apply should be applied successfully,"mssg: ""Your leave is applied successfully""",The leave apply should be applied successfully,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_187,My leave,the leave is saved succesfully,Verify that the leave is saved succesfully,1- Login with this url https://www.orangehrm.com/,"1- Go to my leave
+2- Slect from and to date(optional)
+3-Select show leave status
+4- Select leave type (optional)
+5- Click search button","1- Leave Type: CAN-FMLA
+2-From Date: 2025-05-11
+3-To Date: 2025-06-11
+4- Leave with status : select all",The leave apply should be saved successfully,The leave apply is saved successfully,The leave apply should be applied successfully,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_188,My leave," the leave is not saved succesfully when leaving
+from and to date blank","Verify that the leave is saved succesfully when leaving
+from and to date blank",1- Login with this url https://www.orangehrm.com/,"1- Go to my leave
+2- Don't Slect from and to date(optional)
+3-Select show leave status
+4- Select leave type (optional)
+5- Click search button","1- Leave Type: CAN-FMLA
+2-From Date: 
+3-To Date: 
+4- Leave with status : select all",The leave apply should be saved successfully,"The leave apply is not saved successfully 
+A note under from and to date "" Required"" Even though they don't have required sign * next to them",The leave apply should be applied successfully,Failed,Rowan Sherif,Cycle 1,High,,,,,
+TC_189,My leave," the leave is saved succesfully when leaving
+Leave type blank","Verify that the leave is saved succesfully when leaving
+Leave type blank",1- Login with this url https://www.orangehrm.com/,"1- Go to my leave
+2-Slect from and to date(optional)
+3-Select show leave status
+4-Don't Select leave type (optional)
+5- Click search button","1- Leave Type: 
+2-From Date: 2025-05-11
+3-To Date: 2025-06-11
+4- Leave with status : select all",The leave apply should be saved successfully,"The leave apply is found successfully 
+",The leave apply  found successfully,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_190,My leave,the leave is not saved succesfully when leaving show leave status blank,Verify that the leave is not saved succesfully when leaving show leave status blank,1- Login with this url https://www.orangehrm.com/,"1- Go to my leave
+2- Slect from and to date(optional)
+3-don't Select show leave status
+4- Select leave type (optional)
+5- Click search button","1- Leave Type: CAN-FMLA
+2-From Date: 2025-05-11
+3-To Date: 2025-06-11
+4- Leave with status : ",It should give a warning,"A not under show leave ""required""",A warning is displayed,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_191,Apply,the leave is not applied succesfully when leaving all the sections blank,Verify that the leave is not applied succesfully when leaving all the sections blank,"1- Login with this url https://www.orangehrm.com/
+2- Make sure to cancel every apply leave you made continusouly ","1- Leave all the sections blank
+2- Click on Apply","1- Leave Type: 
+2-From Date: 
+3-To Date: 
+4- Duration:
+5- Comment: ",It should give a warning that the user should enter  information in these sections ,"The leave apply didn't apply successfully 
+A note under every section except comments ""Required""",A warning is displayed,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_192,Apply,"the leave is not applied succesfully when 
+leaving Leave Type section blank","Verify that the leave is not applied succesfully when 
+leaving Leave Type section blank","1- Login with this url https://www.orangehrm.com/
+2- Make sure to cancel every apply leave you made continusouly ","1- Don't select a leave type from the list
+2- Select a from date from the calender
+3- Select a to date from the calender
+4- Select partial days from the list
+5- Select duration from the list
+6- Write a comment(optional)
+7-Click on Apply ","1- Leave Type: 
+2-From Date: 2025-05-11
+3-To Date: 2025-06-11
+4- Duration: Full Day
+5- Comment: I am sick","It should give a warning that 
+the user should enter  information in these sections","The leave apply didn't apply successfully 
+A note under every section except comments ""Required""",A warning is displayed,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_193,Add Leave Entitlement," add leave entitlement is saved successfully 
+when entering valid information","Verify that add leave entitlement is saved successfully 
+when entering valid information","1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to individual employee
+4- Select employee name from the list
+5- Select leave type from the list
+6- Select leave period
+7- Write entitlement
+8-Click on save","1- Employee Name: Ranga  Akunuri
+2- Leave Type: I am Sick
+3- Leave Period: 2026-01-01 - 2026-31-12
+4-Entitlement: 22","Leave Entitlement 
+is added successfully","Leave Entitlement is
+ added successfully","Leave Entitlement 
+is added successfully",Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_194,"Reports
+Leave entitlements and usage report",the leave entitlement of Ranga Akunni is saved successfully in leave entitlement and usage report,Verify that the leave entitlement of Ranga Akunni is saved successfully in leave entitlement and usage report,"1- Login with this 
+url https://www.orangehrm.com/
+2- Perform the previous test case TC-010","1- Click on reports 
+2- Click on leave entitlement and usage report
+3- Click on generate for employee
+4- Write employee name
+5- Select leave period
+6- Click on generate button","1- Employee Name: Ranga  Akunuri
+2- Leave Period: 2026-01-01 - 2026-31-12",The record of leave entitlement of Ranga should be generated,The record of leave entitlement of Ranga is generated and the record of leave entitlement of TC-10 is generated,,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_195,"Reports
+Leave entitlements and usage report", the leave entitlement of Ranga Akunni is saved successfully in leave entitlement and usage report,Verify that the leave entitlement of Ranga Akunni is saved successfully in leave entitlement and usage report,"1- Login with this 
+url https://www.orangehrm.com/
+2- Perform the previous test case TC-010","1- Click on reports 
+2- Click on leave entitlement and usage report
+3- Click on generate forleave type
+4- Write employee name
+5- Select leave period
+6- Click on generate button","1- Leave type: CAN-Personal
+2- Leave Period: 2026-01-01 - 2026-31-12",The record of leave entitlement of Ranga should be generated,The record of leave entitlement of Ranga in TC-010 is generated,"Leave Entitlement 
+is generated successfully",Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_196,"Reports
+Leave entitlements and usage report",the leave entitlement report of Ranga Akunni is not generated successfully in leave entitlement and usage report when leaving employee name blank,Verify that the leave entitlement report of Ranga Akunni is not generated successfully in leave entitlement and usage report when leaving employee name blank,"1- Login with this 
+url https://www.orangehrm.com/
+2- Perform the previous test case TC-010","1- Click on reports 
+2- Click on leave entitlement and usage report
+3- Click on generate for employee
+4- Don't write employee name
+5- Select leave period
+6- Click on generate button","1- Employee Name: 
+2- Leave Period: 2026-01-01 - 2026-31-12",The record of leave entitlement of Ranga shouldn't be generated,"The record of leave entitlement of Ranga isnot generated
+A note under Employee name ""Required""","Leave Entitlement 
+is  not generated successfully",Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_197,"Reports
+Leave entitlements and usage report", the leave entitlement report of Ranga Akunni is not generated successfully in leave entitlement and usage report when leaving leave period blank,Verify that the leave entitlement report of Ranga Akunni is not generated successfully in leave entitlement and usage report when leaving leave period blank,"1- Login with this 
+url https://www.orangehrm.com/
+2- Perform the previous test case TC-010","1- Click on reports 
+2- Click on leave entitlement and usage report
+3- Click on generate for employee
+4-  write employee name
+5- Don't Select leave period
+6- Click on generate button","1- Employee Name: Ranga Akunuri 
+2- Leave Period: ",The record of leave entitlement of Ranga shouldn't be generated,"The record of leave entitlement of Ranga isnot generated
+A note under leave period ""Required""","Leave Entitlement 
+is not generated successfully",Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_198,Add Leave Entitlement,the add leave entitlement is not applied succesfully when leaving all the sections blank,Verify that the add leave entitlement is not applied succesfully when leaving all the sections blank,"1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Leave all the sections blank
+2- Click on save","1- Employee Name: 
+2- Leave Type:
+3- Leave Period:
+4-Entitlement: ",It should give a warning that the user should enter  information in these sections ,"The add leave entitlement wasn't saved successfully 
+A note under every section  ""Required""",A warning is displayed,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_199,Add Leave Entitlement, the add leave entitlement is not applied succesfully when writing employee name that is not in the list ,Verify that the add leave entitlement is not applied succesfully when writing employee name that is not in the list ,"1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to individual employee
+4- Write employee name that is not in the list
+5- Select leave type from the list
+6- Select leave period
+7- Write entitlement
+8-Click on save","1- Employee Name: Ranga  Akunuri
+2- Leave Type: I am Sick
+3- Leave Period: 2026-01-01 - 2026-31-12
+4-Entitlement: 23",It should give a warning that this employee name is invalid,"The add leave entitlement wasn't saved successfully 
+A note under employee name  ""invalid""",A warning is displayed,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_200,Add Leave Entitlement,the add leave entitlement is not applied succesfully when writing  numbers employee name,Verify that the add leave entitlement is not applied succesfully when writing  numbers employee name,"1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to individual employee
+4- Write employee name that is not in the list
+5- Select leave type from the list
+6- Select leave period
+7- Write entitlement
+8-Click on save","1- Employee Name: Ranga  Akunuri
+2- Leave Type: I am Sick
+3- Leave Period: 2026-01-01 - 2026-31-12
+4-Entitlement: 23",It should give a warning that this employee name is invalid,"The add leave entitlement wasn't saved successfully 
+A note under employee name  ""invalid""",A warning is displayed,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_201,Add Leave Entitlement, the add leave entitlement is not applied succesfully when leaving employee name blank,Verify that the add leave entitlement is not applied succesfully when leaving employee name blank,"1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to individual employee
+4- Leave employee name blank
+5- Select leave type from the list
+6- Select leave period
+7- Write entitlement
+8-Click on save","1- Employee Name: 
+2- Leave Type: I am Sick
+3- Leave Period: 2026-01-01 - 2026-31-12
+4-Entitlement: 23",It should give a warning that the user should select  an employee name from the list,"The add leave entitlement wasn't saved successfully 
+A note under employee name ""Required""",A warning is displayed,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_202,Add Leave Entitlement, the add leave entitlement is not applied succesfully when leaving leave type blank,Verify that the add leave entitlement is not applied succesfully when leaving leave type blank,"1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to individual employee
+4- Select employee name from the list
+5- Leave leave type blank
+6- Select leave period
+7- Write entitlement
+8-Click on save","1- Employee Name: Ranga  Akunuri
+2- Leave Type: 
+3- Leave Period: 2026-01-01 - 2026-31-12
+4-Entitlement: 23",It should give a warning that the user should select  leave type from the list,"The add leave entitlement wasn't saved successfully 
+A note under leave type ""Required""",A warning is displayed,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_203,Add Leave Entitlement, the add leave entitlement is not applied succesfully when leaving Leave period blank,Verify that the add leave entitlement is not applied succesfully when leaving Leave period blank,"1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to individual employee
+4- Select employee name from the list
+5- Select leave type from the list
+6- Leave leave period blank
+7- Write entitlement
+8-Click on save","1- Employee Name: Ranga  Akunuri
+2- Leave Type: I am Sick
+3- Leave Period: 
+4-Entitlement: 23",It should give a warning that the user should select leave period from the list,"The add leave entitlement wasn't saved successfully 
+A note under leave period ""Required""",A warning is displayed,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_204,Add Leave Entitlement, the add leave entitlement is not applied succesfully when leaving Entitlements blank,Verify that the add leave entitlement is not applied succesfully when leaving Entitlements blank,"1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to individual employee
+4- Select employee name from the list
+5- Select leave type from the list
+6- Select leave period
+7-Leave entitlement blank
+8-Click on save","1- Employee Name: Ranga  Akunuri
+2- Leave Type: I am Sick
+3- Leave Period: 2025-01-01 - 2026-06-01
+4-Entitlement:",It should give a warning that the user should write entitlement ,"The add leave entitlement wasn't saved successfully 
+A note under entitlement""Required""",A warning is displayed,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_205,Add Leave Entitlement, the add leave entitlement is not applied succesfully when entering letters in the entitlement,Verify that the add leave entitlement is not applied succesfully when entering letters in the entitlement,"1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to individual employee
+4- Select employee name from the list
+5- Select leave type from the list
+6- Select leave period
+7-Write letters in the entitlement 
+8-Click on save","1- Employee Name: Ranga  Akunuri
+2- Leave Type: I am Sick
+3- Leave Period: 2025-01-01 - 2026-06-01
+4-Entitlement: Ro",It should give a warning that the user should enter numbers in entitlement ,"The add leave entitlement wasn't saved successfully 
+A note under entitlement""Should be number with upto 2 decimal""",A warning is displayed,Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_206,Add Leave Entitlement, the add leave entitlement is applied succesfully when entering 3 digits number in the entitlement,Verify that the add leave entitlement is not applied succesfully when entering 3 digits number in the entitlement,"1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to individual employee
+4- Select employee name from the list
+5- Select leave type from the list
+6- Select leave period
+7-Write 3 digits number in the entitlement 
+8-Click on save","1- Employee Name: Ranga  Akunuri
+2- Leave Type: I am Sick
+3- Leave Period: 2025-01-01 - 2026-06-01
+4-Entitlement: 123",It should give a warning that the user should enter 2 digit numbers in entitlement ,The add leave entitlement was saved successfully,A warning is displayed,Failed,Rowan Sherif,Cycle 1,High,,,,,
+TC_207,Add Leave Entitlement," add leave entitlement is saved successfully 
+when entering valid information","Verify that add leave entitlement is saved successfully 
+when entering valid information","1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to multiple employees
+4- Select loction from the list (optional)
+5- Select Sub unit from the list (optional)
+6- Select leave type from the list
+7- Select leave period
+8- Write entitlement
+9- Click on save","1- Location: New York Sales Office
+2- Sub Unit: Adminstration
+3- Leave Type:CAN-Personal
+4- Leave Period:  2025-01-01 - 2026-06-01
+5-Entitlement: 24","Leave Entitlement 
+is added successfully to a specific employee","Leave Entitlement is
+ added successfully to ""Peter Anderson""","Leave Entitlement 
+is added successfully to a specific employee",Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_208,Add Leave Entitlement," add leave entitlement is saved successfully 
+when leaving location blank","Verify that add leave entitlement is saved successfully 
+when leaving location blank","1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to multiple employees
+4- Don't select loction from the list
+5- Select Sub unit from the list (optional)
+6- Select leave type from the list
+7- Select leave period
+8- Write entitlement
+9- Click on save","1- Location: 
+2- Sub Unit: Adminstration
+3- Leave Type:CAN-Personal
+4- Leave Period:  2025-01-01 - 2026-06-01
+5-Entitlement: 24","Leave Entitlement 
+is added successfully to a specific employee","Leave Entitlement is
+ added successfully to ""Peter Anderson""","Leave Entitlement 
+is added successfully to a specific employee",Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_209,Eployee Entitlement, the leave entitlement of Peter anderson is saved successfully with valid information ,Verify that the leave entitlement of Peter anderson is saved successfully with valid information ,"1- Login with this 
+url https://www.orangehrm.com/
+2- Go to leave section","1- Slect on Entitlement
+2- Select Employee Entitlement
+3- Select employee name from the list
+4- Select leave type(optional)
+5- Select leave period(optional)
+6- Click on search","1- Employee name : Peter Mac Anderson
+2- Leave Type:CAN-Personal
+3- Leave Period: 2025-01-01 - 2026-06-01","Leave Entitlement 
+is found successfully with correct information","Leave Type
+CAN - Personal
+Entitlement Type
+Added
+Valid From
+2025-01-01
+Valid To
+2026-06-01
+Days
+24","Leave Entitlement 
+is found successfully with correct information",Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_210,Employee Entitlement, leave entitlement of Peter anderson is saved successfully with valid information when leave type is blank,Verify that the leave entitlement of Peter anderson is saved successfully with valid information when leave type is blank,"1- Login with this 
+url https://www.orangehrm.com/
+2- Go to leave section","1- Slect on Entitlement
+2- Select Employee Entitlement
+3- Select employee name from the list
+4- Don't select leave type
+5- Select leave period(optional)
+6- Click on search","1- Employee name : Peter Mac Anderson
+2- Leave Type:
+3- Leave Period: 2025-01-01 - 2026-06-01","Leave Entitlement 
+is found successfully with correct information","Leave Type
+CAN - Personal
+Entitlement Type
+Added
+Valid From
+2025-01-01
+Valid To
+2026-06-01
+Days
+24","Leave Entitlement 
+is found successfully with correct information",Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_211,Employee Entitlement,The leave period cannot be unselected even though it is optional,Verify that the leave entitlement of Peter anderson is saved successfully with valid information when leave period is blank,"1- Login with this 
+url https://www.orangehrm.com/
+2- Go to leave section","1- Slect on Entitlement
+2- Select Employee Entitlement
+3- Select employee name from the list
+4- select leave type(optional)
+5-Don't select leave period
+6- Click on search","1- Employee name : Peter Mac Anderson
+2- Leave Type: CAN-Personal
+3- Leave Period: ","Leave Entitlement 
+is found successfully with correct information",There is no option to unselect a leave period even though it doesn't have the required sign * beside it ,"Leave Entitlement 
+is found successfully with correct information",Failed,Rowan Sherif,Cycle 1,High,,,,,
+TC_212,Add Leave Entitlement," add leave entitlement is saved successfully 
+when leaving sub unit blank","Verify that add leave entitlement is saved successfully 
+when leaving sub unit blank","1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to multiple employees
+4- Select loction from the list (optional)
+5- Don't select  Sub unit from the list 
+6- Select leave type from the list
+7- Select leave period
+8- Write entitlement
+9- Click on save","1- Location: New York Sales Office
+2- Sub Unit: 
+3- Leave Type:CAN-Personal
+4- Leave Period: 2025-01-01 - 2026-06-01
+5-Entitlement: 23","Leave Entitlement 
+is added successfully to a specific employee","Leave Entitlement is
+ added successfully to ""Peter Anderson"" and ""Sania Shaheen""","Leave Entitlement 
+is found successfully with correct information",Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_213,Add Leave Entitlement," add leave entitlement is saved successfully 
+when leaving sub unit and location blank","Verify that add leave entitlement is saved successfully 
+when leaving sub unit and location blank","1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to multiple employees
+4- Don't select loction from the list 
+5- Don't select  Sub unit from the list 
+6- Select leave type from the list
+7- Select leave period
+8- Write entitlement
+9- Click on save","1- Location:
+2- Sub Unit: 
+3- Leave Type:CAN-Personal
+4- Leave Period: 2025-01-01 - 2026-06-01
+5-Entitlement: 10","Leave Entitlement 
+is added successfully to a specific employee","Leave Entitlement is
+ added successfully to 104 employees","Leave Entitlement 
+is found successfully with correct information",Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_214,Add Leave Entitlement,"add leave entitlement isn't saved successfully 
+when leaving leave type blank","Verify that add leave entitlement isn't saved successfully 
+when leaving leave type blank","1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to multiple employees
+4- Don't select loction from the list 
+5- Don't select  Sub unit from the list 
+6- Don't select leave type from the list
+7- Select leave period
+8- Write entitlement
+9- Click on save","1- Location:
+2- Sub Unit: 
+3- Leave Type:
+4- Leave Period: 2025-01-01 - 2026-06-01
+5-Entitlement: 10","Leave Entitlement 
+is not saved successfully ","Leave Entitlement is
+saved successfully 
+A note under leave type ""Required""","Leave Entitlement 
+is not saved",Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_215,Add Leave Entitlement," add leave entitlement is not saved successfully 
+when leaving leave period blank","Verify that add leave entitlement is not saved successfully 
+when leaving leave period blank","1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to multiple employees
+4- Don't select loction from the list 
+5- Don't select  Sub unit from the list 
+6- Don't select leave type from the list
+7- Select leave period
+8- Write entitlement
+9- Click on save","1- Location:
+2- Sub Unit: 
+3- Leave Type:CAN-Personal
+4- Leave Period:
+5-Entitlement: 10","Leave Entitlement 
+is not saved successfully ","Leave Entitlement isn't
+saved successfully 
+A note under leave period ""Required""","Leave Entitlement 
+is not saved",Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_216,Add Leave Entitlement,"add leave entitlement is not saved successfully 
+when leaving entitliment blank","Verify that add leave entitlement is not saved successfully 
+when leaving entitliment blank","1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to multiple employees
+4- Don't select loction from the list 
+5- Don't select  Sub unit from the list 
+6- Select leave type from the list
+7- Select leave period
+8- Don't write entitlement
+9- Click on save","1- Location:
+2- Sub Unit: 
+3- Leave Type:CAN-Personal
+4- Leave Period: 2025-01-01 - 2026-06-01
+5-Entitlement: ","Leave Entitlement 
+is not saved successfully ","Leave Entitlement isn't
+saved successfully 
+A note under entitliment ""Required""","Leave Entitlement 
+is not saved",Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_217,Add Leave Entitlement," add leave entitlement is not saved successfully 
+when writing letters in entitliment ","Verify that add leave entitlement is not saved successfully 
+when writing letters in entitliment ","1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to multiple employees
+4- Don't select loction from the list 
+5- Don't select  Sub unit from the list 
+6- Select leave type from the list
+7- Select leave period
+8- Write letters in entitlement
+9- Click on save","1- Location:
+2- Sub Unit: 
+3- Leave Type:CAN-Personal
+4- Leave Period: 2025-01-01 - 2026-06-01
+5-Entitlement: Ro","Leave Entitlement 
+is not saved successfully ","Leave Entitlement isn't
+saved successfully 
+A note under entitliment ""Should be a number upto 2 decimal places""","Leave Entitlement 
+is not saved",Passed,Rowan Sherif,Cycle 1,High,,,,,
+TC_218,Add Leave Entitlement," add leave entitlement is saved successfully 
+when writing 3 digits number in entitliment ","Verify that add leave entitlement is not saved successfully 
+when writing 3 digits number in entitliment ","1- Login with this 
+url https://www.orangehrm.com/
+2- Click on configure
+3- Select Leave type
+4- Click on Add
+5- Write the leave type name 
+6- Click on save","1- Select on Entitlements
+2- Select on Add Entitlements
+3- Select on add to multiple employees
+4- Don't select loction from the list 
+5- Don't select  Sub unit from the list 
+6- Select leave type from the list
+7- Select leave period
+8- Write 3 digits number in entitlement
+9- Click on save","1- Location:
+2- Sub Unit: 
+3- Leave Type:CAN-Personal
+4- Leave Period: 2025-01-01 - 2026-06-01
+5-Entitlement: 123","Leave Entitlement 
+is not saved successfully ","Leave Entitlement is
+saved successfully to 109 employee
+","Leave Entitlement 
+is not saved",Failed,Rowan Sherif,Cycle 1,Medium,,,,,
+TC_219,Configure,The leave period is saved with a different date from the selected one,Verify that the leave period is saved successfully when entering valid data,"1- Login with this 
+url https://www.orangehrm.com/
+2- Go to leave section","1- Click on configure
+2- Click on leave period
+3 Select start month
+4- Select start date
+5- Click on save","1- Start month:March
+2- Start Date: 01",Leave period is saved with the same selected date,The leave period is saved with a different date from the selected one,Leave period is saved with the same selected date,Failed,Rowan Sherif,Cycle 1,HIGH,,,,,
+TC_220,Configure,The leave period is not saved when leaving start month blank,Verify that the leave period is not saved when leaving start month blank,"1- Login with this 
+url https://www.orangehrm.com/
+2- Go to leave section","1- Click on configure
+2- Click on leave period
+3 Don't select start month
+4- Select start date
+5- Click on save","1- Start month:
+2- Start Date: 01",Leave period is not saved ,The leave period is not saved ,Leave period is not saved ,Passed,Rowan Sherif,Cycle 1,HIGH,,,,,
+TC_221,Configure,The leave period is not saved when leaving start date blank,Verify that The leave period is not saved when leaving start month blank,"1- Login with this 
+url https://www.orangehrm.com/
+2- Go to leave section","1- Click on configure
+2- Click on leave period
+3 Select start month
+4- Don't Select start date
+5- Click on save","1- Start month:
+2- Start Date: 01",Leave period is not saved,The leave period is not saved,Leave period is not saved ,Passed,Rowan Sherif,Cycle 1,HIGH,,,,,
+TC_222,Configure,The leave type is saved successfully when entering valid info,The leave type is saved successfully when entering valid name and answering the question,"1- Login with this 
+url https://www.orangehrm.com/
+2- Go to leave section","1- Click on configure
+2- Click on leave type
+3- Write a name with letters
+4- Answer the question
+5- Click on save","Name: Sick
+Question: No",Leave type is saved,Leave type is saved,Leave period is not saved ,Passed,Rowan Sherif,Cycle 1,HIGH,,,,,
+TC_223,Configure,The leave type is saved successfully when entering numbers in name,Verify that The leave type is not saved successfully when entering numbers in name,"1- Login with this 
+url https://www.orangehrm.com/
+2- Go to leave section","1- Click on configure
+2- Click on leave type
+3- Write a name with numbers
+4- Answer the question
+5- Click on save","Name: 123
+Question: No",Leave type is not saved,Leave type is saved,Leave period is not saved ,Failed,Rowan Sherif,Cycle 1,HIGH,,,,,
+TC_224,Configure,The leave type is saved successfully when entering spechial characters in name,Verify that The leave type is not saved successfully when entering spechial characters in name,"1- Login with this 
+url https://www.orangehrm.com/
+2- Go to leave section","1- Click on configure
+2- Click on leave type
+3- Write a name with spechial characters
+4- Answer the question
+5- Click on save","Name: ?,\\\
+Question: No",Leave type is not saved,Leave type is saved,Leave period is not saved ,Failed,Rowan Sherif,Cycle 1,HIGH,,,,,
+TC_225,Configure,Thework week is saved successfully when entering valid info,Verify that the work week is saved successfully when entering valid name and answering the question,"1- Login with this 
+url https://www.orangehrm.com/
+2- Go to leave section","1- Click on configure
+2- Click on work week
+3- Select the working type in all days
+4- Click on save",Select all days : Full day,work week is saved,work week is saved,work week is saved,Passed,Rowan Sherif,Cycle 1,HIGH,,,,,
+TC_226,Configure,The Holidays is saved Successfully,Verify that The Holidays is saved Successfully when entering valid info,"1- Login with this 
+url https://www.orangehrm.com/
+2- Go to leave section","1- Click on configure
+2- Click on holidays
+3- Enter name with letters
+4- Select date
+5- Select full/half day
+6- Answer question
+7- Click on save","1- Name: Easter
+2- Date:2026-06-04
+3- Full day
+4- Question: Yes",Holiday is saved ,Holiday is saved ,Holiday is saved,Passed,Rowan Sherif,Cycle 1,HIGH,,,,,
+TC_227,Configure,The Holidays is saved Successfully when entering numbers in name,Verify that The Holidays is not saved when entering numbers in name,"1- Login with this 
+url https://www.orangehrm.com/
+2- Go to leave section","1- Click on configure
+2- Click on holidays
+3- Enter name with numbers
+4- Select date
+5- Select full/half day
+6- Answer question
+7- Click on save","1- Name: 123
+2- Date:2026-06-04
+3- Full day
+4- Question: Yes",Holiday is not saved ,Holiday is saved ,Holiday is not saved,Failed,Rowan Sherif,Cycle 1,HIGH,,,,,
+TC_228,Configure,The Holidays is not saved Successfully when leaving all sections blank,Verify that The Holidays is not saved Successfully when leaving all sections blank,"1- Login with this 
+url https://www.orangehrm.com/
+2- Go to leave section","1- Click on configure
+2- Click on holidays
+3- Don't ensert any info
+4- Answer question
+5- Click on save","1- Name: 
+2- Date:
+3- Full day
+4- Question: Yes",Holiday is not saved ,"Holiday is not saved
+A note under every section ""Required"" ",Holiday is not saved,Passed,Rowan Sherif,Cycle 1,HIGH,,,,,
+TC_229,Time,Timesheets - Page load and elements,"Verify Timesheets page loads and shows header, period selector, table and action buttons.",User logged in (ESS role).,"1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Observe page header 'Time / Timesheets'
+3. Verify Timesheet Period, Prev/Next arrows, Edit, Submit buttons and table columns.","- Browser: Chrome latest
+- Role: ESS",Page loads within reasonable time; all controls visible. (Demo: PASS - basic UI present in demo),Timesheet page ready for actions.,Page loads within reasonable time; all controls visible.,Passed,Ammar,Cycle 1,Medium,,,,,
+TC_230,Time,Timesheets - Add single row and save,User can add a single row (Project+Activity+hours) and save it.,User logged in; at least one Project & Activity assigned.,"1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Click Edit
+3. Click '+ Add Row'
+4. Type Project name and select 'Alpha Project' from auto-suggest
+5. Select Activity 'Development'
+6. Enter hours (Mon=8..Fri=8)
+7. Click Save","- Project: Alpha Project
+- Activity: Development
+- Hours: 8,8,8,8,8",Row saved and visible in grid. (Demo: PASS - demo supports adding rows),Row exists in timesheet grid.,Row saved and visible in grid. ,Passed,Ammar,Cycle 1,High,,,,,
+TC_231,Time,Timesheets - Submit timesheet,User can submit a completed timesheet; status becomes Submitted and editing locked.,Timesheet contains at least one saved row.,"1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Click Submit",#NAME?,Status updates to 'Submitted'; edit disabled for user. (Demo: PASS - demo supports submit workflow),Timesheet marked Submitted.,Status updates to 'Submitted'; edit disabled for user. ,Passed,Ammar,Cycle 1,High,,,,,
+TC_232,Time,Timesheets - Required Project/Activity validation,"When Project or Activity is empty, Save should be blocked with inline message.","User logged in, Edit mode.","1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Click Edit
+3. Add Row
+4. Leave Project blank, fill Activity
+5. Click Save","- Project: (blank)
+- Activity: Development",Inline validation 'Project is required' appears and save blocked. (Demo: PASS),No invalid record saved.,Inline validation 'Project is required' appears and save blocked. ,Passed,Ammar,Cycle 1,High,,,,,
+TC_233,Time,Timesheets - Hours must be numeric and within 0..24,Hours fields accept numeric values only; reject letters and values >24 or <0.,User logged in; Edit mode.,"1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Click Edit
+3. Add Row
+4. Enter Hours='abc' or '25' or '-1'
+5. Click Save","- Invalid Inputs: 'abc', 25, -1",Inline error 'Invalid hours' and save blocked. (Demo: PASS for format; >24 may be rejected based on repo validation),Only valid numeric hours persisted.,Inline error 'Invalid hours' and save blocked.,Passed,Ammar,Cycle 1,Medium,,,,,
+TC_234,Time,Timesheets - Hours boundary values (BVA),"Test boundary values 0,1,8,24 are handled as expected.",User logged in.,"1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Edit: enter hours 0,1,8,24 on different days
+3. Save each","- Test Values: 0,1,8,24","0< and typical values accepted; 
+>24 rejected; ",Valid saved; invalid rejected.,0 and typical values accepted; >24 rejected; behavior per repo. ,Passed,Ammar,Cycle 1,High,,,,,
+TC_235,Time,Timesheets - Multiple rows saved independently,User can add multiple rows and all rows persist after Save.,User logged in; at least two projects available.,"1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Edit
+3. Add Row 1 (ProjectA)
+4. Add Row 2 (ProjectB)
+5. Enter hours
+6. Save","- Row1: ProjectA
+- Row2: ProjectB",Both rows saved and visible. (Demo: PASS),Multiple rows present in grid.,Both rows saved and visible. ,Passed,Ammar,Cycle 1,Medium,,,,,
+TC_236,Time,Timesheets - Project auto-complete filtering,Auto-complete returns relevant projects when typing partial names.,User logged in; projects exist in system.,"1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Edit
+3. In Project field type 'Al' and select suggestion",#NAME?,Relevant suggestions show; selection inserts project. (Demo: PASS),Project selected in row.,Relevant suggestions show; selection inserts project.,Passed,Ammar,Cycle 1,High,,,,,
+TC_237,Time,Timesheets - Submit without any rows should be blocked,Prevent submission if no hours/rows exist.,User logged in; timesheet empty.,"1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Click Submit",#NAME?,System blocks submit with message 'No timesheet entries to submit'. (Demo: PASS),No submission created.,System blocks submit with message 'No timesheet entries to submit'. ,Passed,Ammar,Cycle 1,Medium,,,,,
+TC_238,Time,Timesheets - Unsaved changes navigation warning,"If user navigates away with unsaved changes, a warning dialog should appear.",User logged in; unsaved edit present.,"1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Edit a cell and click next week or other module
+3. Observe warning",#NAME?,Modal 'You have unsaved changes' displayed; user can Cancel or Discard. (Demo: PASS),No data lost unless confirmed.,Modal 'You have unsaved changes' displayed; user can Cancel or Discard. ,Passed,Ammar,Cycle 1,High,,,,,
+TC_239,Time,Timesheets - Week navigation updates grid correctly,Prev/Next arrows change timesheet week and display correct dates.,User logged in.,"1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Click Next arrow
+3. Observe dates and grid update",- Initial Week: 2025-11-30 : 2025-12-06,Grid updates to next/previous week. (Demo: PASS),New week displayed.,Grid updates to next/previous week. ,Passed,Ammar,Cycle 1,Low,,,,,
+TC_240,Time,Attendance - Page load and menu entries,"Attendance menu exposes My Records, Punch In/Out, Employee Records (if permitted) and Configuration.",User logged in.,"1. Open https://ammar-osondemand.orangehrm.com/attendance/viewMyAttendanceRecord
+2. Open dropdown Attendance menu",#NAME?,Menu shows entries as per screenshot. (Demo: PASS),Attendance menu correct.,Menu shows entries as per screenshot. ,Passed,Ammar,Cycle 1,Medium,,,,,
+TC_241,Time,Attendance - Punch In basic,User can punch In and record appears with timeIn timestamp.,User logged in; no punch in today.,"1. Open https://ammar-osondemand.orangehrm.com/attendance/punchIn
+2. Set Date, Time, Note
+3. Click In
+4. Open https://ammar-osondemand.orangehrm.com/attendance/viewMyAttendanceRecord","- Date: Today
+- Time: 09:00
+- Note: Start",Record created with correct timeIn. (Demo: PASS),Attendance record exists.,Record created with correct timeIn. ,Passed,Ammar,Cycle 1,Medium,,,,,
+TC_242,Time,Attendance - Punch Out basic and duration calculation,User can punch Out and duration is calculated from timeIn to timeOut.,User has a valid punch In for today.,"1. Open https://ammar-osondemand.orangehrm.com/attendance/punchIn or viewMyAttendanceRecord
+2. Select record and click Out at 17:00
+3. Verify duration","- In: 09:00
+- Out: 17:00",Duration shown (8.00 hours). (Demo: PASS),Record updated.,Duration shown (8.00 hours). ,Passed,Ammar,Cycle 1,High,,,,,
+TC_243,Time,Attendance - Prevent duplicate Punch In,"If user already punched in, second Punch In should be prevented.",User logged in; existing punch in present.,"1. Open https://ammar-osondemand.orangehrm.com/attendance/punchIn
+2. Attempt to Punch In again",- Existing In: 09:00,System blocks duplicate Punch In with message. (Demo: PASS),No duplicate record.,System blocks duplicate Punch In with message. ,Passed,Ammar,Cycle 1,High,,,,,
+TC_244,Time,Attendance - Prevent duplicate Punch Out,"If user already punched out, clicking Out again should be rejected/ignored.",User has closed punch (has timeOut).,"1. Open https://ammar-osondemand.orangehrm.com/attendance/viewMyAttendanceRecord
+2. Click Out again on same record",#NAME?,Second Out prevented or shows 'Already punched out'. (Demo: PASS),No duplicate updates.,Second Out prevented or shows 'Already punched out'. ,Passed,Ammar,Cycle 1,High,,,,,
+TC_245,Time,Attendance - Invalid time format,Time fields must validate format HH:MM and reject invalid values.,User logged in.,"1. Open https://ammar-osondemand.orangehrm.com/attendance/punchIn
+2. Enter '25:00' or 'abc' into Time
+3. Click In","- Invalid: 25:00, abc",Validation error 'Invalid time format' shown. (Demo: PASS),No record created.,Validation error 'Invalid time format' shown.,Passed,Ammar,Cycle 1,High,,,,,
+TC_246,Time,Reports - Employee report basic search,Employee Reports returns timesheet/attendance records for selected employee and date range.,User logged in; records exist.,"1. Open https://ammar-osondemand.orangehrm.com/time/displayEmployeeReportCriteria
+2. Enter Employee Name
+3. Set Date Range
+4. Click View","- Employee: Ammar
+- Range: 2025-11-30 → 2025-12-06",Matching records display. (Demo: PASS for simple queries),Report rows viewed.,Matching records display. ,Passed,Ammar,Cycle 1,Medium,,,,,
+TC_247,Time,Reports - Date range validation,From date must be <= To date; reversed range should be blocked.,User logged in.,"1. Open https://ammar-osondemand.orangehrm.com/time/displayEmployeeReportCriteria
+2. Enter From=2025-12-10, To=2025-11-01
+3. Click View","- From: 2025-12-10
+- To: 2025-11-01",Validation 'From must be before To' shown and no results. (Demo: PASS),No incorrect results.,Validation 'From must be before To' shown and no results. ,Passed,Ammar,Cycle 1,Medium,,,,,
+TC_248,Time,Timesheets - Approval status indicator,"Timesheet rows should display approval status (Not Submitted, Submitted, Approved, Rejected) if supported.",User logged in.,"1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Check status badge near header",#NAME?,Status badge visible and accurate. (Demo: PASS for Not Submitted/Submitted; Approved may depend),Status displayed.,Status badge visible and accurate.,Passed,Ammar,Cycle 1,Low,,,,,
+TC_249,Time,Timesheets - Weekly total calculation accuracy,Total column sums daily hours correctly and updates after edits.,User logged in; entries present.,"1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Add hours per day
+3. Save and verify Total","- DayHours: 8,8,8,8,8",Total equals sum of day hours. (Demo: PASS),Totals updated.,Total equals sum of day hours. ,Passed,Ammar,Cycle 1,Medium,,,,,
+TC_250,Time,Timesheets - Delete row confirmation,Deleting a timesheet row should require confirmation and remove the row if confirmed.,User logged in; rows exist.,"1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Edit
+3. Click Delete on a row
+4. Confirm modal",#NAME?,Modal shown; on confirm row deleted. (Demo: PASS),Row removed.,Modal shown; on confirm row ,Passed,Ammar,Cycle 1,High,,,,,
+TC_251,Time,Attendance - Employee Records search and filter,Search employee attendance by name and date to retrieve records.,User logged in; records exist.,"1. Open https://ammar-osondemand.orangehrm.com/attendance/viewEmployeeAttendanceRecord
+2. Enter Employee name
+3. Set Date
+4. Click View","- Employee: Ammar
+- Date: 2025-11-30",Matching records displayed. (Demo: PASS),Records visible.,Matching records displayed. ,Passed,Ammar,Cycle 1,Medium,,,,,
+TC_252,Time,Attendance - Toggle settings persist after save,"Toggle options in Attendance Configuration (e.g., 'employee can change punching') should persist.",User logged in as Admin.,"1. Open https://ammar-osondemand.orangehrm.com/attendance/config
+2. Change toggle
+3. Save
+4. Reload config page",#NAME?,Toggle retains value after save. (Demo: PASS),Config updated.,Toggle retains value after save. ,Passed,Ammar,Cycle 1,Medium,,,,,
+TC_253,Time,Reports - Pagination and sorting work correctly,Large reports use pagination and sorting controls correctly.,User logged in; many rows exist.,"1. Open https://ammar-osondemand.orangehrm.com/time/displayEmployeeReportCriteria
+2. Generate big report
+3. Use Next/Prev page and sort columns",- Rows: >50,Pagination moves pages and sorting orders rows. (Demo: PASS),Pagination stable.,Pagination moves pages and sorting orders rows.,Passed,Ammar,Cycle 1,Low,,,,,
+TC_254,Time,Timesheets - Keyboard-only operation and focus order,Ensure full keyboard flow: Tab/Shift-Tab navigate fields logically; Enter triggers default buttons.,User logged in.,"1. Open https://ammar-osondemand.orangehrm.com/time/viewMyTimesheet
+2. Use Tab/Shift-Tab through form
+3. Submit via keyboard",#NAME?,All controls reachable and usable via keyboard. (Demo: PASS basic),Keyboard navigation stable.,All controls reachable and usable via keyboard. ,Passed,Ammar,Cycle 1,Low,,,,,
+TC_255,Time,Time Module - Input sanitization (basic security),Ensure input fields escape or reject suspicious inputs to prevent injection.,User logged in.,"1. Open timesheet and insert ""'; DROP TABLE users;--"" into Note
+2. Save and check response",#NAME?,System treats text as plain string; no SQL executed and input sanitized. (Demo: PASS expected),No DB harm.,System treats text as plain string; no SQL executed and input sanitized.,Passed,Ammar,Cycle 1,High,,,,,
+TC_256,Time,Timesheets - Long project name truncation/wrap,Ensure very long project names do not break layout and are truncated/wrapped gracefully.,Project with very long name exists.,"1. Add row with Project name 300 chars
+2. Save and observe layout",- Project: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,UI truncates or wraps name; table layout remains intact. (Demo: PASS expected),Layout stable.,UI truncates or wraps name; table layout remains intact. ,Passed,Ammar,Cycle 1,Low,,,,,
+TC_257,Time,Timesheets - Test cleanup and rollback script available,Ensure tests can clean up created timesheet rows (delete) or a rollback script exists for test runs.,User has permission to delete own rows.,"1. Create test rows
+2. Delete created rows or run rollback script",#NAME?,Test data removed; environment restored. (Demo: PASS for manual delete; rollback script depends),Test data cleaned.,Test data removed; environment restored.,Passed,Ammar,Cycle 1,Low,,,,,
+TC_258,Admin_User Management,"Verify successful Admin user creation with valid data
+","Ensure that the user is added successfully when all fields contain valid inputs.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. 
+","1. Navigate to Admin → User Management → Users → Add.
+2. Select Admin from User Role dropdown.
+3. Enter employee name and select Malak Ashraf Rezk from suggestions.
+4. Select Enabled from Status dropdown.
+5. Enter valid username.
+6. Enter strong password.
+7. Re-enter the same password in Confirm Password field.
+8. Click Save.","User Role: Admin
+Employee Name	: Malak Ashraf Rezk
+Status: Enabled
+Username: malak
+Password: Malak@123
+Confirm Password: Malak@123","User created successfully, “Successfully Saved” message displayed, and user appears in the Users list with no validation errors.",New user record is created and stored in the system.,Record saved successfully and user added to the list with no errors.,Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_259,Admin_UserManagement,Verify successful ESS user creation with valid data,"Ensure that after creating a new ESS user, the user can log in with the provided credentials.","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to Admin → User Management → Users → Add.
+2. Select ESS from User Role dropdown.
+3. Enter employee name and select Malak Ashraf Rezk from suggestions.
+4. Select Enabled from Status dropdown.
+5. Enter valid username.
+6. Enter strong password.
+7. Re-enter the same password in Confirm Password field.
+8. Click Save.","User Role: ESS
+Employee Name	: Sama Ahmed Radwan
+Status: Enabled
+Username: samaahmed
+Password: Sama@123
+Confirm Password: Sama@123","User created successfully, “Successfully Saved” message displayed, and user appears in the Users list with no validation errors.",New user record is created and stored in the system.,Record saved successfully and user added to the list with no errors.,Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_260,Admin_User Management,Verify error message for invalid Employee Name,Ensure system shows an error when the entered Employee Name does not exist.,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to Admin → User Management → Users → Add.
+2. Select Admin from User Role dropdown.
+3. Enter Employee Name = ""Mohamed Ashraf"" (not in the system).
+4. Fill other required fields (Username, Password, Confirm Password).
+5. Click Save.","Employee Name = ""Mohamed Ashraf"" (not in the system)
+","System displays “Invalid Employee Name” message and prevents saving the user.
+","No new user is created; system state remains unchanged.
+",System displays “Invalid Employee Name” message and prevents saving.,Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_261,"Admin_User Management
+",Verify Username accepts valid input,Ensure the Username field accepts any value that meets system length rules (5:40 characters).,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to Admin → User Management → Users → Add.
+2. Select User Role = Admin.
+3. Enter valid employee name.
+4. Select Status = Enabled.
+5. Enter a Username with valid length .
+6. Enter a valid Password and Confirm Password.
+7. Click Save.",Username: malakashraf,"Username accepted successfully because it meets system length rules (5:40 characters).
+User is created without validation errors.","New user record is created and stored in the system.
+",Record saved successfully.,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_262,Admin_User Management,Verify Username accepts numbers only,Ensure the system rejects usernames containing only numeric values,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to Admin → User Management → Users → Add.
+2. Select User Role = Admin.
+3. Enter valid employee name.
+4. Select Status = Enabled.
+5. Enter Username using numbers only.
+6. Enter valid Password & Confirm Password.
+7. Click Save.","Username: 123456
+","System should display a validation error because username contains only numbers.
+","No record should be created
+","System accepts the username and user is created
+",Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_263,Admin_User Management,"Verify Username accepts special characters
+","Ensure the Username field does not accept symbols only
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to Admin → User Management → Add.
+2. Select User Role = Admin.
+3. Enter valid employee name.
+4. Select Status = Enabled.
+5.  Enter Username using symbols only.
+6. Enter valid Password & Confirm Password.
+7. Click Save.",Username: @#$%^&,"System should reject username with only special characters
+",No record should be stored,"Username is accepted successfully
+",Failed,Malak Ashraf,Cycle 1,High,,,,,
+TC_264,Admin_User Management,"Verify Username accepts mathematical operators
+","Confirm the system rejects invalid characters such as + - * /.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to Admin → User Management → Add.
+2. Select User Role = Admin.
+3. Enter valid employee name.
+4. Select Status = Enabled.
+5. Enter Username using operators only.
+6. Enter valid Password & Confirm Password.
+7. Click Save.",Username: +-*/=,Validation error should appear,"No new user is saved
+","System allows saving with operators
+",Failed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_265,Admin_User Management,"Verify Username with leading/trailing spaces
+","Ensure username field handles whitespace input properly
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to Admin → User Management → Add.
+2. Select User Role = Admin.
+3. Enter valid employee name.
+4. Select Status = Enabled.
+5. Enter Username with spaces.
+6. Enter valid Password & Confirm Password.
+7. Click Save.","Username:  malak ashraf
+","System should trim spaces or show validation error
+",No incorrect record should be stored,"Username saved including whitespace
+",Failed,Malak Ashraf,Cycle 1,Low,,,,,
+TC_266,Admin_User Management ,"Verify successful user creation with valid password
+",Ensure that a strong password is accepted and Confirm Password matches,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to Admin → User Management → Add User.
+2. Fill all required fields (User Role, Employee Name, Status, Username).
+3. Enter a strong password (uppercase, lowercase, number, symbol).
+4. Enter the same password in Confirm Password.
+5. Click Save.","Password = Malak@123XYZ!
+Confirm Password = Malak@123XYZ!","Password accepted.
+Confirm Password matches.
+User record saved successfully.",New user record created and stored. ,Record saved successfully,Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_267,Admin_User Management,Verify error when Confirm Password does not match Password,Ensure system shows error when Password and Confirm Password are different,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to Admin → User Management → Add User.
+2. Fill all required fields.
+3. Enter Password = Malak@123.
+4. Enter Confirm Password = Malak@124.","password = Malak@123
+Confirm Password = Malak@124","System displays “Passwords do not match” message.
+User record is not created.",No new user record created; system state unchanged. ,Passwords do not match message displayed,Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_268,Admin_Job,"Verify successful Job Title creation with valid data
+","Ensure the system successfully adds a new Job Title when all inputs are valid.
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to Admin → Job → Job Titles.
+2. Click Add.
+3. Enter a valid Job Title.
+4. Enter a Job Description within 400 characters.
+5. (Optional) Upload a valid Job Specification file under 1MB.
+6. Enter a Note within 400 characters.
+7. Click Save.","Job Title: QA Tester
+Job Description: Responsible for executing test cases and reporting bugs.
+Job Specification: file size <= 1 MB
+Note: Entry for testing purposes.","Job Title is saved successfully.
+“Successfully Saved” message appears.
+New Job Title displays in the Job Titles list without validation errors.","New Job Title record is created and stored in the system.
+","System saved the job title successfully and displayed it in the Job Titles list.
+",Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_269,Admin_Job,Verify error message when Job Title is left empty,Ensure that the system displays “Required” when Job Title field is empty,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to Admin → Job → Job Titles → Add.
+2. Leave Job Title field empty.
+3. Fill other fields (optional).
+4. Click Save.",Job Title: empty,"System displays error message “Required” under Job Title.
+Record is not saved.",No job title should be created.,"System displays ""Required"" and prevents saving.",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_270,Admin_Job,Verify error message for duplicate Job Title,Ensure the system prevents storing duplicate job titles,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to Admin → Job → Job Titles → Add.
+2. Enter a job title that already exists.
+3. Fill other fields (optional).
+4. Click Save.",Job Title: HR Manager (already exists),"System shows error message that the job title already exists and does not save the record.
+
+
+","No new job title is created, and the system keeps the existing data unchanged.",The system displayed the duplicate title error message correctly.,Passed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_271,Admin_Job,Verify error message for Job Title with special characters and numbers,Ensure the system prevents saving job titles containing invalid symbols and numbers,"1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to Admin → Job → Job Titles → Add.
+2. Enter a job title with special characters and numbers(e.g., QA@123!).
+3. Fill other fields (optional).
+4. Click Save.",Job Title: QA@123!,System shows error message and does not save the job title.,"No new job title is created, existing data remains unchanged.",System accepted the job title with special characters and saved the record.,Failed,Malak Ashraf,Cycle 1,Medium,,,,,
+TC_272,Login_Page,Verify that newly created Admin user can log in successfully,"Ensure that after creating a new Admin user, the user can log in with the provided credentials.
+TC_258","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to OrangeHRM login page.
+2. Enter the Username and Password of the newly created Admin user.
+3. Click Login.","Username: malak
+Password: Malak@123","User is able to log in successfully.
+Dashboard or home page is displayed.","User is logged in.
+","Logged in successfully
+",Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_273,Login_Page,Verify that newly created ESS user can log in successfully,"Ensure that after creating a new ESS user, the user can log in using the provided credentials.
+TC_259","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment. ","1. Navigate to the OrangeHRM login page.
+2. Enter the Username and Password of the newly created ESS user.
+3. Click Login.","Username: samaahmed
+Password: Sama@123","User is logged in successfully.
+ESS user dashboard appears with limited access (no Admin-related features).",ESS user remains logged in.,Logged in successfully. ESS dashboard displayed with restricted access.,Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_274,Login_Page,Verify login fails with non-existing username,"Ensure the system prevents login with a username that does not exist
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  
+","1. Navigate to the OrangeHRM login page.
+2. Enter a username that does not exist.
+3. Enter any password.
+4. Click Login.","Username: nonexistinguser
+Password: anypassword","System shows “Invalid credentials” and login is not allowed.
+",User is not logged in.,System displayed “Invalid credentials” and prevented login.,Passed,Malak Ashraf,Cycle 1,High,,,,,
+TC_275,Login_Page,Verify login fails with wrong password,"Ensure the system prevents login when the password is incorrect
+","1. The OrangeHRM demo website is up and running. 
+2. A stable internet connection is available.
+3. The user is successfully logged into the system using the Admin credentials provided in the demo environment.  ","1. Navigate to the OrangeHRM login page.
+2.Enter a valid existing username.
+3. Enter an incorrect password.
+4. Click Login.","Username: Admin
+Password: wrongpassword","System shows “Invalid credentials” and login is not allowed.
+","User is not logged in.
+",System displayed “Invalid credentials” and prevented login.,Passed,Malak Ashraf,Cycle 1,High,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
