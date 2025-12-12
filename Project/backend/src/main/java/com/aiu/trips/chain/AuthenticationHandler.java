@@ -18,10 +18,10 @@ public class AuthenticationHandler extends RequestHandler {
     @Override
     public void handle(HttpServletRequest request) throws Exception {
         String authHeader = request.getHeader("Authorization");
-        
-        // Skip authentication for public endpoints
+
+        // Skip authentication for public endpoints (e.g., public event listings)
         String requestURI = request.getRequestURI();
-        if (isPublicEndpoint(requestURI)) {
+        if (isPublicEndpoint(requestURI, request.getMethod())) {
             handleNext(request);
             return;
         }
@@ -43,11 +43,15 @@ public class AuthenticationHandler extends RequestHandler {
         handleNext(request);
     }
 
-    private boolean isPublicEndpoint(String uri) {
-        return uri.contains("/api/auth/login") || 
-               uri.contains("/api/auth/register") ||
-               uri.contains("/h2-console") ||
-               uri.contains("/swagger") ||
-               uri.contains("/actuator");
+    private boolean isPublicEndpoint(String uri, String method) {
+        // Allow unauthenticated GET access to public event listings
+        boolean isPublicEventGet = "GET".equalsIgnoreCase(method) && uri.startsWith("/api/events");
+
+        return isPublicEventGet ||
+                uri.contains("/api/auth/login") ||
+                uri.contains("/api/auth/register") ||
+                uri.contains("/h2-console") ||
+                uri.contains("/swagger") ||
+                uri.contains("/actuator");
     }
 }
