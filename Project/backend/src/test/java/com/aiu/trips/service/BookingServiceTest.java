@@ -1,11 +1,8 @@
 package com.aiu.trips.service;
 
-import com.aiu.trips.dto.BookingRequest;
 import com.aiu.trips.enums.BookingStatus;
 import com.aiu.trips.enums.EventType;
 import com.aiu.trips.enums.UserRole;
-import com.aiu.trips.exception.ResourceNotFoundException;
-import com.aiu.trips.exception.BookingException;
 import com.aiu.trips.model.Booking;
 import com.aiu.trips.model.Event;
 import com.aiu.trips.model.User;
@@ -46,7 +43,6 @@ class BookingServiceTest {
     private Event testEvent;
     private User testStudent;
     private Booking testBooking;
-    private BookingRequest bookingRequest;
 
     @BeforeEach
     void setUp() {
@@ -67,19 +63,14 @@ class BookingServiceTest {
         testEvent.setPrice(50.0);
         testEvent.setCapacity(100);
         testEvent.setAvailableSeats(100);
-        testEvent.setRegistrationDeadline(LocalDateTime.now().plusDays(20));
 
         testBooking = new Booking();
         testBooking.setId(1L);
         testBooking.setEvent(testEvent);
         testBooking.setUser(testStudent);
         testBooking.setStatus(BookingStatus.CONFIRMED);
-        testBooking.setQrCode("QR123456789");
+        testBooking.setBookingCode("BOOK123456789");
         testBooking.setBookingDate(LocalDateTime.now());
-
-        bookingRequest = new BookingRequest();
-        bookingRequest.setEventId(1L);
-        bookingRequest.setUserId(1L);
     }
 
     // TC_028: Validate that students can browse available events
@@ -155,24 +146,24 @@ class BookingServiceTest {
     @Test
     void testPreventDuplicateBookings_Success() {
         // Arrange
-        when(bookingRepository.existsByUserIdAndEventId(1L, 1L)).thenReturn(true);
+        when(bookingRepository.existsByUser_IdAndEvent_Id(1L, 1L)).thenReturn(true);
 
         // Act
-        boolean alreadyBooked = bookingRepository.existsByUserIdAndEventId(1L, 1L);
+        boolean alreadyBooked = bookingRepository.existsByUser_IdAndEvent_Id(1L, 1L);
 
         // Assert
         assertTrue(alreadyBooked);
-        verify(bookingRepository, times(1)).existsByUserIdAndEventId(1L, 1L);
+        verify(bookingRepository, times(1)).existsByUser_IdAndEvent_Id(1L, 1L);
     }
 
     // TC_033: Validate that registration deadline is enforced
     @Test
     void testEnforceRegistrationDeadline_Success() {
         // Arrange
-        testEvent.setRegistrationDeadline(LocalDateTime.now().minusDays(1));
+        testEvent.setEndDate(LocalDateTime.now().minusDays(1));
 
         // Act
-        boolean isPastDeadline = LocalDateTime.now().isAfter(testEvent.getRegistrationDeadline());
+        boolean isPastDeadline = LocalDateTime.now().isAfter(testEvent.getEndDate());
 
         // Assert
         assertTrue(isPastDeadline);
@@ -188,8 +179,8 @@ class BookingServiceTest {
         Booking result = bookingRepository.save(testBooking);
 
         // Assert
-        assertNotNull(result.getQrCode());
-        assertEquals("QR123456789", result.getQrCode());
+        assertNotNull(result.getBookingCode());
+        assertEquals("BOOK123456789", result.getBookingCode());
     }
 
     // TC_035: Validate that digital tickets are sent via email
@@ -204,7 +195,7 @@ class BookingServiceTest {
 
         // Assert
         assertEquals(BookingStatus.CONFIRMED, result.getStatus());
-        assertNotNull(result.getQrCode());
+        assertNotNull(result.getBookingCode());
     }
 
     // TC_037: Validate that available seats are updated correctly
@@ -233,10 +224,10 @@ class BookingServiceTest {
         booking2.setStatus(BookingStatus.CONFIRMED);
 
         List<Booking> bookings = Arrays.asList(testBooking, booking2);
-        when(bookingRepository.findByUserId(1L)).thenReturn(bookings);
+        when(bookingRepository.findByUser_Id(1L)).thenReturn(bookings);
 
         // Act
-        List<Booking> result = bookingRepository.findByUserId(1L);
+        List<Booking> result = bookingRepository.findByUser_Id(1L);
 
         // Assert
         assertEquals(2, result.size());
@@ -247,16 +238,16 @@ class BookingServiceTest {
     @Test
     void testValidateQRCodeAtEntry_Success() {
         // Arrange
-        String qrCode = "QR123456789";
-        when(bookingRepository.findByQrCode(qrCode)).thenReturn(Optional.of(testBooking));
+        String bookingCode = "BOOK123456789";
+        when(bookingRepository.findByBookingCode(bookingCode)).thenReturn(Optional.of(testBooking));
 
         // Act
-        Optional<Booking> result = bookingRepository.findByQrCode(qrCode);
+        Optional<Booking> result = bookingRepository.findByBookingCode(bookingCode);
 
         // Assert
         assertTrue(result.isPresent());
         assertEquals(BookingStatus.CONFIRMED, result.get().getStatus());
-        assertEquals(qrCode, result.get().getQrCode());
+        assertEquals(bookingCode, result.get().getBookingCode());
     }
 
     // Additional test: Create booking successfully
@@ -264,13 +255,13 @@ class BookingServiceTest {
     void testCreateBooking_Success() {
         // Arrange
         when(eventRepository.findById(1L)).thenReturn(Optional.of(testEvent));
-        when(bookingRepository.existsByUserIdAndEventId(1L, 1L)).thenReturn(false);
+        when(bookingRepository.existsByUser_IdAndEvent_Id(1L, 1L)).thenReturn(false);
         when(bookingRepository.save(any(Booking.class))).thenReturn(testBooking);
 
         // Act
         Optional<Event> eventOpt = eventRepository.findById(1L);
         assertTrue(eventOpt.isPresent());
-        boolean alreadyBooked = bookingRepository.existsByUserIdAndEventId(1L, 1L);
+        boolean alreadyBooked = bookingRepository.existsByUser_IdAndEvent_Id(1L, 1L);
         assertFalse(alreadyBooked);
         Booking result = bookingRepository.save(testBooking);
 
@@ -304,10 +295,10 @@ class BookingServiceTest {
     void testGetBookingsByEvent_Success() {
         // Arrange
         List<Booking> bookings = Arrays.asList(testBooking);
-        when(bookingRepository.findByEventId(1L)).thenReturn(bookings);
+        when(bookingRepository.findByEvent_Id(1L)).thenReturn(bookings);
 
         // Act
-        List<Booking> result = bookingRepository.findByEventId(1L);
+        List<Booking> result = bookingRepository.findByEvent_Id(1L);
 
         // Assert
         assertEquals(1, result.size());

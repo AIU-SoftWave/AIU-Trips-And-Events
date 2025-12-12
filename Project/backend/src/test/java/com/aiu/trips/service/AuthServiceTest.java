@@ -1,10 +1,10 @@
 package com.aiu.trips.service;
 
+import com.aiu.trips.dto.AuthResponse;
 import com.aiu.trips.dto.LoginRequest;
-import com.aiu.trips.dto.LoginResponse;
 import com.aiu.trips.dto.RegisterRequest;
 import com.aiu.trips.enums.UserRole;
-import com.aiu.trips.exception.ResourceAlreadyExistsException;
+import com.aiu.trips.exception.ValidationException;
 import com.aiu.trips.model.User;
 import com.aiu.trips.repository.UserRepository;
 import com.aiu.trips.security.JwtUtil;
@@ -59,7 +59,6 @@ class AuthServiceTest {
         registerRequest.setPassword("Test@123");
         registerRequest.setFullName("Test User");
         registerRequest.setPhoneNumber("555-0100");
-        registerRequest.setRole(UserRole.STUDENT);
 
         loginRequest = new LoginRequest();
         loginRequest.setEmail("test@aiu.edu");
@@ -82,10 +81,10 @@ class AuthServiceTest {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .thenReturn(authentication);
         when(userRepository.findByEmail(loginRequest.getEmail())).thenReturn(Optional.of(testUser));
-        when(jwtUtil.generateToken(testUser.getEmail())).thenReturn("mock-jwt-token");
+        when(jwtUtil.generateToken(testUser.getEmail(), testUser.getRole().name())).thenReturn("mock-jwt-token");
 
         // Act
-        LoginResponse response = authService.login(loginRequest);
+        AuthResponse response = authService.login(loginRequest);
 
         // Assert
         assertNotNull(response);
@@ -113,12 +112,14 @@ class AuthServiceTest {
         when(userRepository.existsByEmail(registerRequest.getEmail())).thenReturn(false);
         when(passwordEncoder.encode(registerRequest.getPassword())).thenReturn("encodedPassword");
         when(userRepository.save(any(User.class))).thenReturn(testUser);
+        when(jwtUtil.generateToken(testUser.getEmail(), testUser.getRole().name())).thenReturn("mock-jwt-token");
 
         // Act
-        User result = authService.register(registerRequest);
+        AuthResponse result = authService.register(registerRequest);
 
         // Assert
         assertNotNull(result);
+        assertEquals("mock-jwt-token", result.getToken());
         assertEquals(testUser.getEmail(), result.getEmail());
         verify(userRepository, times(1)).save(any(User.class));
     }
@@ -130,7 +131,7 @@ class AuthServiceTest {
         when(userRepository.existsByEmail(registerRequest.getEmail())).thenReturn(true);
 
         // Act & Assert
-        assertThrows(ResourceAlreadyExistsException.class, () -> authService.register(registerRequest));
+        assertThrows(ValidationException.class, () -> authService.register(registerRequest));
         verify(userRepository, never()).save(any(User.class));
     }
 
@@ -144,16 +145,16 @@ class AuthServiceTest {
         weakPasswordRequest.setPassword("123"); // Weak password
         weakPasswordRequest.setFullName("Test User 2");
         weakPasswordRequest.setPhoneNumber("555-0101");
-        weakPasswordRequest.setRole(UserRole.STUDENT);
 
         // Note: In actual implementation with @Valid, this would be caught by validation
         // For unit test, we test that the service method itself doesn't fail
         when(userRepository.existsByEmail(weakPasswordRequest.getEmail())).thenReturn(false);
         when(passwordEncoder.encode(any())).thenReturn("encodedWeakPassword");
         when(userRepository.save(any(User.class))).thenReturn(testUser);
+        when(jwtUtil.generateToken(anyString(), anyString())).thenReturn("mock-jwt-token");
 
         // Act
-        User result = authService.register(weakPasswordRequest);
+        AuthResponse result = authService.register(weakPasswordRequest);
 
         // Assert - Service layer accepts it; validation should be at controller level
         assertNotNull(result);
@@ -212,14 +213,14 @@ class AuthServiceTest {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .thenReturn(authentication);
         when(userRepository.findByEmail(loginRequest.getEmail())).thenReturn(Optional.of(testUser));
-        when(jwtUtil.generateToken(testUser.getEmail())).thenReturn("generated-token");
+        when(jwtUtil.generateToken(testUser.getEmail(), testUser.getRole().name())).thenReturn("generated-token");
 
         // Act
-        LoginResponse response = authService.login(loginRequest);
+        AuthResponse response = authService.login(loginRequest);
 
         // Assert
         assertNotNull(response.getToken());
         assertEquals("generated-token", response.getToken());
-        verify(jwtUtil, times(1)).generateToken(testUser.getEmail());
+        verify(jwtUtil, times(1)).generateToken(testUser.getEmail(), testUser.getRole().name());
     }
 }

@@ -144,7 +144,7 @@ public class BookingControllerIntegrationTest {
         booking.setEvent(testEvent);
         booking.setUser(testStudent);
         booking.setStatus(BookingStatus.CONFIRMED);
-        booking.setQrCode("QR123456");
+        booking.setBookingCode("BOOK123456");
         bookingRepository.save(booking);
 
         // Try to create duplicate
@@ -164,7 +164,7 @@ public class BookingControllerIntegrationTest {
     // TC_033: Enforce registration deadline
     @Test
     void testRegistrationDeadline_Enforced() throws Exception {
-        testEvent.setRegistrationDeadline(LocalDateTime.now().minusDays(1));
+        testEvent.setEndDate(LocalDateTime.now().minusDays(1));
         eventRepository.save(testEvent);
 
         String bookingJson = String.format("""
@@ -194,7 +194,7 @@ public class BookingControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(bookingJson))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.qrCode").exists())
+                .andExpect(jsonPath("$.bookingCode").exists())
                 .andExpect(jsonPath("$.status").value("CONFIRMED"));
     }
 
@@ -221,7 +221,7 @@ public class BookingControllerIntegrationTest {
         Booking booking = createBooking(testEvent, testStudent);
         booking = bookingRepository.save(booking);
 
-        mockMvc.perform(get("/api/bookings/validate/" + booking.getQrCode()))
+        mockMvc.perform(get("/api/bookings/validate/" + booking.getBookingCode()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("CONFIRMED"))
                 .andExpect(jsonPath("$.event.title").value("Tech Conference"));
@@ -265,7 +265,6 @@ public class BookingControllerIntegrationTest {
         event.setPrice(50.0);
         event.setCapacity(100);
         event.setAvailableSeats(100);
-        event.setRegistrationDeadline(LocalDateTime.now().plusDays(20));
         return event;
     }
 
@@ -274,7 +273,7 @@ public class BookingControllerIntegrationTest {
         booking.setEvent(event);
         booking.setUser(user);
         booking.setStatus(BookingStatus.CONFIRMED);
-        booking.setQrCode("QR" + System.currentTimeMillis());
+        booking.setBookingCode("BOOK" + System.currentTimeMillis());
         booking.setBookingDate(LocalDateTime.now());
         return booking;
     }

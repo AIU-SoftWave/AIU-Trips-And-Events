@@ -1,10 +1,8 @@
 package com.aiu.trips.service;
 
-import com.aiu.trips.dto.EventRequest;
 import com.aiu.trips.enums.EventStatus;
 import com.aiu.trips.enums.EventType;
 import com.aiu.trips.enums.UserRole;
-import com.aiu.trips.exception.ResourceNotFoundException;
 import com.aiu.trips.model.Event;
 import com.aiu.trips.model.User;
 import com.aiu.trips.repository.EventRepository;
@@ -39,7 +37,6 @@ class EventServiceTest {
 
     private Event testEvent;
     private User testOrganizer;
-    private EventRequest eventRequest;
 
     @BeforeEach
     void setUp() {
@@ -47,7 +44,7 @@ class EventServiceTest {
         testOrganizer.setId(1L);
         testOrganizer.setEmail("organizer@aiu.edu");
         testOrganizer.setFullName("Test Organizer");
-        testOrganizer.setRole(UserRole.ORGANIZER);
+        testOrganizer.setRole(UserRole.ADMIN);
 
         testEvent = new Event();
         testEvent.setId(1L);
@@ -61,15 +58,6 @@ class EventServiceTest {
         testEvent.setCapacity(100);
         testEvent.setAvailableSeats(100);
         testEvent.setCreatedBy(testOrganizer);
-
-        eventRequest = new EventRequest();
-        eventRequest.setTitle("New Event");
-        eventRequest.setDescription("New event description");
-        eventRequest.setType(EventType.EVENT);
-        eventRequest.setStartDate(LocalDateTime.now().plusDays(15));
-        eventRequest.setLocation("Conference Room");
-        eventRequest.setPrice(75.0);
-        eventRequest.setCapacity(50);
     }
 
     // TC_015: Validate that organizers can create events with all required information
@@ -223,10 +211,10 @@ class EventServiceTest {
     void testRegistrationDeadlineEnforcement_Success() {
         // Arrange
         LocalDateTime registrationDeadline = LocalDateTime.now().minusDays(1);
-        testEvent.setRegistrationDeadline(registrationDeadline);
+        testEvent.setEndDate(registrationDeadline);
 
         // Act
-        boolean isPastDeadline = LocalDateTime.now().isAfter(testEvent.getRegistrationDeadline());
+        boolean isPastDeadline = LocalDateTime.now().isAfter(testEvent.getEndDate());
 
         // Assert
         assertTrue(isPastDeadline);
