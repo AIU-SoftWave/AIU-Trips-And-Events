@@ -9,9 +9,39 @@
 
 ## 📚 Documentation Suite
 
-This manual testing suite provides comprehensive test coverage for all functional requirements of the AIU Trips & Events Management System. All test cases are derived from the official requirements document: `AIU Trips & Events Report.pdf`.
+This testing suite provides comprehensive test coverage for all functional requirements of the AIU Trips & Events Management System. All test cases are derived from the official requirements document: `AIU Trips & Events Report.pdf`.
 
-### Core Documents
+### Automated Testing Results (NEW! ✨)
+
+1. **[COMPREHENSIVE_TESTING_REPORT.md](./COMPREHENSIVE_TESTING_REPORT.md)** ⭐⭐⭐ Complete Testing Report
+   - 45KB detailed report
+   - All 60 automated test cases documented
+   - Testing requirements and strategy
+   - Complete test code examples
+   - Performance analysis
+   - Troubleshooting guide
+   - **Status:** ✅ 60/60 tests passing (100%)
+   - **Use this for**: Complete automated testing documentation
+
+2. **[TESTING_RESULTS_SUMMARY.md](./TESTING_RESULTS_SUMMARY.md)** ⭐ Quick Results
+   - Executive summary of test results
+   - Test breakdown by category
+   - Issues fixed documentation
+   - Quick reference for test execution
+   - **Status:** ✅ ALL TESTS PASSING
+   - **Use this for**: Quick test status overview
+
+3. **[BUG_REPORT.md](./BUG_REPORT.md)** 📋 Historical Bug Report
+   - Previous test execution results (Dec 12)
+   - Issues identified before fixes
+   - **Status:** 📜 Historical reference
+
+4. **[TEST_EXECUTION_SUMMARY.md](./TEST_EXECUTION_SUMMARY.md)** 📊 Historical Summary
+   - Previous execution statistics
+   - Test category performance
+   - **Status:** 📜 Historical reference
+
+### Manual Testing Documents
 
 1. **[MANUAL_TEST_CASES.md](./MANUAL_TEST_CASES.md)** ⭐ Main Document
    - 2,815 lines of detailed test documentation
@@ -42,14 +72,14 @@ This manual testing suite provides comprehensive test coverage for all functiona
    - Priority distribution analysis
    - **Use this for**: Requirements validation and coverage analysis
 
-5. **[TEST_EXECUTION_TEMPLATE.md](./TEST_EXECUTION_TEMPLATE.md)**
+9. **[TEST_EXECUTION_TEMPLATE.md](./TEST_EXECUTION_TEMPLATE.md)**
    - Test session documentation template
    - Pre-test checklist
    - Execution log format
    - Bug reporting structure
    - **Use this for**: Documenting test sessions
 
-6. **[README.md](./README.md)**
+10. **[README.md](./README.md)**
    - Overview and navigation
    - File descriptions
    - Quick start instructions
@@ -60,7 +90,19 @@ This manual testing suite provides comprehensive test coverage for all functiona
 
 ## 🎯 Test Coverage Overview
 
-### By Use Case
+### Automated Tests (UPDATED! ✅)
+
+| Category | Tests | Status | Coverage | Time |
+|----------|-------|--------|----------|------|
+| **Unit Tests - Auth** | 9 | ✅ 9/9 | 100% | 0.358s |
+| **Unit Tests - Events** | 15 | ✅ 15/15 | 100% | 0.067s |
+| **Unit Tests - Bookings** | 15 | ✅ 15/15 | 100% | 1.183s |
+| **Integration - Auth** | 5 | ✅ 5/5 | 100% | 1.384s |
+| **Integration - Events** | 5 | ✅ 5/5 | 100% | 6.289s |
+| **Integration - Bookings** | 11 | ✅ 11/11 | 100% | 6.570s |
+| **TOTAL AUTOMATED** | **60 tests** | **✅ 60/60** | **100%** | **22.015s** |
+
+### Manual Test Cases (By Use Case)
 
 | Use Case | Test Cases | Coverage | Priority | Time Est. |
 |----------|------------|----------|----------|-----------|
@@ -69,7 +111,7 @@ This manual testing suite provides comprehensive test coverage for all functiona
 | **UC-03: Booking & Ticketing** | 12 tests | F3.1-F3.6 | 🔴 Critical | 40-50 min |
 | **UC-04: Notifications** | 14 tests | F4.1-F4.5 | 🟡 High | 50-70 min |
 | **UC-05: Reports & Analytics** | 21 tests | F5.1-F5.6 | 🟡 High | 90-120 min |
-| **TOTAL** | **74 tests** | **30 FRs** | | **~5-6 hours** |
+| **TOTAL MANUAL** | **74 tests** | **30 FRs** | | **~5-6 hours** |
 
 ### Test Priority Breakdown
 
@@ -260,14 +302,20 @@ Found (❌) → Reported (BUG-XXX) → Fixed → Retesting (🔄) → Verified (
 
 | File | Size | Lines | Purpose |
 |------|------|-------|---------|
+| **Automated Testing** | | | |
+| COMPREHENSIVE_TESTING_REPORT.md | 45 KB | 1,230 | Complete test report |
+| TESTING_RESULTS_SUMMARY.md | 6.5 KB | 240 | Quick results |
+| BUG_REPORT.md | 12 KB | 356 | Historical bugs |
+| TEST_EXECUTION_SUMMARY.md | 8 KB | 298 | Historical summary |
+| **Manual Testing** | | | |
 | MANUAL_TEST_CASES.md | 61 KB | 2,815 | Main documentation |
 | Manual_Test_Cases.csv | 7.9 KB | 75 | Tracking sheet |
 | TEST_REQUIREMENTS_MAPPING.md | 12 KB | 450 | Traceability |
 | QUICK_REFERENCE.md | 7.3 KB | 300 | Quick guide |
 | TEST_EXECUTION_TEMPLATE.md | 3.2 KB | 150 | Session template |
 | README.md | 3.0 KB | 101 | Overview |
-| INDEX.md | 8.0 KB | 350 | This file |
-| **TOTAL** | **~102 KB** | **~4,241** | Complete suite |
+| INDEX.md | 8.5 KB | 375 | This file |
+| **TOTAL** | **~174 KB** | **~6,390** | Complete suite |
 
 ---
 
@@ -341,6 +389,12 @@ Found (❌) → Reported (BUG-XXX) → Fixed → Retesting (🔄) → Verified (
 
 ## Quick Navigation
 
+### Automated Testing
+- **Want automated test results?** → [TESTING_RESULTS_SUMMARY.md](./TESTING_RESULTS_SUMMARY.md) ⚡
+- **Need complete test documentation?** → [COMPREHENSIVE_TESTING_REPORT.md](./COMPREHENSIVE_TESTING_REPORT.md) 📖
+- **Want to run tests?** → Run `mvn test -Dtest='!**/*UITest'` 🚀
+
+### Manual Testing
 - **Want to start testing immediately?** → [QUICK_REFERENCE.md](./QUICK_REFERENCE.md)
 - **Need detailed test cases?** → [MANUAL_TEST_CASES.md](./MANUAL_TEST_CASES.md)
 - **Want to track progress?** → [Manual_Test_Cases.csv](./Manual_Test_Cases.csv)
