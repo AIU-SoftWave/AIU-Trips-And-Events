@@ -260,14 +260,14 @@ public class BookingControllerIntegrationTest {
         return event;
     }
 
-    private static int bookingCounter = 0;
+    private static final java.util.concurrent.atomic.AtomicInteger bookingCounter = new java.util.concurrent.atomic.AtomicInteger(0);
     
     private Booking createBooking(Event event, User user) {
         Booking booking = new Booking();
         booking.setEvent(event);
         booking.setUser(user);
         booking.setStatus(BookingStatus.CONFIRMED);
-        booking.setBookingCode("BOOK" + System.currentTimeMillis() + "_" + (++bookingCounter));
+        booking.setBookingCode("BOOK" + System.currentTimeMillis() + "_" + bookingCounter.incrementAndGet());
         booking.setBookingDate(LocalDateTime.now());
         return booking;
     }
