@@ -464,7 +464,7 @@ cd frontend && npm run dev
 
 **Target quality: 8.7+/10**
 
-**Expected time: 6-7 hours**
+**Expected time: 6-7 hours** *(Note: This is estimated AI processing time and may vary significantly based on model capability, complexity, and iteration needs)*
 
 ---
 

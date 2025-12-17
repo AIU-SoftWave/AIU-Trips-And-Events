@@ -245,16 +245,16 @@ Source of Truth: [diagrams location]
 
 ## 📊 Prompt Comparison Matrix
 
-| Prompt | Lines | Complexity | Best Use Case | Success Rate* |
-|--------|-------|------------|---------------|---------------|
-| 01 - Chain-of-Thought | 280 | High | Complex reasoning | 85% |
-| 02 - Role-Based | 340 | Medium | Professional output | 80% |
-| 03 - Task Decomposition | 560 | Very High | Large projects | 90% |
-| 04 - Few-Shot Examples | 550 | Medium | Learning patterns | 75% |
-| 05 - Context-Aware | 700 | High | Existing codebases | 88% |
-| 06 - Comprehensive | 450 | Medium-High | One-shot generation | 95% |
+| Prompt | Lines | Complexity | Best Use Case | Est. Success Rate* |
+|--------|-------|------------|---------------|-------------------|
+| 01 - Chain-of-Thought | 280 | High | Complex reasoning | ~85% |
+| 02 - Role-Based | 340 | Medium | Professional output | ~80% |
+| 03 - Task Decomposition | 560 | Very High | Large projects | ~90% |
+| 04 - Few-Shot Examples | 550 | Medium | Learning patterns | ~75% |
+| 05 - Context-Aware | 700 | High | Existing codebases | ~88% |
+| 06 - Comprehensive | 450 | Medium-High | One-shot generation | ~95% |
 
-*Success rate = Estimated likelihood of generating complete, compilable, quality code
+*Est. Success Rate = Projected likelihood of generating complete, compilable, quality code based on prompting framework effectiveness. Actual results may vary based on AI model capabilities and task complexity.
 
 ---
 
