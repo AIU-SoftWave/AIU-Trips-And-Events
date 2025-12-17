@@ -1,14 +1,15 @@
-# Vibe Prompts - Simple AI Testing Framework
+# Vibe Prompts - AI Testing Framework for Agentic AI
 
-> Simple, copy-paste prompts for testing AI code generation
+> Prompts designed for agentic AI with repository access (like GitHub Copilot Agent)
 
-## Quick Start
+## Quick Start for Agentic AI
 
-1. **Read the context** - Open `data/system_context.md` to understand the AIU Trips & Events system
-2. **Pick a prompt** - Open `prompts.md` and find the test you want (e.g., P001, P002)
-3. **Copy & paste** - Copy the entire prompt and paste it into your AI tool
-4. **Save output** - Save generated code to `outputs/PROMPT_ID/`
-5. **Fill report** - Copy `report_template.md` to `reports/PROMPT_ID_report.md` and fill it
+Agentic AI agents will:
+1. **Read context** from `vibe_prompts/data/system_context.md` 
+2. **Select prompt** from `vibe_prompts/prompts.md` (e.g., P001, P002)
+3. **Access repository** at `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events`
+4. **Generate code** directly in `vibe_prompts/outputs/PROMPT_ID/`
+5. **Create report** by copying `vibe_prompts/report_template.md` to `vibe_prompts/reports/PROMPT_ID_report.md` and filling it
 
 ## Folder Structure
 
@@ -60,73 +61,55 @@ vibe_prompts/
 - **P014** - Speed Test (User Management)
 - **P015** - Quality Test (Command Pattern)
 
-## How to Use
+## How Agentic AI Uses This Framework
 
 ### Step 1: Read Context
-```bash
-cat data/system_context.md
+The AI agent reads system information:
+```
+/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
 ```
 
-This file has all the information about the AIU Trips & Events system that the AI needs.
+This file contains all information about the AIU Trips & Events system architecture, patterns, and requirements.
 
-### Step 2: Choose a Prompt
+### Step 2: Select Prompt
 
-Open `prompts.md` and find the prompt you want to test. Each prompt has:
+The AI reviews `prompts.md` and selects the appropriate prompt. Each prompt has:
 - **ID** (e.g., P001)
 - **Description** (what it tests)
-- **Copy-paste ready text** (just copy the whole thing)
+- **Full context path** (repository location)
 - **Chaining indicator** (if multi-stage is needed)
 - **Time estimate**
 
-### Step 3: Copy & Paste
+### Step 3: Generate Code
 
-Copy the entire prompt box and paste it into:
-- ChatGPT (GPT-4)
-- Claude (Anthropic)
-- Gemini (Google)
-- GitHub Copilot Chat
-- Or any other AI tool
+The AI agent:
+1. Creates output directory: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/PROMPT_ID/`
+2. Generates all required files with proper structure
+3. Creates README.md with implementation notes
 
-### Step 4: Save Output
-
-The AI will generate code. Save it to:
+Example for P001:
 ```
-vibe_prompts/outputs/PROMPT_ID/
-```
-
-Create the folder structure:
-```bash
-mkdir -p outputs/P001
-# Save files there
+/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P001/
+├── src/main/java/com/aiu/trips/observer/
+│   ├── Subject.java
+│   ├── Observer.java
+│   └── ...
+└── README.md
 ```
 
-### Step 5: Fill Report
+### Step 4: Create Report
 
-1. Copy the template:
-```bash
-cp report_template.md reports/P001_gpt4_report.md
-```
+The AI agent:
+1. Copies template: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md`
+2. Creates report: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/PROMPT_ID_report.md`
+3. Fills in all sections with test results and metrics
 
-2. Open `reports/P001_gpt4_report.md` and fill in:
-   - Test information (platform, date, duration)
-   - Generation results (lines of code, files)
-   - Quality scores (compilation, patterns, architecture)
-   - Analysis (strengths, weaknesses, issues)
+### Step 5: Compare (Optional)
 
-3. Calculate the overall score using the weighted formula
-
-### Step 6: Compare (Optional)
-
-If you tested multiple platforms:
-
-1. Copy comparison template:
-```bash
-cp comparison_template.md reports/P001_comparison.md
-```
-
-2. Fill in comparison data from all platform reports
-
-3. Identify the winner for each category
+For comparing multiple AI platforms, the agent:
+1. Copies: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/comparison_template.md`
+2. Creates: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/PROMPT_ID_comparison.md`
+3. Fills comparison data from all platform reports
 
 ## About Prompt Chaining
 
@@ -162,40 +145,35 @@ Complete each stage, verify it works, then move to the next.
 - **6.0-6.9** = Fair (Significant work)
 - **<6.0** = Poor (Major rework)
 
-## Example Workflow
+## Example Workflow for Agentic AI
 
-```bash
-# 1. Read the context
-cat data/system_context.md
+The AI agent follows this workflow:
 
-# 2. Open prompts file
-cat prompts.md
-# Find P001 - Observer Pattern
+```
+1. Read context from: 
+   /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
 
-# 3. Copy the P001 prompt box
+2. Select prompt (e.g., P001 - Observer Pattern) from:
+   /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/prompts.md
 
-# 4. Paste into ChatGPT (or your AI tool)
+3. Create output directory:
+   mkdir -p /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P001
 
-# 5. Save output
-mkdir -p outputs/P001
-# Copy generated files to outputs/P001/
+4. Generate all required files in proper structure
 
-# 6. Try to compile
-cd outputs/P001
-mvn compile  # or appropriate build command
+5. Try to compile (if applicable):
+   cd /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P001
+   mvn compile  # or npm build, etc.
 
-# 7. Fill report
-cp ../../report_template.md ../../reports/P001_gpt4_report.md
-# Open and fill the report
+6. Copy and fill report template:
+   cp /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md \
+      /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P001_report.md
+   
+7. Fill all sections with metrics and analysis
 
-# 8. Repeat with different platform (Claude)
-# Copy P001 prompt, paste to Claude
-mkdir -p outputs/P001_claude
-# Save files, fill report: P001_claude_report.md
-
-# 9. Compare results
-cp ../../comparison_template.md ../../reports/P001_comparison.md
-# Fill comparison with data from both reports
+8. (Optional) For platform comparison:
+   cp /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/comparison_template.md \
+      /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P001_comparison.md
 ```
 
 ## Tips

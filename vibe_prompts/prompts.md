@@ -1,14 +1,14 @@
 # AI Code Generation Test Prompts
 
-> **Important:** Before using any prompt, read the system context from `vibe_prompts/data/system_context.md`
+> **For Agentic AI:** These prompts are designed for AI agents with repository access (like GitHub Copilot Agent). The AI will read context files, generate code, and create files directly in the repository.
 
-## How to Use These Prompts
+## How Agentic AI Uses These Prompts
 
-1. **Read the context:** First, read `vibe_prompts/data/system_context.md` to understand the system
-2. **Copy the prompt:** Copy the entire prompt for the test you want to run
-3. **Paste to AI:** Paste into your AI platform (GPT-4, Claude, Gemini, etc.)
-4. **Save output:** Save generated code to `vibe_prompts/outputs/PROMPT_ID/`
-5. **Fill report:** Complete the report template in `vibe_prompts/reports/PROMPT_ID_report.md`
+Agentic AI agents will:
+1. **Read context** from `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md`
+2. **Process the prompt** and generate the required code
+3. **Create files** directly in `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/PROMPT_ID/`
+4. **Generate report** by copying and filling `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md` to `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/PROMPT_ID_report.md`
 
 ## Prompt Index
 
@@ -45,12 +45,16 @@
 
 ### P001 - Observer Pattern for Notifications
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System (Java Spring Boot backend).
+You are working on the AIU Trips & Events Management System repository.
 
-Task: Implement the Observer Pattern for the notification system.
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task: Implement the Observer Pattern for the notification system (Java Spring Boot backend).
 
 Requirements:
 1. Create Subject interface for notification publishers
@@ -64,30 +68,34 @@ Technical Details:
 - Use Spring @Component annotations
 - Include proper error handling
 - Add logging
+- Include JavaDoc comments
+- Provide usage example
 
-Generate complete Java code with:
-- All interfaces and classes
-- Proper package structure
-- JavaDoc comments
-- Usage example
-
-Output all files to: vibe_prompts/outputs/P001/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P001/
+2. Generate all Java files in proper package structure
+3. Create a README.md with implementation notes and usage example
+4. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P001_report.md and fill it with test results
 ```
 
 **📝 Chaining:** No  
 **⏱️ Estimated Time:** 5-10 minutes  
-**📊 Report Template:** `vibe_prompts/reports/P001_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P001_report.md`
 
 ---
 
 ### P002 - React Trip Detail Component
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System (React.js frontend).
+You are working on the AIU Trips & Events Management System repository.
 
-Task: Create a React component for displaying trip details.
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task: Create a React component for displaying trip details (React.js frontend).
 
 Requirements:
 1. Display: name, description, dates, location, price
@@ -102,29 +110,33 @@ Technical Details:
 - Implement responsive design
 - Add PropTypes validation
 
-Generate complete React code with:
-- Component file (TripDetail.jsx)
-- CSS module (TripDetail.module.css)
-- API service integration
-- Usage example
-
-Output all files to: vibe_prompts/outputs/P002/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P002/
+2. Create TripDetail.jsx component file
+3. Create TripDetail.module.css for styling
+4. Create API service integration file
+5. Create README.md with usage example
+6. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P002_report.md and fill it with test results
 ```
 
 **📝 Chaining:** No  
 **⏱️ Estimated Time:** 5-10 minutes  
-**📊 Report Template:** `vibe_prompts/reports/P002_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P002_report.md`
 
 ---
 
 ### P003 - JPA Repository Queries
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System (Java Spring Boot backend).
+You are working on the AIU Trips & Events Management System repository.
 
-Task: Generate Spring Data JPA repository methods for the booking system.
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task (Java Spring Boot backend): Generate Spring Data JPA repository methods for the booking system.
 
 Requirements:
 1. Find all bookings for a specific user
@@ -145,12 +157,16 @@ Generate complete code with:
 - Method documentation
 - Usage examples
 
-Output all files to: vibe_prompts/outputs/P003/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P003/
+2. Generate all required files in proper structure
+3. Create a README.md with implementation notes
+4. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P003_report.md and fill it with test results
 ```
 
 **📝 Chaining:** No  
 **⏱️ Estimated Time:** 5-10 minutes  
-**📊 Report Template:** `vibe_prompts/reports/P003_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P003_report.md`
 
 ---
 
@@ -158,12 +174,16 @@ Output all files to: vibe_prompts/outputs/P003/
 
 ### P004 - Service Layer Implementation
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System (Java Spring Boot backend).
+You are working on the AIU Trips & Events Management System repository.
 
-Task: Create service classes following these examples.
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task (Java Spring Boot backend): Create service classes following these examples.
 
 Example 1 - UserService:
 @Service
@@ -209,23 +229,31 @@ Include:
 - Input validation
 - Logging
 
-Output all files to: vibe_prompts/outputs/P004/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P004/
+2. Generate all required files in proper structure
+3. Create a README.md with implementation notes
+4. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P004_report.md and fill it with test results
 ```
 
 **📝 Chaining:** No  
 **⏱️ Estimated Time:** 10-15 minutes  
-**📊 Report Template:** `vibe_prompts/reports/P004_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P004_report.md`
 
 ---
 
 ### P005 - REST Controllers
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System (Java Spring Boot backend).
+You are working on the AIU Trips & Events Management System repository.
 
-Task: Create REST controllers following these examples.
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task (Java Spring Boot backend): Create REST controllers following these examples.
 
 Example 1 - UserController:
 @RestController
@@ -258,12 +286,16 @@ Include:
 - Error handling
 - Appropriate status codes
 
-Output all files to: vibe_prompts/outputs/P005/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P005/
+2. Generate all required files in proper structure
+3. Create a README.md with implementation notes
+4. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P005_report.md and fill it with test results
 ```
 
 **📝 Chaining:** No  
 **⏱️ Estimated Time:** 10-15 minutes  
-**📊 Report Template:** `vibe_prompts/reports/P005_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P005_report.md`
 
 ---
 
@@ -271,12 +303,16 @@ Output all files to: vibe_prompts/outputs/P005/
 
 ### P006 - Strategy Pattern for Pricing
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System (Java Spring Boot backend).
+You are working on the AIU Trips & Events Management System repository.
 
-Task: Implement the Strategy Pattern for pricing. Think through this step by step.
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task (Java Spring Boot backend): Implement the Strategy Pattern for pricing. Think through this step by step.
 
 Step 1: Identify the pricing variations
 Consider: Early bird (20% off >30 days), Student discount (15% off), Group discount (10% off for 5+), Seasonal pricing, Default pricing
@@ -307,23 +343,31 @@ Technical Details:
 - Include validation
 - Add unit tests
 
-Output all files to: vibe_prompts/outputs/P006/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P006/
+2. Generate all required files in proper structure
+3. Create a README.md with implementation notes
+4. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P006_report.md and fill it with test results
 ```
 
 **📝 Chaining:** No  
 **⏱️ Estimated Time:** 15-20 minutes  
-**📊 Report Template:** `vibe_prompts/reports/P006_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P006_report.md`
 
 ---
 
 ### P007 - Notification System Design
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System (Java Spring Boot backend).
+You are working on the AIU Trips & Events Management System repository.
 
-Task: Design the complete notification system using multiple patterns. Reason systematically.
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task (Java Spring Boot backend): Design the complete notification system using multiple patterns. Reason systematically.
 
 Step 1: Analyze requirements
 What types of notifications? Who sends/receives? What channels (Email, SMS, Push)?
@@ -348,12 +392,16 @@ Based on your analysis, provide:
 
 Document your reasoning at each step.
 
-Output all files to: vibe_prompts/outputs/P007/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P007/
+2. Generate all required files in proper structure
+3. Create a README.md with implementation notes
+4. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P007_report.md and fill it with test results
 ```
 
 **📝 Chaining:** No  
 **⏱️ Estimated Time:** 20-30 minutes  
-**📊 Report Template:** `vibe_prompts/reports/P007_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P007_report.md`
 
 ---
 
@@ -361,10 +409,16 @@ Output all files to: vibe_prompts/outputs/P007/
 
 ### P008 - Complete Backend from Diagrams
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System.
+You are working on the AIU Trips & Events Management System repository.
+
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task.
 
 Task: Generate complete Spring Boot backend implementation.
 
@@ -412,7 +466,11 @@ Success Criteria:
 - Clean code organization
 - Proper documentation
 
-Output all files to: vibe_prompts/outputs/P008/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P008/
+2. Generate all required files in proper structure
+3. Create a README.md with implementation notes
+4. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P008_report.md and fill it with test results
 ```
 
 **📝 Chaining:** ⚠️ **YES - Multi-stage recommended**
@@ -425,16 +483,22 @@ Stage 5: Configuration & error handling
 ```
 
 **⏱️ Estimated Time:** 60-90 minutes (if chained)  
-**📊 Report Template:** `vibe_prompts/reports/P008_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P008_report.md`
 
 ---
 
 ### P009 - Complete Frontend Application
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System.
+You are working on the AIU Trips & Events Management System repository.
+
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task.
 
 Task: Generate complete React application from scratch.
 
@@ -491,7 +555,11 @@ Success Criteria:
 - Responsive design
 - Good UX
 
-Output all files to: vibe_prompts/outputs/P009/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P009/
+2. Generate all required files in proper structure
+3. Create a README.md with implementation notes
+4. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P009_report.md and fill it with test results
 ```
 
 **📝 Chaining:** ⚠️ **YES - Multi-stage recommended**
@@ -506,16 +574,22 @@ Stage 7: Routing & Styling
 ```
 
 **⏱️ Estimated Time:** 60-90 minutes (if chained)  
-**📊 Report Template:** `vibe_prompts/reports/P009_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P009_report.md`
 
 ---
 
 ### P010 - Waiting List Feature
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System.
+You are working on the AIU Trips & Events Management System repository.
+
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task.
 
 Task: Implement complete waiting list feature when activities are full.
 
@@ -565,21 +639,31 @@ Design Patterns to Use:
 - Command (for user actions)
 - State (for offer lifecycle)
 
-Output all files to: vibe_prompts/outputs/P010/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P010/
+2. Generate all required files in proper structure
+3. Create a README.md with implementation notes
+4. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P010_report.md and fill it with test results
 ```
 
 **📝 Chaining:** No  
 **⏱️ Estimated Time:** 30-45 minutes  
-**📊 Report Template:** `vibe_prompts/reports/P010_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P010_report.md`
 
 ---
 
 ### P011 - Review and Rating System
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System.
+You are working on the AIU Trips & Events Management System repository.
+
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task.
 
 Task: Implement complete review and rating system for activities.
 
@@ -632,12 +716,16 @@ Design Patterns:
 - Chain of Responsibility (for moderation)
 - Observer (for notifications)
 
-Output all files to: vibe_prompts/outputs/P011/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P011/
+2. Generate all required files in proper structure
+3. Create a README.md with implementation notes
+4. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P011_report.md and fill it with test results
 ```
 
 **📝 Chaining:** No  
 **⏱️ Estimated Time:** 30-45 minutes  
-**📊 Report Template:** `vibe_prompts/reports/P011_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P011_report.md`
 
 ---
 
@@ -645,10 +733,16 @@ Output all files to: vibe_prompts/outputs/P011/
 
 ### P012 - Add Strategy Pattern
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System.
+You are working on the AIU Trips & Events Management System repository.
+
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task.
 
 Task: Refactor existing booking system to use Strategy Pattern for pricing.
 
@@ -691,21 +785,31 @@ Constraints:
 - Maintain current functionality
 - Add comprehensive tests
 
-Output all files to: vibe_prompts/outputs/P012/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P012/
+2. Generate all required files in proper structure
+3. Create a README.md with implementation notes
+4. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P012_report.md and fill it with test results
 ```
 
 **📝 Chaining:** No  
 **⏱️ Estimated Time:** 20-30 minutes  
-**📊 Report Template:** `vibe_prompts/reports/P012_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P012_report.md`
 
 ---
 
 ### P013 - Refactor to Builder Pattern
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System.
+You are working on the AIU Trips & Events Management System repository.
+
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task.
 
 Task: Refactor Activity creation to use Builder Pattern.
 
@@ -733,12 +837,16 @@ Generate:
 - Migration guide for existing code
 - Unit tests
 
-Output all files to: vibe_prompts/outputs/P013/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P013/
+2. Generate all required files in proper structure
+3. Create a README.md with implementation notes
+4. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P013_report.md and fill it with test results
 ```
 
 **📝 Chaining:** No  
 **⏱️ Estimated Time:** 20-30 minutes  
-**📊 Report Template:** `vibe_prompts/reports/P013_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P013_report.md`
 
 ---
 
@@ -746,10 +854,16 @@ Output all files to: vibe_prompts/outputs/P013/
 
 ### P014 - Speed Test (User Management)
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System.
+You are working on the AIU Trips & Events Management System repository.
+
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task.
 
 Task: Generate complete User Management module for speed benchmarking.
 
@@ -772,21 +886,31 @@ Track:
 - Lines of code
 - Compilation success
 
-Output all files to: vibe_prompts/outputs/P014/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P014/
+2. Generate all required files in proper structure
+3. Create a README.md with implementation notes
+4. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P014_report.md and fill it with test results
 ```
 
 **📝 Chaining:** No  
 **⏱️ Estimated Time:** 10-15 minutes  
-**📊 Report Template:** `vibe_prompts/reports/P014_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P014_report.md`
 
 ---
 
 ### P015 - Quality Test (Command Pattern)
 
-**📋 Copy this entire prompt:**
+**🤖 Prompt for Agentic AI:**
 
 ```
-I'm working on the AIU Trips & Events Management System.
+You are working on the AIU Trips & Events Management System repository.
+
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task.
 
 Task: Implement Command Pattern for activity operations (quality evaluation).
 
@@ -814,12 +938,16 @@ Evaluation Focus:
 - Maintainability
 - Documentation quality
 
-Output all files to: vibe_prompts/outputs/P015/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P015/
+2. Generate all required files in proper structure
+3. Create a README.md with implementation notes
+4. Copy /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md to /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P015_report.md and fill it with test results
 ```
 
 **📝 Chaining:** No  
 **⏱️ Estimated Time:** 15-20 minutes  
-**📊 Report Template:** `vibe_prompts/reports/P015_report.md`
+**📊 Report:** Fill `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P015_report.md`
 
 ---
 

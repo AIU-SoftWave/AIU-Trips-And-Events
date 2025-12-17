@@ -1,41 +1,53 @@
-# Example: How to Use This Framework
+# Example: How Agentic AI Uses This Framework
 
 ## Example Test: P001 - Observer Pattern
 
-Let's walk through a complete example of testing prompt P001 with GPT-4.
+This example shows how an agentic AI (like GitHub Copilot Agent) processes prompt P001.
 
 ---
 
-## Step 1: Read the Context
+## Step 1: AI Reads the Context
 
-First, open and read `data/system_context.md` to understand:
-- The AIU Trips & Events system
+The AI agent accesses and reads:
+```
+/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+```
+
+Understanding:
+- The AIU Trips & Events system architecture
 - Technology stack (Java Spring Boot, React)
 - 11 design patterns used
 - Domain entities (User, Activity, Booking, etc.)
 
 ---
 
-## Step 2: Find the Prompt
+## Step 2: AI Selects the Prompt
 
-Open `prompts.md` and find **P001 - Observer Pattern for Notifications**
+The AI reviews:
+```
+/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/prompts.md
+```
 
-You'll see:
-- Description of what to implement
-- Complete prompt ready to copy
-- Output location: `vibe_prompts/outputs/P001/`
-- Time estimate: 5-10 minutes
+Finds **P001 - Observer Pattern for Notifications** with:
+- Task description
+- Requirements
+- Technical details
+- Actions to perform
 
 ---
 
-## Step 3: Copy the Prompt
+## Step 3: AI Processes the Prompt
 
-Copy this entire text from `prompts.md`:
+The AI understands the prompt:
 
 ```
-I'm working on the AIU Trips & Events Management System (Java Spring Boot backend).
+You are working on the AIU Trips & Events Management System repository.
 
-Task: Implement the Observer Pattern for the notification system.
+Context:
+- Read system information from: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/data/system_context.md
+- Repository root: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events
+
+Task (Java Spring Boot backend): Implement the Observer Pattern for the notification system.
 
 Requirements:
 1. Create Subject interface for notification publishers
@@ -49,64 +61,45 @@ Technical Details:
 - Use Spring @Component annotations
 - Include proper error handling
 - Add logging
+- Include JavaDoc comments
+- Provide usage example
 
-Generate complete Java code with:
-- All interfaces and classes
-- Proper package structure
-- JavaDoc comments
-- Usage example
-
-Output all files to: vibe_prompts/outputs/P001/
+Actions to perform:
+1. Create directory: /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P001/
+2. Generate all Java files in proper package structure
+3. Create a README.md with implementation notes and usage example
+4. Copy report template and fill with test results
 ```
 
 ---
 
-## Step 4: Paste to AI Platform
-
-Open ChatGPT (GPT-4) and paste the prompt. 
+## Step 4: AI Generates Code
 
 **Start time:** 10:00 AM
 
-The AI generates:
-1. `Subject.java` interface
-2. `Observer.java` interface
-3. `EmailObserver.java` class
-4. `SMSObserver.java` class
-5. `PushObserver.java` class
-6. `NotificationPublisher.java` context
-7. Usage example
+The AI agent creates:
+```
+/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P001/
+├── src/main/java/com/aiu/trips/observer/
+│   ├── Subject.java
+│   ├── Observer.java
+│   ├── EmailObserver.java
+│   ├── SMSObserver.java
+│   ├── PushObserver.java
+│   └── NotificationPublisher.java
+└── README.md
+```
 
 **End time:** 10:08 AM (8 minutes)
 
 ---
 
-## Step 5: Save the Output
+## Step 5: AI Compiles and Tests
 
-Create the output folder and save files:
-
-```bash
-cd vibe_prompts
-mkdir -p outputs/P001/src/main/java/com/aiu/trips/observer
-cd outputs/P001/src/main/java/com/aiu/trips/observer
-
-# Save each file the AI generated
-# - Subject.java
-# - Observer.java
-# - EmailObserver.java
-# - SMSObserver.java
-# - PushObserver.java
-# - NotificationPublisher.java
-```
-
----
-
-## Step 6: Test Compilation
-
-Try to compile the code:
+The AI agent validates the code:
 
 ```bash
-cd vibe_prompts/outputs/P001
-# If using Maven
+cd /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P001
 mvn compile
 
 # Result: SUCCESS
@@ -115,15 +108,16 @@ mvn compile
 
 ---
 
-## Step 7: Fill the Report
+## Step 6: AI Creates Report
 
-Copy the template:
+The AI agent creates and fills the report:
 
 ```bash
-cp ../../report_template.md ../../reports/P001_gpt4_report.md
+cp /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/report_template.md \
+   /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P001_copilot_report.md
 ```
 
-Open `reports/P001_gpt4_report.md` and fill it:
+Fills in:
 
 ### Test Information
 - **Prompt ID:** P001
@@ -223,105 +217,114 @@ GPT-4 provided an excellent implementation of the Observer pattern. The code is 
 
 ---
 
-## Step 8: Test Another Platform
+## Step 7: Test with Another AI Platform
 
-Now test the same prompt with Claude:
+Another agentic AI (e.g., Claude-based agent) processes the same prompt:
 
-1. Copy the **exact same prompt**
-2. Paste to Claude
-3. Save output to `outputs/P001_claude/`
-4. Fill report: `reports/P001_claude_report.md`
+1. Reads same context file
+2. Processes same prompt
+3. Creates output: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/outputs/P001_claude/`
+4. Fills report: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P001_claude_report.md`
 
 **Results:**
-- Time: 10 minutes (vs 8 for GPT-4)
-- Score: 8.5/10 (vs 8.75 for GPT-4)
+- Time: 10 minutes (vs 8 for Copilot)
+- Score: 8.5/10 (vs 8.75 for Copilot)
 - Claude included tests! (bonus)
 - But had 2 compilation errors (needed fixes)
 
 ---
 
-## Step 9: Compare Results
+## Step 8: AI Creates Comparison
 
-Copy comparison template:
+An AI agent creates the comparison:
 
 ```bash
-cp comparison_template.md reports/P001_comparison.md
+cp /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/comparison_template.md \
+   /home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_prompts/reports/P001_comparison.md
 ```
 
-Fill in the comparison:
+Fills in the comparison:
 
 ### Summary Table
 
-| Metric | GPT-4 | Claude-3 | Winner |
-|--------|-------|----------|--------|
-| Time | 8 min | 10 min | GPT-4 ✓ |
+| Metric | Copilot Agent | Claude Agent | Winner |
+|--------|---------------|--------------|--------|
+| Time | 8 min | 10 min | Copilot ✓ |
 | LOC | 247 | 318 | Claude ✓ |
 | Files | 6 | 8 | Claude ✓ |
-| Compilation | 100% | 90% | GPT-4 ✓ |
-| Quality | 8.75/10 | 8.5/10 | GPT-4 ✓ |
+| Compilation | 100% | 90% | Copilot ✓ |
+| Quality | 8.75/10 | 8.5/10 | Copilot ✓ |
 | Pattern | 95% | 95% | Tie |
 | Tests | No | Yes | Claude ✓ |
 
-**Winner: GPT-4** (4 wins vs 3)
+**Winner: Copilot Agent** (4 wins vs 3)
 
 ### Key Findings
 
-**GPT-4 Strengths:**
+**Copilot Agent Strengths:**
 - Faster generation (8 min vs 10)
 - Perfect compilation
 - Cleaner, more focused code
+- Better repository integration
 
-**Claude Strengths:**
+**Claude Agent Strengths:**
 - Included unit tests
 - More comprehensive (more files)
 - Better documentation
 
 **Recommendation:**
-- Use **GPT-4** for quick, clean implementations
-- Use **Claude** when tests are critical
+- Use **Copilot Agent** for quick, clean implementations with perfect compilation
+- Use **Claude Agent** when comprehensive tests are critical
 
 ---
 
-## Step 10: Use the Data
+## Step 9: Analysis and Insights
 
-Now you have:
+The agentic AI now has:
 - Objective comparison data
 - Detailed quality scores
-- Evidence for tool selection
-- Shareable reports
+- Evidence for AI platform selection
+- Structured reports in the repository
 
-You can:
-1. Share with your team
-2. Make informed tool choices
-3. Aggregate data across multiple prompts
-4. Build best practices guide
+The data enables:
+1. Automated analysis across multiple prompts
+2. Pattern recognition in AI capabilities
+3. Evidence-based AI platform recommendations
+4. Continuous improvement tracking
 
 ---
 
 ## Summary
 
-This example showed:
-✅ How to use a prompt (copy & paste)
-✅ How to save output (organized folders)
-✅ How to fill reports (structured templates)
-✅ How to compare platforms (side-by-side)
-✅ How to make decisions (data-driven)
+This example demonstrated agentic AI workflow:
+✅ AI reads context from repository files
+✅ AI processes prompt with full repository awareness
+✅ AI generates code directly in proper structure
+✅ AI creates and fills structured reports
+✅ AI performs comparative analysis
 
 **Total time:** ~45 minutes for complete comparison
-**Value:** Evidence-based tool selection
+**Value:** Automated, evidence-based AI platform evaluation
 
 ---
 
-## Try It Yourself!
+## For Agentic AI: Next Steps
 
-Start with simple prompts:
-1. P001 - Observer Pattern (this example)
-2. P002 - React Component (frontend)
-3. P003 - JPA Queries (database)
+Agentic AI agents can:
+1. Process multiple prompts sequentially (P001 → P002 → P003)
+2. Compare results across different AI platforms automatically
+3. Generate aggregate analysis reports
+4. Identify patterns in code quality across prompt types
+5. Recommend optimal AI platforms for specific task types
 
-Then move to complex ones:
-- P006 - Strategy Pattern (step-by-step)
+**Simple prompts to start:**
+- P001 - Observer Pattern (backend pattern)
+- P002 - React Component (frontend)
+- P003 - JPA Queries (database)
+
+**Complex prompts:**
+- P006 - Strategy Pattern (step-by-step reasoning)
 - P010 - Waiting List (complete feature)
-- P008 - Complete Backend (multi-stage)
+- P008 - Complete Backend (multi-stage with chaining)
 
-**Happy testing!** 🚀
+**Automation ready!** 🤖
