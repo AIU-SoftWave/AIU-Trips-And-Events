@@ -10,15 +10,17 @@ import com.aiu.trips.repository.UserRepository;
 import com.aiu.trips.security.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
@@ -29,23 +31,27 @@ import static org.mockito.Mockito.*;
 /**
  * Unit tests for AuthService
  * Based on CSV Test Cases: TC_001-TC_014 (User Authentication)
+ * 
+ * Note: Using @SpringBootTest to get real JwtUtil bean instead of mocking
+ * due to Java 25 compatibility issues with Mockito mocking final classes
  */
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@ActiveProfiles("test")
 class AuthServiceTest {
 
-    @Mock
+    @MockBean
     private UserRepository userRepository;
 
-    @Mock
+    @MockBean
     private PasswordEncoder passwordEncoder;
 
-    @Mock
+    @Autowired
     private JwtUtil jwtUtil;
 
-    @Mock
+    @MockBean
     private AuthenticationManager authenticationManager;
 
-    @InjectMocks
+    @Autowired
     private AuthService authService;
 
     private RegisterRequest registerRequest;
@@ -73,7 +79,8 @@ class AuthServiceTest {
         testUser.setRole(UserRole.STUDENT);
     }
 
-    // TC_001: Validate that the system allows users to log in with valid credentials
+    // TC_001: Validate that the system allows users to log in with valid
+    // credentials
     @Test
     void testLoginWithValidCredentials_Success() {
         // Arrange
@@ -81,19 +88,21 @@ class AuthServiceTest {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .thenReturn(authentication);
         when(userRepository.findByEmail(loginRequest.getEmail())).thenReturn(Optional.of(testUser));
-        when(jwtUtil.generateToken(testUser.getEmail(), testUser.getRole().name())).thenReturn("mock-jwt-token");
+        // Note: Using real JwtUtil, so token will be generated, not mocked
 
         // Act
         AuthResponse response = authService.login(loginRequest);
 
         // Assert
         assertNotNull(response);
-        assertEquals("mock-jwt-token", response.getToken());
+        assertNotNull(response.getToken()); // Real JWT token
+        assertTrue(response.getToken().length() > 0); // Token should not be empty
         assertEquals(testUser.getEmail(), response.getEmail());
         verify(authenticationManager, times(1)).authenticate(any(UsernamePasswordAuthenticationToken.class));
     }
 
-    // TC_003: Validate that the system displays an error message for invalid login attempts
+    // TC_003: Validate that the system displays an error message for invalid login
+    // attempts
     @Test
     void testLoginWithInvalidCredentials_ThrowsException() {
         // Arrange
@@ -105,21 +114,23 @@ class AuthServiceTest {
         verify(authenticationManager, times(1)).authenticate(any(UsernamePasswordAuthenticationToken.class));
     }
 
-    // TC_006: Validate that new users can successfully register with valid information
+    // TC_006: Validate that new users can successfully register with valid
+    // information
     @Test
     void testRegisterNewUser_Success() {
         // Arrange
         when(userRepository.existsByEmail(registerRequest.getEmail())).thenReturn(false);
         when(passwordEncoder.encode(registerRequest.getPassword())).thenReturn("encodedPassword");
         when(userRepository.save(any(User.class))).thenReturn(testUser);
-        when(jwtUtil.generateToken(testUser.getEmail(), testUser.getRole().name())).thenReturn("mock-jwt-token");
+        // Note: Using real JwtUtil, so token will be generated, not mocked
 
         // Act
         AuthResponse result = authService.register(registerRequest);
 
         // Assert
         assertNotNull(result);
-        assertEquals("mock-jwt-token", result.getToken());
+        assertNotNull(result.getToken()); // Real JWT token
+        assertTrue(result.getToken().length() > 0); // Token should not be empty
         assertEquals(testUser.getEmail(), result.getEmail());
         verify(userRepository, times(1)).save(any(User.class));
     }
@@ -146,18 +157,20 @@ class AuthServiceTest {
         weakPasswordRequest.setFullName("Test User 2");
         weakPasswordRequest.setPhoneNumber("555-0101");
 
-        // Note: In actual implementation with @Valid, this would be caught by validation
+        // Note: In actual implementation with @Valid, this would be caught by
+        // validation
         // For unit test, we test that the service method itself doesn't fail
         when(userRepository.existsByEmail(weakPasswordRequest.getEmail())).thenReturn(false);
         when(passwordEncoder.encode(any())).thenReturn("encodedWeakPassword");
         when(userRepository.save(any(User.class))).thenReturn(testUser);
-        when(jwtUtil.generateToken(anyString(), anyString())).thenReturn("mock-jwt-token");
+        // Note: Using real JwtUtil, so token will be generated, not mocked
 
         // Act
         AuthResponse result = authService.register(weakPasswordRequest);
 
         // Assert - Service layer accepts it; validation should be at controller level
         assertNotNull(result);
+        assertNotNull(result.getToken()); // Real JWT token
     }
 
     // TC_011: Validate that password reset links are sent to registered emails
@@ -212,14 +225,16 @@ class AuthServiceTest {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .thenReturn(authentication);
         when(userRepository.findByEmail(loginRequest.getEmail())).thenReturn(Optional.of(testUser));
-        when(jwtUtil.generateToken(testUser.getEmail(), testUser.getRole().name())).thenReturn("generated-token");
+        // Note: Using real JwtUtil, so token will be generated, not mocked
 
         // Act
         AuthResponse response = authService.login(loginRequest);
 
         // Assert
         assertNotNull(response.getToken());
-        assertEquals("generated-token", response.getToken());
-        verify(jwtUtil, times(1)).generateToken(testUser.getEmail(), testUser.getRole().name());
+        assertTrue(response.getToken().length() > 0); // Real JWT token should be generated
+        // Verify the token is valid
+        String extractedEmail = jwtUtil.extractEmail(response.getToken());
+        assertEquals(testUser.getEmail(), extractedEmail);
     }
 }

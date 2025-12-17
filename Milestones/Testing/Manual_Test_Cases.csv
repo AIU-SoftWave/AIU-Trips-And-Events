@@ -1,0 +1,303 @@
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+# Sheet: Test_Cases,,,,,,,,,,,,,,,,,
+TC_ID,Feature,Title,Description,Preconditions,Test Steps,Test Data,Expected Result,Postconditions,Actual Result,Status,Author,Execution Cycle,Priority,,,,
+TC_001,User Authentication - Login,Validate that the system allows users to log in with valid c...,Validate that the system allows users to log in with valid credentials,User account exists in the system and application is accessible,"1. Navigate to the relevant section of the application
+2. Validate that the system allows users to log in with valid credentials
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that the system allows users to log in with valid credentials,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_002,User Authentication - Login,Validate that users can log in from different devices and br...,Validate that users can log in from different devices and browsers,User account exists in the system and application is accessible,"1. Navigate to the relevant section of the application
+2. Validate that users can log in from different devices and browsers
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that users can log in from different devices and browsers,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_003,User Authentication - Login,Validate that the system displays an error message for inval...,Validate that the system displays an error message for invalid login attempts,User account exists in the system and application is accessible,"1. Navigate to the relevant section of the application
+2. Validate that the system displays an error message for invalid login attempts
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that the system displays an error message for invalid login attempts,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_004,User Authentication - Login,Validate that the system locks the account after 5 consecuti...,Validate that the system locks the account after 5 consecutive failed login attempts,User account exists in the system and application is accessible,"1. Navigate to the relevant section of the application
+2. Validate that the system locks the account after 5 consecutive failed login attempts
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that the system locks the account after 5 consecutive failed login attempts,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_005,User Authentication - Login,Validate that the system redirects users to the appropriate ...,Validate that the system redirects users to the appropriate dashboard based on their,User account exists in the system and application is accessible,"1. Navigate to the relevant section of the application
+2. Validate that the system redirects users to the appropriate dashboard based on their
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that the system redirects users to the appropriate dashboard based on their,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_006,User Authentication - Registration,Validate that new users can successfully register with valid...,Validate that new users can successfully register with valid information,Registration page is accessible and email service is configured,"1. Navigate to the relevant section of the application
+2. Validate that new users can successfully register with valid information
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that new users can successfully register with valid information,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_007,User Authentication - Registration,Validate that the system prevents duplicate email addresses,Validate that the system prevents duplicate email addresses,Registration page is accessible and email service is configured,"1. Navigate to the relevant section of the application
+2. Validate that the system prevents duplicate email addresses
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that the system prevents duplicate email addresses,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_008,User Authentication - Registration,Validate that users receive a verification email upon regist...,Validate that users receive a verification email upon registration,Registration page is accessible and email service is configured,"1. Navigate to the relevant section of the application
+2. Validate that users receive a verification email upon registration
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that users receive a verification email upon registration,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_009,User Authentication - Registration,Validate that email verification is required before login,Validate that email verification is required before login,Registration page is accessible and email service is configured,"1. Navigate to the relevant section of the application
+2. Validate that email verification is required before login
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that email verification is required before login,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_010,User Authentication - Registration,Validate password strength requirements,Validate password strength requirements,Registration page is accessible and email service is configured,"1. Navigate to the relevant section of the application
+2. Validate password strength requirements
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate password strength requirements,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_011,User Authentication - Password Reset,Validate that password reset links are sent to registered em...,Validate that password reset links are sent to registered emails,User account exists and email service is functional,"1. Navigate to the relevant section of the application
+2. Validate that password reset links are sent to registered emails
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that password reset links are sent to registered emails,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_012,User Authentication - Password Reset,Validate that password reset links expire after 30 minutes,Validate that password reset links expire after 30 minutes,User account exists and email service is functional,"1. Navigate to the relevant section of the application
+2. Validate that password reset links expire after 30 minutes
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that password reset links expire after 30 minutes,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_013,User Authentication - Password Reset,Validate that passwords can be successfully reset,Validate that passwords can be successfully reset,User account exists and email service is functional,"1. Navigate to the relevant section of the application
+2. Validate that passwords can be successfully reset
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that passwords can be successfully reset,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_014,User Authentication - Password Reset,Validate that confirmation emails are sent after password re...,Validate that confirmation emails are sent after password reset,User account exists and email service is functional,"1. Navigate to the relevant section of the application
+2. Validate that confirmation emails are sent after password reset
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that confirmation emails are sent after password reset,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_015,Event Management - Create Event,Validate that organizers can create events with all required...,Validate that organizers can create events with all required information,User is logged in as Organizer or Administrator with proper permissions,"1. Navigate to the relevant section of the application
+2. Validate that organizers can create events with all required information
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that organizers can create events with all required information,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_016,Event Management - Create Event,Validate that event images can be uploaded successfully,Validate that event images can be uploaded successfully,User is logged in as Organizer or Administrator with proper permissions,"1. Navigate to the relevant section of the application
+2. Validate that event images can be uploaded successfully
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that event images can be uploaded successfully,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_017,Event Management - Create Event,Validate that the system prevents creation of events with pa...,Validate that the system prevents creation of events with past dates,User is logged in as Organizer or Administrator with proper permissions,"1. Navigate to the relevant section of the application
+2. Validate that the system prevents creation of events with past dates
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that the system prevents creation of events with past dates,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_018,Event Management - Create Event,Validate that capacity must be a positive number,Validate that capacity must be a positive number,User is logged in as Organizer or Administrator with proper permissions,"1. Navigate to the relevant section of the application
+2. Validate that capacity must be a positive number
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that capacity must be a positive number,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_019,Event Management - Edit Event,Validate that organizers can edit existing events,Validate that organizers can edit existing events,User is logged in as Organizer or Administrator with proper permissions,"1. Navigate to the relevant section of the application
+2. Validate that organizers can edit existing events
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that organizers can edit existing events,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_020,Event Management - Edit Event,Validate that event updates trigger notifications to registe...,Validate that event updates trigger notifications to registered students,User is logged in as Organizer or Administrator with proper permissions,"1. Navigate to the relevant section of the application
+2. Validate that event updates trigger notifications to registered students
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that event updates trigger notifications to registered students,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_021,Event Management - Edit Event,Validate that editing preserves existing bookings,Validate that editing preserves existing bookings,User is logged in as Organizer or Administrator with proper permissions,"1. Navigate to the relevant section of the application
+2. Validate that editing preserves existing bookings
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that editing preserves existing bookings,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_022,Event Management - Delete Event,Validate that organizers can delete events,Validate that organizers can delete events,User is logged in as Organizer or Administrator with proper permissions,"1. Navigate to the relevant section of the application
+2. Validate that organizers can delete events
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that organizers can delete events,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_023,Event Management - Delete Event,Validate that deleting events with registrations triggers re...,Validate that deleting events with registrations triggers refunds,User is logged in as Organizer or Administrator with proper permissions,"1. Navigate to the relevant section of the application
+2. Validate that deleting events with registrations triggers refunds
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that deleting events with registrations triggers refunds,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_024,Event Management - Delete Event,Validate that cancellation notifications are sent,Validate that cancellation notifications are sent,User is logged in as Organizer or Administrator with proper permissions,"1. Navigate to the relevant section of the application
+2. Validate that cancellation notifications are sent
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that cancellation notifications are sent,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_025,Event Management - Capacity & Deadlines,Validate that events are categorized correctly,Validate that events are categorized correctly,User is logged in as Organizer or Administrator with proper permissions,"1. Navigate to the relevant section of the application
+2. Validate that events are categorized correctly
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that events are categorized correctly,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_026,Event Management - Capacity & Deadlines,Validate that registration closes when capacity is reached,Validate that registration closes when capacity is reached,User is logged in as Organizer or Administrator with proper permissions,"1. Navigate to the relevant section of the application
+2. Validate that registration closes when capacity is reached
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that registration closes when capacity is reached,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_027,Event Management - Capacity & Deadlines,Validate that registration deadlines are enforced,Validate that registration deadlines are enforced,User is logged in as Organizer or Administrator with proper permissions,"1. Navigate to the relevant section of the application
+2. Validate that registration deadlines are enforced
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that registration deadlines are enforced,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_028,Booking & Ticketing - Browse Events,Validate that students can browse available events,Validate that students can browse available events,User is logged in as Student and events are available in the system,"1. Navigate to the relevant section of the application
+2. Validate that students can browse available events
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that students can browse available events,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_029,Booking & Ticketing - Browse Events,Validate that event details are displayed correctly,Validate that event details are displayed correctly,User is logged in as Student and events are available in the system,"1. Navigate to the relevant section of the application
+2. Validate that event details are displayed correctly
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that event details are displayed correctly,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_030,Booking & Ticketing - Browse Events,Validate that booking button is disabled when event is full,Validate that booking button is disabled when event is full,User is logged in as Student and events are available in the system,"1. Navigate to the relevant section of the application
+2. Validate that booking button is disabled when event is full
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that booking button is disabled when event is full,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_031,Booking & Ticketing - Make Booking,Validate that system checks seat availability before booking,Validate that system checks seat availability before booking,User is logged in as Student and events are available in the system,"1. Navigate to the relevant section of the application
+2. Validate that system checks seat availability before booking
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that system checks seat availability before booking,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_032,Booking & Ticketing - Make Booking,Validate that duplicate bookings are prevented,Validate that duplicate bookings are prevented,User is logged in as Student and events are available in the system,"1. Navigate to the relevant section of the application
+2. Validate that duplicate bookings are prevented
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that duplicate bookings are prevented,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_033,Booking & Ticketing - Make Booking,Validate that registration deadline is enforced,Validate that registration deadline is enforced,User is logged in as Student and events are available in the system,"1. Navigate to the relevant section of the application
+2. Validate that registration deadline is enforced
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that registration deadline is enforced,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_034,Booking & Ticketing - Digital Tickets,Validate that unique QR codes are generated,Validate that unique QR codes are generated,User is logged in as Student and events are available in the system,"1. Navigate to the relevant section of the application
+2. Validate that unique QR codes are generated
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that unique QR codes are generated,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_035,Booking & Ticketing - Digital Tickets,Validate that digital tickets are sent via email,Validate that digital tickets are sent via email,User is logged in as Student and events are available in the system,"1. Navigate to the relevant section of the application
+2. Validate that digital tickets are sent via email
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that digital tickets are sent via email,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_036,Booking & Ticketing - Digital Tickets,Validate that tickets can be downloaded and viewed,Validate that tickets can be downloaded and viewed,User is logged in as Student and events are available in the system,"1. Navigate to the relevant section of the application
+2. Validate that tickets can be downloaded and viewed
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that tickets can be downloaded and viewed,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_037,Booking & Ticketing - Booking History,Validate that available seats are updated correctly,Validate that available seats are updated correctly,User is logged in as Student and events are available in the system,"1. Navigate to the relevant section of the application
+2. Validate that available seats are updated correctly
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that available seats are updated correctly,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_038,Booking & Ticketing - Booking History,Validate that booking history is maintained,Validate that booking history is maintained,User is logged in as Student and events are available in the system,"1. Navigate to the relevant section of the application
+2. Validate that booking history is maintained
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that booking history is maintained,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_039,Booking & Ticketing - QR Validation,Validate that QR codes can be validated at entry,Validate that QR codes can be validated at entry,User is logged in as Student and events are available in the system,"1. Navigate to the relevant section of the application
+2. Validate that QR codes can be validated at entry
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that QR codes can be validated at entry,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_040,Notifications - New Event,Validate that new event notifications are sent to all studen...,Validate that new event notifications are sent to all students,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that new event notifications are sent to all students
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that new event notifications are sent to all students,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_041,Notifications - New Event,Validate that notification content is accurate and complete,Validate that notification content is accurate and complete,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that notification content is accurate and complete
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that notification content is accurate and complete,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_042,Notifications - Event Updates,Validate that event update notifications are sent to registe...,Validate that event update notifications are sent to registered students only,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that event update notifications are sent to registered students only
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that event update notifications are sent to registered students only,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_043,Notifications - Event Updates,Validate that update notifications include old and new infor...,Validate that update notifications include old and new information,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that update notifications include old and new information
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that update notifications include old and new information,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_044,Notifications - Cancellations,Validate that cancellation notifications are sent promptly,Validate that cancellation notifications are sent promptly,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that cancellation notifications are sent promptly
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that cancellation notifications are sent promptly,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_045,Notifications - Cancellations,Validate that cancellation includes refund information,Validate that cancellation includes refund information,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that cancellation includes refund information
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that cancellation includes refund information,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_046,Notifications - Confirmations,Validate that confirmations include digital ticket,Validate that confirmations include digital ticket,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that confirmations include digital ticket
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that confirmations include digital ticket,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_047,Notifications - Reminders,Validate that reminder notifications are sent 24 hours befor...,Validate that reminder notifications are sent 24 hours before events,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that reminder notifications are sent 24 hours before events
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that reminder notifications are sent 24 hours before events,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_048,Notifications - Reminders,Validate that reminders include event details,Validate that reminders include event details,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that reminders include event details
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that reminders include event details,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_049,Notifications - Custom Messages,Validate that organizers can send custom messages,Validate that organizers can send custom messages,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that organizers can send custom messages
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that organizers can send custom messages,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_050,Notifications - Custom Messages,Validate that custom messages reach all registered participa...,Validate that custom messages reach all registered participants,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that custom messages reach all registered participants
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that custom messages reach all registered participants,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_051,Notifications - Delivery Reliability,Validate that email delivery failures are logged,Validate that email delivery failures are logged,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that email delivery failures are logged
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that email delivery failures are logged,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_052,Notifications - Delivery Reliability,Validate that failed deliveries are retried,Validate that failed deliveries are retried,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that failed deliveries are retried
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that failed deliveries are retried,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_053,Notifications - Preferences,Validate that students can set notification preferences,Validate that students can set notification preferences,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that students can set notification preferences
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that students can set notification preferences,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_054,Notifications - Preferences,Validate that preferences are respected,Validate that preferences are respected,Notification system is configured and email/SMS services are operational,"1. Navigate to the relevant section of the application
+2. Validate that preferences are respected
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that preferences are respected,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_055,Reports & Analytics - Participant Reports,Validate that participant count reports are accurate,Validate that participant count reports are accurate,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that participant count reports are accurate
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that participant count reports are accurate,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_056,Reports & Analytics - Participant Reports,Validate that reports can be filtered by date range,Validate that reports can be filtered by date range,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that reports can be filtered by date range
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that reports can be filtered by date range,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_057,Reports & Analytics - Participant Reports,Validate that reports can be filtered by event category,Validate that reports can be filtered by event category,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that reports can be filtered by event category
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that reports can be filtered by event category,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_058,Reports & Analytics - Revenue Reports,Validate that revenue calculations are correct,Validate that revenue calculations are correct,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that revenue calculations are correct
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that revenue calculations are correct,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_059,Reports & Analytics - Revenue Reports,Validate that revenue reports show proper breakdowns,Validate that revenue reports show proper breakdowns,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that revenue reports show proper breakdowns
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that revenue reports show proper breakdowns,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_060,Reports & Analytics - Statistics,Validate that system-wide statistics are accurate,Validate that system-wide statistics are accurate,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that system-wide statistics are accurate
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that system-wide statistics are accurate,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_061,Reports & Analytics - Statistics,Validate that dashboard displays real-time data,Validate that dashboard displays real-time data,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that dashboard displays real-time data
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that dashboard displays real-time data,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_062,Reports & Analytics - Export,Validate that reports can be exported as PDF,Validate that reports can be exported as PDF,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that reports can be exported as PDF
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that reports can be exported as PDF,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_063,Reports & Analytics - Export,Validate that reports can be exported as CSV,Validate that reports can be exported as CSV,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that reports can be exported as CSV
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that reports can be exported as CSV,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_064,Reports & Analytics - Export,Validate that exported files contain complete data,Validate that exported files contain complete data,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that exported files contain complete data
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that exported files contain complete data,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,High,,,,
+TC_065,Reports & Analytics - Feedback,Validate that feedback reports aggregate ratings correctly,Validate that feedback reports aggregate ratings correctly,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that feedback reports aggregate ratings correctly
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that feedback reports aggregate ratings correctly,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_066,Reports & Analytics - Feedback,Validate that feedback comments are displayed properly,Validate that feedback comments are displayed properly,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that feedback comments are displayed properly
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that feedback comments are displayed properly,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_067,Reports & Analytics - Attendance,Validate that attendance tracking is accurate,Validate that attendance tracking is accurate,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that attendance tracking is accurate
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that attendance tracking is accurate,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_068,Reports & Analytics - Attendance,Validate that no-show rates are calculated correctly,Validate that no-show rates are calculated correctly,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that no-show rates are calculated correctly
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that no-show rates are calculated correctly,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_069,Reports & Analytics - Performance,Validate that organizer performance metrics are accurate,Validate that organizer performance metrics are accurate,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that organizer performance metrics are accurate
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that organizer performance metrics are accurate,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_070,Reports & Analytics - Performance,Validate that comparative analytics work properly,Validate that comparative analytics work properly,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that comparative analytics work properly
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that comparative analytics work properly,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_071,Reports & Analytics - Data Handling,Validate that reports handle empty datasets gracefully,Validate that reports handle empty datasets gracefully,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that reports handle empty datasets gracefully
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that reports handle empty datasets gracefully,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_072,Reports & Analytics - Data Handling,Validate that large datasets are paginated properly,Validate that large datasets are paginated properly,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that large datasets are paginated properly
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that large datasets are paginated properly,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_073,Reports & Analytics - Scheduled Reports,Validate that scheduled reports run automatically,Validate that scheduled reports run automatically,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that scheduled reports run automatically
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that scheduled reports run automatically,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
+TC_074,Reports & Analytics - Scheduled Reports,Validate that scheduled reports are delivered via email,Validate that scheduled reports are delivered via email,User is logged in as Administrator or Organizer with access to reports,"1. Navigate to the relevant section of the application
+2. Validate that scheduled reports are delivered via email
+3. Verify the expected outcome
+4. Document the results",Test user credentials and sample data,Validate that scheduled reports are delivered via email,System state is verified and results are documented,,Not Run,QA Team,Cycle 1,Medium,,,,
