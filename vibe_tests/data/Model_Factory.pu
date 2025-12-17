@@ -1,0 +1,82 @@
+@startuml Model_Factory
+
+' -------------------- Colors --------------------
+!define INTERFACE_COLOR #E8F5E9
+!define PROXY_COLOR #FFE0B2
+!define MODEL_COLOR #E3F2FD
+!define ENTITY_COLOR #E3F2FD
+!define FACTORY_COLOR #D1C4E9
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<proxy>> PROXY_COLOR
+    BackgroundColor<<model>> MODEL_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<factory>> FACTORY_COLOR
+}
+
+title University Trips & Events Management System - Repository Layer with Factory
+
+top to bottom direction
+
+package "Repository Layer (Data Access)" {
+    
+    ' Base Repository Interface (aligned with Repository_Layer)
+    interface IBaseModel<T> <<interface>>
+
+    ' (Removed provider; factory registers model instances directly)
+
+    ' Open-Closed, Generic Factory API
+    interface IModelFactory <<interface>> {
+        +register<T>(key: String, model: IBaseModel<T>): void
+        +get<T>(key: String): IBaseModel<T>
+        +getByType<T>(type: Class<T>): IBaseModel<T>
+        +contains(key: String): Boolean
+        +keys(): List<String>
+    }
+
+    ' Repository Model Interfaces (names only)
+    interface IUserModel <<interface>>
+    interface IActivityModel <<interface>>
+    interface IBookingModel <<interface>>
+    interface INotificationModel <<interface>>
+    interface IReportModel <<interface>>
+    interface IFeedbackModel <<interface>>
+
+    ' Concrete Factory with a registry
+    class ModelFactory <<factory>> {
+        -registry: Map<String, IBaseModel<Object>>
+        +register<T>(key: String, model: IBaseModel<T>): void
+        +get<T>(key: String): IBaseModel<T>
+        +getByType<T>(type: Class<T>): IBaseModel<T>
+        +contains(key: String): Boolean
+        +keys(): List<String>
+    }
+
+    ' Concrete Models
+    class UserModel <<model>>
+    class ActivityModel <<model>>
+    class BookingModel <<model>>
+    class NotificationModel <<model>>
+    class ReportModel <<model>>
+    class FeedbackModel <<model>>
+
+    ' Relations (decoupled from concrete models)
+    IModelFactory <|.. ModelFactory
+    ModelFactory --> IBaseModel : holds
+    IBaseModel <|-- IUserModel
+    IBaseModel <|-- IActivityModel
+    IBaseModel <|-- IBookingModel
+    IBaseModel <|-- INotificationModel
+    IBaseModel <|-- IReportModel
+    IBaseModel <|-- IFeedbackModel
+    IUserModel <|.. UserModel
+    IActivityModel <|.. ActivityModel
+    IBookingModel <|.. BookingModel
+    INotificationModel <|.. NotificationModel
+    IReportModel <|.. ReportModel
+    IFeedbackModel <|.. FeedbackModel
+}
+
+@enduml

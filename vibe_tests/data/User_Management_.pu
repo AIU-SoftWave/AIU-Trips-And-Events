@@ -1,0 +1,59 @@
+@startuml User_Management
+
+!define INTERFACE_COLOR #E8F5E9
+!define SERVICE_COLOR #F3E5F5
+!define ENTITY_COLOR #E3F2FD
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+}
+
+package "User Management Component" {
+    
+    ' Interface from Context Level
+    interface IAuthenticationUserManagement <<interface>> {
+        +register(userData: UserDTO): Response
+        +login(email: String, password: String): AuthToken
+        +verifyEmail(token: String): Response
+        +resetPassword(email: String): Response
+        +manageUserRole(userId: String, role: UserRole): Response
+    }
+    
+    ' Reference to shared Model Factory (no body)
+    interface IModelFactory <<interface>>
+    
+    ' Service Implementation (Realization)
+    class UserManagementService <<service>> {
+        -IModelFactory modelFactory
+        -IAuthService authService
+        -INotificationSystem notificationService
+        +register(userData: UserDTO): Response
+        +login(email: String, password: String): AuthToken
+        +verifyEmail(token: String): Response
+        +resetPassword(email: String): Response
+        +manageUserRole(userId: String, role: UserRole): Response
+    }
+    
+    ' Supporting Service Interfaces
+    interface IAuthService <<interface>> {
+        +generateToken(userId: String, role: UserRole): AuthToken
+        +validateToken(token: String): Boolean
+    }
+    
+    interface INotificationSystem <<interface>> {
+        +sendNotification(userId: String, message: String, type: NotificationType): Response
+        +notifyEventUpdate(eventId: String, message: String): Response
+        +sendBulkNotification(userIds: List<String>, message: String): Response
+    }
+    
+    ' Relationships (Professional)
+    IAuthenticationUserManagement <|.. UserManagementService : realizes
+    UserManagementService --> IModelFactory : uses
+    UserManagementService --> IAuthService : uses
+    UserManagementService --> INotificationSystem : uses
+    }
+
+@enduml
