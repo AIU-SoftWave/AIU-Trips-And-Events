@@ -52,3 +52,20 @@ Thumbs.db
 # API keys and secrets
 .env.local
 secrets/
+Milestones/Testing/PDFS/index.md
+Milestones/Testing/PDFS/index.pdf
+Milestones/Testing/PDFS/Manual_Test_Cases.csv
+Milestones/Testing/PDFS/1_Overview/Executive_Summary.pdf
+Milestones/Testing/PDFS/1_Overview/Project_Overview.pdf
+Milestones/Testing/PDFS/2_Test_Requirements/Functional_Requirements.pdf
+Milestones/Testing/PDFS/2_Test_Requirements/Test_Coverage_Mapping.pdf
+Milestones/Testing/PDFS/2_Test_Requirements/Testing_Strategy.pdf
+Milestones/Testing/PDFS/3_Test_Cases/Integration_Tests.pdf
+Milestones/Testing/PDFS/3_Test_Cases/Test_Data.pdf
+Milestones/Testing/PDFS/3_Test_Cases/Unit_Tests.pdf
+Milestones/Testing/PDFS/4_Test_Results/Issues_Fixed.pdf
+Milestones/Testing/PDFS/4_Test_Results/Performance_Metrics.pdf
+Milestones/Testing/PDFS/4_Test_Results/Test_Execution_Results.pdf
+Milestones/Testing/PDFS/5_Test_Code/Code_Examples.pdf
+Milestones/Testing/PDFS/5_Test_Code/Test_Configuration.pdf
+Milestones/Testing/PDFS/5_Test_Code/Test_Patterns.pdf
