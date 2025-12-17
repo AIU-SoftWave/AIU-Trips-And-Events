@@ -1,10 +1,29 @@
-# Vibe Prompts - AI Testing Framework for Agentic AI
+# Vibe Prompts - AI Project Generation Framework
 
-> Prompts designed for agentic AI with repository access (like GitHub Copilot Agent)
+> Generate the complete AIU Trips & Events project with a single prompt!
 
-## Quick Start for Agentic AI
+## 🚀 Quick Start - Generate Entire Project
 
-Agentic AI agents will:
+**Want the complete project in one go?**
+
+Use the **comprehensive project generation prompt**: [`generate_project_prompt.md`](generate_project_prompt.md)
+
+This single prompt generates:
+- ✅ Complete Spring Boot backend (~150 files)
+- ✅ Complete React frontend (~80 files)  
+- ✅ All 11 design patterns implemented
+- ✅ Database schema
+- ✅ Complete documentation
+- ✅ Build configurations
+- ✅ **Total: 230+ production-ready files**
+
+**Estimated time:** 90-120 minutes
+
+---
+
+## Alternative: Component-by-Component Generation
+
+For testing individual components or patterns, use:
 1. **Read context** from `vibe_prompts/data/system_context.md` 
 2. **Select prompt** from `vibe_prompts/prompts.md` (e.g., P001, P002)
 3. **Access repository** at `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events`
@@ -15,21 +34,23 @@ Agentic AI agents will:
 
 ```
 vibe_prompts/
-├── README.md                    # This file
-├── prompts.md                   # All prompts with IDs (P001-P015)
-├── report_template.md           # Template for individual test reports
-├── comparison_template.md       # Template for comparing platforms
+├── README.md                     # This file
+├── generate_project_prompt.md   # 🌟 SINGLE PROMPT for entire project!
+├── prompts.md                    # 15 component prompts (P001-P015)
+├── EXAMPLE.md                    # Walkthrough example
+├── report_template.md            # Template for individual test reports
+├── comparison_template.md        # Template for comparing platforms
 ├── data/
-│   └── system_context.md        # System information for AI
+│   └── system_context.md         # System information for AI
 ├── outputs/
-│   ├── P001/                    # Generated code for prompt P001
-│   ├── P002/                    # Generated code for prompt P002
+│   ├── FULL_PROJECT/            # 🌟 Complete project (230+ files)
+│   ├── P001/                     # Generated code for prompt P001
+│   ├── P002/                     # Generated code for prompt P002
 │   └── ...
 └── reports/
-    ├── P001_report.md           # Test report for P001
-    ├── P001_gpt4_report.md      # GPT-4 test for P001
-    ├── P001_claude_report.md    # Claude test for P001
-    └── P001_comparison.md       # Comparison of all platforms for P001
+    ├── FULL_PROJECT_report.md   # Report for complete project
+    ├── P001_report.md            # Test report for P001
+    └── ...
 ```
 
 ## Available Prompts
