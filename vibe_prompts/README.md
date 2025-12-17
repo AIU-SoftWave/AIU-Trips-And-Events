@@ -1,235 +1,261 @@
-# Vibe Prompts - AI Code Generation Testing Framework
+# Vibe Prompts - Simple AI Testing Framework
 
-## Overview
-
-This folder contains comprehensive prompts designed for testing and evaluating AI-assisted code generation across different platforms, models, and prompting frameworks for the AIU Trips & Events Management System.
-
-## Purpose
-
-The prompts in this folder enable systematic evaluation of:
-- **AI Platform Performance**: Compare GPT-4, Claude, Gemini, Copilot, and other models
-- **Prompting Framework Effectiveness**: Test Zero-Shot, Few-Shot, Chain-of-Thought, and more
-- **Code Quality Metrics**: Measure compilation success, pattern correctness, and architecture quality
-- **Development Efficiency**: Evaluate speed, accuracy, and overall productivity
-
-## Files
-
-### `ai_testing_prompts.md`
-Comprehensive collection of testing prompts including:
-- **8 Prompting Frameworks**:
-  1. Zero-Shot Prompting
-  2. Few-Shot Prompting
-  3. Chain-of-Thought (CoT)
-  4. Tree-of-Thought (ToT)
-  5. ReAct (Reasoning + Acting)
-  6. Self-Consistency
-  7. Constitutional AI
-  8. Prompt Chaining
-
-- **Test Scenarios**:
-  - Pattern Implementation Tests
-  - Component Creation Tests
-  - Service Layer Implementation
-  - API Controller Creation
-  - Architecture Design
-  - Debug and Fix Scenarios
-  - Feature Addition Tests
-
-- **Benchmarking Tests**:
-  - Speed Test (code generation speed)
-  - Quality Test (code quality comparison)
-  - Pattern Implementation Test (design pattern correctness)
-  - Integration Test (end-to-end workflows)
-
-- **Evaluation Framework**:
-  - Code Quality Rubrics
-  - Speed Metrics
-  - Accuracy Metrics
-  - Reporting Templates
+> Simple, copy-paste prompts for testing AI code generation
 
 ## Quick Start
 
-### 1. Select a Prompt
-Choose a prompt from `ai_testing_prompts.md` based on what you want to test:
+1. **Read the context** - Open `data/system_context.md` to understand the AIU Trips & Events system
+2. **Pick a prompt** - Open `prompts.md` and find the test you want (e.g., P001, P002)
+3. **Copy & paste** - Copy the entire prompt and paste it into your AI tool
+4. **Save output** - Save generated code to `outputs/PROMPT_ID/`
+5. **Fill report** - Copy `report_template.md` to `reports/PROMPT_ID_report.md` and fill it
+
+## Folder Structure
+
+```
+vibe_prompts/
+├── README.md                    # This file
+├── prompts.md                   # All prompts with IDs (P001-P015)
+├── report_template.md           # Template for individual test reports
+├── comparison_template.md       # Template for comparing platforms
+├── data/
+│   └── system_context.md        # System information for AI
+├── outputs/
+│   ├── P001/                    # Generated code for prompt P001
+│   ├── P002/                    # Generated code for prompt P002
+│   └── ...
+└── reports/
+    ├── P001_report.md           # Test report for P001
+    ├── P001_gpt4_report.md      # GPT-4 test for P001
+    ├── P001_claude_report.md    # Claude test for P001
+    └── P001_comparison.md       # Comparison of all platforms for P001
+```
+
+## Available Prompts
+
+### Zero-Shot (Direct Instructions)
+- **P001** - Observer Pattern for Notifications
+- **P002** - React Trip Detail Component  
+- **P003** - JPA Repository Queries
+
+### Few-Shot (With Examples)
+- **P004** - Service Layer Implementation
+- **P005** - REST Controllers
+
+### Chain-of-Thought (Step-by-Step Reasoning)
+- **P006** - Strategy Pattern for Pricing
+- **P007** - Notification System Design
+
+### Complete Scenarios
+- **P008** - Complete Backend from Diagrams ⚠️ (requires chaining)
+- **P009** - Complete Frontend Application ⚠️ (requires chaining)
+- **P010** - Waiting List Feature
+- **P011** - Review and Rating System
+
+### Refactoring
+- **P012** - Add Strategy Pattern
+- **P013** - Refactor to Builder Pattern
+
+### Benchmarking
+- **P014** - Speed Test (User Management)
+- **P015** - Quality Test (Command Pattern)
+
+## How to Use
+
+### Step 1: Read Context
 ```bash
-# For testing Zero-Shot prompting
-Use: Test 1.1 - Pattern Implementation (Zero-Shot)
-
-# For testing Few-Shot prompting
-Use: Test 2.1 - Service Layer Implementation (Few-Shot)
-
-# For benchmarking platforms
-Use: Benchmark 1 - Speed Test
+cat data/system_context.md
 ```
 
-### 2. Prepare Your Environment
-- Clone the AIU Trips & Events repository
-- Set up access to AI platforms you want to test
-- Prepare a spreadsheet for tracking results
+This file has all the information about the AIU Trips & Events system that the AI needs.
 
-### 3. Execute the Test
-1. Copy the Base Context Prompt (from System Context Prompts section)
-2. Copy the specific test prompt
-3. Submit both to your AI platform
-4. Record start time
-5. Save the generated output
-6. Record end time
+### Step 2: Choose a Prompt
 
-### 4. Evaluate Results
-Use the evaluation criteria from the document:
-- Compilation & Syntax (20%)
-- Pattern Implementation (25%)
-- Architecture & Design (20%)
-- Documentation (15%)
-- Testing (10%)
-- Best Practices (10%)
+Open `prompts.md` and find the prompt you want to test. Each prompt has:
+- **ID** (e.g., P001)
+- **Description** (what it tests)
+- **Copy-paste ready text** (just copy the whole thing)
+- **Chaining indicator** (if multi-stage is needed)
+- **Time estimate**
 
-### 5. Document Findings
-Use the provided reporting templates:
-- Individual Test Report (for single platform)
-- Comparative Report (for multiple platforms)
+### Step 3: Copy & Paste
 
-## Test Categories
+Copy the entire prompt box and paste it into:
+- ChatGPT (GPT-4)
+- Claude (Anthropic)
+- Gemini (Google)
+- GitHub Copilot Chat
+- Or any other AI tool
 
-### Framework-Based Tests
-Test how different prompting frameworks affect code generation quality:
-- **Zero-Shot**: Direct instructions without examples
-- **Few-Shot**: Include 2-3 examples for pattern learning
-- **CoT**: Step-by-step reasoning for complex tasks
-- **ToT**: Multiple reasoning paths exploration
-- **ReAct**: Reasoning + Acting for debugging
-- **Self-Consistency**: Generate multiple solutions and vote
-- **Constitutional**: With security and ethical constraints
-- **Chaining**: Multi-stage development workflows
+### Step 4: Save Output
 
-### Scenario-Based Tests
-Real-world development scenarios:
-- Fresh implementation from diagrams
-- Pattern refactoring of existing code
-- New feature additions
-- Bug fixes and debugging
-- Performance optimization
-
-### Benchmarking Tests
-Quantitative comparisons:
-- Speed: Time to generate code
-- Quality: Code quality scores
-- Pattern Correctness: Design pattern adherence
-- Integration: End-to-end workflow success
-
-## Expected Outcomes
-
-After completing tests with this framework, you should have:
-
-1. **Platform Comparison Report**
-   - Which platform performs best for backend development?
-   - Which excels at frontend generation?
-   - Which handles design patterns most accurately?
-
-2. **Framework Effectiveness Analysis**
-   - Which prompting framework yields highest quality?
-   - When to use Chain-of-Thought vs Few-Shot?
-   - How much does context affect output quality?
-
-3. **Quality Benchmarks**
-   - Baseline quality scores for each platform
-   - Expected compilation success rates
-   - Pattern implementation accuracy metrics
-
-4. **Best Practices Guide**
-   - Recommended platforms for different tasks
-   - Optimal prompting strategies
-   - Integration and workflow recommendations
-
-## Data Collection
-
-Track results using this structure:
-```csv
-Test_ID, Platform, Model, Framework, Prompt_Type, Time_Minutes, LOC, Compilation_Success, Pattern_Score, Quality_Score, Notes
-T001, GPT-4, gpt-4-turbo, Zero-Shot, Backend, 12, 450, 100%, 9/10, 8.5/10, "Good patterns"
-T002, Claude-3, opus, Few-Shot, Frontend, 15, 380, 95%, 8/10, 8.0/10, "Minor issues"
-...
+The AI will generate code. Save it to:
+```
+vibe_prompts/outputs/PROMPT_ID/
 ```
 
-## Recommendations
+Create the folder structure:
+```bash
+mkdir -p outputs/P001
+# Save files there
+```
 
-### For Systematic Testing
-1. Start with Zero-Shot tests to establish baselines
-2. Progress to Few-Shot and CoT for complex tasks
-3. Use benchmarking tests for platform comparisons
-4. Document all findings using provided templates
+### Step 5: Fill Report
+
+1. Copy the template:
+```bash
+cp report_template.md reports/P001_gpt4_report.md
+```
+
+2. Open `reports/P001_gpt4_report.md` and fill in:
+   - Test information (platform, date, duration)
+   - Generation results (lines of code, files)
+   - Quality scores (compilation, patterns, architecture)
+   - Analysis (strengths, weaknesses, issues)
+
+3. Calculate the overall score using the weighted formula
+
+### Step 6: Compare (Optional)
+
+If you tested multiple platforms:
+
+1. Copy comparison template:
+```bash
+cp comparison_template.md reports/P001_comparison.md
+```
+
+2. Fill in comparison data from all platform reports
+
+3. Identify the winner for each category
+
+## About Prompt Chaining
+
+Some prompts are marked with ⚠️ **YES - Multi-stage recommended**
+
+This means the task is too complex for one prompt. Break it into stages:
+
+**Example: P008 - Complete Backend**
+- Stage 1: Generate entities + repositories
+- Stage 2: Generate services
+- Stage 3: Generate controllers
+- Stage 4: Add design patterns
+- Stage 5: Add configuration
+
+Complete each stage, verify it works, then move to the next.
+
+## Scoring Guide
+
+### Quality Score Components
+
+1. **Compilation & Syntax (20%)** - Does it compile?
+2. **Pattern Implementation (25%)** - Patterns correct?
+3. **Architecture & Design (20%)** - Good structure?
+4. **Documentation (15%)** - Well documented?
+5. **Testing (10%)** - Tests included?
+6. **Best Practices (10%)** - Follows standards?
+
+### Score Interpretation
+
+- **9.0-10.0** = Excellent (Production ready)
+- **8.0-8.9** = Very Good (Minor fixes)
+- **7.0-7.9** = Good (Some improvements)
+- **6.0-6.9** = Fair (Significant work)
+- **<6.0** = Poor (Major rework)
+
+## Example Workflow
+
+```bash
+# 1. Read the context
+cat data/system_context.md
+
+# 2. Open prompts file
+cat prompts.md
+# Find P001 - Observer Pattern
+
+# 3. Copy the P001 prompt box
+
+# 4. Paste into ChatGPT (or your AI tool)
+
+# 5. Save output
+mkdir -p outputs/P001
+# Copy generated files to outputs/P001/
+
+# 6. Try to compile
+cd outputs/P001
+mvn compile  # or appropriate build command
+
+# 7. Fill report
+cp ../../report_template.md ../../reports/P001_gpt4_report.md
+# Open and fill the report
+
+# 8. Repeat with different platform (Claude)
+# Copy P001 prompt, paste to Claude
+mkdir -p outputs/P001_claude
+# Save files, fill report: P001_claude_report.md
+
+# 9. Compare results
+cp ../../comparison_template.md ../../reports/P001_comparison.md
+# Fill comparison with data from both reports
+```
+
+## Tips
 
 ### For Best Results
-- Use the exact prompts as written (for consistency)
-- Test the same prompt across multiple platforms
-- Record all metrics consistently
-- Include both successes and failures in reports
 
-### For Production Use
-- Focus on tests relevant to your project needs
-- Prioritize quality over speed initially
-- Validate AI-generated code thoroughly
-- Combine AI generation with human review
+1. **Always include the context** - Mention you read `system_context.md`
+2. **Be specific** - Tell the AI exactly where to put files
+3. **Ask for complete code** - Request full implementation, not snippets
+4. **Request structure** - Ask for proper package/folder structure
+5. **Validate immediately** - Try to compile/run right away
 
-## Reference
+### For Accurate Comparison
 
-This testing framework is based on the methodology and findings from:
-- `/report/05_vibe_coding_analysis.md` - Comprehensive analysis of AI-assisted code generation
-- Real project data from AIU Trips & Events system development
-- Comparison of Before DP vs After DP implementations
+1. Use the **exact same prompt** across platforms
+2. Test at **similar times** (models update)
+3. Record **everything** (time, errors, iterations)
+4. Be **objective** in reports
+5. Test **multiple prompts** before concluding
 
-## Timeline Suggestion
+### For Time Savings
 
-**Week 1**: Setup and Basic Tests
-- Execute Zero-Shot and Few-Shot prompts
-- Test 2-3 platforms
-- Establish baseline metrics
+1. Start with **simple prompts** (P001-P003)
+2. Use **benchmarking prompts** (P014-P015) for speed tests
+3. Save **good outputs** as references
+4. **Document** what works best for each platform
 
-**Week 2**: Advanced Frameworks
-- Test CoT, ToT, ReAct frameworks
-- Compare complex pattern implementations
-- Analyze advanced scenarios
+## Troubleshooting
 
-**Week 3**: Benchmarking
-- Run all 4 benchmark tests
-- Test across all platforms
-- Collect comprehensive data
+### AI doesn't follow structure
+→ Add explicit instruction: "Create files in vibe_prompts/outputs/P001/"
 
-**Week 4**: Analysis and Reporting
-- Analyze collected data
-- Generate comparative reports
-- Document recommendations
-- Share findings
+### Output is incomplete
+→ Try: "Continue from where you left off" or use chaining
 
-## Contributing
+### Code doesn't compile
+→ Normal! Document errors in report, that's the point of testing
 
-To add new prompts to this collection:
-1. Follow the existing format and structure
-2. Include clear success criteria
-3. Provide evaluation metrics
-4. Add to appropriate category
-5. Update this README with new additions
+### AI ignores context
+→ Paste relevant parts of `system_context.md` directly in prompt
+
+## Goals
+
+This framework helps you:
+
+✅ Test different AI platforms systematically  
+✅ Compare code generation quality objectively  
+✅ Identify best tools for different tasks  
+✅ Build evidence for AI tool selection  
+✅ Share results with your team
 
 ## Support
 
-For questions or issues with these prompts:
-1. Review the reference document: `/report/05_vibe_coding_analysis.md`
-2. Check the existing test results for examples
-3. Consult the evaluation criteria for guidance
-
-## Version History
-
-- **v1.0** (December 17, 2024)
-  - Initial release
-  - 8 prompting frameworks
-  - 15+ testing prompts
-  - 4 benchmarking tests
-  - Complete evaluation framework
-  - Reporting templates
+- Questions about prompts: Check `prompts.md` for details
+- Questions about system: Read `data/system_context.md`
+- Questions about scoring: See `report_template.md`
+- Questions about comparing: See `comparison_template.md`
 
 ---
 
-**Last Updated**: December 17, 2024  
-**Maintained By**: AIU Trips & Events Development Team  
-**Purpose**: Systematic AI Code Generation Evaluation  
-**License**: Internal Use - AIU SoftWave
+**Version:** 2.0 (Simplified)  
+**Date:** December 17, 2024  
+**Purpose:** Simple, practical AI code generation testing
