@@ -1,9 +1,15 @@
 # Few-Shot Prompt: Learning from Examples
 
+## 🎯 Output Directory
+
+**Generate all code in:** `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_tests/04_few_shot/`
+
+This directory will contain your complete generated project using the Few-Shot Learning framework.
+
 ## Repository Context
 **Location:** `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/`
 **Source Data:** `vibe_tests/data/*.pu` (PlantUML diagrams)
-**Target:** `Project/backend/` and `Project/frontend/`
+**Target:** `vibe_tests/04_few_shot/backend/` and `vibe_tests/04_few_shot/frontend/`
 
 ---
 
@@ -547,7 +553,19 @@ Read these files:
 10. Controller.pu
 
 ### Your Target
-Generate code in: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/Project/`
+
+**⚠️ IMPORTANT - Output Location:**
+
+Generate ALL code in: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_tests/04_few_shot/`
+
+Create this structure:
+```
+vibe_tests/04_few_shot/
+├── backend/          # Spring Boot application
+├── frontend/         # Next.js application
+├── docker-compose.yml
+└── README.md         # Example reference notes
+```
 
 ### What to Generate
 

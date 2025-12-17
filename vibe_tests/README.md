@@ -15,12 +15,26 @@ vibe_tests/
 ├── 03_task_decomposition_prompt.md # Task breakdown framework
 ├── 04_few_shot_examples_prompt.md # Example-based learning framework
 ├── 05_context_aware_prompt.md     # Repository-aware framework
-└── 06_comprehensive_master_prompt.md # Combined multi-framework approach
+├── 06_comprehensive_master_prompt.md # Combined multi-framework approach
+└── [Output directories - created by AI]
+    ├── 01_chain_of_thought/       # Generated code from prompt 01
+    ├── 02_role_based/             # Generated code from prompt 02
+    ├── 03_task_decomposition/     # Generated code from prompt 03
+    ├── 04_few_shot/               # Generated code from prompt 04
+    ├── 05_context_aware/          # Generated code from prompt 05
+    └── 06_comprehensive/          # Generated code from prompt 06
 ```
+
+**Note:** Each prompt instructs the AI to generate code in its own numbered subdirectory (e.g., `01_chain_of_thought/`, `02_role_based/`, etc.), allowing you to compare outputs from different prompting frameworks.
 
 ## 🎯 Purpose
 
 These prompts are designed to help AI systems generate a complete, production-ready university event and trip management system from architectural diagrams. Each prompt uses a different prompting strategy to achieve the same goal.
+
+**Key Feature:** Each prompt instructs the AI to generate code in its own numbered output directory (e.g., `01_chain_of_thought/`, `02_role_based/`, etc.), allowing you to:
+- Test different prompting frameworks independently
+- Compare quality and completeness across frameworks
+- Identify which framework works best for your use case
 
 ## 📚 Prompt Files Overview
 
@@ -266,7 +280,18 @@ Source of Truth: [diagrams location]
 2. **Copy the entire content** of the chosen `.md` file
 3. **Paste into your AI assistant** (ChatGPT, Claude, etc.)
 4. **Wait for generation** (typically 10-30 minutes for AI processing)
-5. **Review and test** the generated code
+5. **Review and test** the generated code in its designated output folder
+
+**Output Directories:**
+Each prompt generates code in its own subdirectory:
+- Prompt 01 → `vibe_tests/01_chain_of_thought/`
+- Prompt 02 → `vibe_tests/02_role_based/`
+- Prompt 03 → `vibe_tests/03_task_decomposition/`
+- Prompt 04 → `vibe_tests/04_few_shot/`
+- Prompt 05 → `vibe_tests/05_context_aware/`
+- Prompt 06 → `vibe_tests/06_comprehensive/`
+
+This allows you to compare outputs from different frameworks side-by-side.
 
 ### Recommended Workflow
 

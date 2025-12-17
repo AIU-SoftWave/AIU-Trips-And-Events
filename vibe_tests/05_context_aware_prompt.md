@@ -1,5 +1,11 @@
 # Context-Aware Prompt: Complete System Generation with Full Repository Understanding
 
+## 🎯 Output Directory
+
+**Generate all code in:** `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_tests/05_context_aware/`
+
+This directory will contain your complete generated project using the Context-Aware framework.
+
 ## Repository Location & Structure Awareness
 
 **You are currently working in:** `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/`
@@ -561,10 +567,10 @@ frontend/src/
 Parse all `.pu` files in `vibe_tests/data/` in the order specified above.
 
 ### Step 2: Generate Backend (3 hours)
-Create complete Spring Boot application in `Project/backend/`
+Create complete Spring Boot application in `vibe_tests/05_context_aware/backend/`
 
 ### Step 3: Generate Frontend (2 hours)
-Create complete Next.js application in `Project/frontend/`
+Create complete Next.js application in `vibe_tests/05_context_aware/frontend/`
 
 ### Step 4: DevOps Configuration (30 min)
 Create Docker and orchestration files
@@ -573,8 +579,20 @@ Create Docker and orchestration files
 Compile, run, and test the complete system
 
 **Total Time:** ~6 hours
-**Target Location:** `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/Project/`
 **Target Quality:** 8.7+/10
+
+**⚠️ IMPORTANT - Output Location:**
+
+Generate ALL code in: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_tests/05_context_aware/`
+
+Create this structure:
+```
+vibe_tests/05_context_aware/
+├── backend/          # Spring Boot application
+├── frontend/         # Next.js application
+├── docker-compose.yml
+└── README.md         # Context-aware generation notes
+```
 
 ---
 

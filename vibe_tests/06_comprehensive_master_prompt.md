@@ -4,13 +4,21 @@
 
 ---
 
+## 🎯 Output Directory
+
+**Generate all code in:** `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_tests/06_comprehensive/`
+
+This directory will contain your complete generated project using the Comprehensive Master framework.
+
+---
+
 ## 📍 Repository Context
 
 **Working Directory:** `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/`
 
 **Source Diagrams:** `vibe_tests/data/*.pu` (PlantUML - After Design Patterns)
 
-**Target Directory:** `Project/` (backend + frontend)
+**Target Directory:** `vibe_tests/06_comprehensive/` (backend + frontend)
 
 ---
 
@@ -454,9 +462,18 @@ cd frontend && npm run dev
 
 ## 🎬 Final Command
 
-**Generate the complete production-ready AIU Trips & Events Management System in:**
+**⚠️ IMPORTANT - Output Location:**
 
-`/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/Project/`
+Generate ALL code in: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_tests/06_comprehensive/`
+
+Create this structure:
+```
+vibe_tests/06_comprehensive/
+├── backend/          # Spring Boot application
+├── frontend/         # Next.js application
+├── docker-compose.yml
+└── README.md         # Comprehensive generation notes
+```
 
 **Using diagrams from:**
 

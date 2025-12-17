@@ -1,5 +1,11 @@
 # Role-Based Prompt: Expert Software Architect & Full-Stack Developer
 
+## 🎯 Output Directory
+
+**Generate all code in:** `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_tests/02_role_based/`
+
+This directory will contain your complete generated project using the Role-Based framework.
+
 ## Your Role & Expertise
 
 You are a **Senior Software Architect** and **Full-Stack Developer** with expertise in:
@@ -322,7 +328,18 @@ As an expert, your code must meet these standards:
 
 **Read all diagrams from:** `vibe_tests/data/*.pu`
 
-**Generate complete project in:** `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/Project/`
+**⚠️ IMPORTANT - Output Location:**
+
+Generate ALL code in: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_tests/02_role_based/`
+
+Create this structure:
+```
+vibe_tests/02_role_based/
+├── backend/          # Spring Boot application
+├── frontend/         # Next.js application
+├── docker-compose.yml
+└── README.md         # Generation notes
+```
 
 **Start with:** Backend (foundation) → Frontend (interface) → DevOps (deployment)
 

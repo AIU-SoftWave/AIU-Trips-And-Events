@@ -1,9 +1,15 @@
 # Task Decomposition Prompt: Step-by-Step Project Generation
 
+## 🎯 Output Directory
+
+**Generate all code in:** `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_tests/03_task_decomposition/`
+
+This directory will contain your complete generated project using the Task Decomposition framework.
+
 ## Repository Context
 **Location:** `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/`
 **Data Source:** `vibe_tests/data/` (PlantUML diagrams - After DP)
-**Target:** `Project/` directory
+**Target:** `vibe_tests/03_task_decomposition/` directory
 
 ---
 
@@ -616,6 +622,18 @@ Use this checklist to track progress:
 
 **Total Estimated Time:** ~6 hours
 **Expected Quality:** 8.5+/10
-**Target Location:** `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/Project/`
+
+**⚠️ IMPORTANT - Output Location:**
+
+Generate ALL code in: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_tests/03_task_decomposition/`
+
+Create this structure:
+```
+vibe_tests/03_task_decomposition/
+├── backend/          # Spring Boot application
+├── frontend/         # Next.js application
+├── docker-compose.yml
+└── README.md         # Task completion tracking
+```
 
 **Start with Task 1 and proceed sequentially through Task 14.**

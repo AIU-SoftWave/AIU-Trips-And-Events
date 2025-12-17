@@ -1,5 +1,11 @@
 # Chain-of-Thought Prompt: Complete AIU Trips & Events System Generation
 
+## 🎯 Output Directory
+
+**Generate all code in:** `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_tests/01_chain_of_thought/`
+
+This directory will contain your complete generated project using the Chain-of-Thought framework.
+
 ## Context & Repository Information
 
 You are working in the repository located at: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/`
@@ -226,13 +232,24 @@ After following this chain of thought:
 ## Execution Instructions
 
 1. Start by reading ALL PlantUML files in `vibe_tests/data/`
-2. Create the complete backend first (Project/backend/)
-3. Then create the complete frontend (Project/frontend/)
+2. Create the complete backend first (01_chain_of_thought/backend/)
+3. Then create the complete frontend (01_chain_of_thought/frontend/)
 4. Add Docker configuration
 5. Test the complete system
 6. Verify against the diagrams
 
-**Location to generate code:** `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/Project/`
+**⚠️ IMPORTANT - Output Location:**
+
+Generate ALL code in: `/home/runner/work/AIU-Trips-And-Events/AIU-Trips-And-Events/vibe_tests/01_chain_of_thought/`
+
+Create this structure:
+```
+vibe_tests/01_chain_of_thought/
+├── backend/          # Spring Boot application
+├── frontend/         # Next.js application
+├── docker-compose.yml
+└── README.md         # Generation notes
+```
 
 ---
 
