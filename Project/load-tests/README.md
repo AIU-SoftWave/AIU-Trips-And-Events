@@ -2,6 +2,14 @@
 
 This directory contains the complete performance testing infrastructure for the AIU Trips and Events system, designed to validate the low-latency requirement of **P95 response time < 200ms at 100 RPS**.
 
+## 🎯 Quick Links
+
+- **[Assignment Completion Guide](./ASSIGNMENT_COMPLETE.md)** ⭐ START HERE!
+- **[Quick Fill Guide](./QUICK_FILL_GUIDE.md)** - 30-minute report workflow
+- **[Setup Guide](./SETUP_GUIDE.md)** - Complete installation & usage
+- **[Pattern Checklist](./PATTERN_CHECKLIST.md)** - What's implemented & what to add
+- **[Framework Optimizations](./FRAMEWORK_OPTIMIZATIONS.md)** - Spring Boot, JPA, JVM, etc.
+
 ## 📁 Directory Structure
 
 ```
