@@ -1,0 +1,138 @@
+# Prometheus Alert Rules for Performance Monitoring
+
+groups:
+  - name: latency_alerts
+    interval: 10s
+    rules:
+      # Alert when P95 latency exceeds 200ms
+      - alert: HighP95Latency
+        expr: histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket[1m])) by (le, uri)) > 0.2
+        for: 1m
+        labels:
+          severity: critical
+          component: backend
+        annotations:
+          summary: "High P95 latency detected on {{ $labels.uri }}"
+          description: "P95 latency is {{ $value }}s (threshold: 0.2s) for endpoint {{ $labels.uri }}"
+
+      # Alert when P99 latency exceeds 500ms
+      - alert: HighP99Latency
+        expr: histogram_quantile(0.99, sum(rate(http_server_requests_seconds_bucket[1m])) by (le, uri)) > 0.5
+        for: 1m
+        labels:
+          severity: warning
+          component: backend
+        annotations:
+          summary: "High P99 latency detected on {{ $labels.uri }}"
+          description: "P99 latency is {{ $value }}s (threshold: 0.5s) for endpoint {{ $labels.uri }}"
+
+  - name: throughput_alerts
+    interval: 10s
+    rules:
+      # Alert when request rate drops significantly
+      - alert: LowRequestRate
+        expr: rate(http_server_requests_seconds_count[1m]) < 10
+        for: 2m
+        labels:
+          severity: warning
+          component: backend
+        annotations:
+          summary: "Low request rate detected"
+          description: "Request rate is {{ $value }} req/s (expected: >10 req/s)"
+
+      # Alert on high error rate
+      - alert: HighErrorRate
+        expr: (sum(rate(http_server_requests_seconds_count{status=~"5.."}[1m])) / sum(rate(http_server_requests_seconds_count[1m]))) > 0.05
+        for: 1m
+        labels:
+          severity: critical
+          component: backend
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value | humanizePercentage }} (threshold: 5%)"
+
+  - name: resource_alerts
+    interval: 30s
+    rules:
+      # Alert on high CPU usage
+      - alert: HighCPUUsage
+        expr: rate(process_cpu_usage[1m]) > 0.8
+        for: 2m
+        labels:
+          severity: warning
+          component: system
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is {{ $value | humanizePercentage }} (threshold: 80%)"
+
+      # Alert on high memory usage
+      - alert: HighMemoryUsage
+        expr: (jvm_memory_used_bytes{area="heap"} / jvm_memory_max_bytes{area="heap"}) > 0.85
+        for: 2m
+        labels:
+          severity: warning
+          component: backend
+        annotations:
+          summary: "High JVM heap memory usage"
+          description: "Heap usage is {{ $value | humanizePercentage }} (threshold: 85%)"
+
+      # Alert on frequent GC
+      - alert: FrequentGarbageCollection
+        expr: rate(jvm_gc_pause_seconds_count[1m]) > 5
+        for: 2m
+        labels:
+          severity: warning
+          component: backend
+        annotations:
+          summary: "Frequent garbage collection detected"
+          description: "GC rate is {{ $value }} collections/s (threshold: 5/s)"
+
+  - name: database_alerts
+    interval: 30s
+    rules:
+      # Alert on high database connection usage
+      - alert: HighDatabaseConnections
+        expr: (hikaricp_connections_active / hikaricp_connections_max) > 0.8
+        for: 2m
+        labels:
+          severity: warning
+          component: database
+        annotations:
+          summary: "High database connection pool usage"
+          description: "Connection pool usage is {{ $value | humanizePercentage }} (threshold: 80%)"
+
+      # Alert on slow database queries
+      - alert: SlowDatabaseQueries
+        expr: histogram_quantile(0.95, sum(rate(hikaricp_connections_acquire_seconds_bucket[1m])) by (le)) > 0.1
+        for: 1m
+        labels:
+          severity: warning
+          component: database
+        annotations:
+          summary: "Slow database connection acquisition"
+          description: "P95 connection acquisition time is {{ $value }}s (threshold: 0.1s)"
+
+  - name: system_health
+    interval: 30s
+    rules:
+      # Alert when service is down
+      - alert: ServiceDown
+        expr: up{job="spring-boot-backend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: backend
+        annotations:
+          summary: "Backend service is down"
+          description: "The Spring Boot backend service has been down for more than 1 minute"
+
+      # Alert on container restart
+      - alert: ContainerRestarted
+        expr: rate(container_last_seen[5m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+          component: containers
+        annotations:
+          summary: "Container {{ $labels.name }} restarted"
+          description: "Container has restarted in the last 5 minutes"

@@ -1,0 +1,62 @@
+# Prometheus Configuration for AIU Trips and Events Monitoring
+
+global:
+  scrape_interval: 15s      # How frequently to scrape targets
+  evaluation_interval: 15s  # How frequently to evaluate rules
+  external_labels:
+    cluster: 'aiu-trips-events'
+    environment: 'performance-testing'
+
+# Alerting configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+
+# Load rules once and periodically evaluate them
+rule_files:
+  - 'alerts.yml'
+
+# Scrape configurations
+scrape_configs:
+  # Spring Boot Backend Application
+  - job_name: 'spring-boot-backend'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s  # More frequent for performance testing
+    static_configs:
+      - targets: ['backend:8080']
+        labels:
+          application: 'aiu-trips-backend'
+          component: 'backend'
+
+  # PostgreSQL Database Metrics
+  - job_name: 'postgres'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['postgres-exporter:9187']
+        labels:
+          application: 'aiu-trips-db'
+          component: 'database'
+
+  # Container Metrics (cAdvisor)
+  - job_name: 'cadvisor'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['cadvisor:8080']
+        labels:
+          component: 'containers'
+
+  # System Metrics (Node Exporter)
+  - job_name: 'node-exporter'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['node-exporter:9100']
+        labels:
+          component: 'system'
+
+  # Prometheus Self-Monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          component: 'monitoring'
