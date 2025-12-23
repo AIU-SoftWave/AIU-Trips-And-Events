@@ -1,0 +1,12 @@
+# AI-generated output directories
+# Each prompt generates code in its own subdirectory
+# Uncomment specific directories if you want to track their generated code
+01_chain_of_thought/
+02_role_based/
+03_task_decomposition/
+04_few_shot/
+05_context_aware/
+06_comprehensive/
+
+# Keep the structure but ignore generated content
+# To track a specific framework's output, comment out its line above

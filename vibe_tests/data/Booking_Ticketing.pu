@@ -1,0 +1,176 @@
+@startuml Booking_Ticketing_Layer
+
+!define INTERFACE_COLOR #E8F5E9
+!define SERVICE_COLOR #F3E5F5
+!define ENTITY_COLOR #E3F2FD
+!define ENUM_COLOR #F3E5F5
+!define DECORATOR_COLOR #FFF9C4
+!define HANDLER_COLOR #E1BEE7
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+    BackgroundColor<<decorator>> DECORATOR_COLOR
+    BackgroundColor<<base>> #E8EAF6
+    BackgroundColor<<handler>> HANDLER_COLOR
+}
+
+package "Booking & Ticketing Component" {
+    
+    ' Interface from Context Level
+    interface IBookingTicketingSystem <<interface>> {
+        +browseEvents(filters: EventFilterDTO): List<EventDTO>
+        +bookEvent(studentId: String, eventId: String): BookingDTO
+        +generateTicket(bookingId: String): TicketDTO
+        +validateTicket(qrCode: String): Boolean
+    }
+    
+    ' Reference to shared Model Factory (no body)
+    interface IModelFactory <<interface>>
+    
+    ' Service Implementation (Realization)
+    class BookingService <<service>> {
+        -IModelFactory modelFactory
+        -ITicketService ticketService
+        -BookingHandler validationChain
+        -PricingStrategy pricingStrategy
+        +browseEvents(filters: EventFilterDTO): List<EventDTO>
+        +bookEvent(studentId: String, eventId: String): BookingDTO
+        +generateTicket(bookingId: String): TicketDTO
+        +validateTicket(qrCode: String): Boolean
+    }
+    
+    ' ==================== CHAIN OF RESPONSIBILITY ====================
+    package "Booking Validation Chain" {
+        
+        abstract class BookingHandler <<handler>> {
+            #BookingHandler next
+            +setNext(handler: BookingHandler): BookingHandler
+            +handle(booking: BookingDTO): void
+        }
+        
+        class EligibilityHandler <<handler>> {
+            +handle(booking: BookingDTO): void
+        }
+        
+        class CapacityHandler <<handler>> {
+            +handle(booking: BookingDTO): void
+        }
+        
+        class PaymentHandler <<handler>> {
+            -PaymentMethod method
+            +PaymentHandler(method: PaymentMethod)
+            +handle(booking: BookingDTO): void
+        }
+        
+        BookingHandler <|-- EligibilityHandler
+        BookingHandler <|-- CapacityHandler
+        BookingHandler <|-- PaymentHandler
+    }
+    
+    BookingService --> BookingHandler : uses
+    
+    ' Supporting Service Interface
+    interface ITicketService <<interface>> {
+        +generateTicket(bookingId: String): TicketDTO
+        +validateQRCode(qrCode: String): Boolean
+    }
+    
+    ' ==================== DECORATOR PATTERN FOR TICKET SERVICE ====================
+    package "Ticket Service Decorator Pattern" {
+        
+        ' Base Implementation
+        class BaseTicketService <<base>> {
+            -IModelFactory modelFactory
+            +generateTicket(bookingId: String): TicketDTO
+            +validateQRCode(qrCode: String): Boolean
+        }
+        
+        ' Abstract Decorator
+        abstract class TicketServiceDecorator <<decorator>> {
+            #ITicketService wrappedService
+            +TicketServiceDecorator(service: ITicketService)
+            +generateTicket(bookingId: String): TicketDTO
+            +validateQRCode(qrCode: String): Boolean
+        }
+        
+        ' Concrete Decorators
+        class SignedQrDecorator <<decorator>> {
+            -String secretKey
+            +generateTicket(bookingId: String): TicketDTO
+            +validateQRCode(qrCode: String): Boolean
+        }
+        
+        class AuditLogDecorator <<decorator>> {
+            -IAuditLogger auditLogger
+            +generateTicket(bookingId: String): TicketDTO
+            +validateQRCode(qrCode: String): Boolean
+        }
+        
+        ' Decorator Pattern Relationships
+        ITicketService <|.. BaseTicketService : implements
+        ITicketService <|.. TicketServiceDecorator : implements
+        TicketServiceDecorator <|-- SignedQrDecorator : extends
+        TicketServiceDecorator <|-- AuditLogDecorator : extends
+        
+        TicketServiceDecorator o-- ITicketService : wraps
+    }
+    
+    package "Pricing Strategy Pattern" {
+        interface PricingStrategy <<interface>> {
+            +calculatePrice(basePrice: Decimal, bookingDate: DateTime, quantity: int): Decimal
+        }
+
+        class StandardPricingStrategy {
+            +calculatePrice(basePrice: Decimal, bookingDate: DateTime, quantity: int): Decimal
+        }
+
+        class EarlyBirdPricingStrategy {
+            +earlyBirdDeadline: DateTime
+            +discountPercent: Decimal
+            +calculatePrice(basePrice: Decimal, bookingDate: DateTime, quantity: int): Decimal
+        }
+
+        class BulkGroupDiscountStrategy {
+            +threshold: int
+            +discountPercent: Decimal
+            +calculatePrice(basePrice: Decimal, bookingDate: DateTime, quantity: int): Decimal
+        }
+
+        PricingStrategy <|.. StandardPricingStrategy
+        PricingStrategy <|.. EarlyBirdPricingStrategy
+        PricingStrategy <|.. BulkGroupDiscountStrategy
+
+    }
+    
+    enum PaymentMethod <<enum>> {
+        CASH
+        QR_ON_SCAN
+    }
+    
+    package "Booking Memento Pattern" {
+        class BookingHistoryCaretaker {
+            -IModelFactory modelFactory
+            +save(booking: Booking): void
+            +getLastMemento(bookingId: String): BookingMemento
+        }
+
+    }
+    
+    ' Relationships (Professional)
+    IBookingTicketingSystem <|.. BookingService : realizes
+    BookingService --> IModelFactory : uses
+    BookingService --> ITicketService : uses
+    BookingService --> PricingStrategy : "uses strategy"
+    BookingService --> BookingHistoryCaretaker : "uses caretaker"
+    note on link
+        "Service calls save(booking) before status change to snapshot state"
+    end note
+    
+    ' Note about factory usage
+}
+
+@enduml
