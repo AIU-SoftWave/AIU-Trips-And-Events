@@ -5,6 +5,7 @@ This directory contains the complete performance testing infrastructure for the 
 ## 🎯 Quick Links
 
 - **[Assignment Completion Guide](./ASSIGNMENT_COMPLETE.md)** ⭐ START HERE!
+- **[Windows Setup Guide](./WINDOWS_GUIDE.md)** 🪟 For Windows users
 - **[Quick Fill Guide](./QUICK_FILL_GUIDE.md)** - 30-minute report workflow
 - **[Setup Guide](./SETUP_GUIDE.md)** - Complete installation & usage
 - **[Pattern Checklist](./PATTERN_CHECKLIST.md)** - What's implemented & what to add
@@ -25,40 +26,62 @@ load-tests/
 │       ├── *_summary.json      # Test summary
 │       └── SUMMARY.md          # Auto-generated summary
 ├── screenshots/                 # Monitoring dashboard screenshots
-├── run-tests.sh                # Test suite runner script
+├── run-tests.sh                # Test suite runner (Linux/Mac)
+├── run-tests.bat               # Test suite runner (Windows CMD)
+├── run-tests.ps1               # Test suite runner (Windows PowerShell)
 ├── PERFORMANCE_REPORT_TEMPLATE.md  # Comprehensive report template
 ├── SETUP_GUIDE.md              # Complete setup instructions
+├── WINDOWS_GUIDE.md            # Windows-specific setup guide
 └── README.md                   # This file
 ```
 
-## 🎯 Quick Start
+## 🚀 Quick Start
 
-### 1. Start the Monitoring Stack
+### Linux/Mac
+
 ```bash
 cd ../  # Go to Project directory
-docker-compose up -d
-```
+./monitoring-manager.sh start
 
-### 2. Verify Services
-```bash
-# Check backend health
-curl http://localhost:8080/actuator/health
-
-# View Grafana (admin/admin123)
-open http://localhost:3001
-```
-
-### 3. Run Tests
-```bash
+# Run tests
 cd load-tests
 ./run-tests.sh
 ```
 
-### 4. View Results
+### Windows (PowerShell)
+
+```powershell
+cd ..\  # Go to Project directory
+.\monitoring-manager.ps1 start
+
+# Run tests
+cd load-tests
+.\run-tests.ps1
+```
+
+### Windows (Command Prompt)
+
+```cmd
+cd ..\  # Go to Project directory
+monitoring-manager.bat start
+
+# Run tests
+cd load-tests
+run-tests.bat
+```
+
+**📘 Windows Users:** See [WINDOWS_GUIDE.md](./WINDOWS_GUIDE.md) for detailed setup instructions
+
+### View Results
+
 ```bash
-# Latest results directory
+# Latest results directory (Linux/Mac)
 cd results/$(ls -t results/ | head -1)
 cat SUMMARY.md
+
+# Windows PowerShell
+cd results
+Get-ChildItem | Sort-Object LastWriteTime -Descending | Select-Object -First 1
 ```
 
 ## 📊 What Gets Tested

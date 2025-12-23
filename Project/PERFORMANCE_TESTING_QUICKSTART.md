@@ -19,6 +19,7 @@ This is your one-page guide to completing the low-latency performance testing as
 
 ### 1️⃣ Start the Infrastructure (10 min)
 
+**Linux/Mac:**
 ```bash
 cd Project
 
@@ -28,6 +29,30 @@ cd Project
 # Verify everything is running
 ./monitoring-manager.sh health
 ```
+
+**Windows (PowerShell):**
+```powershell
+cd Project
+
+# Start all services (monitoring + application)
+.\monitoring-manager.ps1 start
+
+# Verify everything is running
+.\monitoring-manager.ps1 health
+```
+
+**Windows (Command Prompt):**
+```cmd
+cd Project
+
+REM Start all services (monitoring + application)
+monitoring-manager.bat start
+
+REM Verify everything is running
+monitoring-manager.bat health
+```
+
+**📘 Windows Users:** See [load-tests/WINDOWS_GUIDE.md](./load-tests/WINDOWS_GUIDE.md) for detailed setup
 
 **Services Started:**
 - ✅ Backend (port 8080)
@@ -50,6 +75,7 @@ Pick ONE endpoint to test:
 
 ### 3️⃣ Run Performance Tests (5 min)
 
+**Linux/Mac:**
 ```bash
 cd load-tests
 
@@ -57,6 +83,28 @@ cd load-tests
 ./run-tests.sh
 
 # Or run specific test
+k6 run scripts/events-list-test.js
+```
+
+**Windows (PowerShell):**
+```powershell
+cd load-tests
+
+# Run all tests
+.\run-tests.ps1
+
+# Or run specific test
+k6 run scripts/events-list-test.js
+```
+
+**Windows (Command Prompt):**
+```cmd
+cd load-tests
+
+REM Run all tests
+run-tests.bat
+
+REM Or run specific test
 k6 run scripts/events-list-test.js
 ```
 
@@ -200,24 +248,38 @@ Create a PowerPoint with:
 
 ## 🆘 Troubleshooting
 
-**Services won't start:**
+**Services won't start (Linux/Mac):**
 ```bash
+docker-compose down -v
+docker-compose up -d
+```
+
+**Services won't start (Windows):**
+```powershell
 docker-compose down -v
 docker-compose up -d
 ```
 
 **Tests fail:**
 ```bash
+# Linux/Mac
 curl http://localhost:8080/actuator/health
+
+# Windows PowerShell
+Invoke-WebRequest http://localhost:8080/actuator/health
 # Should return {"status":"UP"}
 ```
 
 **No data in Grafana:**
 - Open http://localhost:9090/targets
 - All should show "UP"
-- Restart if needed: `./monitoring-manager.sh restart`
+- Restart if needed: 
+  - Linux/Mac: `./monitoring-manager.sh restart`
+  - Windows: `.\monitoring-manager.ps1 restart` or `monitoring-manager.bat restart`
 
-**More help:** See [SETUP_GUIDE.md](./load-tests/SETUP_GUIDE.md)
+**Windows-specific issues:** See [load-tests/WINDOWS_GUIDE.md](./load-tests/WINDOWS_GUIDE.md)
+
+**More help:** See [load-tests/SETUP_GUIDE.md](./load-tests/SETUP_GUIDE.md)
 
 ---
 
@@ -226,6 +288,7 @@ curl http://localhost:8080/actuator/health
 | Guide | Purpose | Size | When to Use |
 |-------|---------|------|-------------|
 | **[ASSIGNMENT_COMPLETE.md](./load-tests/ASSIGNMENT_COMPLETE.md)** | Master guide | 12KB | Overview of everything |
+| **[WINDOWS_GUIDE.md](./load-tests/WINDOWS_GUIDE.md)** | Windows setup | 8KB | Windows users |
 | **[QUICK_FILL_GUIDE.md](./load-tests/QUICK_FILL_GUIDE.md)** | Fast workflow | 9KB | When filling report |
 | **[SETUP_GUIDE.md](./load-tests/SETUP_GUIDE.md)** | Installation | 15KB | Setup and troubleshooting |
 | **[PATTERN_CHECKLIST.md](./load-tests/PATTERN_CHECKLIST.md)** | Patterns guide | 10KB | Documenting patterns |
@@ -236,6 +299,7 @@ curl http://localhost:8080/actuator/health
 
 ## ⚡ TL;DR Commands
 
+**Linux/Mac:**
 ```bash
 # Start everything
 cd Project && ./monitoring-manager.sh start
@@ -249,6 +313,23 @@ open http://localhost:3001  # admin/admin123
 # Fill report
 cd load-tests
 cp PERFORMANCE_REPORT_TEMPLATE.md MY_REPORT.md
+# Then follow QUICK_FILL_GUIDE.md
+```
+
+**Windows (PowerShell):**
+```powershell
+# Start everything
+cd Project; .\monitoring-manager.ps1 start
+
+# Run tests
+cd load-tests; .\run-tests.ps1
+
+# View dashboard
+Start-Process "http://localhost:3001"  # admin/admin123
+
+# Fill report
+cd load-tests
+Copy-Item PERFORMANCE_REPORT_TEMPLATE.md MY_REPORT.md
 # Then follow QUICK_FILL_GUIDE.md
 ```
 
