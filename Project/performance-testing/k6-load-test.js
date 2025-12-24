@@ -41,11 +41,9 @@ export const options = {
     },
     thresholds: {
         // Success criteria: P95 < 200ms
-        'http_req_duration': ['p(95)<200'],
+        'http_req_duration': ['p(95)<200', 'p(99)<500'],
         // Error rate should be below 1%
         'errors': ['rate<0.01'],
-        // P99 should be reasonable too
-        'http_req_duration': ['p(99)<500'],
     },
     // Disable DNS and connection reuse to simulate real-world conditions
     noConnectionReuse: false,

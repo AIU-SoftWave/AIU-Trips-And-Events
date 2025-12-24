@@ -62,8 +62,8 @@ SELECT
         WHEN 0 THEN 'EVENT'
         ELSE 'TRIP'
     END as type,
-    CURRENT_TIMESTAMP + (generate_series || ' days')::interval as start_date,
-    CURRENT_TIMESTAMP + ((generate_series + 1) || ' days')::interval as end_date,
+    '2025-01-01'::timestamp + (generate_series || ' days')::interval as start_date,
+    '2025-01-01'::timestamp + ((generate_series + 1) || ' days')::interval as end_date,
     CASE (generate_series % 4)
         WHEN 0 THEN 'Main Auditorium'
         WHEN 1 THEN 'Sports Complex'

@@ -1,6 +1,7 @@
 package com.aiu.trips.config;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
@@ -22,6 +23,12 @@ import java.util.concurrent.TimeUnit;
 @EnableCaching
 public class CacheConfig {
 
+    @Value("${cache.ttl.minutes:5}")
+    private int cacheTtlMinutes;
+
+    @Value("${cache.max.size:1000}")
+    private int cacheMaxSize;
+
     @Bean
     public CacheManager cacheManager() {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager(
@@ -37,8 +44,8 @@ public class CacheConfig {
 
     private Caffeine<Object, Object> caffeineCacheBuilder() {
         return Caffeine.newBuilder()
-            .expireAfterWrite(5, TimeUnit.MINUTES)
-            .maximumSize(1000)
+            .expireAfterWrite(cacheTtlMinutes, TimeUnit.MINUTES)
+            .maximumSize(cacheMaxSize)
             .recordStats(); // Enable cache statistics for monitoring
     }
 }

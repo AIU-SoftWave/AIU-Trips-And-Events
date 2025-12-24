@@ -77,9 +77,10 @@ public class OptimizedEventService {
 
     /**
      * Update cache when event is modified
-     * Evicts all related caches to ensure consistency
+     * Evicts specific event from cache and related list caches
      */
-    @CacheEvict(value = {"events", "upcomingEvents", "eventById"}, allEntries = true)
+    @CacheEvict(value = {"events", "upcomingEvents"}, allEntries = true)
+    @Cacheable(value = "eventById", key = "#id")
     @Transactional
     public Event updateEvent(Long id, Event eventDetails) {
         Event event = eventRepository.findById(id)
