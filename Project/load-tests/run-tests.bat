@@ -6,7 +6,8 @@ setlocal enabledelayedexpansion
 
 REM Configuration
 if "%BASE_URL%"=="" set BASE_URL=http://localhost:8080
-set RESULTS_DIR=load-tests\results
+set "BASE_DIR=%~dp0"
+set RESULTS_DIR=%BASE_DIR%results
 set TIMESTAMP=%date:~10,4%%date:~4,2%%date:~7,2%_%time:~0,2%%time:~3,2%%time:~6,2%
 set TIMESTAMP=%TIMESTAMP: =0%
 set RUN_DIR=%RESULTS_DIR%\%TIMESTAMP%
@@ -50,7 +51,7 @@ set failed=0
 REM Test 1: Authentication (Login)
 echo Running test: auth-login
 echo -----------------------------------
-k6 run --out json="%RUN_DIR%\auth-login_%TIMESTAMP%.json" --summary-export="%RUN_DIR%\auth-login_%TIMESTAMP%_summary.json" "load-tests\scripts\auth-login-test.js" > "%RUN_DIR%\auth-login_%TIMESTAMP%.log" 2>&1
+k6 run --out json="%RUN_DIR%\auth-login_%TIMESTAMP%.json" --summary-export="%RUN_DIR%\auth-login_%TIMESTAMP%_summary.json" "%BASE_DIR%scripts\auth-login-test.js" > "%RUN_DIR%\auth-login_%TIMESTAMP%.log" 2>&1
 if %errorlevel%==0 (
     echo [PASS] Test auth-login PASSED
     set /a passed+=1
@@ -63,7 +64,7 @@ echo.
 REM Test 2: Events List
 echo Running test: events-list
 echo -----------------------------------
-k6 run --out json="%RUN_DIR%\events-list_%TIMESTAMP%.json" --summary-export="%RUN_DIR%\events-list_%TIMESTAMP%_summary.json" "load-tests\scripts\events-list-test.js" > "%RUN_DIR%\events-list_%TIMESTAMP%.log" 2>&1
+k6 run --out json="%RUN_DIR%\events-list_%TIMESTAMP%.json" --summary-export="%RUN_DIR%\events-list_%TIMESTAMP%_summary.json" "%BASE_DIR%scripts\events-list-test.js" > "%RUN_DIR%\events-list_%TIMESTAMP%.log" 2>&1
 if %errorlevel%==0 (
     echo [PASS] Test events-list PASSED
     set /a passed+=1
@@ -76,7 +77,7 @@ echo.
 REM Test 3: Bookings List
 echo Running test: bookings-list
 echo -----------------------------------
-k6 run --out json="%RUN_DIR%\bookings-list_%TIMESTAMP%.json" --summary-export="%RUN_DIR%\bookings-list_%TIMESTAMP%_summary.json" "load-tests\scripts\bookings-list-test.js" > "%RUN_DIR%\bookings-list_%TIMESTAMP%.log" 2>&1
+k6 run --out json="%RUN_DIR%\bookings-list_%TIMESTAMP%.json" --summary-export="%RUN_DIR%\bookings-list_%TIMESTAMP%_summary.json" "%BASE_DIR%scripts\bookings-list-test.js" > "%RUN_DIR%\bookings-list_%TIMESTAMP%.log" 2>&1
 if %errorlevel%==0 (
     echo [PASS] Test bookings-list PASSED
     set /a passed+=1
