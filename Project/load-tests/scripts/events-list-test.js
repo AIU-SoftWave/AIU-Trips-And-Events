@@ -42,11 +42,15 @@ export function setup() {
 
   if (loginRes.status === 200) {
     const body = JSON.parse(loginRes.body);
-    console.log(`Setup: Successfully logged in, token length: ${body.token.length}`);
+    console.log(
+      `Setup: Successfully logged in, token length: ${body.token.length}`
+    );
     return { token: body.token };
   }
 
-  console.error(`Setup failed: status=${loginRes.status}, body=${loginRes.body}`);
+  console.error(
+    `Setup failed: status=${loginRes.status}, body=${loginRes.body}`
+  );
   throw new Error("Failed to authenticate - cannot proceed with test");
 }
 
@@ -84,7 +88,11 @@ export default function (data) {
   } else {
     // Log first few failures for debugging
     if (successfulRequests.value < 10) {
-      console.error(`Request failed: status=${eventsRes.status}, body=${eventsRes.body.substring(0, 200)}`);
+      console.error(
+        `Request failed: status=${
+          eventsRes.status
+        }, body=${eventsRes.body.substring(0, 200)}`
+      );
     }
   }
 

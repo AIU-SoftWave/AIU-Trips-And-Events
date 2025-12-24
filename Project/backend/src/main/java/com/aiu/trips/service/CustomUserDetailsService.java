@@ -22,12 +22,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Cacheable(value = "users", key = "#email")
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
-        
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+
         return new org.springframework.security.core.userdetails.User(
-            user.getEmail(),
-            user.getPassword(),
-            Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name()))
-        );
+                user.getEmail(),
+                user.getPassword(),
+                Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name())));
     }
 }

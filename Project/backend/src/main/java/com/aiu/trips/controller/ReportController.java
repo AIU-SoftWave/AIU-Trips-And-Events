@@ -68,7 +68,7 @@ public class ReportController {
             HttpServletRequest request) {
         try {
             handlerChain.handle(request);
-            
+
             ExportFormat exportFormat = ExportFormat.valueOf(format.toUpperCase());
             Map<String, Object> reportData = reportServiceImpl.getOverallReport();
             byte[] exportedData = reportServiceImpl.exportReportData(
@@ -76,7 +76,7 @@ public class ReportController {
 
             HttpHeaders headers = new HttpHeaders();
             String filename = "overall_report_" + System.currentTimeMillis();
-            
+
             switch (exportFormat) {
                 case PDF:
                     headers.setContentType(MediaType.APPLICATION_PDF);
@@ -108,7 +108,7 @@ public class ReportController {
             HttpServletRequest request) {
         try {
             handlerChain.handle(request);
-            
+
             ExportFormat exportFormat = ExportFormat.valueOf(format.toUpperCase());
             Map<String, Object> reportData = reportServiceImpl.getEventReport(eventId);
             String reportTitle = "Event Report - " + reportData.get("eventTitle");
@@ -116,7 +116,7 @@ public class ReportController {
 
             HttpHeaders headers = new HttpHeaders();
             String filename = "event_" + eventId + "_report_" + System.currentTimeMillis();
-            
+
             switch (exportFormat) {
                 case PDF:
                     headers.setContentType(MediaType.APPLICATION_PDF);
