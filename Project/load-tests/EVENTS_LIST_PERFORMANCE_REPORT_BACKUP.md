@@ -202,7 +202,7 @@ import { check, sleep } from 'k6';
 
 // Test configuration
 export const options = {
-  // Load pattern: ramp to 100 RPS sustained load
+  // Load pattern aligned with assignment (100 RPS)
   stages: [
     { duration: '30s', target: 50 },   // Ramp-up to warm caches
     { duration: '30s', target: 100 },  // Ramp to target load
@@ -210,7 +210,7 @@ export const options = {
     { duration: '30s', target: 0 },    // Graceful ramp-down
   ],
   
-  // SLO thresholds: P95 < 200ms, errors < 5%
+  // SLO thresholds (per assignment requirement)
   thresholds: {
     'http_req_duration': ['p(95)<200'],  // P95 < 200ms
     'http_req_duration{endpoint:events}': ['p(95)<200'],
