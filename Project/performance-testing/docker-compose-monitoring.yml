@@ -1,0 +1,108 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: aiu-trips-postgres
+    environment:
+      POSTGRES_DB: tripsdb
+      POSTGRES_USER: aiu_user
+      POSTGRES_PASSWORD: aiu_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - performance-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aiu_user -d tripsdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Spring Boot Application
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: aiu-trips-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/tripsdb
+      SPRING_DATASOURCE_USERNAME: aiu_user
+      SPRING_DATASOURCE_PASSWORD: aiu_password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      JAVA_OPTS: "-Xmx512m -Xms256m -XX:+UseG1GC -XX:MaxGCPauseMillis=100"
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - performance-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Prometheus - Metrics Collection
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: aiu-trips-prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=7d'
+    ports:
+      - "9090:9090"
+    networks:
+      - performance-network
+    depends_on:
+      - backend
+
+  # Grafana - Metrics Visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: aiu-trips-grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin123
+      GF_INSTALL_PLUGINS: grafana-piechart-panel
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    ports:
+      - "3001:3000"
+    networks:
+      - performance-network
+    depends_on:
+      - prometheus
+
+  # PostgreSQL Exporter for Database Metrics
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:latest
+    container_name: aiu-trips-postgres-exporter
+    environment:
+      DATA_SOURCE_NAME: "postgresql://aiu_user:aiu_password@postgres:5432/tripsdb?sslmode=disable"
+    ports:
+      - "9187:9187"
+    networks:
+      - performance-network
+    depends_on:
+      - postgres
+
+networks:
+  performance-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  prometheus_data:
+  grafana_data:
