@@ -1,0 +1,32 @@
+global:
+  scrape_interval: 5s  # Scrape every 5 seconds for detailed metrics
+  evaluation_interval: 5s
+  external_labels:
+    environment: 'test'
+    project: 'aiu-trips-events'
+
+# Alerting configuration (optional)
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+
+# Scrape configurations
+scrape_configs:
+  # Spring Boot Actuator Metrics
+  - job_name: 'spring-boot-app'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['backend-test:8080']
+        labels:
+          application: 'aiu-trips-backend'
+          component: 'authentication'
+
+  # Prometheus self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+# Recording rules for custom metrics
+rule_files:
+  # - "alert_rules.yml"
