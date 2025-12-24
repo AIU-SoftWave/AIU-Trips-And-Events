@@ -59,7 +59,7 @@ public class OptimizedEventService {
     public List<Event> getUpcomingEvents() {
         return eventRepository.findByStartDateAfterAndStatus(
             LocalDateTime.now(), 
-            EventStatus.UPCOMING
+            EventStatus.ACTIVE
         );
     }
 

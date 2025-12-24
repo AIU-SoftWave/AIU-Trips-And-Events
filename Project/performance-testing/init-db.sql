@@ -73,8 +73,8 @@ SELECT
     (generate_series % 100) + 10.00 as price,
     ((generate_series % 10) + 5) * 10 as capacity,
     CASE 
-        WHEN generate_series <= 70 THEN 'UPCOMING'
-        WHEN generate_series <= 90 THEN 'ONGOING'
+        WHEN generate_series <= 70 THEN 'ACTIVE'
+        WHEN generate_series <= 90 THEN 'ACTIVE'
         ELSE 'COMPLETED'
     END as status,
     1 as created_by_id
