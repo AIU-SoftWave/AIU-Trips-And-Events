@@ -46,8 +46,7 @@ public class ReportController {
         try {
             handlerChain.handle(request);
             IControllerCommand command = new GenerateReportCommand(reportService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(requestData);
+            return commandInvoker.execute(command, requestData);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

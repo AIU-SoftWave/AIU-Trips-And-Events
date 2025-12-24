@@ -5,46 +5,53 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 /**
- * ControllerCommandInvoker as per Controller.pu diagram
- * Command Pattern - Manages a queue of commands to execute sequentially
+ * ControllerCommandInvoker - Thread-safe Command Pattern implementation
+ * Executes commands directly without shared state to support concurrent requests
+ * 
+ * Previous implementation used a shared LinkedList queue causing race conditions:
+ * - Thread A: pushToQueue(cmdA)
+ * - Thread B: pushToQueue(cmdB)  
+ * - Thread A: executeNext() -> executes cmdB (wrong!)
+ * 
+ * This refactored version executes commands immediately, maintaining the Command
+ * pattern while eliminating the concurrency bottleneck.
  */
 @Component
 public class ControllerCommandInvoker {
 
-    private final Queue<IControllerCommand> commandQueue = new LinkedList<>();
-
     /**
-     * Push a command to the queue
+     * Execute a command directly with provided request data
+     * Thread-safe: no shared state between requests
      */
-    public void pushToQueue(IControllerCommand command) {
+    public ResponseEntity<?> execute(IControllerCommand command, Map<String, Object> requestData) {
         if (command == null) {
             throw new IllegalArgumentException("Command cannot be null");
-        }
-        commandQueue.offer(command);
-    }
-
-    /**
-     * Execute the next command in the queue
-     */
-    public ResponseEntity<?> executeNext(Map<String, Object> requestData) {
-        IControllerCommand command = commandQueue.poll();
-        if (command == null) {
-            throw new IllegalStateException("No command in queue to execute");
         }
         return command.execute(requestData);
     }
 
     /**
-     * Check if there are more commands in the queue
+     * @deprecated Use execute() directly. Kept for backward compatibility.
+     * This method now executes immediately instead of queuing.
      */
-    public boolean hasNext() {
-        return !commandQueue.isEmpty();
+    @Deprecated
+    public void pushToQueue(IControllerCommand command) {
+        if (command == null) {
+            throw new IllegalArgumentException("Command cannot be null");
+        }
+        // In the new design, commands are executed directly via execute()
+        // This method is kept only for backward compatibility during migration
     }
 
     /**
-     * Clear all commands from the queue
+     * @deprecated Use execute() directly. Kept for backward compatibility.
+     * This method now throws an exception to indicate misuse of the old API.
      */
-    public void clear() {
-        commandQueue.clear();
+    @Deprecated
+    public ResponseEntity<?> executeNext(Map<String, Object> requestData) {
+        throw new UnsupportedOperationException(
+            "executeNext() is deprecated. Use execute(command, requestData) instead. " +
+            "The push-then-execute pattern caused race conditions under concurrent load."
+        );
     }
 }

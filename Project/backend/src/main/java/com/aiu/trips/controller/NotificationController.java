@@ -41,8 +41,7 @@ public class NotificationController {
             data.put("userEmail", userEmail);
 
             IControllerCommand command = new GetNotificationsCommand(notificationService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(data);
+            return commandInvoker.execute(command, data);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -59,8 +58,7 @@ public class NotificationController {
             data.put("userEmail", userEmail);
 
             IControllerCommand command = new GetUnreadNotificationsCommand(notificationService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(data);
+            return commandInvoker.execute(command, data);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -72,8 +70,7 @@ public class NotificationController {
         try {
             handlerChain.handle(request);
             IControllerCommand command = new SendNotificationCommand(notificationService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(requestData);
+            return commandInvoker.execute(command, requestData);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
