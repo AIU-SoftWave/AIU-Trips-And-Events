@@ -6,9 +6,6 @@ results/*/
 *.tar.gz
 k6-*
 
-# Ignore screenshots except examples
-screenshots/*
-!screenshots/.gitkeep
 
 # OS files
 .DS_Store

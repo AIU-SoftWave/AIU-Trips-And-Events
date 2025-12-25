@@ -8,13 +8,23 @@ const responseTime = new Trend("response_time");
 const successfulRequests = new Counter("successful_requests");
 
 // Test configuration
+// Allow overriding sustained load duration via env (minutes)
+const DURATION_MINUTES_RAW = (
+  __ENV.DURATION_MINUTES ||
+  __ENV.DURATION ||
+  "60"
+).trim();
+const DURATION_MINUTES = Math.max(1, parseInt(DURATION_MINUTES_RAW, 10) || 60);
+
+const stages = [
+  { duration: "30s", target: 50 }, // Ramp-up to 50 RPS
+  { duration: "30s", target: 100 }, // Ramp-up to 100 RPS
+  { duration: `${DURATION_MINUTES}m`, target: 100 }, // Sustained load at 100 RPS
+  { duration: "30s", target: 0 }, // Ramp-down
+];
+
 export const options = {
-  stages: [
-    { duration: "30s", target: 50 }, // Ramp-up to 50 RPS
-    { duration: "30s", target: 100 }, // Ramp-up to 100 RPS
-    { duration: "60m", target: 100 }, // Sustained load at 100 RPS
-    { duration: "30s", target: 0 }, // Ramp-down
-  ],
+  stages,
   thresholds: {
     http_req_duration: ["p(95)<200"], // 95% of requests must be below 200ms
     "http_req_duration{endpoint:events}": ["p(95)<200"],
