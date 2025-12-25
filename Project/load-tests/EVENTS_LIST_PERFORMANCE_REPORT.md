@@ -19,6 +19,18 @@
 5. [Low-Latency Design Patterns Implemented](#5-low-latency-design-patterns-implemented)
 6. [Framework & Library Optimizations](#6-framework--library-optimizations)
 7. [Performance Testing Results](#7-performance-testing-results)
+   - 7.0 [Visual Evidence Overview](#70-visual-evidence-overview)
+   - 7.1 [Test Execution Summary](#71-test-execution-summary)
+   - 7.2 [Response Time Distribution](#72-response-time-distribution)
+   - 7.3 [Detailed Latency Breakdown](#73-detailed-latency-breakdown)
+   - 7.4 [Throughput Analysis](#74-throughput-analysis)
+   - 7.5 [Error Rate & Reliability](#75-error-rate--reliability)
+   - 7.6 [Virtual User Behavior](#76-virtual-user-vu-behavior)
+   - 7.7 [Network Statistics](#77-network-statistics)
+   - 7.8 [Performance Stability](#78-performance-stability)
+   - 7.9 [Outlier Analysis](#79-outlier-analysis)
+   - 7.10 [Test Results Summary](#710-test-results-summary)
+   - 7.11 [Visual Metrics Analysis and Correlation](#711-visual-metrics-analysis-and-correlation)
 8. [Performance Evolution & Optimization Journey](#8-performance-evolution--optimization-journey)
 9. [Data Collection & Analysis Methods](#9-data-collection--analysis-methods)
 10. [Critical Bug Fixes & Improvements](#10-critical-bug-fixes--improvements)
@@ -80,6 +92,9 @@ Successful Requests: 34,406 (99.99%)
 Failed Requests: 1 (0.003%)
 Requests Meeting < 200ms Constraint: 34,406 (99.99%)
 ```
+
+**Visual Evidence:**
+Comprehensive monitoring screenshots capturing all system metrics during the load test are available in `Project/load-tests/screenshots/`. Detailed analysis correlating these visuals with test data is provided in Section 7.11.
 
 ### 1.4 Critical Issues Resolved
 
@@ -1170,6 +1185,10 @@ Connection Wait Time: 0ms (no waiting)
 Connection Creation: 0 per second (reusing existing)
 ```
 
+**Visual Evidence:**
+- **Connection Pool Status**: See detailed analysis in Section 7.11.7 with screenshot showing the dynamic balance between active and idle connections
+- **Connection Acquisition Time**: See Section 7.11.6 showing <1ms acquisition during steady state vs 15-25ms during initial ramp-up
+
 ---
 
 ### 5.2 Database Query Optimization & Indexing
@@ -1268,6 +1287,10 @@ Heap Usage: 45-65% (stable)
 Young Generation Collections: 124 (during test)
 Old Generation Collections: 2 (during test)
 ```
+
+**Visual Evidence:**
+- **GC Behavior**: See Section 7.11.5 for detailed analysis with screenshot showing low GC activity at start/end with small spikes during sustained load
+- **Memory Pattern**: See Section 7.11.9 for JVM memory sawtooth pattern correlating with GC cycles
 
 ---
 
@@ -1447,6 +1470,10 @@ After Fix (100 VUs):
 - Failed: 1 (0.003%)
 - P95 Latency: 4.12ms
 ```
+
+**Visual Evidence:**
+- **Thread Count Stability**: See Section 7.11.10 showing stable thread count with no leaks after the fix
+- **Response Time Consistency**: See Section 7.11.3 showing stable low latency after resolving the race condition
 
 **Key Lessons:**
 1. **Shared Mutable State + Concurrency = Problems**
@@ -3258,21 +3285,32 @@ server.tomcat.threads.max: 200  # Was 100
 - `hikaricp_connections_active`
 - `process_cpu_usage`
 
+**Visual Evidence:**
+All metrics discussed in this section are captured in real-time monitoring screenshots available in `screenshots/` directory. See Section 7.11 for detailed visual analysis correlating all monitoring dimensions.
+
 ### 11.2 Grafana Dashboards
 
 **Dashboard Panels (10 total):**
-1. Request Rate (RPS)
-2. Response Time (P50/P95/P99)
-3. JVM Heap Memory
-4. GC Pause Time
-5. Database Connection Pool
+1. Request Rate (RPS) - ![See RPS.png](screenshots/RPS.png)
+2. Response Time (P50/P95/P99) - ![See Response time by endpoint.png](screenshots/Response%20time%20by%20endpoint.png)
+3. JVM Heap Memory - ![See JVM Memory Usage.png](screenshots/JVM%20Memory%20Usage.png)
+4. GC Pause Time - ![See Garbage Collection.png](screenshots/Garbage%20Collection.png)
+5. Database Connection Pool - ![See Database Connection Pool.png](screenshots/Database%20Connection%20Pool.png)
 6. HTTP Status Codes
-7. CPU Usage
-8. Thread Count
+7. CPU Usage - ![See Cpu Usage.png](screenshots/Cpu%20Usage.png)
+8. Thread Count - ![See Thread Count.png](screenshots/Thread%20Count.png)
 9. Error Rate
-10. Database Query Time
+10. Database Query Time - ![See Database Connection Acquisition Time.png](screenshots/Database%20Connection%20Acquisition%20Time.png)
 
 **Access:** `http://localhost:3001` (admin/admin123)
+
+**Comprehensive Visual Analysis:**
+Detailed analysis of all monitoring dashboards with correlations across metrics is provided in **Section 7.11** (Visual Metrics Analysis and Correlation). This includes:
+- Timeline correlation across all metrics
+- Cross-metric dependencies
+- Performance pattern identification
+- Test script stage mapping
+- Resource utilization analysis
 
 ### 11.3 Alert Rules
 
@@ -3391,15 +3429,17 @@ The Events List API performance optimization project successfully achieved and s
 - Multi-layer approach (application, database, JVM)
 - Systematic testing at each stage
 - Data-driven decision making
+- **Visual validation** through comprehensive monitoring (see Section 7.11)
 
 **2. Critical Bug Fix:**
 - Thread-safety fix eliminated 98.5% error rate
 - Demonstrates importance of concurrency testing
 - Load testing revealed issues unit tests missed
+- Thread count monitoring confirmed fix effectiveness
 
 **3. Framework Leverage:**
 - Utilized Spring Boot's optimization features
-- HikariCP connection pooling
+- HikariCP connection pooling (validated in connection pool metrics)
 - PostgreSQL built-in optimizations
 - Modern frameworks provide 70%+ of performance gains
 
@@ -3408,6 +3448,13 @@ The Events List API performance optimization project successfully achieved and s
 - Comprehensive monitoring (Prometheus + Grafana)
 - Controlled test environment
 - Reproducible results
+- **Visual evidence** supporting all performance claims
+
+**5. Holistic Monitoring Approach:**
+- All system layers instrumented
+- Cross-metric correlation analysis
+- Timeline synchronization across dimensions
+- Visual evidence validates optimization impact
 
 ### 13.3 Lessons Learned
 
