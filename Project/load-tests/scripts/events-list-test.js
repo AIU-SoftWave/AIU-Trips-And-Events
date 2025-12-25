@@ -12,7 +12,7 @@ export const options = {
   stages: [
     { duration: "30s", target: 50 }, // Ramp-up to 50 RPS
     { duration: "30s", target: 100 }, // Ramp-up to 100 RPS
-    { duration: "5m", target: 100 }, // Sustained load at 100 RPS
+    { duration: "60m", target: 100 }, // Sustained load at 100 RPS
     { duration: "30s", target: 0 }, // Ramp-down
   ],
   thresholds: {
