@@ -19,6 +19,120 @@
 
 ---
 
+<style>
+/* PDF Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+h1 {
+    color: #2c3e50;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 10px;
+    page-break-after: avoid;
+}
+
+h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 8px;
+    margin-top: 30px;
+    page-break-after: avoid;
+}
+
+h3 {
+    color: #34495e;
+    margin-top: 20px;
+    page-break-after: avoid;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+    page-break-inside: avoid;
+}
+
+table th {
+    background-color: #3498db;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+}
+
+table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+code {
+    background-color: #f4f4f4;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+}
+
+pre {
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 4px solid #3498db;
+    overflow-x: auto;
+    page-break-inside: avoid;
+}
+
+blockquote {
+    border-left: 4px solid #3498db;
+    padding-left: 20px;
+    margin: 20px 0;
+    color: #555;
+    font-style: italic;
+}
+
+.page-break {
+    page-break-before: always;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    page-break-inside: avoid;
+}
+
+.metric-box {
+    background-color: #ecf0f1;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 4px solid #27ae60;
+    margin: 15px 0;
+    page-break-inside: avoid;
+}
+
+.success {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.warning {
+    color: #f39c12;
+    font-weight: bold;
+}
+
+.critical {
+    color: #e74c3c;
+    font-weight: bold;
+}
+</style>
+
 ## Table of Contents
 
 1. [Executive Summary](#1-executive-summary)
@@ -47,6 +161,8 @@
 12. [Recommendations for Production](#12-recommendations-for-production)
 13. [Conclusion](#13-conclusion)
 14. [Appendices](#14-appendices)
+
+<div style="page-break-after: always;"></div>
 
 ---
 
@@ -119,6 +235,8 @@ Comprehensive monitoring screenshots capturing all system metrics during the loa
 - ✅ **Caching Strategy:** Added `@Cacheable` annotation to reduce database lookups
 
 **Key Insight:** Initial testing revealed a critical race condition in the Command pattern implementation where concurrent threads would execute incorrect commands. After refactoring to thread-safe direct execution, the error rate dropped from 98.5% to 0%, while maintaining excellent sub-5ms latency.
+
+<div style="page-break-after: always;"></div>
 
 ---
 
@@ -1691,6 +1809,8 @@ After (with optimization):
 **Most Critical Pattern:**
 Thread-Safe Command Pattern - eliminated 98.5% error rate while maintaining excellent latency.
 
+<div style="page-break-after: always;"></div>
+
 ---
 
 ## 6. Framework & Library Optimizations
@@ -2507,6 +2627,8 @@ The GC pause time graph shows the impact of G1GC tuning:
 - After (G1GC tuned): 5-15ms pauses, 1 per 30 seconds
 - **Result**: 95% reduction in GC pause time
 
+<div style="page-break-after: always;"></div>
+
 ---
 
 ### 7.11.6 Database Connection Acquisition Time
@@ -2999,6 +3121,8 @@ Headroom: Can handle 5x more concurrent load
 2. **Connection Pooling**: No threads waiting for connections
 3. **Async Processing**: Non-blocking for long operations
 4. **Proper Timeouts**: No threads stuck indefinitely
+
+<div style="page-break-after: always;"></div>
 
 ---
 
@@ -3842,6 +3966,8 @@ The Events List API can be deployed to production with confidence that it will m
 2. Evaluate microservices split
 3. Implement advanced caching strategies
 4. Optimize for global latency
+
+<div style="page-break-after: always;"></div>
 
 ---
 
