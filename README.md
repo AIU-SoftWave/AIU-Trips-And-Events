@@ -262,8 +262,74 @@ AIU-Trips-And-Events/
 │   ├── 03_recomputed_estimates.md
 │   ├── 04_project_report.md
 │   └── 05_vibe_coding_analysis.md
+├── Project/
+│   ├── load-tests/            # Performance testing suite (NEW!)
+│   │   ├── scripts/           # k6 load test scripts
+│   │   ├── SETUP_GUIDE.md     # Complete setup instructions
+│   │   ├── PERFORMANCE_REPORT_TEMPLATE.md  # Comprehensive report template
+│   │   └── run-tests.sh       # Test execution script
+│   ├── monitoring/            # Monitoring infrastructure (NEW!)
+│   │   ├── prometheus/        # Prometheus configuration
+│   │   ├── grafana/           # Grafana dashboards
+│   │   └── README.md          # Monitoring documentation
+│   └── docker-compose.yml     # Enhanced with monitoring services
 └── README.md
 ```
+
+## Performance Testing & Monitoring
+
+### 🎯 Low-Latency Performance Testing
+
+The project now includes a comprehensive performance testing suite designed to validate the **P95 response time < 200ms at 100 RPS** requirement.
+
+**Quick Start:**
+```bash
+cd Project
+
+# Start monitoring stack
+./monitoring-manager.sh start
+
+# Run performance tests
+cd load-tests
+./run-tests.sh
+
+# View results in Grafana
+open http://localhost:3001  # admin/admin123
+```
+
+### 📊 Monitoring Stack
+
+The system includes a complete monitoring infrastructure:
+
+| Service | Port | Purpose |
+|---------|------|---------|
+| **Grafana** | 3001 | Performance dashboards and visualization |
+| **Prometheus** | 9090 | Metrics collection and storage |
+| **cAdvisor** | 8081 | Container-level metrics |
+| **Node Exporter** | 9100 | System-level metrics |
+| **Postgres Exporter** | 9187 | Database metrics |
+
+**Key Features:**
+- ✅ Pre-configured performance dashboard
+- ✅ Real-time metrics with 5-second granularity
+- ✅ P95/P99 latency tracking
+- ✅ JVM memory and GC monitoring
+- ✅ Database connection pool metrics
+- ✅ Automated alerts for performance degradation
+
+### 📝 Comprehensive Testing Report
+
+A complete report template is provided covering:
+- **Low-Latency Design Patterns**: Caching, query optimization, connection pooling, async processing
+- **Framework Optimizations**: Spring Boot, JPA/Hibernate, JVM tuning, PostgreSQL configuration, Next.js optimizations
+- **Test Methodology**: Load testing with k6, ramp-up strategies, sustained load analysis
+- **Performance Analysis**: Bottleneck identification, latency breakdown, resource utilization
+- **Detailed Results**: All metrics with placeholder sections for actual test numbers
+
+**Documentation:**
+- [Load Testing Setup Guide](./Project/load-tests/SETUP_GUIDE.md)
+- [Performance Report Template](./Project/load-tests/PERFORMANCE_REPORT_TEMPLATE.md)
+- [Monitoring Infrastructure](./Project/monitoring/README.md)
 
 ## License
 
