@@ -1,7 +1,7 @@
 # Low-Latency Login Component Implementation
 ## Professional Technical Report - CSE352 Performance Engineering Assignment
 
-**Student**: [Your Name]  
+**Student**: Mostafa Khamis Abozead  
 **Course**: CSE352 - System Analysis and Design  
 **Assignment**: Low-Latency Component Implementation  
 **Date**: December 25, 2024  

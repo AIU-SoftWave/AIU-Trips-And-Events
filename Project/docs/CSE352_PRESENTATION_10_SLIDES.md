@@ -1,7 +1,7 @@
 # CSE352 Performance Engineering - 10-Slide Presentation
 ## Low-Latency Login Component Implementation
 
-**Student**: [Your Name]  
+**Student**: Mostafa Khamis Abozead  
 **Course**: CSE352 - System Analysis and Design  
 **Presentation Duration**: 7-10 minutes  
 **Date**: December 25, 2024
@@ -17,7 +17,7 @@
 **Subtitle**: Achieving P95 < 200ms @ 100 RPS Sustained Load
 
 **Student Information**:
-- Name: [Your Name]
+- Name: Mostafa Khamis Abozead
 - Student ID: [Your ID]
 - Course: CSE352 - System Analysis and Design
 - Instructor: [Instructor Name]

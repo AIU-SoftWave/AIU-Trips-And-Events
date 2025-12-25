@@ -1,7 +1,7 @@
 # CSE352 Performance Engineering - Final Test Results
 ## Login Component Optimization - Simulated Test Results
 
-**Student**: [Your Name]  
+**Student**: Mostafa Khamis Abozead  
 **Course**: CSE352 - System Analysis and Design  
 **Date**: December 25, 2024  
 **Target SLO**: P95 < 200ms @ 100 RPS (sustained load)
