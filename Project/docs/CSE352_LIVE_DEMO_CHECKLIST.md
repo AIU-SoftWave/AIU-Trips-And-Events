@@ -1,7 +1,7 @@
 # CSE352 Performance Engineering - Live Demo Checklist
 ## Step-by-Step Guide for 200ms/100RPS Demonstration
 
-**Student**: [Your Name]  
+**Student**: Mostafa Khamis Abozead  
 **Course**: CSE352 - System Analysis and Design  
 **Demo Duration**: 5-7 minutes  
 **Date**: December 25, 2024

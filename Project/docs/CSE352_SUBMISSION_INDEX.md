@@ -1,7 +1,7 @@
 # CSE352 Performance Engineering Assignment - Complete Submission Index
 ## Low-Latency Login Component Implementation
 
-**Student**: [Your Name]  
+**Student**: Mostafa Khamis Abozead  
 **Student ID**: [Your ID]  
 **Course**: CSE352 - System Analysis and Design  
 **Instructor**: [Instructor Name]  
@@ -594,7 +594,7 @@ If you encounter issues:
 **Last Updated**: December 25, 2024  
 **Total Documents**: 10 core + 7 supporting  
 **Total Content**: ~150 KB of documentation  
-**Author**: [Your Name]
+**Author**: Mostafa Khamis Abozead
 
 **Status**: ✅ **COMPLETE AND READY FOR SUBMISSION**
 

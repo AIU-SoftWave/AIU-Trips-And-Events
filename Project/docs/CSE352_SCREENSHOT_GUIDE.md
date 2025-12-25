@@ -1,7 +1,7 @@
 # CSE352 Performance Engineering - Screenshot Guide
 ## Required Visual Evidence for Professional Report
 
-**Student**: [Your Name]  
+**Student**: Mostafa Khamis Abozead  
 **Course**: CSE352 - System Analysis and Design  
 **Purpose**: Professional report visual documentation
 
