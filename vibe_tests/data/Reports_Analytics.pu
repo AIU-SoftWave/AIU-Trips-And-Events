@@ -1,0 +1,108 @@
+@startuml Reports_Analytics_layer
+
+!define INTERFACE_COLOR #E8F5E9
+!define SERVICE_COLOR #F3E5F5
+!define ENTITY_COLOR #E3F2FD
+!define ENUM_COLOR #F3E5F5
+!define BUILDER_COLOR #FFF9C4
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+    BackgroundColor<<Builder>> BUILDER_COLOR
+    BackgroundColor<<Product>> BUILDER_COLOR
+    BackgroundColor<<Director>> BUILDER_COLOR
+}
+
+package "Reports & Analytics Component" {
+    
+    ' Interface from Context Level
+    interface IReportsAnalytics <<interface>> {
+        +generateReport(reportType: ReportType, filters: ReportFilterDTO, format: ExportFormat): ReportDTO
+        +exportReport(reportId: String, format: ExportFormat): FileDTO
+        +getStatistics(): SystemStatisticsDTO
+        +collectFeedback(feedbackData: FeedbackDTO): Response
+    }
+
+    interface IModelFactory <<interface>>
+
+    class ReportService <<service>> {
+        -IModelFactory modelFactory
+        -IReportDirector reportDirector
+        +generateReport(reportType: ReportType, filters: ReportFilterDTO, format: ExportFormat): ReportDTO
+        +exportReport(reportId: String, format: ExportFormat): FileDTO
+        +getStatistics(): SystemStatisticsDTO
+        +collectFeedback(feedbackData: FeedbackDTO): Response
+    }
+
+    ' ==================== REPORT BUILDER PATTERN (UPDATED) ====================
+    package "Report Builder Pattern" {
+        skinparam class {
+            BackgroundColor<<Product>> BUILDER_COLOR
+            BackgroundColor<<Builder>> BUILDER_COLOR
+            BackgroundColor<<Director>> BUILDER_COLOR
+        }
+
+        ' === Abstract Builder ===
+        abstract class ReportBuilder <<Builder>> {
+            #modelFactory: IModelFactory
+            +{abstract} reset(): void
+            +{abstract} buildHeader(): void
+            +{abstract} buildBody(data: List): void
+            +{abstract} buildFooter(stats: SystemStatisticsDTO): void
+            +{abstract} getProduct(): ReportDTO
+        }
+
+
+        ' === Concrete Builders ===
+        class PdfReportBuilder <<Builder>> {
+            -report: ReportDTO
+            +reset(): void
+            +buildHeader(): void
+            +buildBody(data: List): void
+            +buildFooter(stats: SystemStatisticsDTO): void
+            +getProduct(): ReportDTO
+        }
+
+        class CsvReportBuilder <<Builder>> {
+            -report: ReportDTO
+            +reset(): void
+            +buildHeader(): void
+            +buildBody(data: List): void
+            +buildFooter(stats: SystemStatisticsDTO): void
+            +getProduct(): ReportDTO
+        }
+
+        ' === Director Layer ===
+        interface IReportDirector <<Director>> {
+            +makeParticipantsReport(filters: ReportFilterDTO): ReportDTO
+            +makeRevenueReport(filters: ReportFilterDTO): ReportDTO
+            +makeFeedbackSummary(filters: ReportFilterDTO): ReportDTO
+        }
+        class ReportDirector <<Director>> {
+            -IModelFactory modelFactory
+            +makeParticipantsReport(filters: ReportFilterDTO): ReportDTO
+            +makeRevenueReport(filters: ReportFilterDTO): ReportDTO
+            +makeFeedbackSummary(filters: ReportFilterDTO): ReportDTO
+        }
+
+        ' --- Relationships ---
+        ReportBuilder <|-- PdfReportBuilder
+        ReportBuilder <|-- CsvReportBuilder
+        
+        ' Model Factory Relations
+        ReportBuilder --> IModelFactory : uses
+        IReportDirector <|.. ReportDirector
+        ReportDirector --> ReportBuilder : directs
+    }
+
+    ' --- External Relationships ---
+    IReportsAnalytics <|.. ReportService : realizes
+    ReportService --> IModelFactory : uses
+    ReportService --> IReportDirector : uses
+}
+
+@enduml

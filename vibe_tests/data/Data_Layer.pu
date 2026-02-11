@@ -1,0 +1,234 @@
+@startuml Data_Layer
+
+!define ENTITY_COLOR #E3F2FD
+!define ENUM_COLOR #F3E5F5
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+}
+
+' ==================== ENTITIES ====================
+package "Entities (Domain Models)" {
+    
+    class User <<entity>> {
+        -String userId
+        -String email
+        -String firstName
+        -String lastName
+        -String phoneNumber
+        -String passwordHash
+        -UserRole role
+        -Boolean isVerified
+        -DateTime createdAt
+    }
+    
+    abstract class Activity <<entity>> {
+        -String activityId
+        -String name
+        -String description
+        -DateTime activityDate
+        -String location
+        -Integer capacity
+        -Integer availableSeats
+        -Decimal price
+        -ActivityCategory category
+        -ActivityStatus status
+        -String organizerId
+        -ActivityType type
+        -DateTime createdAt
+    }
+    
+    class Event <<entity>> {
+        -List<String> speakers
+        -String topic
+        -String venue
+        -String agenda
+    }
+    
+    class Trip <<entity>> {
+        -String destination
+        -Integer durationDays
+        -String transportMode
+        -String startLocation
+        -String endLocation
+        -String itinerary
+    }
+    
+    class Booking <<entity>> {
+        -String bookingId
+        -String studentId
+        -String activityId
+        -DateTime bookingDate
+        -BookingStatus status
+        -DateTime createdAt
+    }
+    
+    class Ticket <<entity>> {
+        -String ticketId
+        -String bookingId
+        -String qrCode
+        -Boolean isUsed
+        -DateTime issueDate
+    }
+    
+    class Notification <<entity>> {
+        -String notificationId
+        -String recipientId
+        -String message
+        -NotificationType type
+        -Boolean isRead
+        -DateTime sentDate
+    }
+    
+    class Report <<entity>> {
+        -String reportId
+        -ReportType type
+        -String filePath
+        -String description
+        -String generatedBy
+        -DateTime generatedDate
+        -ExportFormat format
+    }
+    
+    class Feedback <<entity>> {
+        -String feedbackId
+        -String studentId
+        -String activityId
+        -Integer rating
+        -String comment
+        -DateTime submittedDate
+    }
+    
+    ' Inheritance Relationships
+    Activity <|-- Event
+    Activity <|-- Trip
+    
+    ' Professional Relationships
+    
+    ' Association: User organizes Activities (1 to many)
+    User "1" -- "0..*" Activity : organizes >
+    
+    ' Association: User creates Bookings (1 to many)
+    User "1" -- "0..*" Booking : creates >
+    
+    ' Association: User submits Feedback (1 to many)
+    User "1" -- "0..*" Feedback : submits >
+    
+    ' Association: Activity has Bookings (1 to many)
+    Activity "1" -- "0..*" Booking : has >
+    
+    ' Association: Activity receives Feedback (1 to many)
+    Activity "1" -- "0..*" Feedback : receives >
+    
+    ' Association: User generates Reports (1 to many)
+    User "1" -- "0..*" Report : generates >
+    
+    ' Composition: Booking owns Ticket (strong ownership)
+    Booking "1" *-- "0..1" Ticket : owns >
+    
+    ' Association: User receives Notifications (1 to many)
+    User "1" -- "0..*" Notification : receives >
+}
+
+package "Memento Snapshots" {
+    
+    class ActivityMemento <<entity>> {
+        -String activityId
+        -String name
+        -String description
+        -DateTime activityDate
+        -String location
+        -Integer capacity
+        -Integer availableSeats
+    }
+
+    class BookingMemento <<entity>> {
+        -String bookingId
+        -String studentId
+        -String activityId
+        -BookingStatus status
+    }
+
+    class ActivityMementoFactory <<entity>> {
+        +createFromActivity(activity: Activity): ActivityMemento
+    }
+
+    class BookingMementoFactory <<entity>> {
+        +createFromBooking(booking: Booking): BookingMemento
+    }
+
+    ActivityMementoFactory ..> Activity : creates
+    ActivityMementoFactory ..> ActivityMemento : returns
+    BookingMementoFactory ..> Booking : creates
+    BookingMementoFactory ..> BookingMemento : returns
+}
+
+' ==================== ENUMERATIONS ====================
+package "Enumerations" {
+    
+    enum UserRole <<enum>> {
+        STUDENT
+        ORGANIZER
+        ADMIN
+    }
+    
+    enum ActivityType <<enum>> {
+        EVENT
+        TRIP
+    }
+    
+    enum ActivityCategory <<enum>> {
+        FIELD_TRIP
+        SEMINAR
+        CONFERENCE
+        CONCERT
+        CULTURAL_VISIT
+        ADVENTURE_TRIP
+    }
+    
+    enum ActivityStatus <<enum>> {
+        UPCOMING
+        COMPLETED
+        CANCELLED
+    }
+    
+    enum BookingStatus <<enum>> {
+        PENDING
+        CONFIRMED
+        CANCELLED
+    }
+    
+    enum NotificationType <<enum>> {
+        NEW_EVENT
+        EVENT_UPDATE
+        REMINDER
+    }
+    
+    enum ReportType <<enum>> {
+        PARTICIPANTS
+        REVENUE
+        FEEDBACK
+    }
+    
+    enum ExportFormat <<enum>> {
+        PDF
+        CSV
+        EXCEL
+        JSON
+    }
+    
+    ' Association: Entities use enums (types/states)
+    User ..> UserRole : uses
+    Activity ..> ActivityCategory : uses
+    Activity ..> ActivityStatus : uses
+    Activity ..> ActivityType : uses
+    Booking ..> BookingStatus : uses
+    Notification ..> NotificationType : uses
+    Report ..> ReportType : uses
+    Report ..> ExportFormat : uses
+}
+
+
+@enduml

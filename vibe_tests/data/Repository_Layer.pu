@@ -1,0 +1,245 @@
+@startuml Repository_Layer
+
+' -------------------- Colors --------------------
+!define INTERFACE_COLOR #E8F5E9
+!define PROXY_COLOR #FFE0B2
+!define REPOSITORY_COLOR #E3F2FD
+!define ENTITY_COLOR #E3F2FD
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<proxy>> PROXY_COLOR
+    BackgroundColor<<model>> REPOSITORY_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+}
+
+title University Trips & Events Management System - Repository Layer
+
+' -------------------- Layout --------------------
+top to bottom direction
+
+' -------------------- Repository Layer --------------------
+package "Repository Layer (Data Access)" {
+
+    ' Base Repository Interface (Following DRY principle)
+    interface IBaseModel<T> <<interface>>
+
+    interface IReadModel<T> <<interface>> {
+        +findById(id: String): T
+    }
+
+    interface IWriteModel<T> <<interface>> {
+        +save(entity: T): T
+        +update(entity: T): T
+        +delete(id: String): Boolean
+    }
+
+    interface IUserModel <<interface>> {
+        +save(user: User): User
+        +findByEmail(email: String): User
+        +update(user: User): User
+        +delete(userId: String): Boolean
+        +findAll(): List<User>
+        +findByRole(role: UserRole): List<User>
+    }
+
+    interface IActivityModel <<interface>> {
+        +save(activity: Activity): Activity
+        +findById(activityId: String): Activity
+        +findAll(): List<Activity>
+        +update(activity: Activity): Activity
+        +delete(activityId: String): Boolean
+        +findByStatus(status: ActivityStatus): List<Activity>
+        +findByDateRange(startDate: Date, endDate: Date): List<Activity>
+        +findByType(type: ActivityType): List<Activity>
+    }
+
+    interface IBookingModel <<interface>> {
+        +save(booking: Booking): Booking
+        +findById(bookingId: String): Booking
+        +findByStudent(studentId: String): List<Booking>
+        +findByActivity(activityId: String): List<Booking>
+        +update(booking: Booking): Booking
+        +delete(bookingId: String): Boolean
+        +findByStatus(status: BookingStatus): List<Booking>
+    }
+
+    interface INotificationModel <<interface>> {
+        +save(notification: Notification): Notification
+        +findByRecipient(userId: String): List<Notification>
+        +update(notification: Notification): Notification
+        +delete(notificationId: String): Boolean
+        +findUnread(userId: String): List<Notification>
+        +markAsRead(notificationId: String): Boolean
+    }
+
+    interface IReportModel <<interface>> {
+        +save(report: Report): Report
+        +findById(reportId: String): Report
+        +update(report: Report): Report
+        +delete(reportId: String): Boolean
+        +findByType(reportType: ReportType): List<Report>
+        +findByDateRange(startDate: Date, endDate: Date): List<Report>
+    }
+
+    interface IFeedbackModel <<interface>> {
+        +save(feedback: Feedback): Feedback
+        +findByEvent(eventId: String): List<Feedback>
+        +findById(feedbackId: String): Feedback
+        +update(feedback: Feedback): Feedback
+        +delete(feedbackId: String): Boolean
+        +findByRating(minRating: int, maxRating: int): List<Feedback>
+    }
+
+    package "Jakarta Persistence (JPA)" {
+        interface EntityManager <<interface>> {
+            +persist(entity: Object): void
+            +find(entityClass: Class<T>, primaryKey: Object): T
+            +merge(entity: Object): T
+            +remove(entity: Object): void
+            +createQuery(q: String): Query
+        }
+    }
+
+    ' Memento Stores (segregated interfaces)
+    interface IActivityMementoStore <<interface>> {
+        +saveMemento(activityId: String, memento: ActivityMemento): void
+        +getLastMemento(activityId: String): ActivityMemento
+    }
+
+    interface IBookingMementoStore <<interface>> {
+        +saveMemento(bookingId: String, memento: BookingMemento): void
+        +getLastMemento(bookingId: String): BookingMemento
+    }
+
+    package "Domain Entities (JPA)" {
+        class User <<entity>>
+        class Activity <<entity>>
+        class Booking <<entity>>
+        class Notification <<entity>>
+        class Report <<entity>>
+        class Feedback <<entity>>
+        note right: All domain classes are annotated with @Entity and JPA mappings
+    }
+
+    
+
+    
+
+    class UserModel <<model>> {
+        -connectionPool: ConnectionPool
+        -userMapper: UserMapper
+        -entityManager: EntityManager
+        +save(user: User): User
+        +findByEmail(email: String): User
+        +update(user: User): User
+        +delete(userId: String): Boolean
+        +findAll(): List<User>
+        +findByRole(role: UserRole): List<User>
+        -validateUser(user: User): void
+        -mapResultSetToUser(rs: ResultSet): User
+    }
+
+    class ActivityModel <<model>> {
+        -connectionPool: ConnectionPool
+        -activityMapper: ActivityMapper
+        -entityManager: EntityManager
+        +save(activity: Activity): Activity
+        +findById(activityId: String): Activity
+        +findAll(): List<Activity>
+        +update(activity: Activity): Activity
+        +delete(activityId: String): Boolean
+        +findByStatus(status: ActivityStatus): List<Activity>
+        +findByDateRange(startDate: Date, endDate: Date): List<Activity>
+        +findByType(type: ActivityType): List<Activity>
+        +saveMemento(activityId: String, memento: ActivityMemento): void
+        +getLastMemento(activityId: String): ActivityMemento
+        -validateActivity(activity: Activity): void
+        -mapResultSetToActivity(rs: ResultSet): Activity
+    }
+
+    class BookingModel <<model>> {
+        -entityManager: EntityManager
+        +save(booking: Booking): Booking
+        +findById(bookingId: String): Booking
+        +findByStudent(studentId: String): List<Booking>
+        +findByActivity(activityId: String): List<Booking>
+        +update(booking: Booking): Booking
+        +delete(bookingId: String): Boolean
+        +findByStatus(status: BookingStatus): List<Booking>
+        +saveMemento(bookingId: String, memento: BookingMemento): void
+        +getLastMemento(bookingId: String): BookingMemento
+    }
+
+    class NotificationModel <<model>> {
+        -entityManager: EntityManager
+        +save(notification: Notification): Notification
+        +findByRecipient(userId: String): List<Notification>
+        +update(notification: Notification): Notification
+        +delete(notificationId: String): Boolean
+        +findUnread(userId: String): List<Notification>
+        +markAsRead(notificationId: String): Boolean
+    }
+
+    class ReportModel <<model>> {
+        -entityManager: EntityManager
+        +save(report: Report): Report
+        +findById(reportId: String): Report
+        +update(report: Report): Report
+        +delete(reportId: String): Boolean
+        +findByType(reportType: ReportType): List<Report>
+        +findByDateRange(startDate: Date, endDate: Date): List<Report>
+    }
+
+    class FeedbackModel <<model>> {
+        -entityManager: EntityManager
+        +save(feedback: Feedback): Feedback
+        +findByEvent(eventId: String): List<Feedback>
+        +findById(feedbackId: String): Feedback
+        +update(feedback: Feedback): Feedback
+        +delete(feedbackId: String): Boolean
+        +findByRating(minRating: int, maxRating: int): List<Feedback>
+    }
+
+    ' Repository Relations Only
+    IReadModel <|-- IBaseModel
+    IWriteModel <|-- IBaseModel
+    IBaseModel <|-- IUserModel
+    IBaseModel <|-- IActivityModel
+    IBaseModel <|-- IBookingModel
+    IBaseModel <|-- INotificationModel
+    IBaseModel <|-- IReportModel
+    IBaseModel <|-- IFeedbackModel
+
+    IUserModel <|.. UserModel
+    IActivityModel <|.. ActivityModel
+    IBookingModel <|.. BookingModel
+    INotificationModel <|.. NotificationModel
+    IReportModel <|.. ReportModel
+    IFeedbackModel <|.. FeedbackModel
+
+    IActivityMementoStore <|.. ActivityModel
+    IBookingMementoStore <|.. BookingModel
+
+    ' JPA usage relations
+    UserModel --> EntityManager : uses
+    ActivityModel --> EntityManager : uses
+    BookingModel --> EntityManager : uses
+    NotificationModel --> EntityManager : uses
+    ReportModel --> EntityManager : uses
+    FeedbackModel --> EntityManager : uses
+
+    ' Models manage entities
+    UserModel --> User : manages
+    ActivityModel --> Activity : manages
+    BookingModel --> Booking : manages
+    NotificationModel --> Notification : manages
+    ReportModel --> Report : manages
+    FeedbackModel --> Feedback : manages
+}
+
+
+
+
+@enduml

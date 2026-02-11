@@ -1,0 +1,230 @@
+@startuml Activity_Layer
+' ==================== Color Definitions ====================
+!define INTERFACE_COLOR #E8F5E9
+!define ABSTRACT_COLOR #FFF3E0
+!define ENTITY_COLOR #E3F2FD
+!define SERVICE_COLOR #F3E5F5
+!define FACTORY_COLOR #FFF9C4
+!define BUILDER_COLOR #FFFDE7
+!define ENUM_COLOR #E0F7FA
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<abstract>> ABSTRACT_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<factory>> FACTORY_COLOR
+    BackgroundColor<<builder>> BUILDER_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+    BackgroundColor<<Director>> BUILDER_COLOR
+}
+
+package "Activity Management Component" {
+
+    ' ==================== High-Level Interfaces ====================
+    interface IActivityManagement <<interface>> {
+        +createActivity(data: ActivityDTO, type: ActivityType): ActivityDTO
+        +updateActivity(id: String, data: ActivityDTO): ActivityDTO
+        +deleteActivity(id: String): Response
+        +getAllActivities(): List<ActivityDTO>
+    }
+
+    interface INotificationSystem <<interface>> {
+        +sendNotification(userId: String, message: String, type: NotificationType): Response
+        +notifyEventUpdate(eventId: String, message: String): Response
+    }
+
+    ' Reference to shared Model Factory (no body)
+    interface IModelFactory <<interface>>
+
+    ' ==================== Prototype Pattern ====================
+    interface IPrototype<T> <<interface>> {
+        +clone(): T
+    }
+
+    ' ==================== Service Layer ====================
+    class ActivityManagementService <<service>> {
+        -IActivityFactory activityFactory
+        -INotificationSystem notificationSystem
+        -IActivityDirector activityDirector
+        +createActivity(data: ActivityDTO, type: ActivityType): ActivityDTO
+        +updateActivity(id: String, data: ActivityDTO): ActivityDTO
+        +deleteActivity(id: String): Response
+        +getAllActivities(): List<ActivityDTO>
+    }
+
+    enum ActivityType <<enum>> {
+        EVENT
+        TRIP
+    }
+
+    ' (Removed RepositoryFactory; using IModelFactory reference instead)
+
+    ' ==================== Abstract Factory ====================
+    interface IActivityFactory <<interface>> {
+        +createActivity(data: ActivityDTO): Activity
+        +clonePrototype(activity: Activity): Activity
+    }
+
+    class EventFactory <<factory>> {
+        -IActivityDirector director
+        -IActivityBuilder builder
+        +EventFactory(director: IActivityDirector, builder: IActivityBuilder)
+        +createActivity(data: ActivityDTO): Event
+        +clonePrototype(activity: Activity): Event
+    }
+
+    class TripFactory <<factory>> {
+        -IActivityDirector director
+        -IActivityBuilder builder
+        +TripFactory(director: IActivityDirector, builder: IActivityBuilder)
+        +createActivity(data: ActivityDTO): Trip
+        +clonePrototype(activity: Activity): Trip
+    }
+
+    IActivityFactory <|.. EventFactory
+    IActivityFactory <|.. TripFactory
+
+    ' ==================== Builder Pattern ====================
+    interface IActivityBuilder <<builder>> {
+        +reset()
+        +setBasicInfo(data: ActivityDTO)
+        +setSchedule(date: DateTime, location: String)
+        +setCapacity(capacity: Integer)
+        +setPricing(price: Decimal)
+        +setOrganizer(organizerId: String)
+        +setDetails()
+        +getResult(): ActivityDTO
+    }
+
+    class EventBuilder <<builder>> {
+        -IModelFactory modelFactory
+        +reset()
+        +setBasicInfo(data: ActivityDTO)
+        +setSchedule(date: DateTime, location: String)
+        +setCapacity(capacity: Integer)
+        +setPricing(price: Decimal)
+        +setOrganizer(organizerId: String)
+        +setDetails()
+        +getResult(): ActivityDTO
+    }
+
+    class TripBuilder <<builder>> {
+        -IModelFactory modelFactory
+        +reset()
+        +setBasicInfo(data: ActivityDTO)
+        +setSchedule(date: DateTime, location: String)
+        +setCapacity(capacity: Integer)
+        +setPricing(price: Decimal)
+        +setOrganizer(organizerId: String)
+        +setDetails()
+        +getResult(): ActivityDTO
+    }
+
+    IActivityBuilder <|.. EventBuilder
+    IActivityBuilder <|.. TripBuilder
+
+    ' === Director Layer ===
+    interface IActivityDirector <<Director>> {
+        +setBuilder(builder: IActivityBuilder): void
+        +constructFrom(data: ActivityDTO): ActivityDTO
+        +makeNormalEvent(data: ActivityDTO): ActivityDTO
+        +makeNormalTrip(data: ActivityDTO): ActivityDTO
+        +makeHighCapacityEvent(data: ActivityDTO, capacity: Integer): ActivityDTO
+        +makeHighCapacityTrip(data: ActivityDTO, capacity: Integer): ActivityDTO
+    }
+    class ActivityDirector <<Director>> {
+        -IActivityBuilder builder
+        +setBuilder(builder: IActivityBuilder): void
+        +constructFrom(data: ActivityDTO): ActivityDTO
+        +makeNormalEvent(data: ActivityDTO): ActivityDTO
+        +makeNormalTrip(data: ActivityDTO): ActivityDTO
+        +makeHighCapacityEvent(data: ActivityDTO, capacity: Integer): ActivityDTO
+        +makeHighCapacityTrip(data: ActivityDTO, capacity: Integer): ActivityDTO
+    }
+
+    package "Activity Memento Pattern" {
+        class ActivityHistoryCaretaker {
+            -IModelFactory modelFactory
+            +save(activity: Activity): void
+            +getLastMemento(activityId: String): ActivityMemento
+        }
+
+        note right of ActivityHistoryCaretaker
+            "Obtains mementos from Data Layer (activityFactory)"
+            "and persists snapshots via IModelFactory"
+        end note
+
+        ActivityHistoryCaretaker --> IModelFactory : "uses model factory"
+    }
+
+    package "Activity State Pattern" {
+        interface ActivityState <<interface>> {
+            +publish(activity: Activity): Activity
+            +complete(activity: Activity): Activity
+            +cancel(activity: Activity): Activity
+        }
+
+        class ActivityLifecycle {
+            -ActivityState state
+            +setState(state: ActivityState): void
+            +publish(activity: Activity): Activity
+            +complete(activity: Activity): Activity
+            +cancel(activity: Activity): Activity
+        }
+
+        class UpcomingState {
+            +publish(activity: Activity): Activity
+            +complete(activity: Activity): Activity
+            +cancel(activity: Activity): Activity
+        }
+
+        class CompletedState {
+            +publish(activity: Activity): Activity
+            +complete(activity: Activity): Activity
+            +cancel(activity: Activity): Activity
+        }
+
+        class CancelledState {
+            +publish(activity: Activity): Activity
+            +complete(activity: Activity): Activity
+            +cancel(activity: Activity): Activity
+        }
+
+        ActivityState <|.. UpcomingState
+        ActivityState <|.. CompletedState
+        ActivityState <|.. CancelledState
+        ActivityLifecycle --> ActivityState : "has current"
+
+        note right of ActivityLifecycle
+            "Encapsulates valid transitions and delegates"
+            "lifecycle operations to current ActivityState"
+        end note
+    }
+
+    ' ==================== Relationships ====================
+    EventFactory --> IActivityDirector : "uses director"
+    TripFactory --> IActivityDirector : "uses director"
+    EventFactory --> IActivityBuilder : "injects builder"
+    TripFactory --> IActivityBuilder : "injects builder"
+
+    ActivityManagementService --> IActivityFactory : "uses factory"
+    ActivityManagementService --> INotificationSystem : "uses service"
+    ActivityManagementService --> IActivityDirector : "uses director"
+    ActivityManagementService --> ActivityHistoryCaretaker : "uses caretaker"
+    ActivityManagementService --> ActivityLifecycle : "uses state context"
+    note on link
+        "Service calls save(activity) before update to snapshot state"
+    end note
+    IActivityManagement <|.. ActivityManagementService : implements
+
+    ' Model Factory Relations
+    EventBuilder --> IModelFactory : uses
+    TripBuilder --> IModelFactory : uses
+    IActivityDirector <|.. ActivityDirector
+    ActivityDirector --> IActivityBuilder : directs
+}
+
+
+@enduml

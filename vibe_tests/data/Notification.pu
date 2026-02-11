@@ -1,0 +1,144 @@
+@startuml Notification_layer
+
+!define INTERFACE_COLOR #E8F5E9
+!define SERVICE_COLOR #F3E5F5
+!define ENTITY_COLOR #E3F2FD
+!define ENUM_COLOR #F3E5F5
+!define ADAPTER_COLOR #FFE0B2
+!define BRIDGE_COLOR #C5E1A5
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<interface>> INTERFACE_COLOR
+    BackgroundColor<<service>> SERVICE_COLOR
+    BackgroundColor<<entity>> ENTITY_COLOR
+    BackgroundColor<<enum>> ENUM_COLOR
+    BackgroundColor<<adapter>> ADAPTER_COLOR
+    BackgroundColor<<bridge>> BRIDGE_COLOR
+    BackgroundColor<<abstraction>> BRIDGE_COLOR
+}
+
+package "Notification Component" {
+    
+    ' Interface from Context Level
+    interface INotificationSystem <<interface>> {
+        +sendNotification(userId: String, message: String, type: NotificationType): Response
+        +notifyEventUpdate(eventId: String, message: String): Response
+        +sendBulkNotification(userIds: List<String>, message: String): Response
+    }
+    
+    ' Reference to shared Model Factory (no body)
+    interface IModelFactory <<interface>>
+    
+    ' Service Implementation (Realization)
+    class NotificationService <<service>> {
+        -IModelFactory modelFactory
+        -NotificationChannel channel
+        +sendNotification(userId: String, message: String, type: NotificationType): Response
+        +notifyEventUpdate(eventId: String, message: String): Response
+        +sendBulkNotification(userIds: List<String>, message: String): Response
+    }
+    
+    ' Email Service Interface
+    interface IEmailService <<interface>> {
+        +sendEmail(to: String, subject: String, body: String): Response
+    }
+    
+    ' ==================== BRIDGE PATTERN ====================
+    package "Notification Bridge Pattern" {
+        
+        ' Implementation Side (Channels)
+        interface NotificationChannel <<interface>> {
+            +send(recipient: String, content: String): Response
+        }
+        
+        class EmailChannel <<bridge>> {
+            -emailService: IEmailService
+            +send(recipient: String, content: String): Response
+        }
+        
+        NotificationChannel <|.. EmailChannel : implements
+        
+        ' In-app demo notification channel (stores in DB via IModelFactory)
+        class InAppChannel <<bridge>> {
+            -IModelFactory modelFactory
+            +send(recipient: String, content: String): Response
+        }
+
+        NotificationChannel <|.. InAppChannel : implements
+        
+        EmailChannel --> IEmailService : uses
+        
+        ' Abstraction Side (Messages)
+        abstract class NotificationMessage <<abstraction>> {
+            #NotificationChannel channel
+            +NotificationMessage(channel: NotificationChannel)
+            +send(recipient: String): Response
+            #{abstract} formatContent(): String
+        }
+        
+        class NewEventMessage <<abstraction>> {
+            -String eventName
+            -DateTime eventDate
+            +formatContent(): String
+        }
+        
+        class EventUpdateMessage <<abstraction>> {
+            -String eventName
+            -String updateDetails
+            +formatContent(): String
+        }
+        
+        class ReminderMessage <<abstraction>> {
+            -String eventName
+            -Integer hoursUntilEvent
+            +formatContent(): String
+        }
+        
+        NotificationMessage <|-- NewEventMessage : extends
+        NotificationMessage <|-- EventUpdateMessage : extends
+        NotificationMessage <|-- ReminderMessage : extends
+        
+        NotificationMessage --> NotificationChannel : uses
+    }
+    
+    NotificationService ..> NotificationMessage : uses
+    NotificationService ..> NotificationChannel : uses
+    
+    ' ==================== ADAPTER PATTERN ====================
+    package "Email Service Adapters" {
+        
+        ' External Service Types (Third-party DTOs)
+        class MimeMessage <<external>> {
+            +setFrom(address: String): void
+            +setRecipient(type: String, address: String): void
+            +setSubject(subject: String): void
+            +setText(text: String): void
+        }
+        
+        ' External Services (Third-party)
+        class JavaMailSender <<external>> {
+            +send(message: MimeMessage): void
+        }
+        
+        ' Adapters
+        class SmtpEmailAdapter <<adapter>> {
+            -JavaMailSender mailSender
+            +sendEmail(to: String, subject: String, body: String): Response
+        }
+        
+        ' Adapter Pattern Relationships
+        IEmailService <|.. SmtpEmailAdapter : implements
+        SmtpEmailAdapter --> JavaMailSender : uses
+        JavaMailSender ..> MimeMessage : uses
+    }
+    ' Updated Relationships
+    INotificationSystem <|.. NotificationService : realizes
+    NotificationService --> IModelFactory : uses
+    NotificationService --> NotificationChannel : uses
+    
+    ' Note about factory usage
+    note right of NotificationService : "Uses IModelFactory to obtain\nnotification and booking models as needed"
+}
+
+@enduml
