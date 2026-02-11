@@ -1,6 +1,7 @@
 package com.aiu.trips.chain;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,25 +13,36 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class RateLimitHandler extends RequestHandler {
 
-    private static final int MAX_REQUESTS_PER_MINUTE = 60;
-    private static final long WINDOW_SIZE_MS = 60000; // 1 minute
+    @Value("${rate.limit.enabled:true}")
+    private boolean rateLimitEnabled;
+
+    @Value("${rate.limit.maxRequestsPerMinute:60}")
+    private int maxRequestsPerMinute;
+
+    @Value("${rate.limit.windowMs:60000}")
+    private long windowSizeMs; // default 1 minute
 
     private final Map<String, RateLimitInfo> clientRequests = new ConcurrentHashMap<>();
 
     @Override
     public void handle(HttpServletRequest request) throws Exception {
+        if (!rateLimitEnabled) {
+            handleNext(request);
+            return;
+        }
+
         String clientId = getClientId(request);
         RateLimitInfo info = clientRequests.computeIfAbsent(clientId, k -> new RateLimitInfo());
 
         long currentTime = System.currentTimeMillis();
-        
+
         // Reset if window has passed
-        if (currentTime - info.windowStart > WINDOW_SIZE_MS) {
+        if (currentTime - info.windowStart > windowSizeMs) {
             info.reset(currentTime);
         }
 
         // Check rate limit
-        if (info.requestCount >= MAX_REQUESTS_PER_MINUTE) {
+        if (info.requestCount >= maxRequestsPerMinute) {
             throw new RuntimeException("Rate limit exceeded. Please try again later.");
         }
 
@@ -41,7 +53,8 @@ public class RateLimitHandler extends RequestHandler {
     private String getClientId(HttpServletRequest request) {
         // Use IP address as client identifier
         String clientIp = request.getRemoteAddr();
-        // In production, you might want to use X-Forwarded-For header for proxied requests
+        // In production, you might want to use X-Forwarded-For header for proxied
+        // requests
         String forwardedFor = request.getHeader("X-Forwarded-For");
         return forwardedFor != null ? forwardedFor : clientIp;
     }

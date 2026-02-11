@@ -36,8 +36,7 @@ public class EventController {
         try {
             handlerChain.handle(request);
             IControllerCommand command = new GetAllActivitiesCommand(activityService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(new HashMap<>());
+            return commandInvoker.execute(command, new HashMap<>());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -48,8 +47,7 @@ public class EventController {
         try {
             handlerChain.handle(request);
             IControllerCommand command = new GetUpcomingEventsCommand(activityService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(new HashMap<>());
+            return commandInvoker.execute(command, new HashMap<>());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -71,8 +69,7 @@ public class EventController {
         try {
             handlerChain.handle(request);
             IControllerCommand command = new CreateEventCommand(activityService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(eventData);
+            return commandInvoker.execute(command, eventData);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -85,8 +82,7 @@ public class EventController {
             handlerChain.handle(request);
             eventData.put("id", id);
             IControllerCommand command = new UpdateEventCommand(activityService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(eventData);
+            return commandInvoker.execute(command, eventData);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -99,8 +95,7 @@ public class EventController {
             Map<String, Object> data = new HashMap<>();
             data.put("id", id);
             IControllerCommand command = new DeleteEventCommand(activityService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(data);
+            return commandInvoker.execute(command, data);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

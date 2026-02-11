@@ -1,0 +1,19 @@
+# Ignore test results
+results/*/
+!results/.gitkeep
+
+# Ignore local k6 outputs
+*.tar.gz
+k6-*
+
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

@@ -69,3 +69,7 @@ Milestones/Testing/PDFS/4_Test_Results/Test_Execution_Results.pdf
 Milestones/Testing/PDFS/5_Test_Code/Code_Examples.pdf
 Milestones/Testing/PDFS/5_Test_Code/Test_Configuration.pdf
 Milestones/Testing/PDFS/5_Test_Code/Test_Patterns.pdf
+
+# Load test artifacts
+Project/load-tests/results/*.json
+!Project/load-tests/results/*_summary.json

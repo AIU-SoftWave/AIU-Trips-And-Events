@@ -31,13 +31,9 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Map<String, Object> requestData, HttpServletRequest request) {
         try {
-            // Use Chain of Responsibility
             handlerChain.handle(request);
-
-            // Use Command Pattern
             IControllerCommand command = new RegisterCommand(authService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(requestData);
+            return commandInvoker.execute(command, requestData);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -47,10 +43,8 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody Map<String, Object> requestData, HttpServletRequest request) {
         try {
             handlerChain.handle(request);
-
             IControllerCommand command = new LoginCommand(authService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(requestData);
+            return commandInvoker.execute(command, requestData);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

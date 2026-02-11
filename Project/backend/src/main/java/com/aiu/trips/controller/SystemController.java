@@ -45,8 +45,7 @@ public class SystemController {
 
             // Use Command Pattern
             IControllerCommand command = new RegisterCommand(authService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(requestData);
+            return commandInvoker.execute(command, requestData);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -57,8 +56,7 @@ public class SystemController {
         try {
             handlerChain.handle(request);
             IControllerCommand command = new LoginCommand(authService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(requestData);
+            return commandInvoker.execute(command, requestData);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -69,8 +67,7 @@ public class SystemController {
         try {
             handlerChain.handle(request);
             IControllerCommand command = new CreateEventCommand(activityService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(requestData);
+            return commandInvoker.execute(command, requestData);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -81,8 +78,7 @@ public class SystemController {
         try {
             handlerChain.handle(request);
             IControllerCommand command = new BookEventCommand(bookingService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(requestData);
+            return commandInvoker.execute(command, requestData);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

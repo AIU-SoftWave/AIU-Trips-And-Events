@@ -36,8 +36,7 @@ public class BookingController {
         try {
             handlerChain.handle(request);
             IControllerCommand command = new BrowseEventsCommand(bookingService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(new HashMap<>());
+            return commandInvoker.execute(command, new HashMap<>());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -54,8 +53,7 @@ public class BookingController {
             data.put("userEmail", userEmail);
 
             IControllerCommand command = new GetUserBookingsCommand(bookingService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(data);
+            return commandInvoker.execute(command, data);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -73,8 +71,7 @@ public class BookingController {
             data.put("userEmail", userEmail);
 
             IControllerCommand command = new BookEventCommand(bookingService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(data);
+            return commandInvoker.execute(command, data);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -85,8 +82,7 @@ public class BookingController {
         try {
             handlerChain.handle(request);
             IControllerCommand command = new ValidateTicketCommand(bookingService);
-            commandInvoker.pushToQueue(command);
-            return commandInvoker.executeNext(requestData);
+            return commandInvoker.execute(command, requestData);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
